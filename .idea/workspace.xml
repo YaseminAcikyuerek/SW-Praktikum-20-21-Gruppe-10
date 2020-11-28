@@ -27,18 +27,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="BusinessObjects erstellt">
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/AutonomBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectTypBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RoleBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/StatusBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/StudentBO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ModulBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ModulBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/PersonBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/PersonBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RankingBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RankingBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/SemesterBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/SemesterBO.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606574567125</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="BusinessObjects erstellt">
+      <created>1606591284779</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606591284779</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,14 +149,14 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1606586767689" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1606574611321">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1606591299152">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1606574611321" />
-    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606574618407">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1606591299152" />
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606591313150">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1606574618407" />
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1606591313150" />
     <state x="-1" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1606589688811">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
