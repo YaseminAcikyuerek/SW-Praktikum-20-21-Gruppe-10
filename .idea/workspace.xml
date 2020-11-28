@@ -26,15 +26,19 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="Init und BO angelegt">
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ModulBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/PersonBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RankingBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/SemesterBO.py" afterDir="false" />
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="BusinessObjects erstellt">
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/AutonomBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectTypBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RoleBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/StatusBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/StudentBO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/BusinessObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/BusinessObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ModulBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ModulBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/PersonBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/PersonBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RankingBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RankingBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/SemesterBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/SemesterBO.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/PythonBankBeispiel-RELEASE_1.1 (1)" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -92,7 +96,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606412686024</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="BusinessObjects erstellt">
+      <created>1606574567125</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606574567125</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -122,7 +133,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ordnerstruktur" />
     <MESSAGE value="Init und BO angelegt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Init und BO angelegt" />
+    <MESSAGE value="BusinessObjects erstellt" />
+    <option name="LAST_COMMIT_MESSAGE" value="BusinessObjects erstellt" />
   </component>
   <component name="WindowStateProjectService">
     <state x="526" y="204" key="#Notifications" timestamp="1606573311619">
@@ -133,21 +145,25 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="121" y="51" width="1024" height="572" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1606410047887" />
-    <state x="740" y="99" key="FileChooserDialogImpl" timestamp="1606573619594">
+    <state x="740" y="99" key="FileChooserDialogImpl" timestamp="1606575014679">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="740" y="99" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1606573619594" />
-    <state x="142" y="0" key="SettingsEditor" timestamp="1606574455452">
+    <state x="740" y="99" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1606575014679" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1606586767689">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1606574455452" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1606409619492">
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1606586767689" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1606574611321">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1606409619492" />
-    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606412799423">
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1606574611321" />
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606574618407">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1606412799423" />
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1606574618407" />
+    <state x="-1" y="1" width="672" height="678" key="search.everywhere.popup" timestamp="1606589688811">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="-1" y="1" width="672" height="678" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1606589688811" />
   </component>
 </project>
