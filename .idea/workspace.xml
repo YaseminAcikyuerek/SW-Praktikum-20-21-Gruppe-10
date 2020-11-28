@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/Yasemin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="" />
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="Init und BO angelegt">
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ModulBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/PersonBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/RankingBO.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/SemesterBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/BusinessObject.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/BusinessObject.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -19,6 +60,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Desktop/PythonBankBeispiel-RELEASE_1.1 (1)" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\server\bo" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -31,6 +78,21 @@
       <option name="presentableId" value="Default" />
       <updated>1606409236603</updated>
     </task>
+    <task id="LOCAL-00001" summary="Ordnerstruktur">
+      <created>1606409574562</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606409574562</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Init und BO angelegt">
+      <created>1606412686024</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606412686024</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -38,10 +100,54 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Yasemin" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ordnerstruktur" />
+    <MESSAGE value="Init und BO angelegt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Init und BO angelegt" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="526" y="204" key="#Notifications" timestamp="1606573311619">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="526" y="204" key="#Notifications/0.0.1280.680@0.0.1280.680" timestamp="1606573311619" />
+    <state x="121" y="51" width="1024" height="572" key="DiffContextDialog" timestamp="1606410047887">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="121" y="51" width="1024" height="572" key="DiffContextDialog/0.0.1280.680@0.0.1280.680" timestamp="1606410047887" />
+    <state x="740" y="99" key="FileChooserDialogImpl" timestamp="1606573619594">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="740" y="99" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1606573619594" />
+    <state x="142" y="0" key="SettingsEditor" timestamp="1606574455452">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="142" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1606574455452" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1606409619492">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1606409619492" />
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1606412799423">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="450" y="255" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.680@0.0.1280.680" timestamp="1606412799423" />
   </component>
 </project>
