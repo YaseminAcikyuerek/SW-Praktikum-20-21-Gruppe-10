@@ -1,16 +1,23 @@
 from server.bo import BusinessObject as bo
 from server.bo import NamedBusinessObject as nbo
 
-class Semester:
+
+class ProjectTyp:
     def __init__(self):
-        self._semester_start =""
-        self._semester_end =""
+        self._sws = ""
+        self._ects = ""
 
-    def set_semester_start(self,value):
-        self._semester_start = value
+    def set_sws(self,value):
+        self._sws = value
 
-    def get_semester_end(self):
-        return self._semester_end
+    def get_sws(self):
+        return self._sws
+
+    def set_ects(self,value):
+        self._ects = value
+
+    def get_ects (self):
+        return self._ects
 
 
     @staticmethod
