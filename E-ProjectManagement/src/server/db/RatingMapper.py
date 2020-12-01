@@ -8,9 +8,9 @@ class RatingMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Konten.
+        """Auslesen aller Bewertungen.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
+        :return Eine Sammlung mit Rating-Objekten, die sämtliche Konten
                 repräsentieren.
         """
         result = []
