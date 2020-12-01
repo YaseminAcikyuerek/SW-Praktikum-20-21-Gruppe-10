@@ -15,13 +15,14 @@ class ModuleMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, name  from modules")
+        cursor.execute("SELECT *  from modules")
         tuples = cursor.fetchall()
 
-        for (id, owner) in tuples:
-            module = ModuleBO()
+        for (id, name, edv_nr) in tuples:
+            module = Module()
             module.set_id(id)
             module.set_name(name)
+            module.set_edv_nr(edv_nr)
             result.append(module)
 
         self._cnx.commit()
@@ -42,14 +43,15 @@ class ModuleMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name FROM modules WHERE id={}".format(key)
+        command = "SELECT id, name, edv_nr FROM modules WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name) = tuples[0]
-            module = ModuleBO()
+            (id, name, edv_nr) = tuples[0]
+            module = Module()
             module.set_id(id)
+            module.set_edv_nr(edv_nr)
             module.set_name(name)
 
         result = module
@@ -114,43 +116,47 @@ class ModuleMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, email, google_user_id FROM users WHERE name LIKE '{}' ORDER BY name".format(name)
+        command = "SELECT id, name, edv_nr,  FROM users WHERE name LIKE '{}' ORDER BY edv_nr".format(edv_nr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, email, user_id) in tuples:
-            user = User()
-            user.set_id(id)
-            user.set_name(name)
-            user.set_email(email)
-            user.set_user_id(user_id)
-            result.append(user)
+        for (id, name, edv_nr ) in tuples:
+            module = Module()
+            module.set_id(id)
+            module.set_name(name)
+            module.set_edv_nr(edv_nr)
+            result.append(module)
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-    find_by_name
 
-    result = []
-    cursor = self._cnx.cursor()
-    command = "SELECT id, name, email, google_user_id FROM users WHERE name LIKE '{}' ORDER BY name".format(name)
-    cursor.execute(command)
-    tuples = cursor.fetchall()
+    def find_by_name(self, name):
+    """Auslesen aller Benutzer anhand des Benutzernamens.
 
-    for (id, name, email, user_id) in tuples:
-        user = User()
-        user.set_id(id)
-        user.set_name(name)
-        user.set_email(email)
-        user.set_user_id(user_id)
-        result.append(user)
+    :param name Name der zugehörigen Benutzer.
+    :return Eine Sammlung mit User-Objekten, die sämtliche Benutzer
+        mit dem gewünschten Namen enthält.
+    """
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, edv_nr,  FROM users WHERE name LIKE '{}' ORDER BY name".format(name)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
 
-    self._cnx.commit()
-    cursor.close()
+        for (id, name, edv_nr) in tuples:
+        module = Module()
+        module.set_id(id)
+        module.set_name(name)
+        module.set_edv_nr(edv_nr)
+        result.append(module)
 
-    return result
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
 
 
