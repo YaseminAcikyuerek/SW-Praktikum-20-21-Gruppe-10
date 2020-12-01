@@ -31,7 +31,7 @@ class RatingMapper(Mapper):
 
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, rating):
         """Suchen eines Ratings mit vorgegebener ID. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
