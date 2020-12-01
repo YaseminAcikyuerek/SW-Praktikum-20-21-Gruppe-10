@@ -1,4 +1,4 @@
-from server.bo.PersonBO import PersonBO
+from server.bo.PersonBO import Person
 from server.db.Mapper import Mapper
 
 
@@ -15,13 +15,14 @@ class PersonMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, owner from person")
+        cursor.execute("SELECT id, name, role from person")
         tuples = cursor.fetchall()
 
-        for (id, owner) in tuples:
-            person = PersonBO()
+        for (id, name, role) in tuples:
+            person = Person()
             person.set_id(id)
-            person.set_owner(owner)
+            person.set_name(name)
+            person.set_role(role)
             result.append(person)
 
         self._cnx.commit()
@@ -30,9 +31,8 @@ class PersonMapper(Mapper):
         return result
 
 
-
     def find_by_key(self, key):
-        """Suchen eines Kontos mit vorgegebener Kontonummer. Da diese eindeutig ist,
+        """Suchen einer Person mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
         :param id Primärschlüsselattribut (->DB)
@@ -42,15 +42,16 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command= "SELECT id, owner FROM accounts WHERE id={}".format(key)
+        command= "SELECT id, name, role FROM person WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, owner) = tuples[0]
-            person = PersonMapper()
+            (id, name, role) = tuples[0]
+            person = Person()
             person.set_id(id)
-            person.set_owner(owner)
+            person.set_name(name)
+            person.set_role(role)
 
         result = person
 
@@ -60,12 +61,12 @@ class PersonMapper(Mapper):
         return result
 
     def insert(self, person):
-        """Einfügen eines Account-Objekts in die Datenbank.
+        """Einfügen eines Person-Objekts in die Datenbank.
 
         Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
         berichtigt.
 
-        :param account das zu speichernde Objekt
+        :param person das zu speichernde Objekt
         :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
         """
         cursor = self._cnx.cursor()
@@ -73,10 +74,10 @@ class PersonMapper(Mapper):
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
-            account.set_id(maxid[0] + 1)
+            person.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO accounts (id, owner) VALUES (%s,%s)"
-        data = (person.get_id(), person.get_owner())
+        command = "INSERT INTO person (id, name, role) VALUES (%s,%s,%s)"
+        data = (person.get_id(), person.get_name(),person.get_role)
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -90,25 +91,91 @@ class PersonMapper(Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE person " + "SET owner=%s WHERE id=%s"
-        data = (person.get_owner(), person.get_id())
+        command = "UPDATE person " + "SET name=%s,role=%s WHERE id=%s"
+        data = (person.get_id(), person.get_name(), person.get_role())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
     def delete(self, person):
-        """Löschen der Daten eines Account-Objekts aus der Datenbank.
+        """Löschen der Daten eines Person-Objekts aus der Datenbank.
 
-        :param account das aus der DB zu löschende "Objekt"
+        :param person das aus der DB zu löschende "Objekt"
         """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM person WHERE id={}".format(person.get_id())
+        command = "DELETE FROM person WHERE id={}".format(id)
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
+
+
+    def find_person_by_role(self, role):
+        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
+
+        :param role E-Mail-Adresse der zugehörigen Benutzer.
+        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
+        mit der gewünschten E-Mail-Adresse enthält.
+            """
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, role FROM person WHERE role={}".format(role)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, name, role) = tuples[0]
+            person = Person()
+            person.set_id(id)
+            person.set_name(name)
+            person.set_role(role)
+            result = person
+
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_participation_by_name(self, name):
+
+        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
+
+        :param name E-Mail-Adresse der zugehörigen Benutzer.
+        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
+        mit der gewünschten E-Mail-Adresse enthält.
+            """
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, role FROM person WHERE student.name={}".format(name)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, name, role) = tuples[0]
+            person = Person()
+            person.set_id(id)
+            person.set_name(name)
+            person.set_role(role)
+            result = person
+
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
