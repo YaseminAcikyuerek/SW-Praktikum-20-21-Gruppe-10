@@ -39,7 +39,7 @@ class Rating:
     @staticmethod
     def from_dict(dictionary=dict()):
         """Umwandeln eines Python dict() in ein Ranking()."""
-        obj = Ranking()
+        obj = Rating()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
         obj.set_evaluator(dictionary["evaluator"])
         obj.set_to_be_assessed(dictionary["to_be_assessed"])
