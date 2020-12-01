@@ -9,20 +9,21 @@ class ProjectTypeMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Konten.
+        """Auslesen aller Projekttypen.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
+        :return Eine Sammlung mit Projekttyp-Objekten, die sämtliche Projekte
                 repräsentieren.
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, owner from projectTypes")
+        cursor.execute("SELECT * from projectTypes")
         tuples = cursor.fetchall()
 
-        for (id, owner) in tuples:
-            projectType = ProjectTypeBOo()
+        for (id,sws, ects) in tuples:
+            projectType = ProjectType()
             projectType.set_id(id)
-            projectType.set_owner(owner)
+            projectType.set_sws(sws)
+            projectType.set_ects(ects)
             result.append(projectType)
 
         self._cnx.commit()
@@ -33,25 +34,26 @@ class ProjectTypeMapper(Mapper):
 
 
     def find_by_key(self, key):
-        """Suchen eines Kontos mit vorgegebener Kontonummer. Da diese eindeutig ist,
+        """Suchen eines Projekttypen mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
         :param id Primärschlüsselattribut (->DB)
-        :return Konto-Objekt, das dem übergebenen Schlüssel entspricht, None bei
+        :return Projekttyp-Objekt, das dem übergebenen Schlüssel entspricht, None bei
             nicht vorhandenem DB-Tupel.
         """
         result = None
 
         cursor = self._cnx.cursor()
-        acommnd = "SELECT id, owner FROM projectTypes WHERE id={}".format(key)
+        acommnd = "SELECT id,sws,ects FROM projectTypes WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, owner) = tuples[0]
-            projectType = ProjectTypeBO()
+            (id,sws,ects) = tuples[0]
+            projectType = ProjectType()
             projectType.set_id(id)
-            projectType.set_owner(owner)
+            projectType.set_sws(sws)
+            projectType.set_ects(ects)
 
         result = projectType
 
@@ -60,13 +62,13 @@ class ProjectTypeMapper(Mapper):
 
         return result
 
-    def insert(self, projectType):
-        """Einfügen eines Account-Objekts in die Datenbank.
+    def insert(self,sws,ects):
+        """Einfügen eines ProjektType-Objekts in die Datenbank.
 
         Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
         berichtigt.
 
-        :param account das zu speichernde Objekt
+        :param ProjektType das zu speichernde Objekt
         :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
         """
         cursor = self._cnx.cursor()
@@ -77,31 +79,31 @@ class ProjectTypeMapper(Mapper):
             projectType.set_id(maxid[0] + 1)
 
         command = "INSERT INTO projectTypes (id, owner) VALUES (%s,%s)"
-        data = (projectType.get_id(), projectType.get_owner())
+        data = (projectType.get_id(), projectType.get_sws(), projectType.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
         return projectType
 
-    def update(self, projectType):
+    def update(self, sws, ects):
         """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
         :param account das Objekt, das in die DB geschrieben werden soll
         """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE projectTypes " + "SET owner=%s WHERE id=%s"
-        data = (projectType.get_owner(), projectType.get_id())
+        command = "UPDATE projectTypes " + "SET sws=%s WHERE id=%s" "UPDATE projectTypes"+"SET ects=%s WHERE id=%s"
+        data = (projectType.get_sws(), projectType.get_id(), projectType.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
     def delete(self, projectType):
-        """Löschen der Daten eines Account-Objekts aus der Datenbank.
+        """Löschen der Daten eines ProjektType-Objekts aus der Datenbank.
 
-        :param account das aus der DB zu löschende "Objekt"
+        :param ProjectType das aus der DB zu löschende "Objekt"
         """
         cursor = self._cnx.cursor()
 
@@ -110,6 +112,10 @@ class ProjectTypeMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
+
+
+
+
 
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
