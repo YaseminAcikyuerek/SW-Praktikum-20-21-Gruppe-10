@@ -11,18 +11,19 @@ class SemesterMapper(Mapper):
     def find_all(self):
         """Auslesen aller Konten.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
+        :return Eine Sammlung mit Semester-Objekten, die sämtliche Konten
                 repräsentieren.
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, owner from semesters")
+        cursor.execute("SELECT id, start, end from semesters")
         tuples = cursor.fetchall()
 
-        for (id, owner) in tuples:
+        for (id, start, end) in tuples:
             semester = SemesterBO()
             semester.set_id(id)
-            semester.set_owner(owner)
+            semester.set_start(start)
+            semester.set_end(end)
             result.append(semester)
 
         self._cnx.commit()
