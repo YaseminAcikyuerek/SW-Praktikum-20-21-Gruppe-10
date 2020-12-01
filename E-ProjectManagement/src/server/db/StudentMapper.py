@@ -15,13 +15,15 @@ class StudentMapper (Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, name, course_abbr, matriculation_nr from students")
+        cursor.execute("SELECT * from students")
         tuples = cursor.fetchall()
 
-        for (id, owner) in tuples:
-            student = StudentBO()
+        for (id, name, matriculation_nr,course_abbr) in tuples:
+            student = Student()
             student.set_id(id)
             student.set_name(name)
+            student.set_matriculation_nr(matriculation_nr)
+            student.set_course_abbr(course_abbr)
             result.append(student)
 
         self._cnx.commit()
@@ -32,25 +34,28 @@ class StudentMapper (Mapper):
 
 
     def find_by_key(self, key):
-        """Suchen eines Kontos mit vorgegebener Kontonummer. Da diese eindeutig ist,
+        """Suchen eines Students mit vorgegebener ID. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
         :param id Primärschlüsselattribut (->DB)
-        :return Konto-Objekt, das dem übergebenen Schlüssel entspricht, None bei
+        :return student-Objekt, das dem übergebenen Schlüssel entspricht, None bei
             nicht vorhandenem DB-Tupel.
         """
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name FROM students WHERE id={}".format(key)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, owner) =  tuples[0]
-            student = StudentBO()
+            (id, name, matriculation_nr, course_abbr) =  tuples[0]
+            student = Student()
             student.set_id(id)
-            student.set_owner(owner)
+            student.set_name(name)
+            student.set_matriculation_nr(matriculation_nr)
+            student.set_course_abbr(course_abbr)
+
 
         result = student
 
@@ -60,7 +65,7 @@ class StudentMapper (Mapper):
         return result
 
     def insert(self, student):
-        """Einfügen eines Account-Objekts in die Datenbank.
+        """Einfügen eines student-Objekts in die Datenbank.
 
         Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
         berichtigt.
@@ -75,8 +80,9 @@ class StudentMapper (Mapper):
         for (maxid) in tuples:
             student.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO students (id, owner) VALUES (%s,%s)"
-        data = (student.get_id(), student.get_owner())
+        command = "INSERT INTO students (id,name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s)"
+        data = (student.get_id(), student.get_owner(),student.get_matriculation_nr(),student.get_course_abbr())
+
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -86,19 +92,19 @@ class StudentMapper (Mapper):
     def update(self, student):
         """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param account das Objekt, das in die DB geschrieben werden soll
+        :param student das Objekt, das in die DB geschrieben werden soll
         """
         cursor = self._cnx.cursor()
 
         command = "UPDATE students " + "SET owner=%s WHERE id=%s"
-        data = (student.get_owner(), student.get_id())
+        data = (student.get_owner(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
     def delete(self, student):
-        """Löschen der Daten eines Account-Objekts aus der Datenbank.
+        """Löschen der Daten eines student-Objekts aus der Datenbank.
 
         :param account das aus der DB zu löschende "Objekt"
         """
