@@ -45,7 +45,7 @@ class ProjectMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        acommnd = "SELECT id, name, owner, status FROM project WHERE id={}".format(key)
+        command = "SELECT id, name, owner, status FROM project WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
