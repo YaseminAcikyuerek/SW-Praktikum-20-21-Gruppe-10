@@ -18,7 +18,7 @@ class StudentMapper (Mapper):
         cursor.execute("SELECT * from students")
         tuples = cursor.fetchall()
 
-        for (id, name, matriculation_nr,course_abbr) in tuples:
+        for (id, name, matriculation_nr,course_abbr)in tuples:
             student = Student()
             student.set_id(id)
             student.set_name(name)
