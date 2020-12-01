@@ -1,4 +1,4 @@
-from server.bo.SemesterBO import SemesterBO
+from server.bo.SemesterBO import Semester
 from server.db.Mapper import Mapper
 
 
@@ -20,7 +20,7 @@ class SemesterMapper(Mapper):
         tuples = cursor.fetchall()
 
         for (id, start, end) in tuples:
-            semester = SemesterBO()
+            semester = Semester()
             semester.set_id(id)
             semester.set_start(start)
             semester.set_end(end)

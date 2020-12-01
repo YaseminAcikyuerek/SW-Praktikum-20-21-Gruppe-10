@@ -32,18 +32,18 @@ class ModuleMapper(Mapper):
 
 
 
-    def find_by_key(self, key):
+    def find_by_key(self, id):
         """Suchen eines moduls mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
         :param id Primärschlüsselattribut (->DB)
         :return modul-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
+        nicht vorhandenem DB-Tupel.
         """
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr FROM modules WHERE id={}".format(key)
+        command = "SELECT id, name, edv_nr FROM modules WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -134,24 +134,23 @@ class ModuleMapper(Mapper):
 
 
     def find_by_name(self, name):
-    """Auslesen aller Benutzer anhand des Benutzernamens.
+        """Auslesen aller Benutzer anhand des Benutzernamens.
+        :param name Name der zugehörigen Benutzer.
+        :return Eine Sammlung mit User-Objekten, die sämtliche Benutzer
+                mit dem gewünschten Namen enthält."""
 
-    :param name Name der zugehörigen Benutzer.
-    :return Eine Sammlung mit User-Objekten, die sämtliche Benutzer
-        mit dem gewünschten Namen enthält.
-    """
-        result = []
+        result=[]
         cursor = self._cnx.cursor()
         command = "SELECT id, name, edv_nr,  FROM users WHERE name LIKE '{}' ORDER BY name".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         for (id, name, edv_nr) in tuples:
-        module = Module()
-        module.set_id(id)
-        module.set_name(name)
-        module.set_edv_nr(edv_nr)
-        result.append(module)
+            module = Module()
+            module.set_id(id)
+            module.set_name(name)
+            module.set_edv_nr(edv_nr)
+            result.append(module)
 
         self._cnx.commit()
         cursor.close()
