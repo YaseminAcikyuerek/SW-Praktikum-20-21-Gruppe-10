@@ -1,4 +1,4 @@
-from server.bo.ProjectBO import ProjectBO
+from server.bo.ProjectBO import Project
 from server.db.Mapper import Mapper
 
 
@@ -8,20 +8,23 @@ class ProjectMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Konten.
+        """Auslesen aller projekte.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
+        :return Eine Sammlung mit project-Objekten, die sämtliche Konten
                 repräsentieren.
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, owner from project")
+        cursor.execute("SELECT * from projects")
         tuples = cursor.fetchall()
 
-        for (id, owner) in tuples:
-            project = ProjectBO()
+        for (id,name, owner, status) in tuples:
+            project = Project()
             project.set_id(id)
+            project.set_name(id)
             project.set_owner(owner)
+            project.set_status(status)
+
             result.append(project)
 
         self._cnx.commit()
@@ -32,25 +35,27 @@ class ProjectMapper(Mapper):
 
 
     def find_by_key(self, key):
-        """Suchen eines Kontos mit vorgegebener Kontonummer. Da diese eindeutig ist,
+        """Suchen eines Projekts mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
         :param id Primärschlüsselattribut (->DB)
-        :return Konto-Objekt, das dem übergebenen Schlüssel entspricht, None bei
+        :return projekt-Objekt, das dem übergebenen Schlüssel entspricht, None bei
             nicht vorhandenem DB-Tupel.
         """
         result = None
 
         cursor = self._cnx.cursor()
-        acommnd = "SELECT id, owner FROM project WHERE id={}".format(key)
+        acommnd = "SELECT id, name, owner, status FROM project WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, owner) = tuples[0]
-            project = ProjectBO()
+            (id, name, owner, status) = tuples[0]
+            project = Project()
             project.set_id(id)
+            project.set_name(name)
             project.set_owner(owner)
+            project.set_status(status)
 
         result = project
 
@@ -60,7 +65,7 @@ class ProjectMapper(Mapper):
         return result
 
     def insert(self, project):
-        """Einfügen eines Account-Objekts in die Datenbank.
+        """Einfügen eines projekt-Objekts in die Datenbank.
 
         Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
         berichtigt.
@@ -75,8 +80,8 @@ class ProjectMapper(Mapper):
         for (maxid) in tuples:
             project.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO projects (id, owner) VALUES (%s,%s)"
-        data = (project.get_id(), project.get_owner())
+        command = "INSERT INTO projects (id, name,owner, status) VALUES (%s,%s,%s,%s)"
+        data = (project.get_id(), project.get_owner(), project.get_name(), project.get_status())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -86,21 +91,21 @@ class ProjectMapper(Mapper):
     def update(self, project):
         """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param account das Objekt, das in die DB geschrieben werden soll
+        :param project das Objekt, das in die DB geschrieben werden soll
         """
         cursor = self._cnx.cursor()
 
         command = "UPDATE projects " + "SET owner=%s WHERE id=%s"
-        data = (project.get_owner(), project.get_id())
+        data = (project.get_owner(), project.get_id(), project.get_name(), project.get_status())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
     def delete(self, project):
-        """Löschen der Daten eines Account-Objekts aus der Datenbank.
+        """Löschen der Daten eines project-Objekts aus der Datenbank.
 
-        :param account das aus der DB zu löschende "Objekt"
+        :param project das aus der DB zu löschende "Objekt"
         """
         cursor = self._cnx.cursor()
 
