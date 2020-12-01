@@ -4,22 +4,20 @@ class Person:
 
     def __init__(self):
         super().__init__()
-        self._status = None
+        self._role = None
 
     def set_status(self,role):
-        self._status= role
+        self._role= role
 
     def get_status(self):
-        return self._status
+        return self._role
 
-    def __str__(self):
-        """Erzeugen einer einfachen textuellen Repräsentation der jeweiligen Personenrolle."""
-        return "Person: {}, owned role {}".format(self.get_id(), self._role)
+
 
     @staticmethod
     def from_dict(dictionary=dict()):
-        """Umwandeln eines Python dict() in ein Account()."""
-        obj = Account()
+        """Umwandeln eines Python dict() in ein Role()."""
+        obj = Role()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_owner(dictionary["owner"])
+        obj.set_role(dictionary["role"])
         return obj

@@ -55,10 +55,10 @@ class Project:
     def get_capacity(self):
         return self._capacity
 
-    def set_external_partner(self,value):
+    def set_external_partner_list(self,value):
         self._external__partner_list= value
 
-    def get_external_partner(self):
+    def get_external_partner_list(self):
         return self._external__partner_list
 
     def set_short_description(self,value):
@@ -125,4 +125,20 @@ class Project:
         obj = Project()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
         obj.set_owner(dictionary["owner"])
+        obj.set_module(dictionary["module"])
+        obj.set_typ(dictionary["typ"])
+        obj.set_time(dictionary["time"])
+        obj.set_capacity(dictionary["capacity"])
+        obj.set_external_partner_list(["external_partner_list"])
+        obj.set_short_description(["short_description"])
+        obj.set_flag(["flag"])
+        obj.set_bd_before_lecture_period(["bd_before_lecture_period"])
+        obj.set_bd_during_lecture_period(["bd_during_lecture_period"])
+        obj.set_bd_during_exam_period(["bd_during_exam_period"])
+        obj.set_preferred_bd_during_lecture_period(["preferred_bd_during_lecture_period"])
+        obj.set_special_room(["special_room"])
+        obj.set_language(["language"])
+        obj.set_room(["room"])
+
+
         return obj

@@ -22,8 +22,9 @@ class ProjectTyp:
 
     @staticmethod
     def from_dict(dictionary=dict()):
-        """Umwandeln eines Python dict() in ein Account()."""
-        obj = Project()
+        """Umwandeln eines Python dict() in ein ProjectTyp()."""
+        obj = ProjectTyp()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_owner(dictionary["owner"])
+        obj.set_sws(dictionary["sws"])
+        obj.set_ects(dictionary["ects"])
         return obj
