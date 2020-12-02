@@ -1,4 +1,4 @@
-from server.bo.ProjectTypeBO import ProjectTypeBO
+from server.bo.ProjectTypeBO import ProjectType
 from server.db.Mapper import Mapper
 
 

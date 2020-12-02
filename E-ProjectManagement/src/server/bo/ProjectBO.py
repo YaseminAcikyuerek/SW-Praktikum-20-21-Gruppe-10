@@ -1,8 +1,8 @@
 from server.bo import BusinessObject as bo
 from server.bo import NamedBusinessObject as nbo
-from server.bo import ModulBO as mbo
+from server.bo import ModuleBO as mbo
 from server.bo import PersonBO as pbo
-from server.bo import ProjectTypBO as ptbo
+from server.bo import ProjectTypeBO as ptbo
 from server.bo import SemesterBO as sbo
 
 class Project:
