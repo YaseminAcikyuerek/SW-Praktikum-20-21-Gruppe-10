@@ -31,7 +31,7 @@ class PersonMapper(Mapper):
         return result
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
         """Suchen einer Person mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -42,7 +42,7 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command= "SELECT id, name, role FROM person WHERE id={}".format(key)
+        command= "SELECT id, name, role FROM person WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -144,7 +144,7 @@ class PersonMapper(Mapper):
 
         return result
 
-    def find_participation_by_name(self, name):
+    def find_person_by_name(self, name):
 
         """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
 

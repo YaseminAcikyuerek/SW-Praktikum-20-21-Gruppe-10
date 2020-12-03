@@ -1,4 +1,4 @@
-from server.bo.ProjectType import ProjectType
+from server.bo import ProjectType
 from server.db.Mapper import Mapper
 
 
@@ -16,24 +16,22 @@ class ProjectTypeMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from projectTypes")
+        cursor.execute("SELECT * from projecttypes")
         tuples = cursor.fetchall()
 
         for (id,sws, ects) in tuples:
-            projectType = ProjectType()
-            projectType.set_id(id)
-            projectType.set_sws(sws)
-            projectType.set_ects(ects)
-            result.append(projectType)
+            projecttype = ProjectType()
+            projecttype.set_id(id)
+            projecttype.set_sws(sws)
+            projecttype.set_ects(ects)
+            result.append(projecttype)
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-
-
-    def find_by_key(self, key):
+    def find_by_id(self, id):
         """Suchen eines Projekttypen mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -44,31 +42,31 @@ class ProjectTypeMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        acommnd = "SELECT id,sws,ects FROM projectTypes WHERE id={}".format(key)
+        command = "SELECT id,sws,ects FROM projectTypes WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
             (id,sws,ects) = tuples[0]
-            projectType = ProjectType()
-            projectType.set_id(id)
-            projectType.set_sws(sws)
-            projectType.set_ects(ects)
+            projecttype = ProjectType()
+            projecttype.set_id(id)
+            projecttype.set_sws(sws)
+            projecttype.set_ects(ects)
 
-        result = projectType
+        result = projecttype
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-    def insert(self,sws,ects):
+    def insert(self, projecttype):
         """Einfügen eines ProjektType-Objekts in die Datenbank.
 
         Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
         berichtigt.
 
-        :param ProjektType das zu speichernde Objekt
+        :param Projekttype das zu speichernde Objekt
         :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
         """
         cursor = self._cnx.cursor()
@@ -76,25 +74,25 @@ class ProjectTypeMapper(Mapper):
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
-            projectType.set_id(maxid[0] + 1)
+            projecttype.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO projectTypes (id, owner) VALUES (%s,%s)"
-        data = (projectType.get_id(), projectType.get_sws(), projectType.get_ects())
+        command = "INSERT INTO projectTypes (sws, ects) VALUES (%s,%s)"
+        data = (projecttype.get_id(), projecttype.get_sws(), projecttype.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
-        return projectType
+        return projecttype
 
-    def update(self, sws, ects):
+    def update(self, projecttype):
         """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
         :param account das Objekt, das in die DB geschrieben werden soll
         """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE projectTypes " + "SET sws=%s WHERE id=%s" "UPDATE projectTypes"+"SET ects=%s WHERE id=%s"
-        data = (projectType.get_sws(), projectType.get_id(), projectType.get_ects())
+        command = "UPDATE projectTypes " + "SET sws=%s, ects=%s WHERE id=%s"
+        data = (projecttype.get_sws(), projecttype.get_id(), projecttype.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -112,8 +110,6 @@ class ProjectTypeMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
-
-
 
 
 

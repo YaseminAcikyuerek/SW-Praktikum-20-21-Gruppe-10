@@ -1,6 +1,4 @@
 from server.bo.Participation import Participation
-from server.bo.Person import Person
-from server.bo.Student import Student
 from server.db.Mapper import Mapper
 
 
@@ -33,7 +31,7 @@ class ParticipationMapper(Mapper):
         return result
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
         """Suchen einer Teilnahme mit vorgegebener ID Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -44,7 +42,7 @@ class ParticipationMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        acommnd = "SELECT id, student, project FROM participations WHERE id={}".format(key)
+        command = "SELECT id, student, project FROM participations WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -114,7 +112,7 @@ class ParticipationMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def find_participation_by_student_id(self,id):
+    def find_participation_by_student(self, id):
 
         """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
 
@@ -146,7 +144,7 @@ class ParticipationMapper(Mapper):
 
         return result
 
-    def find_participation_by_project_id(self,id):
+    def find_participation_by_project(self,id):
         """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
 
         :param id E-Mail-Adresse der zugehörigen Benutzer.
