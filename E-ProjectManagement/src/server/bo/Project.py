@@ -4,14 +4,18 @@ from server.bo.Module import Module as mbo
 from server.bo import Person as pbo
 from server.bo import ProjectType as ptbo
 from server.bo import Semester as sbo
+from server.bo import Person as pbo
+from server.bo import Module as mbo
+from server.bo import Status
 
 class Project:
 
     def __init__(self):
         super().__init__()
+        self._status = None
         self._owner= None
         self._module = None
-        self._typ = None
+        self._project_typ = None
         self._time = None
         self._capacity= ""
         self._external__partner_list= ""
@@ -24,6 +28,12 @@ class Project:
         self._special_room=""
         self._language=""
         self._room=""
+
+    def set_status(self, status):
+        self._project_typ = status
+
+    def get_status(self):
+        return self._status
 
     def set_module(self,module):
         self._module = module
@@ -38,10 +48,10 @@ class Project:
         return self._owner
 
     def set_project_typ(self, projecttyp):
-        self._typ = projecttyp
+        self._project_typ = projecttyp
 
     def get_project_typ(self):
-        return self._typ
+        return self._project_typ
 
     def set_time(self, semester):
         self._time = semester
@@ -124,6 +134,7 @@ class Project:
         """Umwandeln eines Python dict() in ein Account()."""
         obj = Project()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_status(dictionary["status"])
         obj.set_owner(dictionary["owner"])
         obj.set_module(dictionary["module"])
         obj.set_typ(dictionary["typ"])

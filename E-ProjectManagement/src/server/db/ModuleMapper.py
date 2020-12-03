@@ -32,7 +32,7 @@ class ModuleMapper(Mapper):
 
 
 
-    def find_by_key(self, id):
+    def find_by_id(self, id):
         """Suchen eines moduls mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
