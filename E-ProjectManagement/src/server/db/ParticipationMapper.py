@@ -1,6 +1,6 @@
-from server.bo.ParticipationBO import Participation
-from server.bo.PersonBO import Person
-from server.bo.StudentBO import Student
+from server.bo.Participation import Participation
+from server.bo.Person import Person
+from server.bo.Student import Student
 from server.db.Mapper import Mapper
 
 

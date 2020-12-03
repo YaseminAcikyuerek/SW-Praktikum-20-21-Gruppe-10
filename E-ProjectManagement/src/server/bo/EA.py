@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from server.bo.StatusBO import status
+from server.bo.Status import Status
 
 
 class EA(ABC):
@@ -26,26 +26,26 @@ class EA(ABC):
         self.__uebergaenge = set()
         self.__anfangs_zustand = None
 
-    def set_anfangszustand(self, status):
+    def set_anfangszustand(self, status_name):
         """
         Setzen des anfangs_zustands durch Nennung seines Namens.
-        :param status: Name des Zustandes
+        :param status_name: Name des Zustandes
         :return: None
         """
-        q = self.get_zustand(status)
+        q = self.get_zustand(status_name)
         self.__anfangs_zustand = q
 
-    def get_zustand(self, status):
+    def get_zustand(self, status_name):
         """
         Auslesen des Zustandsobjekts, dass durch den Namen bezeichnet wird.
-        :param status: Name des Zustandes
+        :param status_name: Name des Zustandes
         :return: Zustandsobjekt
         """
-        if status is not None:
+        if status_name is not None:
             for q in self.__zustaende:
-                if q.get_name()._eq_(status):
+                if q.get_status()._eq_(status_name):
                     return q
-            q = Zustand(status)
+            q = Status(status_name)
             self.add_zustand(q)
             return q
         return None
@@ -84,7 +84,7 @@ class EA(ABC):
                 q1 = self.get_zustand(von)
                 q2 = self.get_zustand(nach)
                 self.add_uebergang(q1, symbol, q2)
-            elif isinstance(von, Zustand) and isinstance(nach, Zustand):
+            elif isinstance(von, Status) and isinstance(nach, Status):
                 u = Uebergang(von, symbol, nach)
                 self.__uebergaenge.add(u)
 
@@ -98,35 +98,35 @@ class EA(ABC):
                 self.__zustaende.add(q)
         return q
 
-    def add_endzustand(self, zustand):
+    def add_endzustand(self, status):
         """
          Hinzufügen eines Endzustands zur Menge der Endzustände F durch Nennung seines Namens.
-         :param zustand: der Name des hinzuzufügenden Zustands
+         :param status: der Name des hinzuzufügenden Zustands
         """
-        if zustand is not None:
-            if isinstance(zustand, str):
-                q1 = self.get_zustand(zustand)
+        if status is not None:
+            if isinstance(status, str):
+                q1 = self.get_zustand(status)
                 self.add_endzustand(q1)
-            elif isinstance(zustand, Zustand):
-                self.add_zustand(zustand)
-                if zustand not in self.__end_zustaende:
-                    self.__end_zustaende.add(zustand)
+            elif isinstance(status, Status):
+                self.add_zustand(status)
+                if status not in self.__end_zustaende:
+                    self.__end_zustaende.add(status)
 
-    def is_endzustand(self, zustand):
+    def is_endzustand(self, status):
         """
         Überprüfen, ob der benannte Zustand ein Endzustand ist.
 
-        :param zustand: der Name des Zustands, der zu überprüfen ist
+        :param status: der Name des Zustands, der zu überprüfen ist
         :return True, wenn es sich um einen Endzustand handelt, sonst False
         """
-        if zustand is not None:
-            if isinstance(zustand, str):
-                q = self.get_zustand(zustand)
+        if status is not None:
+            if isinstance(status, str):
+                q = self.get_zustand(status)
                 if q is not None:
                     return self.is_endzustand(q)
-            elif isinstance(zustand, Zustand):
-                if zustand is not None:
-                    if zustand in self.__end_zustaende:
+            elif isinstance(status, Status):
+                if status is not None:
+                    if status in self.__end_zustaende:
                         return True
                 return False
         return False

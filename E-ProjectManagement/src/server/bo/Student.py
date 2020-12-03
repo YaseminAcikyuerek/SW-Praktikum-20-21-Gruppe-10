@@ -1,6 +1,6 @@
 from server.bo import BusinessObject as bo
 from server.bo import NamedBusinessObject as nbo
-from server.bo import PersonBO as pbo
+from server.bo import Person as pbo
 
 class Student:
 

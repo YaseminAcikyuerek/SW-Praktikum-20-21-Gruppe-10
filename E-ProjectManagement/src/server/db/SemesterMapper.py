@@ -1,4 +1,4 @@
-from server.bo.SemesterBO import Semester
+from server.bo.Semester import Semester
 from server.db.Mapper import Mapper
 
 
