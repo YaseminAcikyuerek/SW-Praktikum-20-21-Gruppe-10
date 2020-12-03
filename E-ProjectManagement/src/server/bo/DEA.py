@@ -1,4 +1,4 @@
-from ea import EA
+from server.bo.EA import EA
 from server.bo.StatusBO import Status
 
 
@@ -16,7 +16,7 @@ class DEA(EA):
         """
         Zur komfortablen Nutzung bieten wir die Angabe von Zuständen anhand ihres Namens an. Dies wird
         natürlich im Hintergrund abgebildet auf Zustands-Objekte.
-        :param zustand: Der Zustand
+        :param status: Der Zustand
         :param symbol: Das Eingabesymbol
         :return: Folgezustand
         """
@@ -47,7 +47,7 @@ class DEA(EA):
          Auf Zeichenketten erweiterte Zustandsübergangsfunktion. "delta_dach" beantwortet die Frage, in
         welchem Zustand sich der DEA befindet, nachdem er die gesamte übergeben Zeichenkette
         konsumiert hat. Dabei geht er von einem auch als Argument übergebenen Basiszustand aus.
-        :param zustand: Ausgangszustand
+        :param status: Ausgangszustand
         :param zeichenkette: die zu verarbeitenden eingabe_symbole in Form eines String
         :return: Zustand, in dem sich der Automat nach Abarbeitung der Zeichenkette befindet.
         """
