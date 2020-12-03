@@ -15,8 +15,9 @@ class Semester:
 
     @staticmethod
     def from_dict(dictionary=dict()):
-        """Umwandeln eines Python dict() in ein Account()."""
-        obj = Project()
+        """Umwandeln eines Python dict() in ein Semester()."""
+        obj = Semester()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_owner(dictionary["owner"])
+        obj.set_semester_start(dictionary["semester_start"])
+        obj.set_semester_end(["semester_end"])
         return obj

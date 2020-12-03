@@ -13,8 +13,8 @@ class Module:
 
     @staticmethod
     def from_dict(dictionary=dict()):
-        """Umwandeln eines Python dict() in ein Account()."""
-        obj = Account()
+        """Umwandeln eines Python dict() in ein Module()."""
+        obj = Module()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_owner(dictionary["owner"])
+        obj.set_edv_nr(dictionary["edv_nr"])
         return obj

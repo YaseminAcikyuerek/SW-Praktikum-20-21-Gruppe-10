@@ -11,8 +11,8 @@ class Role:
 
     @staticmethod
     def from_dict(dictionary=dict()):
-        """Umwandeln eines Python dict() in ein Account()."""
-        obj = Project()
+        """Umwandeln eines Python dict() in ein Role()."""
+        obj = Role()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_owner(dictionary["owner"])
+        obj.set_role_name(dictionary["role_name"])
         return obj
