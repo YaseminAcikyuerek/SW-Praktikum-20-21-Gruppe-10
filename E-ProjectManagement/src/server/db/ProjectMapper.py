@@ -1,4 +1,4 @@
-from server.bo.ProjectBO import Project
+from server.bo.Project import Project
 from server.db.Mapper import Mapper
 
 
@@ -34,7 +34,7 @@ class ProjectMapper(Mapper):
 
 
 
-    def find_by_key(self, key):
+    def find_by_key(self, id):
         """Suchen eines Projekts mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -45,7 +45,7 @@ class ProjectMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, owner, status FROM project WHERE id={}".format(key)
+        command = "SELECT id, name, owner, status FROM project WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

@@ -1,5 +1,5 @@
 from server.bo.EA import EA
-from server.bo.StatusBO import Status
+from server.bo.Status import Status
 
 
 class DEA(EA):

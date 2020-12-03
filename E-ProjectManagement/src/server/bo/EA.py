@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from server.bo.StatusBO import Status
+from server.bo.Status import Status
 
 
 class EA(ABC):

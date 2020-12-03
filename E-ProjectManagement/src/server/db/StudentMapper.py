@@ -1,4 +1,4 @@
-from server.bo.StudentBO import StudentBO
+from server.bo.Student import Student
 from server.db.Mapper import Mapper
 
 
@@ -33,7 +33,7 @@ class StudentMapper (Mapper):
 
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
         """Suchen eines Students mit vorgegebener ID. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -44,7 +44,7 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE id={}".format(key)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -70,7 +70,7 @@ class StudentMapper (Mapper):
         Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
         berichtigt.
 
-        :param account das zu speichernde Objekt
+        :param student das zu speichernde Objekt
         :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
         """
         cursor = self._cnx.cursor()
@@ -80,8 +80,8 @@ class StudentMapper (Mapper):
         for (maxid) in tuples:
             student.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO students (id,name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s)"
-        data = (student.get_id(), student.get_owner(),student.get_matriculation_nr(),student.get_course_abbr())
+        command = "INSERT INTO students (id, name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s)"
+        data = (student.get_id(), student.get_name(),student.get_matriculation_nr(),student.get_course_abbr())
 
         cursor.execute(command, data)
 
@@ -97,7 +97,7 @@ class StudentMapper (Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE students " + "SET owner=%s WHERE id=%s"
-        data = (student.get_owner(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
+        data = (student.get_name(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -106,16 +106,117 @@ class StudentMapper (Mapper):
     def delete(self, student):
         """Löschen der Daten eines student-Objekts aus der Datenbank.
 
-        :param account das aus der DB zu löschende "Objekt"
+        :param student das aus der DB zu löschende "Objekt"
         """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM atudents WHERE id={}".format(student.get_id())
+        command = "DELETE FROM students WHERE id={}".format(student.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
 
+    def find_student_by_name(self, name):
+
+        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
+
+        :param name E-Mail-Adresse der zugehörigen Benutzer.
+        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
+        mit der gewünschten E-Mail-Adresse enthält.
+            """
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE name={}".format(name)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, name, matriculation_nr, course_abbr) = tuples[0]
+            student = Student()
+            student.set_id(id)
+            student.set_name(name)
+            student.set_matriculation_nr(matriculation_nr)
+            student.set_course_abbr(course_abbr)
+            result = student
+
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_student_by_matriculation_nr(self, matriculation_nr):
+
+        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
+
+        :param matriculation_nr E-Mail-Adresse der zugehörigen Benutzer.
+        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
+        mit der gewünschten E-Mail-Adresse enthält.
+            """
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE matriculation_nr={}".format(matriculation_nr)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, name, matriculation_nr, matriculation_nr) = tuples[0]
+            student = Student()
+            student.set_id(id)
+            student.set_name(name)
+            student.set_matriculation_nr(matriculation_nr)
+            student.set_course_abbr(matriculation_nr)
+            result = student
+
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_student_by_course_abbr(self, course_abbr):
+
+        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
+
+        :param course_abbr E-Mail-Adresse der zugehörigen Benutzer.
+        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
+        mit der gewünschten E-Mail-Adresse enthält.
+            """
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE course_abbr={}".format(course_abbr)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, name, matriculation_nr, course_abbr) = tuples[0]
+            student = Student()
+            student.set_id(id)
+            student.set_name(name)
+            student.set_matriculation_nr(matriculation_nr)
+            student.set_course_abbr(course_abbr)
+            result = student
+
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
 um die grundsätzliche Funktion zu überprüfen.

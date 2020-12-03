@@ -1,4 +1,4 @@
-from server.bo.PersonBO import Person
+from server.bo.Person import Person
 from server.db.Mapper import Mapper
 
 

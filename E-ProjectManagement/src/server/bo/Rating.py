@@ -1,6 +1,6 @@
 from server.bo import BusinessObject as bo
-from server.bo import PersonBO as pbo
-from server.bo import StudentBO as stbo
+from server.bo import Person as pbo
+from server.bo import Student as stbo
 
 
 class Rating:

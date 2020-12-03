@@ -1,4 +1,4 @@
-from server.bo.ModuleBO import Module
+from server.bo.Module import Module
 from server.db.Mapper import Mapper
 
 

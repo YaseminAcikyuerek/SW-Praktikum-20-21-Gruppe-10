@@ -1,4 +1,4 @@
-from server.bo.RatingBO import RatingBO
+from server.bo.Rating import Rating
 from server.db.Mapper import Mapper
 
 
@@ -19,7 +19,7 @@ class RatingMapper(Mapper):
         tuples = cursor.fetchall()
 
         for (id, grade) in tuples:
-            rating = RatingBO()
+            rating = Rating()
             rating.set_id(id)
             rating.set_grade(grade)
             result.append(rating)
@@ -31,7 +31,7 @@ class RatingMapper(Mapper):
 
 
 
-    def find_by_id(self, rating):
+    def find_by_id(self, id):
         """Suchen eines Ratings mit vorgegebener ID. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -42,7 +42,7 @@ class RatingMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, grade FROM ratings WHERE id={}".format(key)
+        command = "SELECT id, grade FROM ratings WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
