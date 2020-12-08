@@ -29,9 +29,9 @@ class Mapper (AbstractContextManager, ABC):
             also auf einem Local Development Server. Hierbei stellen wir eine einfache Verbindung zu einer lokal
             installierten mySQL-Datenbank her."""
 
-            self._cnx = connector.connect(user='demo', password='Demo123!',
+            self._cnx = connector.connect(user='root', password='',
                                   host='127.0.0.1',
-                                  database='bankproject')
+                                  database='sw-project')
 
         return self
 
@@ -65,11 +65,7 @@ class Mapper (AbstractContextManager, ABC):
     def delete(self, object):
         """Den Datensatz, der das gegebene Objekt in der DB repräsentiert löschen."""
         pass
-    @abstractmethod
-    def find_by_name(self,object):
-        "Finde mir das Object mit dem Namen"
 
-    @abstractmethod
-     def find_by_creation_time(self, object):
-        "Suche nach Erstelungsdatum eines Objects"
+
+
 

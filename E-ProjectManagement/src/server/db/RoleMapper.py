@@ -1,113 +1,114 @@
-
 from server.db.Mapper import Mapper
+from server.bo.Role import Role
 
-class AutomatonMapper(Mapper):
+
+class RoleMapper (Mapper):
 
     def __init__(self):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Konten.
+        """Auslesen aller Projekttypen.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
+        :return Eine Sammlung mit Projekttyp-Objekten, die sämtliche Projekte
                 repräsentieren.
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, owner from automatons")
+        cursor.execute("SELECT * from role")
         tuples = cursor.fetchall()
 
-        for (id, owner) in tuples:
-            automaton = AutomatonBO()
-            automaton.set_id(id)
-            automaton.set_owner(owner)
-            result.append(automaton)
+        for (id,name) in tuples:
+            role = Role()
+            role.set_id(id)
+            role.set_name(name)
+            result.append(role)
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-
-
     def find_by_key(self, key):
-        """Suchen eines Kontos mit vorgegebener Kontonummer. Da diese eindeutig ist,
+        """Suchen eines Projekttypen mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
         :param id Primärschlüsselattribut (->DB)
-        :return Konto-Objekt, das dem übergebenen Schlüssel entspricht, None bei
+        :return Projekttyp-Objekt, das dem übergebenen Schlüssel entspricht, None bei
             nicht vorhandenem DB-Tupel.
         """
         result = None
 
         cursor = self._cnx.cursor()
-        acommnd = "SELECT id, owner FROM automatons WHERE id={}".format(key)
+        command = "SELECT id,name FROM projectTypes WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, owner) = tuples[0]
-            automaton = AutomatonBO()
-            automaton.set_id(id)
-            automaton.set_owner(owner)
+            (id, name) = tuples[0]
+            role = Role()
+            role.set_id(id)
+            role.set_name(name)
 
-        result = automaton
+        result = role
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-    def insert(self, automaton):
-        """Einfügen eines Account-Objekts in die Datenbank.
+    def insert(self, role):
+        """Einfügen eines ProjektType-Objekts in die Datenbank.
 
         Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
         berichtigt.
 
-        :param account das zu speichernde Objekt
+        :param Projekttype das zu speichernde Objekt
         :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
         """
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM automatons ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM role ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
-            automaton.set_id(maxid[0] + 1)
+            role.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO automatons (id, owner) VALUES (%s,%s)"
-        data = (automaton.get_id(), automaton.get_owner())
+        command = "INSERT INTO role (name) VALUES (%s)"
+        data = (role.get_id(), role.get_name())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
-        return automaton
+        return role
 
-    def update(self, automaton):
+    def update(self, role):
         """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
         :param account das Objekt, das in die DB geschrieben werden soll
         """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE automatons " + "SET owner=%s WHERE id=%s"
-        data = (automaton.get_owner(), automaton.get_id())
+        command = "UPDATE role " + "SET name=%s"
+        data = (role.get_name())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
-    def delete(self, automaton):
-        """Löschen der Daten eines Account-Objekts aus der Datenbank.
+    def delete(self, role):
+        """Löschen der Daten eines ProjektType-Objekts aus der Datenbank.
 
-        :param account das aus der DB zu löschende "Objekt"
+        :param ProjectType das aus der DB zu löschende "Objekt"
         """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM automatons WHERE id={}".format(automaton.get_id())
+        command = "DELETE FROM role WHERE id={}".format(role.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
+
+
 
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
@@ -115,7 +116,7 @@ um die grundsätzliche Funktion zu überprüfen.
 
 Anmerkung: Nicht professionell aber hilfreich..."""
 if (__name__ == "__main__"):
-    with AutomatonMapper() as mapper:
+    with RoleMapper() as mapper:
         result = mapper.find_all()
         for p in result:
             print(p)

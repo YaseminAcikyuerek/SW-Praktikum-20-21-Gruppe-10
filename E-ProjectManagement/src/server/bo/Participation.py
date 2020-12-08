@@ -1,6 +1,7 @@
 from server.bo import BusinessObject as bo
 
-class Participation:
+
+class Participation(bo):
 
     def __init__(self):
         super().__init__()

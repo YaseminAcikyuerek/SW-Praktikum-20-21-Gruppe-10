@@ -8,11 +8,7 @@ class StudentMapper (Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Studenten.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT * from students")
@@ -34,13 +30,7 @@ class StudentMapper (Mapper):
 
 
     def find_by_id(self, id):
-        """Suchen eines Students mit vorgegebener ID. Da diese eindeutig ist,
-        wird genau ein Objekt zurückgegeben.
 
-        :param id Primärschlüsselattribut (->DB)
-        :return student-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
-        """
         result = None
 
         cursor = self._cnx.cursor()
@@ -65,14 +55,7 @@ class StudentMapper (Mapper):
         return result
 
     def insert(self, student):
-        """Einfügen eines student-Objekts in die Datenbank.
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param student das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM students ")
         tuples = cursor.fetchall()
@@ -90,10 +73,7 @@ class StudentMapper (Mapper):
         return student
 
     def update(self, student):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param student das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
         command = "UPDATE students " + "SET owner=%s WHERE id=%s"
@@ -104,10 +84,7 @@ class StudentMapper (Mapper):
         cursor.close()
 
     def delete(self, student):
-        """Löschen der Daten eines student-Objekts aus der Datenbank.
 
-        :param student das aus der DB zu löschende "Objekt"
-        """
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM students WHERE id={}".format(student.get_id())
@@ -118,12 +95,6 @@ class StudentMapper (Mapper):
 
     def find_student_by_name(self, name):
 
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
-
-        :param name E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
@@ -141,8 +112,7 @@ class StudentMapper (Mapper):
             result = student
 
         except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+
             result = None
 
         self._cnx.commit()
@@ -152,12 +122,6 @@ class StudentMapper (Mapper):
 
     def find_student_by_matriculation_nr(self, matriculation_nr):
 
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
-
-        :param matriculation_nr E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
@@ -175,8 +139,7 @@ class StudentMapper (Mapper):
             result = student
 
         except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+
             result = None
 
         self._cnx.commit()
@@ -186,12 +149,6 @@ class StudentMapper (Mapper):
 
     def find_student_by_course_abbr(self, course_abbr):
 
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
-
-        :param course_abbr E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
@@ -209,8 +166,7 @@ class StudentMapper (Mapper):
             result = student
 
         except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+
             result = None
 
         self._cnx.commit()
