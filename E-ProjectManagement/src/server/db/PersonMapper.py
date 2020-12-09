@@ -1,5 +1,5 @@
 from server.bo.Person import Person
-from server.db.Mapper import Mapper
+from server import Mapper
 
 
 class PersonMapper(Mapper):
@@ -8,11 +8,7 @@ class PersonMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Konten.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT id, name, role_id from person")
@@ -103,12 +99,7 @@ class PersonMapper(Mapper):
 
 
     def find_person_by_role(self, role):
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
 
-        :param role E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
@@ -136,12 +127,6 @@ class PersonMapper(Mapper):
 
     def find_person_by_name(self, name):
 
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
-
-        :param name E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
@@ -158,8 +143,7 @@ class PersonMapper(Mapper):
             result = person
 
         except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+
             result = None
 
         self._cnx.commit()

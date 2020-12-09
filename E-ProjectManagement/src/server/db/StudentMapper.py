@@ -1,5 +1,5 @@
 from server.bo.Student import Student
-from server.db.Mapper import Mapper
+from server.db import Mapper
 
 
 class StudentMapper (Mapper):
@@ -14,7 +14,7 @@ class StudentMapper (Mapper):
         cursor.execute("SELECT * from students")
         tuples = cursor.fetchall()
 
-        for (id, name, matriculation_nr,course_abbr)in tuples:
+        for (id, name, matriculation_nr, course_abbr) in tuples:
             student = Student()
             student.set_id(id)
             student.set_name(name)
@@ -76,7 +76,7 @@ class StudentMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE students " + "SET owner=%s WHERE id=%s"
+        command = "UPDATE students " + "SET name=%s, matriculation_nr=%s, course_abbr=%s WHERE id=%s"
         data = (student.get_name(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
         cursor.execute(command, data)
 

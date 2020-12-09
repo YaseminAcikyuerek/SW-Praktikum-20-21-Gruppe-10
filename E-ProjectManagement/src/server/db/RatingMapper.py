@@ -1,5 +1,5 @@
 from server.bo.Rating import Rating
-from server.db.Mapper import Mapper
+from server.db import Mapper
 
 
 class RatingMapper(Mapper):
@@ -8,11 +8,7 @@ class RatingMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Bewertungen.
 
-        :return Eine Sammlung mit Rating-Objekten, die sämtliche Konten
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT id, grade from ratings")
@@ -30,8 +26,7 @@ class RatingMapper(Mapper):
         return result
 
 
-
-    def find_by_id(self, id):
+    def find_by_key(self, key):
         """Suchen eines Ratings mit vorgegebener ID. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -42,13 +37,13 @@ class RatingMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, grade FROM ratings WHERE id={}".format(id)
+        command = "SELECT id, grade FROM ratings WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
             (id, grade) = tuples[0]
-            rating = RatingBO()
+            rating = Rating()
             rating.set_id(id)
             rating.set_grade(grade)
 
@@ -60,14 +55,7 @@ class RatingMapper(Mapper):
         return result
 
     def insert(self, rating):
-        """Einfügen eines Rating-Objekts in die Datenbank.
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param account das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM ratings ")
         tuples = cursor.fetchall()
@@ -84,10 +72,7 @@ class RatingMapper(Mapper):
         return rating
 
     def update(self, rating):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param rating das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
         command = "UPDATE rating " + "SET grade=%s WHERE id=%s"
@@ -98,10 +83,7 @@ class RatingMapper(Mapper):
         cursor.close()
 
     def delete(self, rating):
-        """Löschen der Daten eines Rating-Objekts aus der Datenbank.
 
-        :param rating das aus der DB zu löschende "Objekt"
-        """
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM ratings WHERE id={}".format(rating.get_id())

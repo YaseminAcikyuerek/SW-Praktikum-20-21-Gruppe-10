@@ -150,4 +150,5 @@ class Project(bo, nbo, Module, Person, pbo, sbo, Status, ptbo):
         obj.set_special_room(["special_room"])
         obj.set_language(["language"])
         obj.set_room(["room"])
+
         return obj

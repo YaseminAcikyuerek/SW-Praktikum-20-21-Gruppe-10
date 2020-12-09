@@ -1,4 +1,4 @@
-from server.db.Mapper import Mapper
+from server.db import Mapper
 from server.bo.Role import Role
 
 
@@ -8,11 +8,7 @@ class RoleMapper (Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Projekttypen.
 
-        :return Eine Sammlung mit Projekttyp-Objekten, die sämtliche Projekte
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT * from role")
@@ -30,13 +26,7 @@ class RoleMapper (Mapper):
         return result
 
     def find_by_key(self, key):
-        """Suchen eines Projekttypen mit vorgegebener id. Da diese eindeutig ist,
-        wird genau ein Objekt zurückgegeben.
 
-        :param id Primärschlüsselattribut (->DB)
-        :return Projekttyp-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
-        """
         result = None
 
         cursor = self._cnx.cursor()
@@ -58,14 +48,7 @@ class RoleMapper (Mapper):
         return result
 
     def insert(self, role):
-        """Einfügen eines ProjektType-Objekts in die Datenbank.
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param Projekttype das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM role ")
         tuples = cursor.fetchall()
@@ -82,10 +65,7 @@ class RoleMapper (Mapper):
         return role
 
     def update(self, role):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param account das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
         command = "UPDATE role " + "SET name=%s"
@@ -96,10 +76,7 @@ class RoleMapper (Mapper):
         cursor.close()
 
     def delete(self, role):
-        """Löschen der Daten eines ProjektType-Objekts aus der Datenbank.
 
-        :param ProjectType das aus der DB zu löschende "Objekt"
-        """
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM role WHERE id={}".format(role.get_id())
