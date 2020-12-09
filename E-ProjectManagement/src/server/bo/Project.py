@@ -1,33 +1,33 @@
 from server.bo import BusinessObject as bo
 from server.bo import NamedBusinessObject as nbo
-from server.bo.Module import Module as mbo
-from server.bo import Person as pbo
+from server.bo.Module import Module
+from server.bo import Person
 from server.bo import ProjectType as ptbo
 from server.bo import Semester as sbo
 from server.bo import Person as pbo
-from server.bo import Module as mbo
 from server.bo import Status
 
-class Project:
+
+class Project(bo, nbo, Module, Person, pbo, sbo, Status, ptbo):
 
     def __init__(self):
         super().__init__()
         self._status = None
-        self._owner= None
+        self._owner = None
         self._module = None
         self._project_typ = None
         self._time = None
-        self._capacity= ""
-        self._external__partner_list= ""
-        self._short_description= ""
-        self._flag =""
-        self._bd_before_lecture_period= ""
-        self._bd_during_lecture_period=""
-        self._bd_during_exam_period=""
-        self._preferred_bd_during_lecture_period=""
-        self._special_room=""
-        self._language=""
-        self._room=""
+        self._capacity = ""
+        self._external__partner_list = ""
+        self._short_description = ""
+        self._flag = ""
+        self._bd_before_lecture_period = ""
+        self._bd_during_lecture_period = ""
+        self._bd_during_exam_period = ""
+        self._preferred_bd_during_lecture_period = ""
+        self._special_room = ""
+        self._language = ""
+        self._room = ""
 
     def set_status(self, status):
         self._project_typ = status
@@ -150,6 +150,4 @@ class Project:
         obj.set_special_room(["special_room"])
         obj.set_language(["language"])
         obj.set_room(["room"])
-
-
         return obj

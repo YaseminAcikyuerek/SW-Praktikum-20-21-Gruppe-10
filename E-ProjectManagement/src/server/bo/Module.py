@@ -1,11 +1,12 @@
 from server.bo import BusinessObject as bo
 
-class Module:
+
+class Module(bo):
     def __init__(self):
         self._edv_nr = ""
 
-    def set_edv_nr(self,value):
-        self._edv_nr= value
+    def set_edv_nr(self, value):
+        self._edv_nr = value
 
     def get_edv_nr(self):
         return self._edv_nr

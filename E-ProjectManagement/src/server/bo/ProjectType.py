@@ -2,7 +2,7 @@ from server.bo import BusinessObject as bo
 from server.bo import NamedBusinessObject as nbo
 
 
-class ProjectTyp:
+class ProjectTyp(bo, nbo):
     def __init__(self):
         self._sws = ""
         self._ects = ""

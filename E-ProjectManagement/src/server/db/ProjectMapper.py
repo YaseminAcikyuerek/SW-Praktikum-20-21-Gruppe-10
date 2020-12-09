@@ -51,7 +51,7 @@ class ProjectMapper(Mapper):
         return result
 
 
-    def find_by_id(self, id):
+    def find_by_key(self, key):
         """Suchen eines Projekts mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -62,7 +62,7 @@ class ProjectMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE id={}".format(id)
+        command = "SELECT * FROM project WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

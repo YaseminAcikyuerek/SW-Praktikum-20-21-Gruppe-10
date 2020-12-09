@@ -2,7 +2,8 @@ from server.bo import BusinessObject as bo
 from server.bo import NamedBusinessObject as nbo
 from server.bo import Person as pbo
 
-class Student:
+
+class Student(bo, nbo, pbo):
 
     def __init__(self):
         super.__init__()
