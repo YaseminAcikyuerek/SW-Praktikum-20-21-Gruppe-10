@@ -26,27 +26,39 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="lokale Datenbank angebunden">
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/AutomatonMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/AutomatonMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ParticipationMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ParticipationMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectType.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectType.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/__init__.py" afterDir="false" />
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="StudentMapper.py erstellt">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/DEA.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/EA.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-153">
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -59,8 +71,117 @@
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/AutomatonMapper.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="540" />
+    <option name="width" value="1135" />
+    <option name="height" value="1030" />
+  </component>
   <component name="ProjectId" id="1l4PfYjfqjVSKfeJBYoOATwkTMU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="E-ProjectManagement" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="E-ProjectManagement" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="E-ProjectManagement" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="server" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="E-ProjectManagement" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="server" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="bo" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="E-ProjectManagement" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="server" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="db" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
+              <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
+              <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
+              <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
+              <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="bo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
+              <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -68,39 +189,27 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/E-ProjectManagement/mysql" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\server" />
-    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="Python.RoleMapper">
-    <configuration name="AutomatonMapper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="SW-Praktikum-Gruppe-10" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/AutomatonMapper.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="PersonMapper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="SW-Praktikum-Gruppe-10" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -168,12 +277,11 @@
       <list>
         <item itemvalue="Python.RoleMapper" />
         <item itemvalue="Python.PersonMapper" />
-        <item itemvalue="Python.AutomatonMapper" />
         <item itemvalue="Python.ProjectMapper" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -248,15 +356,60 @@
       <option name="project" value="LOCAL" />
       <updated>1607019300062</updated>
     </task>
-    <task id="LOCAL-00010" summary="lokale Datenbank angebunden">
-      <created>1607464304923</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1607464304923</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
+    <option name="localTasksCounter" value="10" />
     <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14342366" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Project Explorer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="DB Browser" order="4" />
+      <window_info id="Job Explorer" order="5" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.329429" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Console" order="7" />
+      <window_info anchor="bottom" id="DB Execution Console" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5042961" side_tool="true" weight="0.3396779" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.4957039" weight="0.3396779" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Project Explorer" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="DB Browser" order="4" />
+      <window_info id="Job Explorer" order="5" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Console" order="7" />
+      <window_info anchor="bottom" id="DB Execution Console" order="8" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5042961" side_tool="true" weight="0.3396779" />
+      <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.4957039" weight="0.3396779" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -274,6 +427,12 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -310,7 +469,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Mapper erstellt" />
@@ -320,20 +478,19 @@
     <MESSAGE value="EA hinzugefügt" />
     <MESSAGE value="EA und DEA modifiziert" />
     <MESSAGE value="Mapper modifiziert" />
-    <MESSAGE value="lokale Datenbank angebunden" />
-    <option name="LAST_COMMIT_MESSAGE" value="lokale Datenbank angebunden" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mapper modifiziert" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py</url>
-          <line>158</line>
+          <line>174</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py</url>
-          <line>94</line>
+          <line>117</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
@@ -345,5 +502,96 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="27" column="22" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Role.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/ParticipationMapper.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="35" selection-start-column="35" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/Mapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/AutomatonMapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectType.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/DEA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/EA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-153">
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
