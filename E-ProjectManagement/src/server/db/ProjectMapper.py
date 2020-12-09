@@ -1,5 +1,5 @@
 from server.bo.Project import Project
-from server.db.Mapper import Mapper
+from server import Mapper
 
 
 class ProjectMapper(Mapper):
@@ -8,11 +8,7 @@ class ProjectMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller projekte.
 
-        :return Eine Sammlung mit project-Objekten, die sämtliche Konten
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT * from projects")
@@ -51,18 +47,12 @@ class ProjectMapper(Mapper):
         return result
 
 
-    def find_by_id(self, id):
-        """Suchen eines Projekts mit vorgegebener id. Da diese eindeutig ist,
-        wird genau ein Objekt zurückgegeben.
+    def find_by_key(self, key):
 
-        :param id Primärschlüsselattribut (->DB)
-        :return projekt-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
-        """
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE id={}".format(id)
+        command = "SELECT * FROM project WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -99,14 +89,7 @@ class ProjectMapper(Mapper):
         return result
 
     def insert(self, project):
-        """Einfügen eines projekt-Objekts in die Datenbank.
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param project das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM projects ")
         tuples = cursor.fetchall()
@@ -129,10 +112,7 @@ class ProjectMapper(Mapper):
         return project
 
     def update(self, project):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param project das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
         command = "UPDATE projects " + "SET owner=%s, name=%s, module=%s, status=%s," \
@@ -153,10 +133,7 @@ class ProjectMapper(Mapper):
         cursor.close()
 
     def delete(self, project):
-        """Löschen der Daten eines project-Objekts aus der Datenbank.
 
-        :param project das aus der DB zu löschende "Objekt"
-        """
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM projects WHERE id={}".format(project.get_id())
@@ -167,12 +144,6 @@ class ProjectMapper(Mapper):
 
     def find_project_by_name(self, name):
 
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
-
-        :param name E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
@@ -219,12 +190,6 @@ class ProjectMapper(Mapper):
 
     def find_project_by_owner(self, owner):
 
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
-
-        :param name E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()

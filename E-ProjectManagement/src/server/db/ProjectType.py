@@ -1,6 +1,5 @@
 from server.bo import ProjectType
-from server.db.Mapper import Mapper
-
+from server.db import Mapper
 
 
 class ProjectTypeMapper(Mapper):
@@ -9,11 +8,7 @@ class ProjectTypeMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Projekttypen.
 
-        :return Eine Sammlung mit Projekttyp-Objekten, die sämtliche Projekte
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT * from projecttypes")
@@ -31,18 +26,12 @@ class ProjectTypeMapper(Mapper):
 
         return result
 
-    def find_by_id(self, id):
-        """Suchen eines Projekttypen mit vorgegebener id. Da diese eindeutig ist,
-        wird genau ein Objekt zurückgegeben.
+    def find_by_key(self, key):
 
-        :param id Primärschlüsselattribut (->DB)
-        :return Projekttyp-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
-        """
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,sws,ects FROM projectTypes WHERE id={}".format(id)
+        command = "SELECT id,sws,ects FROM projectTypes WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -60,49 +49,36 @@ class ProjectTypeMapper(Mapper):
 
         return result
 
-    def insert(self, projecttype):
-        """Einfügen eines ProjektType-Objekts in die Datenbank.
+    def insert(self, projectType):
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param Projekttype das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM projectTypes ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
-            projecttype.set_id(maxid[0] + 1)
+            projectType.set_id(maxid[0] + 1)
 
         command = "INSERT INTO projectTypes (sws, ects) VALUES (%s,%s)"
-        data = (projecttype.get_id(), projecttype.get_sws(), projecttype.get_ects())
+        data = (projectType.get_id(), projectType.get_sws(), projectType.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
-        return projecttype
+        return projectType
 
-    def update(self, projecttype):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
+    def update(self, projectType):
 
-        :param account das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
         command = "UPDATE projectTypes " + "SET sws=%s, ects=%s WHERE id=%s"
-        data = (projecttype.get_sws(), projecttype.get_id(), projecttype.get_ects())
+        data = (projectType.get_sws(), projectType.get_id(), projectType.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
     def delete(self, projectType):
-        """Löschen der Daten eines ProjektType-Objekts aus der Datenbank.
 
-        :param ProjectType das aus der DB zu löschende "Objekt"
-        """
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM projectTypes WHERE id={}".format(projectType.get_id())

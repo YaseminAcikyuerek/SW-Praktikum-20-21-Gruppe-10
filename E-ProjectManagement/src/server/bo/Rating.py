@@ -3,7 +3,7 @@ from server.bo import Person as pbo
 from server.bo import Student as stbo
 
 
-class Rating:
+class Rating(bo, pbo, stbo):
     def __init__(self):
         super().__init__()
         self._evaluator = None

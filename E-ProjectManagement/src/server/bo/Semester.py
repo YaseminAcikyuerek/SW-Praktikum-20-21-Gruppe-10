@@ -1,7 +1,9 @@
 from server.bo import BusinessObject as bo
 from server.bo import NamedBusinessObject as nbo
 
-class Semester:
+
+class Semester(bo, nbo):
+
     def __init__(self):
         self._semester_start =""
         self._semester_end =""

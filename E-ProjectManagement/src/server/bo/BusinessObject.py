@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 class BusinessObject(ABC):
+
     """Oberklasse aller BusinessObject-Klassen in diesem Projekt .
 
     Jedes Objekt bestizt eine eindeutigte ID, welches als Primärschlüssel bei der relationen
@@ -18,8 +19,3 @@ class BusinessObject(ABC):
         """Setzen der ID."""
         self._id = value
 
-    def set_contribution_date(self, date):
-        self._contribution_date = date
-
-    def get_contribution_date(self):
-        return self._contribution_date

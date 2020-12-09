@@ -1,18 +1,19 @@
 from server.bo import BusinessObject as bo
+from server.bo import Role as rbo
+from server.bo import NamedBusinessObject as nbo
 
-class Person:
+
+class Person(bo, rbo, nbo):
 
     def __init__(self):
         super().__init__()
-        self._role = None
+        self._role_id = None
 
-    def set_status(self,role):
-        self._role= role
+    def set_role_id(self, role):
+        self._role_id = role
 
-    def get_status(self):
-        return self._role
-
-
+    def get_role_id(self):
+        return self._role_id
 
     @staticmethod
     def from_dict(dictionary=dict()):

@@ -1,5 +1,5 @@
 from server.bo.Person import Person
-from server.db.Mapper import Mapper
+from server import Mapper
 
 
 class PersonMapper(Mapper):
@@ -8,21 +8,17 @@ class PersonMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Konten.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, name, role from person")
+        cursor.execute("SELECT id, name, role_id from person")
         tuples = cursor.fetchall()
 
-        for (id, name, role) in tuples:
+        for (id, name, role_id) in tuples:
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role)
+            person.set_role(role_id)
             result.append(person)
 
         self._cnx.commit()
@@ -31,7 +27,7 @@ class PersonMapper(Mapper):
         return result
 
 
-    def find_by_id(self, id):
+    def find_by_key(self, key):
         """Suchen einer Person mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -42,16 +38,16 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command= "SELECT id, name, role FROM person WHERE id={}".format(id)
+        command= "SELECT id, name, role_id FROM person WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, role) = tuples[0]
+            (id, name, role_id) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role)
+            person.set_role(role_id)
 
         result = person
 
@@ -61,14 +57,7 @@ class PersonMapper(Mapper):
         return result
 
     def insert(self, person):
-        """Einfügen eines Person-Objekts in die Datenbank.
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param person das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM person ")
         tuples = cursor.fetchall()
@@ -76,8 +65,8 @@ class PersonMapper(Mapper):
         for (maxid) in tuples:
             person.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO person (id, name, role) VALUES (%s,%s,%s)"
-        data = (person.get_id(), person.get_name(),person.get_role)
+        command = "INSERT INTO person (id, name, role_id) VALUES (%s,%s,%s)"
+        data = (person.get_id(), person.get_name(), person.get_role)
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -85,13 +74,10 @@ class PersonMapper(Mapper):
         return person
 
     def update(self, person):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param account das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE person " + "SET name=%s,role=%s WHERE id=%s"
+        command = "UPDATE person " + "SET name=%s,role_id=%s WHERE id=%s"
         data = (person.get_id(), person.get_name(), person.get_role())
         cursor.execute(command, data)
 
@@ -113,25 +99,20 @@ class PersonMapper(Mapper):
 
 
     def find_person_by_role(self, role):
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
 
-        :param role E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role FROM person WHERE role={}".format(role)
+        command = "SELECT id, name, role_id FROM person WHERE role={}".format(role)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, role) = tuples[0]
+            (id, name, role_id) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role)
+            person.set_role(role_id)
             result = person
 
         except IndexError:
@@ -146,30 +127,23 @@ class PersonMapper(Mapper):
 
     def find_person_by_name(self, name):
 
-        """Auslesen aller Benutzer anhand der zugeordneten E-Mail-Adresse.
-
-        :param name E-Mail-Adresse der zugehörigen Benutzer.
-        :return Eine Sammlung mit Participation-Objekten, die sämtliche Benutzer
-        mit der gewünschten E-Mail-Adresse enthält.
-            """
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role FROM person WHERE student.name={}".format(name)
+        command = "SELECT id, name, role_id FROM person WHERE student.name={}".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, role) = tuples[0]
+            (id, name, role_id) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role)
+            person.set_role(role_id)
             result = person
 
         except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+
             result = None
 
         self._cnx.commit()

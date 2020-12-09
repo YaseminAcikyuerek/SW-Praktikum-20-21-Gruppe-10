@@ -1,5 +1,6 @@
-from server.bo.AutomatonBO import AutomatonBO
-from server.db.Mapper import Mapper
+"""braucht der Automat einen Mapper?Warum?"""
+from server import Mapper
+
 
 class AutomatonMapper(Mapper):
 
@@ -7,11 +8,7 @@ class AutomatonMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Konten.
 
-        :return Eine Sammlung mit Account-Objekten, die sämtliche Konten
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT id, owner from automatons")
@@ -31,13 +28,7 @@ class AutomatonMapper(Mapper):
 
 
     def find_by_key(self, key):
-        """Suchen eines Kontos mit vorgegebener Kontonummer. Da diese eindeutig ist,
-        wird genau ein Objekt zurückgegeben.
 
-        :param id Primärschlüsselattribut (->DB)
-        :return Konto-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
-        """
         result = None
 
         cursor = self._cnx.cursor()
@@ -59,14 +50,7 @@ class AutomatonMapper(Mapper):
         return result
 
     def insert(self, automaton):
-        """Einfügen eines Account-Objekts in die Datenbank.
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param account das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM automatons ")
         tuples = cursor.fetchall()
@@ -83,10 +67,7 @@ class AutomatonMapper(Mapper):
         return automaton
 
     def update(self, automaton):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param account das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
         command = "UPDATE automatons " + "SET owner=%s WHERE id=%s"
@@ -97,10 +78,7 @@ class AutomatonMapper(Mapper):
         cursor.close()
 
     def delete(self, automaton):
-        """Löschen der Daten eines Account-Objekts aus der Datenbank.
 
-        :param account das aus der DB zu löschende "Objekt"
-        """
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM automatons WHERE id={}".format(automaton.get_id())

@@ -2,7 +2,9 @@ from server.bo import BusinessObject as bo
 
 """ in dieser Klasse werden alle BusinessObject die einen Namen besitzen mit dem Attribut name ergänzt"""
 
-class NamedBusinessObject:
+
+class NamedBusinessObject(bo):
+
     def __init__(self):
         self._name = ""
 
