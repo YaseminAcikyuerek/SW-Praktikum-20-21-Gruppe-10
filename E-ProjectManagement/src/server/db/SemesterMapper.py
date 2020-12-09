@@ -1,6 +1,5 @@
 from server.bo.Semester import Semester
-from server.db.Mapper import Mapper
-
+from server.db import Mapper
 
 
 class SemesterMapper(Mapper):
@@ -9,11 +8,7 @@ class SemesterMapper(Mapper):
         super().__init__()
 
     def find_all(self):
-        """Auslesen aller Semester.
 
-        :return Eine Sammlung mit Semester-Objekten, die sämtliche Konten
-                repräsentieren.
-        """
         result = []
         cursor = self._cnx.cursor()
         cursor.execute("SELECT id, start, end from semesters")
@@ -34,13 +29,7 @@ class SemesterMapper(Mapper):
 
 
     def find_by_key(self, key):
-        """Suchen eines Semesters mit vorgegebener Semesternummer . Da diese eindeutig ist,
-        wird genau ein Objekt zurückgegeben.
 
-        :param id Primärschlüsselattribut (->DB)
-        :return Semester-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
-        """
         result = None
 
         cursor = self._cnx.cursor()
@@ -49,8 +38,8 @@ class SemesterMapper(Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, owner) = tuples[0]
-            semester = SemesterBO()
+            (id, start, end) = tuples[0]
+            semester = Semester()
             semester.set_id(id)
             semester.set_start(start)
             semester.set_end(end)
@@ -63,14 +52,7 @@ class SemesterMapper(Mapper):
         return result
 
     def insert(self, semester):
-        """Einfügen eines Semester-Objekts in die Datenbank.
 
-        Dabei wird auch der Primärschlüssel des übergebenen Objekts geprüft und ggf.
-        berichtigt.
-
-        :param Semester das zu speichernde Objekt
-        :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
-        """
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM semesters ")
         tuples = cursor.fetchall()
@@ -87,13 +69,10 @@ class SemesterMapper(Mapper):
         return semester
 
     def update(self, semester):
-        """Wiederholtes Schreiben eines Objekts in die Datenbank.
 
-        :param semester das Objekt, das in die DB geschrieben werden soll
-        """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE semesters " + "SET owner=%s WHERE id=%s"
+        command = "UPDATE semesters " + "SET start=%s, end=%s WHERE id=%s"
         data = (semester.get_start(), semester.get_end(), semester.get_id())
         cursor.execute(command, data)
 
@@ -101,13 +80,10 @@ class SemesterMapper(Mapper):
         cursor.close()
 
     def delete(self, semester):
-        """Löschen der Daten eines Semester-Objekts aus der Datenbank.
 
-        :param Semester das aus der DB zu löschende "Objekt"
-        """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM semesters WHERE id={}".format(account.get_id())
+        command = "DELETE FROM semesters WHERE id={}".format(semester.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
