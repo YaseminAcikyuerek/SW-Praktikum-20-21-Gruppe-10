@@ -1,18 +1,23 @@
-from server.bo import BusinessObject as bo
-from server.bo import NamedBusinessObject as nbo
+from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
 
 
-class Semester(bo, nbo):
+class Semester(nbo):
 
     def __init__(self):
-        self._semester_start =""
-        self._semester_end =""
+        self._start =""
+        self._end =""
 
-    def set_semester_start(self,value):
-        self._semester_start = value
+    def set_start(self,value):
+        self._start = value
 
-    def get_semester_end(self):
-        return self._semester_end
+    def get_start(self):
+        return self._start
+
+    def set_end(self,value):
+        self._end = value
+
+    def get_end(self):
+        return self._end
 
 
     @staticmethod
@@ -20,6 +25,7 @@ class Semester(bo, nbo):
         """Umwandeln eines Python dict() in ein Semester()."""
         obj = Semester()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_semester_start(dictionary["semester_start"])
-        obj.set_semester_end(["semester_end"])
+        obj.set_name(dictionary["name"])
+        obj.set_start(dictionary["semester_start"])
+        obj.set_end(["semester_end"])
         return obj

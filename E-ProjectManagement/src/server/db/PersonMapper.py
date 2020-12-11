@@ -1,5 +1,5 @@
 from server.bo.Person import Person
-from server import Mapper
+from server.db.Mapper import Mapper
 
 
 class PersonMapper(Mapper):
@@ -28,6 +28,7 @@ class PersonMapper(Mapper):
 
 
     def find_by_key(self, key):
+
         """Suchen einer Person mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 

@@ -1,5 +1,5 @@
 from server.bo.Participation import Participation
-from server import Mapper
+from server.db.Mapper import Mapper
 
 
 class ParticipationMapper(Mapper):
@@ -11,7 +11,7 @@ class ParticipationMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from participations")
+        cursor.execute("SELECT * from participation")
         tuples = cursor.fetchall()
 
         for (id, project,student) in tuples:
@@ -19,7 +19,7 @@ class ParticipationMapper(Mapper):
             participation.set_id(id)
             participation.set_project(project)
             participation.set_student(student)
-            participation.append(participation)
+            result.append(participation)
 
         self._cnx.commit()
         cursor.close()
@@ -32,7 +32,7 @@ class ParticipationMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, student, project FROM participations WHERE key={}".format(id)
+        command = "SELECT id, student, project FROM participation WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -40,7 +40,7 @@ class ParticipationMapper(Mapper):
             (id, project, student) = tuples[0]
             participation = Participation()
             participation.set_id(id)
-            participation.set_projet(project)
+            participation.set_project(project)
             participation.set_student(student)
 
 
@@ -54,13 +54,13 @@ class ParticipationMapper(Mapper):
     def insert(self, participation):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM participations ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM participation ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
             participation.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO participations (id,project,student) VALUES (%s,%s,%s)"
+        command = "INSERT INTO participation (id,project,student) VALUES (%s,%s,%s)"
         data = (participation.get_id(), participation.get_student(),participation.get_project())
         cursor.execute(command, data)
 
@@ -72,7 +72,7 @@ class ParticipationMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE participations " + "SET project=%s, student=%s WHERE id=%s"
+        command = "UPDATE participation " + "SET project=%s, student=%s WHERE id=%s"
         data = (participation.get_id(), participation.get_project(),participation.get_student())
         cursor.execute(command, data)
 
@@ -83,7 +83,7 @@ class ParticipationMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM participations WHERE id={}".format(participation.get_id())
+        command = "DELETE FROM participation WHERE id={}".format(participation.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -94,7 +94,7 @@ class ParticipationMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, student, project FROM participations WHERE student.id={}".format(id)
+        command = "SELECT id, student, project FROM participation WHERE student.id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -120,7 +120,7 @@ class ParticipationMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, student, project FROM participations WHERE id={}".format(id)
+        command = "SELECT id, student, project FROM participation WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

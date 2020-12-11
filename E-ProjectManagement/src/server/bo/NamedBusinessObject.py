@@ -1,4 +1,4 @@
-from server.bo import BusinessObject as bo
+from server.bo.BusinessObject import BusinessObject as bo
 
 """ in dieser Klasse werden alle BusinessObject die einen Namen besitzen mit dem Attribut name ergänzt"""
 
