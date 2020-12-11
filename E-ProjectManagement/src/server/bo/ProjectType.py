@@ -1,8 +1,7 @@
-from server.bo import BusinessObject as bo
-from server.bo import NamedBusinessObject as nbo
+from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
 
 
-class ProjectTyp(bo, nbo):
+class ProjectType(nbo):
     def __init__(self):
         self._sws = ""
         self._ects = ""
@@ -23,8 +22,9 @@ class ProjectTyp(bo, nbo):
     @staticmethod
     def from_dict(dictionary=dict()):
         """Umwandeln eines Python dict() in ein ProjectTyp()."""
-        obj = ProjectTyp()
+        obj = ProjectType()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_name(dictionary["name"])
         obj.set_sws(dictionary["sws"])
         obj.set_ects(dictionary["ects"])
         return obj

@@ -1,4 +1,4 @@
-from server.db import Mapper
+from server.db.Mapper import Mapper
 from server.bo.Role import Role
 
 
@@ -14,7 +14,7 @@ class RoleMapper (Mapper):
         cursor.execute("SELECT * from role")
         tuples = cursor.fetchall()
 
-        for (id,name) in tuples:
+        for (id, name) in tuples:
             role = Role()
             role.set_id(id)
             role.set_name(name)

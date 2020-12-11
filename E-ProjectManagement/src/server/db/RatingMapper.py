@@ -1,5 +1,5 @@
 from server.bo.Rating import Rating
-from server.db import Mapper
+from server.db.Mapper import Mapper
 
 
 class RatingMapper(Mapper):
@@ -11,7 +11,7 @@ class RatingMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, grade from ratings")
+        cursor.execute("SELECT id, grade from rating")
         tuples = cursor.fetchall()
 
         for (id, grade) in tuples:
@@ -37,7 +37,7 @@ class RatingMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, grade FROM ratings WHERE key={}".format(id)
+        command = "SELECT id, grade FROM rating WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -57,13 +57,13 @@ class RatingMapper(Mapper):
     def insert(self, rating):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM ratings ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM rating ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
             rating.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO ratings (id, grade) VALUES (%s,%s)"
+        command = "INSERT INTO rating (id, grade) VALUES (%s,%s)"
         data = (rating.get_id(), rating.get_grade())
         cursor.execute(command, data)
 
@@ -86,7 +86,7 @@ class RatingMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM ratings WHERE id={}".format(rating.get_id())
+        command = "DELETE FROM rating WHERE id={}".format(rating.get_id())
         cursor.execute(command)
 
         self._cnx.commit()

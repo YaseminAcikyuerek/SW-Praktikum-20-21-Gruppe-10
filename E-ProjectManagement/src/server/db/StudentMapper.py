@@ -1,5 +1,5 @@
 from server.bo.Student import Student
-from server.db import Mapper
+from server.db.Mapper import Mapper
 
 
 class StudentMapper (Mapper):
@@ -11,13 +11,13 @@ class StudentMapper (Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from students")
+        cursor.execute("SELECT * from student")
         tuples = cursor.fetchall()
 
-        for (id, name, matriculation_nr, course_abbr) in tuples:
+        for (id, person, matriculation_nr, course_abbr) in tuples:
             student = Student()
             student.set_id(id)
-            student.set_name(name)
+            student.set_person(person)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
             result.append(student)
@@ -27,22 +27,20 @@ class StudentMapper (Mapper):
 
         return result
 
-
-
-    def find_by_id(self, id):
+    def find_by_key(self, key):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE id={}".format(id)
+        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE key={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, matriculation_nr, course_abbr) =  tuples[0]
+            (id, person, matriculation_nr, course_abbr) =  tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_name(name)
+            student.set_person(person)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
 
@@ -57,14 +55,14 @@ class StudentMapper (Mapper):
     def insert(self, student):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM students ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM student")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
             student.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO students (id, name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s)"
-        data = (student.get_id(), student.get_name(),student.get_matriculation_nr(),student.get_course_abbr())
+        command = "INSERT INTO student (id, name, person_id, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s,%s)"
+        data = (student.get_id(), student.get_person(),student.get_matriculation_nr(),student.get_course_abbr())
 
         cursor.execute(command, data)
 
@@ -76,8 +74,8 @@ class StudentMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE students " + "SET name=%s, matriculation_nr=%s, course_abbr=%s WHERE id=%s"
-        data = (student.get_name(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
+        command = "UPDATE student " + "SET person_id=%s, ,name=%s, matriculation_nr=%s, course_abbr=%s WHERE id=%s"
+        data = (student.get_person(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -87,7 +85,7 @@ class StudentMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM students WHERE id={}".format(student.get_id())
+        command = "DELETE FROM student WHERE id={}".format(student.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -98,15 +96,15 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE name={}".format(name)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE name={}".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, matriculation_nr, course_abbr) = tuples[0]
+            (id, person, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_name(name)
+            student.set_person(person)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
             result = student
@@ -125,15 +123,15 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE matriculation_nr={}".format(matriculation_nr)
+        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE matriculation_nr={}".format(matriculation_nr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, matriculation_nr, matriculation_nr) = tuples[0]
+            (id, person, matriculation_nr, matriculation_nr) = tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_name(name)
+            student.set_person(person)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(matriculation_nr)
             result = student
@@ -152,15 +150,15 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM students WHERE course_abbr={}".format(course_abbr)
+        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE course_abbr={}".format(course_abbr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, matriculation_nr, course_abbr) = tuples[0]
+            (id, person, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_name(name)
+            student.set_person(person)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
             result = student

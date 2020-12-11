@@ -1,5 +1,5 @@
-from server.bo import ProjectType
-from server.db import Mapper
+from server.bo.ProjectType import ProjectType
+from server.db.Mapper import Mapper
 
 
 class ProjectTypeMapper(Mapper):
@@ -11,7 +11,7 @@ class ProjectTypeMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from projecttypes")
+        cursor.execute("SELECT id, sws, ects from projecttype")
         tuples = cursor.fetchall()
 
         for (id,sws, ects) in tuples:

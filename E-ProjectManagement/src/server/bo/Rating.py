@@ -1,9 +1,7 @@
-from server.bo import BusinessObject as bo
-from server.bo import Person as pbo
-from server.bo import Student as stbo
+from server.bo.Student import Student as stbo
 
 
-class Rating(bo, pbo, stbo):
+class Rating(stbo):
     def __init__(self):
         super().__init__()
         self._evaluator = None

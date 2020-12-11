@@ -1,5 +1,5 @@
 from server.bo.Project import Project
-from server import Mapper
+from server.db.Mapper import Mapper
 
 
 class ProjectMapper(Mapper):
@@ -11,22 +11,22 @@ class ProjectMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from projects")
+        cursor.execute("SELECT * from project")
         tuples = cursor.fetchall()
 
-        for (id,name, owner, module, language, project_typ, time, capacity,
+        for (id, name, owner, module_id, language, capacity,
              external_partner_list, short_description, flag, bd_before_lecture_period,
              bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
-             special_room, room, status) in tuples:
+             special_room, room, status, semester_id, projecttype_id) in tuples:
 
             project = Project()
             project.set_id(id)
             project.set_name(name)
             project.set_owner(owner)
-            project.set_module(module)
+            project.set_module(module_id)
             project.set_language(language)
-            project.set_project_typ(project_typ)
-            project.set_time(time)
+            project.set_projecttype(projecttype_id)
+            project.set_time(semester_id)
             project.set_capacity(capacity)
             project.set_external_partner_list(external_partner_list)
             project.set_short_description(short_description)
@@ -57,7 +57,7 @@ class ProjectMapper(Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id,name, owner, module, language, project_typ, time, capacity,
+            (id,name, owner, module_id, language, project_typ, time, capacity,
              external_partner_list, short_description, flag, bd_before_lecture_period,
              bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
              special_room, room, status) = tuples[0]
@@ -65,7 +65,7 @@ class ProjectMapper(Mapper):
             project.set_id(id)
             project.set_name(name)
             project.set_owner(owner)
-            project.set_module(module)
+            project.set_module(module_id)
             project.set_language(language)
             project.set_project_typ(project_typ)
             project.set_time(time)
@@ -91,7 +91,7 @@ class ProjectMapper(Mapper):
     def insert(self, project):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM projects ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM project ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
@@ -136,7 +136,7 @@ class ProjectMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM projects WHERE id={}".format(project.get_id())
+        command = "DELETE FROM project WHERE id={}".format(project.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
