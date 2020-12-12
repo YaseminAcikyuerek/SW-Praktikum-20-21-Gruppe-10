@@ -28,6 +28,7 @@
   <component name="ChangeListManager">
     <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="Mapper und BO korrigiert">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607691802923</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Mapper und BO korrigiert">
+      <created>1607694439988</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607694439988</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -351,11 +359,6 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py</url>
-          <line>178</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py</url>
           <line>96</line>
           <option name="timeStamp" value="3" />
@@ -374,6 +377,11 @@
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py</url>
           <line>165</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py</url>
+          <line>58</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
