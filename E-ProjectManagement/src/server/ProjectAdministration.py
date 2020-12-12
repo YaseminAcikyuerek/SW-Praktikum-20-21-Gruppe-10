@@ -349,3 +349,137 @@ def get_student_by_id(self, id):
     """Den Benutzer mit der gegebenen ID auslesen."""
     with StudentMapper() as mapper:
         return mapper.find_by_key(id)
+
+"""Rollenspezifische"""
+
+def create_role(self,id,name):
+    """Eine Rolle  anlegen"""
+    role = Role()
+    role.set_name(name)
+    role.set_id(id)
+    role.set_id(1)
+
+    with RoleMapper() as mapper:
+        return mapper.insert(role)
+
+
+def get_role_by_name(self, name):
+    """Alle Rollen mit Namen name auslesen."""
+    with RoleMapper() as mapper:
+        return mapper.find_by_name(name)
+
+
+def get_role_by_key(self, id):
+    """Die Rollen mit der gegebenen ID auslesen."""
+    with RoleMapper() as mapper:
+        return mapper.find_by_key(id)
+
+
+def get_all_role(self):
+    """Alle Rollen auslesen."""
+    with RoleMapper() as mapper:
+        return mapper.find_all()
+
+
+def save_role(self, role):
+    """Den gegebenen Rollen speichern."""
+    with RoleMapper() as mapper:
+        mapper.update(Role)
+
+
+def delete_role(self, role):
+    """Die gegebene Rolle aus unserem System löschen."""
+    with RoleMapper() as mapper:
+        mapper.delete(role)
+
+"""Participationspezifische"""
+
+def participation(self,id, project, student):
+    """Einen Teilnahme anlegen"""
+    participation = Participation()
+    participation.set_project(project)
+    participation.set_student(student)
+    participation.set_id(id)
+    participation.set_id(1)
+
+    with ParticipationMapper() as mapper:
+        return mapper.insert(participation)
+
+def get_participation_by_project(self, project):
+    """Alle Teilnahmen mit Namen name auslesen."""
+    with ParticipationMapper() as mapper:
+        return mapper.find_participation_by_project(project)
+
+def get_participation_by_id(self, id):
+    """Die Teilnahme mit der gegebenen ID auslesen."""
+    with ParticipationMapper() as mapper:
+        return mapper.find_by_key(id)
+
+def get_participation_by_student(self, student):
+    """Alle Teilnahmen von Studenten auslesen."""
+    with StudentMapper() as mapper:
+        return mapper.find_participation_by_student(student)
+
+
+def get_all_participation(self):
+    """Alle Teilnahmen auslesen."""
+    with ParticipationMapper() as mapper:
+        return mapper.find_all()
+
+def update_participation(self, participation):
+    """Die Teilnahme updaten."""
+    with ParticipationMapper() as mapper:
+        mapper.update(participation)
+
+def delete_participation(self, participation):
+    """Den gegebenen Benutzer aus unserem System löschen."""
+    with ParticipationMapper() as mapper:
+        mapper.delete(participation)
+
+def insert_participaion(self,participation):
+    """Die Teilnahme einfügen"""
+    with ParticipationMapper() as mapper:
+        mapper.insert(participation)
+
+"""Semesterspezifische"""
+def semester(self,id, name, start,end):
+    """Ein Semester anlegen"""
+    semester = Semester()
+    semester.set_name(name)
+    semester.set_start(start)
+    semester.set_end(end)
+    semester.set_id(id)
+    semester.set_id(1)
+
+    with SemesterMapper() as mapper:
+        return mapper.insert(semester)
+
+def get_semester_by_name(self, name):
+    """Alle semeester mit Namen name auslesen."""
+    with SemesterMapper() as mapper:
+        return mapper.find_semester_by_name(name)
+
+def get_semester_by_key(self, id):
+    """Das Semester mit der gegebenen ID auslesen."""
+    with SemesterMapper() as mapper:
+        return mapper.find_by_key(id)
+
+def get_all_semester(self):
+    """Alle Semester auslesen."""
+    with SemesterMapper() as mapper:
+        return mapper.find_all()
+
+def update_semester(self, semester):
+    """Das Semester updaten"""
+    with SemesterMapper() as mapper:
+        mapper.update(semester)
+
+def delete_semester(self, semester):
+    """Das Semester aus unserem System löschen."""
+    with SemesterMapper() as mapper:
+        mapper.delete(semester)
+
+def insert_semester(self, semester):
+    """Das Semester einfügen"""
+    with SemesterMapper() as mapper:
+        mapper.insert(semester)
