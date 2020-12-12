@@ -1,13 +1,21 @@
 from server.bo.Student import Student as stbo
+from server.bo.Project import Project
 
 
 class Rating(stbo):
     def __init__(self):
         super().__init__()
+        self._project = None
         self._evaluator = None
         self._to_be_assessed = None
         self._grade =""
         self._passed =""
+
+    def set_project(self,project):
+        self._project = project
+
+    def get_project(self):
+        return self._project
 
     def set_evaluator(self,person):
         self._evaluator= person

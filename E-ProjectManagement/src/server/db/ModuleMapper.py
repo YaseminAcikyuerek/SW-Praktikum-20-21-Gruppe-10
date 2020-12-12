@@ -157,6 +157,31 @@ class ModuleMapper(Mapper):
 
         return result
 
+    def find_by_edv_nr(self, edv_nr):
+        """Auslesen aller Benutzer anhand des Benutzernamens.
+        :param name Name der zugehörigen Benutzer.
+        :return Eine Sammlung mit User-Objekten, die sämtliche Benutzer
+                mit dem gewünschten Namen enthält."""
+
+        result=[]
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, edv_nr,  FROM module WHERE edv_nr LIKE '{}' ORDER BY edv_nr".format(edv_nr)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, name, edv_nr) in tuples:
+            module = Module()
+            module.set_id(id)
+            module.set_name(name)
+            module.set_edv_nr(edv_nr)
+            result.append(module)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+
 
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
