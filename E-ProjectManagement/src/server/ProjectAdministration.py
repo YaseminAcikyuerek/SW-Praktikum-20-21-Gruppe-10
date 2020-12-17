@@ -110,7 +110,7 @@ class ProjectAdministrations(object):
 
 
     def get_project_by_owner(self, owner):
-        """Das Projekt mit der gegebenen ID auslesen."""
+        """Das Projekt mit gegebenem Benutzer auslesen."""
         with ProjectMapper() as mapper:
             return mapper.find_project_by_owner(owner)
 

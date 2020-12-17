@@ -26,7 +26,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f7cdd951-4dcf-4e96-a4f5-b5c42a02469a" name="Default Changelist" comment="Projektadminstration bearbeitet">
+    <list default="true" id="f7cdd951-4dcf-4e96-a4f5-b5c42a02469a" name="Default Changelist" comment="main.py+__init__.py erstellt">
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/static/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/static/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" afterDir="false" />
     </list>
@@ -39,24 +41,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py">
+        <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/static/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8126">
-              <caret line="484" lean-forward="true" selection-start-line="484" selection-end-line="484" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="272">
+              <caret line="16" column="39" lean-forward="true" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -78,6 +66,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" />
+        <option value="$PROJECT_DIR$/E-ProjectManagement/src/static/main.py" />
+        <option value="$PROJECT_DIR$/E-ProjectManagement/src/static/SecurityDecorator.py" />
       </list>
     </option>
   </component>
@@ -87,12 +77,15 @@
     <option name="height" value="1030" />
   </component>
   <component name="ProjectId" id="1l4PfYjfqjVSKfeJBYoOATwkTMU" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -104,12 +97,6 @@
               <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
               <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
               <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
-              <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
-              <item name="mysql" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="SW-Praktikum-Gruppe-10" type="b2602c69:ProjectViewProjectNode" />
@@ -137,14 +124,12 @@
               <item name="SW-Praktikum-Gruppe-10" type="462c0819:PsiDirectoryNode" />
               <item name="E-ProjectManagement" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="server" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -159,11 +144,11 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\server" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -411,14 +396,20 @@
       <option name="project" value="LOCAL" />
       <updated>1607798622514</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Projektadminstration angepasst">
+      <created>1607890327466</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1607890327466</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18175809" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18109716" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Project Explorer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -434,7 +425,7 @@
       <window_info anchor="bottom" id="Console" order="7" />
       <window_info anchor="bottom" id="DB Execution Console" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5009914" side_tool="true" weight="0.329429" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="10" sideWeight="0.5009914" side_tool="true" visible="true" weight="0.32210836" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.49966952" weight="0.329429" />
       <window_info anchor="bottom" id="Messages" order="12" />
       <window_info anchor="bottom" id="Python Console" order="13" />
@@ -540,7 +531,8 @@
     <MESSAGE value="Mapper und BO korrigiert" />
     <MESSAGE value="ProjectAdministration.py bearbeitet" />
     <MESSAGE value="Projektadminstration bearbeitet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Projektadminstration bearbeitet" />
+    <MESSAGE value="Projektadminstration angepasst" />
+    <option name="LAST_COMMIT_MESSAGE" value="Projektadminstration angepasst" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -591,19 +583,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectType.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/E-ProjectManagement/mysql/mySQL-Dump.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="365">
@@ -649,21 +628,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Participation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Semester.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Rating.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-459">
@@ -672,9 +636,6 @@
           </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -694,28 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Role.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Person.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -725,16 +664,121 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Status.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py">
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8126">
-          <caret line="484" lean-forward="true" selection-start-line="484" selection-end-line="484" />
+        <state>
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Person.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Rating.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-612" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Participation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197">
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/BusinessObject.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Semester.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/DEA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Status.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-197">
+          <caret line="7" column="89" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectType.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Student.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-350" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Role.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Module.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-44" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1853">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2533">
+          <caret line="149" column="30" lean-forward="true" selection-start-line="149" selection-start-column="30" selection-end-line="149" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/static/SecurityDecorator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/E-ProjectManagement/src/static/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="39" lean-forward="true" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
         </state>
       </provider>
     </entry>
