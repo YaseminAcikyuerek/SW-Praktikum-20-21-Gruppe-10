@@ -76,5 +76,3 @@ def secured(function):
         return '', 401  # UNAUTHORIZED !!!
 
     return wrapper
-
-
