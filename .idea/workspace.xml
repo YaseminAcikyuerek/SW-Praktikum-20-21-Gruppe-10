@@ -26,10 +26,39 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="Rating.py um ein Attribut erweitert">
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/static/SecurityDecorator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/static/maain.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/static/main.py" afterDir="false" />
+    <list default="true" id="f7cdd951-4dcf-4e96-a4f5-b5c42a02469a" name="Default Changelist" comment="Korrekturen">
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/PythonSwProject/mysql/mySQL-Dump.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/BusinessObject.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/DEA.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Module.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/NamedBusinessObject.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Participation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Person.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/ProjectType.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Rating.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Role.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Semester.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Status.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Student.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/Mapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ParticipationMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectType.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/static/SecurityDecorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/static/SecurityDecorator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/static/maain.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/static/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/static/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +86,8 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -138,15 +167,20 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/E-ProjectManagement/src/static" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\static" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\server" />
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Pages" />
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Layout" />
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\api" />
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src" />
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\static" />
     </key>
   </component>
   <component name="RunManager" selected="Python.RatingMapper">
@@ -265,7 +299,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
