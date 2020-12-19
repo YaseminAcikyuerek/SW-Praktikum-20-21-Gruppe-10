@@ -21,21 +21,21 @@ from server.bo.Student import Student
 
 
 # Außerdem nutzen wir einen selbstgeschriebenen Decorator, der die Authentifikation übernimmt
-from server.SecurityDecorator import secured
+from static.SecurityDecorator import secured
 
 """
 Instanzieren von Flask. Am Ende dieser Datei erfolgt dann erst der 'Start' von Flask.
 """
 app = Flask(__name__)
 
-CORS(app, resources=r'/bank/*')
+CORS(app, resources=r'/Eproject/*')
 
 """
 In dem folgenden Abschnitt bauen wir ein Modell auf, das die Datenstruktur beschreibt, 
 auf deren Basis Clients und Server Daten austauschen. Grundlage hierfür ist das Package flask-restx.
 """
-api = Api(app, version='1.0', title='BankBeispiel API',
-    description='Eine rudimentäre Demo-API für doppelte Buchführung in Banken.')
+api = Api(app, version='1.0', title='ProjectManagement API',
+    description='Ein Projektmanagement System für eine Hochschule.')
 
 """Anlegen eines Namespace
 
@@ -44,7 +44,7 @@ Bank-relevanten Operationen unter dem Präfix /bank zusammen. Eine alternative b
 von Namespace könnte etwa sein, unterschiedliche API-Version voneinander zu trennen, um etwa 
 Abwärtskompatibilität (vgl. Lehrveranstaltungen zu Software Engineering) zu gewährleisten. Dies ließe
 sich z.B. umsetzen durch /bank/v1, /bank/v2 usw."""
-banking = api.namespace('bank', description='Funktionen des BankBeispiels')
+projectmanagement = api.namespace('projectmanagement', description='Funktionen des Projekt-Systems')
 
 """Nachfolgend werden analog zu unseren BusinessObject-Klassen transferierbare Strukturen angelegt.
 
@@ -53,102 +53,100 @@ bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='_id', description='Der Unique Identifier eines Business Object'),
 })
 
-participation = api.inherit('Participation', bo, {
+user = api.inherit('User', bo, {
+    'name': fields.String(attribute='_name', description='Name eines Benutzers'),
+    'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
+    'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
+})
 
-    'participation_id': fields.Integer(attribute='_participation_id', description='ID einer Participation')
+module = api.inherit('Module', bo, {
+    'name': fields.String(attribute='_name', description='Name des Moduls'),
+    'edv_nr': fields.String(attribute='_edv_nr', description='EDV_Nr des Moduls')
+})
+
+participation = api.inherit('Participation', bo, {
+    'project': fields.String(attribute='_project', description='unique ID vom Projekt'),
+    'student': fields.String(attribute='_student', description='unique ID vom Studenten')
+})
+
+person = api.inherit('Person', bo, {
+    'name': fields.String(attribute='_name', description='Name der Person'),
+    'role': fields.String(attribute='_role', description='unique ID der Rolle'),
+    'user_id': fields.Integer(attribute='_user_id', description='externe ID die von Google übergeben wird')
+})
+
+project = api.inherit('Project', bo, {
+    'name': fields.String(attribute='_name', description='Name des Projekts'),
+    'owner': fields.Integer(attribute='_owner',description='unique ID des Projektbesitzers'),
+    'module': fields.Integer(attribute='_module',description='unique ID des Projektmoduls'),
+    'language': fields.String(attribute='_language',description='Sprache des Projekts'),
+    'capacity': fields.Integer(attribute='_capacity', description='Die Kapazität des Projekts'),
+    'external_partner_list': fields.String(attribute='_external_partner_list', description='Die externen Partner des Projektes'),
+    'short_description': fields.String(attribute='_short_description', description='Die kurze Beschreibung des Projekts'),
+    'flag': fields.Boolean(attribute='_flag', description='Sonderzeichen ob das Projekt wöchentlich stattfindet'),
+    'bd_before_lecture_period': fields.Integer(attribute='_bd_before_lecture_period', description=''),
+    'bd_during_lecture_period': fields.Integer(attribute='bd_during_lecture_period', description=''),
+    'bd_during_exam_period': fields.Integer(attribute='bd_during_exam_period', description=''),
+    'preferred_bd_during_lecture_period': fields.Integer(attribute='preferred_bd_during_lecture_period', description=''),
+    'special_room': fields.Boolean(attribute='special_room', description=''),
+    'room': fields.String(attribute='_room', description=''),
+    'status': fields.String(attribute='_status', description=''),
+    'semester_id': fields.Integer(attribute='_semester_id', description=''),
+    'projecttype_id':fields.Integer(attribute='_projecttype_id', description=''),
+})
+
+projecttype = api.inherit('ProjectType', bo, {
+    'name': fields.String(attribute='_name', description='Name der Projektart'),
+    'sws': fields.Integer(attribute='_sws', description='SWS der Projektart'),
+    'ects': fields.Integer(attribute='_ects', description='ECTS der Projektart')
 })
 
 rating = api.inherit('Rating', bo, {
-    'name': fields.String(attribute='_name', description='Name des Ratings'),
-    'evaluator': fields.String(attribute='_email', description='Evaluierer'),
-    'to_be_assessed': fields.String(attribute='to_be_assessed', description='benotet'),
-    'passed': fields.String(attribute='_user_id', description='bestanden'),
-    'grade': fields.String(attribute='_user_id', description='Note')
+    'project': fields.Integer(attribute='_project', description='unique ID des zu beurteilenden Projektes'),
+    'evaluator': fields.Integer(attribute='_evaluator', description='unique ID des Beurteilers'),
+    'to_be_assessed': fields.Integer(attribute='_to_be_assessed', description='unique ID des zu beurteilenden Studenten'),
+    'grade': fields.Float(attribute='_grade', description='Note'),
+    'passed': fields.Boolean(attribute='_passed', description='Bestanden bzw. nicht bestehen sein des Projekts')
 })
 
-status = api.inherit('DEA', bo, {
-    'status': fields.Array(attribute='"new", "in process","declined","approved","rating completed"', description=''),
+role = api.inherit('Role', bo, {
+    'role_name': fields.String(attribute='_role_name', description='Name der Rolle')
 })
 
-nbo = api.inherit('NamedBusinessObject', bo, {
-    'name': fields.String(attribute='_name', description='Name eines BusinessObjects'),
+semester = api.inherit('Semester', bo, {
+    'name': fields.String(attribute='_name', description='Name des Semesters'),
+    'start': fields.Date(attribute='_start', description='Start des Semesters'),
+    'end': fields.Date(attribute='_end', description='Ende des Semesters')
 })
 
-module = api.inherit('Module', nbo, {
-    'edv_nr': fields.String(attribute='_edv_nr', description='edv_nr eines modules'),
-    'module_id': fields.Integer(attribute='_module_id',description='ID eines modules'),
+status = api.inherit('Status', bo, {
+    'status': fields.String(attribute='_status', description='Name des Zustands')
 })
 
-semester = api.inherit('Semester', nbo, {
-    'start': fields.String(attribute='_start', description='Start eines semesters'),
-    'end': fields.String(attribute='_end',description='Ende eines Semesters'),
-    'semester_id': fields.Integer(attribute='_semester_id',description='ID eines semesters'),
-
+student = api.inherit('Student', bo, {
+    'person': fields.Integer(attribute='_person', description='unique ID der Person'),
+    'course_abbr': fields.String(attribute='_course_abbr', description='Studiengang des Studenten'),
+    'matriculation_nr': fields.Integer(attribute='_matriculation_nr', description='Matrikelnummer des Studenten')
 })
 
-project = api.inherit('Project', nbo, {
-    'status': fields.String(attribute='_status', description='Status eines Projekts'),
-    'capacity': fields.String(attribute='_capacity',description='Kapazität eines Semesters'),
-    'project_id': fields.Integer(attribute='_project_id',description='ID eines projckts'),
-    'flag': fields.String(attribute='_flag', description='Flag eines Projekts'),
-    'external_partner_list': fields.String(attribute='_external_partner_list', description='Externe Partnerliste eines Projekts'),
-    'short_discription': fields.String(attribute='_short_discription', description='Kurze Beschreibung eines Projekts'),
-    'bd_before_lecture_period': fields.String(attribute='_bd_before_lecture_period', description='Blocktage vor Vorleungszeit'),
-    'bd_during_lecture_period': fields.String(attribute='_bd_during_lecture_period', description='Blocktage während Vorleungszeit'),
-    'bd_during_exam_period': fields.String(attribute='_bd_during_exam_period', description='Während vor Pruefungszeitraum'),
-    'room': fields.String(attribute='_room', description='Raum eines Projekts'),
-    'special_room': fields.String(attribute='_special_room', description='special_room'),
-    'language': fields.String(attribute='_language', description='Sprache'),
-    'preferred_bd_during_lecture_period': fields.String(attribute='_preferred_bd_during_lecture_period', description='Präfferierter Raum'),
-    'time': fields.Integer(attribute='_time', description='Zeit'),
-    'module': fields.String(attribute='_module', description='Modul'),
-    'owner': fields.String(attribute='_owner', description='Owner des Projekts'),
-    'projecttype': fields.String(attribute='_projecttype', description='Projektyp'),
-
-})
-
-projecttype = api.inherit('ProjectType', nbo, {
-    'sws': fields.String(attribute='_sws', description=''),
-    'ects': fields.String(attribute='_ects',description=''),
-    'projecttype_id': fields.Integer(attribute='_projecttype_id',description=''),
-
-
-})
-
-person = api.inherit('Person', nbo, {
-    'role': fields.Object(attribute='_role', description=''),
-})
-
-student = api.inherit('Student', person, {
-    'matriculation_nr': fields.Integer(attribute='_matriculation_nr', description=''),
-    'course_abbr': fields.String(attribute='course_abbr', description=''),
-
-})
-role = api.model('Role', nbo, {
-    'role_id': fields.Integer(attribute='role_id', description=''),
-
-
-})
-
-
-@projectmanagement.route('/semester')
+@projectmanagement.route('/person')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-class SemesterListOperations(Resource):
-    @projectmanagement.marshal_list_with(semester)
+class PersonListOperations(Resource):
+    @projectmanagement.marshal_list_with(person)
     @secured
     def get(self):
-        """Auslesen aller semester-Objekte.
+        """Auslesen aller Person-Objekte.
 
-        Sollten keine Semester-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+        Sollten keine Customer-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
         adm = ProjectAdministration()
-        s = adm.get_all_semester()
-        return s
+        persons = adm.get_all_person()
+        return persons
 
-    @projectmanagement.marshal_with(semester, code=200)
-    @projectmanagement.expect(semester)  # Wir erwarten ein Customer-Objekt von Client-Seite.
+    @projectmanagement.marshal_with(person, code=200)
+    @projectmanagement.expect(person)  # Wir erwarten ein Customer-Objekt von Client-Seite.
     @secured
     def post(self):
-        """Anlegen eines neuen Semester-Objekts.
+        """Anlegen eines neuen Customer-Objekts.
 
         **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
         So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
@@ -158,27 +156,240 @@ class SemesterListOperations(Resource):
         """
         adm = ProjectAdministration()
 
-        sem = Semester.from_dict(api.payload)
+        proposal = Person.from_dict(api.payload)
 
         """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
-        if sem is not None:
-            """ Wir verwenden name, id, start, end Proposals für die Erzeugung
+        if proposal is not None:
+            """ Wir verwenden lediglich Vor- und Nachnamen des Proposals für die Erzeugung
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            s = adm.create_semester(sem.get_name(), sem.get_id(), sem.get_start(),sem.get_end())
-            return s, 200
+            c = adm.create_person(proposal.get_name(), proposal.get_role())
+            return c, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
             return '', 500
 
 
+@projectmanagement.route('/person/<int:id>')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Customer-Objekts')
+class CustomerOperations(Resource):
+    @projectmanagement.marshal_with(person)
+    @secured
+    def get(self, id):
+        """Auslesen eines bestimmten Customer-Objekts.
+
+        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        pers = adm.get_person_by_id(id)
+        return pers
+
+    @secured
+    def delete(self, id):
+        """Löschen eines bestimmten Customer-Objekts.
+
+        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        pers = adm.get_person_by_id(id)
+        adm.delete_customer(pers)
+        return '', 200
+
+    @projectmanagement.marshal_with(person)
+    @projectmanagement.expect(person, validate=True)
+    @secured
+    def put(self, id):
+        """Update eines bestimmten Customer-Objekts.
+
+        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
+        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
+        Customer-Objekts.
+        """
+        adm = ProjectAdministration()
+        p = Person.from_dict(api.payload)
+
+        if p is not None:
+            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Customer-Objekts gesetzt.
+            Siehe Hinweise oben.
+            """
+            p.set_id(id)
+            adm.save_customer(p)
+            return '', 200
+        else:
+            return '', 500
+
+@projectmanagement.route('/person-by-name/<string:name>')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('Name', 'Der Name einer Person')
+class PersonByNameOperations(Resource):
+    @projectmanagement.marshal_with(person)
+    @secured
+    def get(self, name):
+        """ Auslesen von Customer-Objekten, die durch den Nachnamen bestimmt werden.
+
+        Die auszulesenden Objekte werden durch ```lastname``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        pers = adm.get_person_by_name(name)
+        return pers
+
+
+@projectmanagement.route('/project')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class ModuleListOperations(Resource):
+    @projectmanagement.marshal_list_with(project)
+    @secured
+    def get(self):
+        """Auslesen aller Acount-Objekte.
+
+        Sollten keine Account-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+        adm = ProjectAdministration()
+        project = adm.get_all_project()
+        return project
+
+
+@projectmanagement.route('/project/<int:id>')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Project-Objekts')
+class AccountOperations(Resource):
+    @projectmanagement.marshal_with(module)
+    @secured
+    def get(self, id):
+        """Auslesen eines bestimmten Account-Objekts.
+
+        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        pro = adm.get_module_by_id(id)
+        return pro
+
+    @secured
+    def delete(self, id):
+        """Löschen eines bestimmten Account-Objekts.
+
+        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        pro = adm.get_project_by_id(id)
+        pro.delete_account(pro)
+        return '', 200
+
+    @projectmanagement.marshal_with(project)
+    @secured
+    def put(self, id):
+        """Update eines bestimmten Module-Objekts.
+
+        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
+        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
+        Customer-Objekts.
+        """
+        adm = ProjectAdministration()
+        p = Project.from_dict(api.payload)
+
+        if p is not None:
+            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Account-Objekts gesetzt.
+            Siehe Hinweise oben.
+            """
+            p.set_id(id)
+            adm.save_project(p)
+            return '', 200
+        else:
+            return '', 500
+
+
+@projectmanagement.route('/person/<int:id>/project')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Person-Objekts')
+class PersonRelatedProjectOperations(Resource):
+    @projectmanagement.marshal_with(project)
+    @secured
+    def get(self, id):
+        """Auslesen aller Acount-Objekte bzgl. eines bestimmten Customer-Objekts.
+
+        Das Customer-Objekt dessen Accounts wir lesen möchten, wird durch die ```id``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        # Zunächst benötigen wir den durch id gegebenen Customer.
+        pers = adm.get_person_by_id(id)
+
+        # Haben wir eine brauchbare Referenz auf ein Customer-Objekt bekommen?
+        if pers is not None:
+            # Jetzt erst lesen wir die Konten des Customer aus.
+            project_list = adm.get_project_of_person(pers)
+            return project_list
+        else:
+            return "Person not found", 500
+
+    @projectmanagement.marshal_with(project, code=201)
+    @secured
+    def post(self, id):
+        """Anlegen eines Projekts für einen gegebenen Customer.
+
+        Das neu angelegte Konto wird als Ergebnis zurückgegeben.
+
+        **Hinweis:** Unter der id muss ein Customer existieren, andernfalls wird Status Code 500 ausgegeben."""
+        adm = ProjectAdministration()
+        """Stelle fest, ob es unter der id einen Customer gibt. 
+        Dies ist aus Gründen der referentiellen Integrität sinnvoll!
+        """
+        pers = adm.get_person_by_id(id)
+
+        if pers is not None:
+            # Jetzt erst macht es Sinn, für den Customer ein neues Konto anzulegen und dieses zurückzugeben.
+            result = adm.create_project_for_person(pers)
+            return result
+        else:
+            return "Person unknown", 500
+
+
+@projectmanagement.route('/project/<int:id>/status')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Account-Objekts')
+class ProjectStatusOperations(Resource):
+    @projectmanagement.doc('Read status of given project')
+    @secured
+    def get(self, id):
+        """Auslesen des Kontostands bzw. des Saldos eines bestimmten Account-Objekts.
+
+        Das Account-Objekt dessen Saldo wir auslesen möchten, wird durch die ```id``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        # Zunächst benötigen wir das durch id gegebene Konto.
+        pro = adm.get_project_by_id(id)
+
+        # Haben wir eine brauchbare Referenz auf ein Account-Objekt bekommen?
+        if pro is not None:
+            # Jetzt erst lesen wir den Saldo des Kontos aus.
+            status = adm.get_status_of_project(pro)
+            return status
+        else:
+            return 0, 500
+
+
+@projectmanagement.route('/student-project')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class StudentProjectOperations(Resource):
+    @projectmanagement.marshal_with(project)
+    @secured
+    def get(self):
+        """Auslesen des Kassenkontos (Cash Account) der Bank.
+
+        Sollten keine Cash Account-Objekt verfügbar sein, so wird Response Status 500 zurückgegeben."""
+        adm = ProjectAdministration()
+        acc = adm.get_cash_account()
+        if acc is not None:
+            return acc
+        else:
+            return '', 500
+
 
 @projectmanagement.route('/semester/<int:id>')
-@projectmanagament.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagament.param('id', 'Die ID des Semester-Objekts')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Semester-Objekts')
 class SemesterOperations(Resource):
-    @banking.marshal_with(semester)
+    @projectmanagement.marshal_with(semester)
     @secured
     def get(self, id):
         """Auslesen eines bestimmten Semester-Objekts.
@@ -200,7 +411,7 @@ class SemesterOperations(Resource):
         adm.delete_semester(semes)
         return '', 200
 
-    @projectmanagament.marshal_with(semester)
+    @projectmanagement.marshal_with(semester)
     @projectmanagement.expect(semester, validate=True)
     @secured
     def put(self, id):
@@ -269,8 +480,8 @@ class ModuleListOperations(Resource):
 
 
 @projectmanagement.route('/module/<int:id>')
-@projectmanagament.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagament.param('id', 'Die ID des Module-Objekts')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Module-Objekts')
 class SemesterOperations(Resource):
     @projectmanagement.marshal_with(module)
     @secured
@@ -294,7 +505,7 @@ class SemesterOperations(Resource):
         adm.delete_semester(modu)
         return '', 200
 
-    @projectmanagament.marshal_with(module)
+    @projectmanagement.marshal_with(module)
     @projectmanagement.expect(module, validate=True)
     @secured
     def put(self, id):
@@ -364,10 +575,10 @@ class ParticipationListOperations(Resource):
 
 
 @projectmanagement.route('/participation/<int:id>')
-@projectmanagament.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagament.param('id', 'Die ID der Participation-Objekts')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID der Participation-Objekts')
 class ParticipationOperations(Resource):
-    @projectmanagament.marshal_with(participation)
+    @projectmanagement.marshal_with(participation)
     @secured
     def get(self, id):
         """Auslesen eines bestimmten Participation-Objekts.
@@ -389,7 +600,7 @@ class ParticipationOperations(Resource):
         adm.delete_participation(part)
         return '', 200
 
-    @projectmanagament.marshal_with(participation)
+    @projectmanagement.marshal_with(participation)
     @projectmanagement.expect(participation, validate=True)
     @secured
     def put(self, id):
@@ -418,8 +629,8 @@ class ParticipationOperations(Resource):
 
 
 @projectmanagement.route('/participation/<int:id>student')
-@projectmanagament.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagament.param('id', 'Die ID der Person-Objekts')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID der Person-Objekts')
 class ParticipationStudentOperations(Resource):
     @projectmanagement.marshal_with(participation, student)
     @secured
@@ -552,8 +763,8 @@ class RatingListOperations(Resource):
 
 
 @projectmanagement.route('/rating/<int:id>')
-@projectmanagament.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagament.param('id', 'Die ID des Rating-Objekts')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Rating-Objekts')
 class RatingOperations(Resource):
     @projectmanagement.marshal_with(rating)
     @secured
@@ -645,8 +856,8 @@ class StudentListOperations(Resource):
 
 
 @projectmanagement.route('/student/<int:id>')
-@projectmanagament.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagament.param('id', 'Die ID des student-Objekts')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des student-Objekts')
 class StudentOperations(Resource):
     @projectmanagement.marshal_with(student)
     @secured
@@ -762,8 +973,8 @@ class RoleOperations(Resource):
         adm.delete_role(rolee)
         return '', 200
 
-    @banking.marshal_with(role)
-    @banking.expect(role, validate=True)
+    @projectmanagement.marshal_with(role)
+    @projectmanagement.expect(role, validate=True)
     @secured
     def put(self, id):
         """Update eines bestimmten role-Objekts.
@@ -827,8 +1038,8 @@ class ProjectTypeOperations(Resource):
         adm.delete_projecttype(proj)
         return '', 200
 
-    @banking.marshal_with(projecttype)
-    @banking.expect(projecttype, validate=True)
+    @projectmanagement.marshal_with(projecttype)
+    @projectmanagement.expect(projecttype, validate=True)
     @secured
     def put(self, id):
         """Update eines bestimmten Projecttype-Objekts.
@@ -856,8 +1067,8 @@ class ProjectTypeOperations(Resource):
 
 
 @projectmanagement.route('/project/<int:id>projecttype')
-@projectmanagament.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagament.param('id', 'Die ID der Project-Objekts')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID der Project-Objekts')
 class ParticipationStudentOperations(Resource):
     @projectmanagement.marshal_with(projecttype)
     @secured
