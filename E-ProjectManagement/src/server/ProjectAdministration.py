@@ -18,7 +18,7 @@ from server.db.SemesterMapper import SemesterMapper
 from server.db.ParticipationMapper import ParticipationMapper
 from server.db.RatingMapper import RatingMapper
 
-class ProjectAdministrations(object):
+class ProjectAdministration(object):
 
     def __init__(self):
         pass
@@ -101,6 +101,7 @@ class ProjectAdministrations(object):
 
         with ProjectMapper() as mapper:
             return mapper.insert(project)
+
 
 
     def get_project_by_name(self, name):
@@ -235,7 +236,7 @@ class ProjectAdministrations(object):
             mapper.delete(projecttype)
 
 
-    def get_projecttype_by_id(self, id):
+    def get_all_projecttype_by_id(self, id):
         """Den Projekttypen mit der gegebenen ID auslesen."""
         with ProjectTypeMapper() as mapper:
             return mapper.find_by_key(id)
@@ -269,7 +270,7 @@ class ProjectAdministrations(object):
             return mapper.find_by_edv_nr(edv_nr)
     'BEARBEITEN!--> MAPPER'
 
-    def get_all_ratings(self):
+    def get_all_rating(self):
         """Alle Ratings auslesen."""
         with RatingMapper() as mapper:
             return mapper.find_all()
@@ -325,7 +326,7 @@ class ProjectAdministrations(object):
             return mapper.find_student_by_course_abbr(course_abbr)
 
 
-    def get_all_students(self):
+    def get_all_student(self):
         """Alle Studenten auslesen."""
         with StudentMapper() as mapper:
             return mapper.find_all()
@@ -392,7 +393,7 @@ class ProjectAdministrations(object):
 
     """Participationspezifische"""
 
-    def participation(self,id, project, student):
+    def create_participation(self,id, project, student):
         """Einen Teilnahme anlegen"""
         participation = Participation()
         participation.set_project(project)
@@ -408,6 +409,10 @@ class ProjectAdministrations(object):
         with ParticipationMapper() as mapper:
             return mapper.find_participation_by_project(project)
 
+    def get_all_participation_by_id(self, id):
+        """Die Teilnahme mit der gegebenen ID auslesen."""
+        with ParticipationMapper() as mapper:
+            return mapper.find_by_key(id)
     def get_participation_by_id(self, id):
         """Die Teilnahme mit der gegebenen ID auslesen."""
         with ParticipationMapper() as mapper:
@@ -439,8 +444,13 @@ class ProjectAdministrations(object):
         with ParticipationMapper() as mapper:
             mapper.insert(participation)
 
+    def save_participation(self, participation):
+        """die Teilnahme speichern"""
+        with ParticipationMapper() as mapper:
+            mapper.insert(participation)
+
     """Semesterspezifische"""
-    def semester(self,id, name, start,end):
+    def create_semester(self,id, name, start,end):
         """Ein Semester anlegen"""
         semester = Semester()
         semester.set_name(name)
@@ -481,4 +491,73 @@ class ProjectAdministrations(object):
         """Das Semester einfügen"""
         with SemesterMapper() as mapper:
             mapper.insert(semester)
+
+    def save_semester(self, semester):
+        """das Semester speichern"""
+        with SemesterMapper() as mapper:
+            mapper.insert(semester)
+
+    def get_all_module(self, module):
+        with ModuleMapper() as mapper:
+            mapper.insert(module)
+
+    def get_projecttype_for_project(self, projecttype):
+        with ProjectTypeMapper() as mapper:
+            mapper.insert(projecttype)
+
+    def create_project_for_projecttype(self, name, owner, module, language, capacity,
+             external_partner_list, short_description, flag, bd_before_lecture_period,
+             bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
+             special_room, room, status, time, projecttype):
+        """Ein Projekt anlegen"""
+        project = Project()
+        project.set_name(name)
+        project.set_owner(owner)
+        project.set_module(module)
+        project.set_language(language)
+        project.set_capacity(capacity)
+        project.set_external_partner_list(external_partner_list)
+        project.set_short_description(short_description)
+        project.set_flag(flag)
+        project.set_bd_before_lecture_period(bd_before_lecture_period)
+        project.set_bd_during_lecture_period(bd_during_lecture_period)
+        project.set_bd_during_exam_period(bd_during_exam_period)
+        project.set_preferred_bd_during_lecture_period(preferred_bd_during_lecture_period)
+        project.get_special_room(special_room)
+        project.set_room(room)
+        project.set_status(status)
+        project.set_projecttype(projecttype)
+        project.set_time(time)
+        project.set_id(1)
+
+        with ProjectMapper() as mapper:
+            return mapper.insert(project)
+
+    def get_participation_of_student(self, stu):
+        pass
+
+    def get_participation_for_student(self, id):
+        pass
+
+    def create_participation_for_student(self, stu):
+        pass
+
+    def get_participation_of_module(self, mod1):
+        pass
+
+    def create_participation_for_module(self, mod1):
+        pass
+
+    def get_project_for_projecttype(self, projectt):
+        pass
+
+
+
+       
+        
+        
+
+   
+
+
 
