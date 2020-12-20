@@ -16,7 +16,7 @@ import StudentBO from './StudentBO';
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-export default class BankAPI {
+export default class ManagementAPI {
 
   // Singelton instance
   static #api = null;
