@@ -733,7 +733,7 @@ class SemesterOperations(Resource):
         Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        mo= adm.get_module_by_id(id)
+        mo = adm.get_module_by_id(id)
         return mo
 
     @secured
