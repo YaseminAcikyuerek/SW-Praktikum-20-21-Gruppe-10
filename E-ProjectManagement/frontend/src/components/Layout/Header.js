@@ -10,7 +10,7 @@ import ProfileDropDown from '../dialogs/ProfileDropDown';
  * @see See Material-UIs [Tabs](https://material-ui.com/components/tabs/)
  * @see See Material-UIs [Paper](https://material-ui.com/components/paper/)
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+
  */
 class Header extends Component {
 

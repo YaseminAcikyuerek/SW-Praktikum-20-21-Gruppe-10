@@ -26,7 +26,7 @@ import firebaseConfig from './firebaseconfig';
  */
 class App extends React.Component {
 
-	/** Constructor of the app, which initializes firebase  */
+
 	constructor(props) {
 		super(props);
 
