@@ -14,7 +14,7 @@ import StudentBO from './StudentBO';
  * Abstracts the REST interface of the Python backend with convenient access methods.
  * The class is implemented as a singleton.
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+
  */
 export default class ManagementAPI {
 
