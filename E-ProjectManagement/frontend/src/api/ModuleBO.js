@@ -3,7 +3,7 @@ import  NamedBusinessObject from './NamedBusinessObject';
 /**
  * Zeigt ein Module eines Semesters an.
  */
-export default class ModuleBO extends BusinessObject {
+export default class ModuleBO extends NamedBusinessObject {
 
 /**
    * Ein Konstrukt eines ModuleBO object mit der edv-nr .
