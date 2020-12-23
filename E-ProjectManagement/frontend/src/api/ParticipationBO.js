@@ -1,52 +1,49 @@
-import BusinessObject from './BusinessObject';
+import  NamedBusinessObject from './NamedBusinessObject';
 
 /**
- * Represents an Participation object of a Person.
+ * Zeigt eine Teilnahme  am Project an.
  */
 export default class ParticipationBO extends BusinessObject {
 
-  /**
-   * Constructs a new ParticipationBO object with a given owner.
+/**
+   * Ein Konstrukt eines ParticipationBO object mit der  .
    *
-   * @param {*} aOwner - the owner of this ParticipationBO.
    */
-  constructor(aOwner) {
+  constructor(Project, Student) {
     super();
-    this.owner = aOwner;
+    this.Project = aProject;
+    this.Student = aStudent;
   }
 
-  /**
-   * Sets the owner of this ParticipationBO.
-   *
-   * @param {*} aOwner - the new owner of this ParticipationBO.
-   */
-  setOwner(aOwner) {
-    this.owner = aOwner;
+  setProject(aProject) {
+  this.Project = aProject;
   }
 
-  /**
-   * Gets the owner of this ParticipationBO.
-   */
-  getOwner() {
-    return this.owner;
+  getProject() {
+    return this.Project
   }
 
-  /**
-   * Returns an Array of Participation BOs from a given JSON structure
-   */
+  setStudent(aStudent) {
+  this.Student = aStudent;
+  }
+
+  getStudent() {
+    return this.Student
+
+
   static fromJSON(participations) {
     let result = [];
 
     if (Array.isArray(participations)) {
-      accounts.forEach((a) => {
-        Object.setPrototypeOf(a, ParticipationBO.prototype);
-        result.push(a);
+      participations.forEach((c) => {
+        Object.setPrototypeOf(c, ParticipationBO.prototype);
+        result.push(c);
       })
     } else {
-      // Es handelt sich offenbar um ein singuläres Objekt
-      let a = participations;
-      Object.setPrototypeOf(a, ParticipationBO.prototype);
-      result.push(a);
+      // Ist offenbar ein singuläres Objekt
+      let c = participations;
+      Object.setPrototypeOf(c, ParticipationBO.prototype);
+      result.push(c);
     }
 
     return result;

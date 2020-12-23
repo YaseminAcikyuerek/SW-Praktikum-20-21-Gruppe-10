@@ -1,53 +1,47 @@
-import BusinessObject from './BusinessObject';
+import  NamedBusinessObject from './NamedBusinessObject';
 
 /**
- * Represents an Module object of a Semester .
+ * Zeigt ein Module eines Semesters an.
  */
 export default class ModuleBO extends BusinessObject {
 
-  /**
-   * Constructs a new ModuleBO object with a given owner.
+/**
+   * Ein Konstrukt eines ModuleBO object mit der edv-nr .
    *
-   * @param {*} aOwner - the owner of this ModuleBO.
    */
-  constructor(aOwner) {
+  constructor(edv_nr) {
     super();
-    this.owner = aOwner;
+    this.edv_nr = aEdv_nr;
   }
 
-  /**
-   * Sets the owner of this ModuleBO.
-   *
-   * @param {*} aOwner - the new owner of this ModuleBO.
-   */
-  setOwner(aOwner) {
-    this.owner = aOwner;
+  setEdvNr(aEdv_nr) {
+  this.edv_nr = aEdv_nr;
   }
 
-  /**
-   * Gets the owner of this ModuleBO.
-   */
-  getOwner() {
-    return this.owner;
+  getEdvNr() {
+    return this.edv_nr
   }
 
-  /**
-   * Returns an Array of ModuleBOs from a given JSON structure
-   */
   static fromJSON(modules) {
     let result = [];
 
     if (Array.isArray(modules)) {
-      accounts.forEach((a) => {
-        Object.setPrototypeOf(a, ModuleBO.prototype);
-        result.push(a);
+      customers.forEach((c) => {
+        Object.setPrototypeOf(c, ModuleBO.prototype);
+        result.push(c);
       })
     } else {
-      // Es handelt sich offenbar um ein singuläres Objekt
-      let a = modules;
-      Object.setPrototypeOf(a, ModuleBO.prototype);
-      result.push(a);
+      // Ist offenbar ein singuläres Objekt
+      let c = modules;
+      Object.setPrototypeOf(c, ModuleBO.prototype);
+      result.push(c);
     }
 
     return result;
   }
+
+
+
+
+
+
