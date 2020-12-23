@@ -178,9 +178,9 @@ class CustomerOperations(Resource):
     @projectmanagement.marshal_with(person)
     @secured
     def get(self, id):
-        """Auslesen eines bestimmten Customer-Objekts.
+        """Auslesen einer bestimmten Person-BO.
 
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Objekt wird durch die id in bestimmt.
         """
         adm = ProjectAdministration()
         pers = adm.get_person_by_id(id)
@@ -188,34 +188,27 @@ class CustomerOperations(Resource):
 
     @secured
     def delete(self, id):
-        """Löschen eines bestimmten Customer-Objekts.
+        """Löschen einer bestimmten Person-BO.
 
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Löschende Objekt wird durch id bestimmt.
         """
         adm = ProjectAdministration()
         pers = adm.get_person_by_id(id)
-        adm.delete_customer(pers)
+        adm.delete_person(pers)
         return '', 200
 
     @projectmanagement.marshal_with(person)
     @projectmanagement.expect(person, validate=True)
     @secured
     def put(self, id):
-        """Update eines bestimmten Customer-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
+        """Update einer bestimmten Person.
         """
         adm = ProjectAdministration()
         p = Person.from_dict(api.payload)
 
         if p is not None:
-            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Customer-Objekts gesetzt.
-            Siehe Hinweise oben.
-            """
             p.set_id(id)
-            adm.save_customer(p)
+            adm.save_person(p)
             return '', 200
         else:
             return '', 500
@@ -227,9 +220,8 @@ class PersonByNameOperations(Resource):
     @projectmanagement.marshal_with(person)
     @secured
     def get(self, name):
-        """ Auslesen von Customer-Objekten, die durch den Nachnamen bestimmt werden.
-
-        Die auszulesenden Objekte werden durch ```lastname``` in dem URI bestimmt.
+        """ Auslesen von einer Person anhand des Namens
+        Auszulesende Objekt wird anhand des Namens bestimmt.
         """
         adm = ProjectAdministration()
         pers = adm.get_person_by_name(name)
@@ -238,60 +230,53 @@ class PersonByNameOperations(Resource):
 
 @projectmanagement.route('/project')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-class ModuleListOperations(Resource):
+class ProjectListOperations(Resource):
     @projectmanagement.marshal_list_with(project)
     @secured
     def get(self):
-        """Auslesen aller Acount-Objekte.
+        """Auslesen aller Projekte."""
 
-        Sollten keine Account-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
         adm = ProjectAdministration()
-        project = adm.get_all_project()
-        return project
+        proj = adm.get_all_project()
+        return proj
 
 
 @projectmanagement.route('/project/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Project-Objekts')
-class AccountOperations(Resource):
+class ProjectOperations(Resource):
     @projectmanagement.marshal_with(module)
     @secured
     def get(self, id):
-        """Auslesen eines bestimmten Account-Objekts.
+        """Auslesen eines bestimmten Projekts.
 
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Auszulesende Projekz wird durch id bestimmt.
         """
         adm = ProjectAdministration()
-        pro = adm.get_module_by_id(id)
-        return pro
+        proj = adm.get_project_by_id(id)
+        return proj
 
     @secured
     def delete(self, id):
-        """Löschen eines bestimmten Account-Objekts.
+        """Löschen eines bestimmten Projekts.
 
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Löschende Objekt wird durch id bestimmt.
         """
         adm = ProjectAdministration()
-        pro = adm.get_project_by_id(id)
-        pro.delete_account(pro)
+        proj = adm.get_project_by_id(id)
+        proj.delete_account(proj)
         return '', 200
 
     @projectmanagement.marshal_with(project)
     @secured
     def put(self, id):
-        """Update eines bestimmten Module-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
+        """Update eines bestimmten Projekts.
         """
         adm = ProjectAdministration()
         p = Project.from_dict(api.payload)
 
         if p is not None:
-            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Account-Objekts gesetzt.
-            Siehe Hinweise oben.
-            """
+
             p.set_id(id)
             adm.save_project(p)
             return '', 200
@@ -306,17 +291,16 @@ class PersonRelatedProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
     @secured
     def get(self, id):
-        """Auslesen aller Acount-Objekte bzgl. eines bestimmten Customer-Objekts.
+        """Auslesen aller Projekte von einer bestimmten Person.
 
-        Das Customer-Objekt dessen Accounts wir lesen möchten, wird durch die ```id``` in dem URI bestimmt.
+        Das Person-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
         """
         adm = ProjectAdministration()
-        # Zunächst benötigen wir den durch id gegebenen Customer.
+        # Zunächst benötigen wir den durch id gegebener Person.
         pers = adm.get_person_by_id(id)
 
-        # Haben wir eine brauchbare Referenz auf ein Customer-Objekt bekommen?
         if pers is not None:
-            # Jetzt erst lesen wir die Konten des Customer aus.
+
             project_list = adm.get_project_of_person(pers)
             return project_list
         else:
@@ -325,19 +309,19 @@ class PersonRelatedProjectOperations(Resource):
     @projectmanagement.marshal_with(project, code=201)
     @secured
     def post(self, id):
-        """Anlegen eines Projekts für einen gegebenen Customer.
+        """Anlegen eines Projekts für eine gegebene Person.
 
-        Das neu angelegte Konto wird als Ergebnis zurückgegeben.
+        Das neu angelegte Projekt wird als Ergebnis zurückgegeben.
 
-        **Hinweis:** Unter der id muss ein Customer existieren, andernfalls wird Status Code 500 ausgegeben."""
+        **Hinweis:** Unter der id muss eine Person existieren, die die Rolle
+        eines Dozenten hat, andernfalls wird Status Code 500 ausgegeben."""
         adm = ProjectAdministration()
-        """Stelle fest, ob es unter der id einen Customer gibt. 
+        """Stelle fest, ob es unter der id Person gibt, mit der Rolle Dozent. 
         Dies ist aus Gründen der referentiellen Integrität sinnvoll!
         """
         pers = adm.get_person_by_id(id)
 
         if pers is not None:
-            # Jetzt erst macht es Sinn, für den Customer ein neues Konto anzulegen und dieses zurückzugeben.
             result = adm.create_project_for_person(pers)
             return result
         else:
@@ -346,26 +330,130 @@ class PersonRelatedProjectOperations(Resource):
 
 @projectmanagement.route('/project/<int:id>/status')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Account-Objekts')
+@projectmanagement.param('id', 'Die ID des Projekts')
 class ProjectStatusOperations(Resource):
     @projectmanagement.doc('Read status of given project')
     @secured
     def get(self, id):
-        """Auslesen des Kontostands bzw. des Saldos eines bestimmten Account-Objekts.
+        """Auslesen des Status eines Projekts.
 
-        Das Account-Objekt dessen Saldo wir auslesen möchten, wird durch die ```id``` in dem URI bestimmt.
+        Das Projekt das wir auslesen möchten, wird durch id bestimmt.
         """
         adm = ProjectAdministration()
-        # Zunächst benötigen wir das durch id gegebene Konto.
-        pro = adm.get_project_by_id(id)
+        proj = adm.get_project_by_id(id)
 
-        # Haben wir eine brauchbare Referenz auf ein Account-Objekt bekommen?
-        if pro is not None:
-            # Jetzt erst lesen wir den Saldo des Kontos aus.
-            status = adm.get_status_of_project(pro)
+        if proj is not None:
+            status = adm.get_status_of_project(proj)
             return status
         else:
             return 0, 500
+
+@projectmanagement.route('/student')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class StudentListOperations(Resource):
+    @projectmanagement.marshal_list_with(student)
+    @secured
+    def get(self):
+        """Auslesen aller Student-Objekte.
+        """
+        adm = ProjectAdministration()
+        stu = adm.get_all_student()
+        return stu
+
+    @projectmanagement.marshal_with(student, code=200)
+    @projectmanagement.expect(student)
+    @secured
+    def post(self):
+        """Anlegen eines neuen student-Objekts.
+        """
+        adm = ProjectAdministration()
+
+        stu = Student.from_dict(api.payload)
+
+        if stu is not None:
+            """ Wir verwenden id, evaluator, to_be_assessed, passed, grade des Proposals für die Erzeugung
+            eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
+            wird auch dem Client zurückgegeben. 
+            """
+            stu = adm.create_student(stu.get_id(), stu.get_person(), stu.get_course_abbr(), stu.get_matriculation_nr())
+            return stu, 200
+        else:
+            return '', 500
+
+
+@projectmanagement.route('/student/<int:id>')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Student-Objekts')
+class StudentOperations(Resource):
+    @projectmanagement.marshal_with(student)
+    @secured
+    def get(self, id):
+        """Auslesen eines bestimmten Student-Objekts.
+
+        Auszulesende Objekt wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        stu = adm.get_student_by_id(id)
+        return stu
+
+    @secured
+    def delete(self, id):
+        """Löschen eines bestimmten student-Objekts.
+
+        Löschende Objekt wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        stu = adm.get_student_by_id(id)
+        adm.delete_student(stu)
+        return '', 200
+
+    @projectmanagement.route('/student/<int:id>/project')
+    @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+    @projectmanagement.param('id', 'Die ID des student-Objekts')
+    class StudentRelatedProjectOperations(Resource):
+        @projectmanagement.marshal_with(project)
+        @secured
+        def get(self, id):
+            """Auslesen aller Projekte von eines bestimmten Studenten.
+
+            Das student-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
+            """
+            adm = ProjectAdministration()
+            stu = adm.get_student_by_id(id)
+
+            if stu is not None:
+
+                project_list = adm.get_project_of_student(stu)
+                return project_list
+            else:
+                return "Student not found", 500
+
+
+
+
+
+    @projectmanagement.marshal_with(rating)
+    @secured
+    def put(self, id):
+        """Update eines bestimmten Student-Objekts.
+
+        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
+        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
+        Customer-Objekts.
+        """
+        adm = ProjectAdministration()
+        std = Student.from_dict(api.payload)
+
+        if std is not None:
+            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Transaction-Objekts gesetzt.
+            Siehe Hinweise oben.
+            """
+            std.set_id(id)
+            adm.save_student(std)
+            return '', 200
+        else:
+            return '', 500
+
 
 
 @projectmanagement.route('/student-project')
@@ -384,6 +472,75 @@ class StudentProjectOperations(Resource):
         else:
             return '', 500
 
+@projectmanagement.route('/participation')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class ParticipationListOperations(Resource):
+    @projectmanagement.marshal_list_with(participation)
+    @secured
+    def get(self):
+        """Auslesen aller Participation-Objekte.
+        """
+        adm = ProjectAdministration()
+        p = adm.get_all_participation()
+        return p
+
+    @projectmanagement.marshal_with(participation, code=200)
+    @projectmanagement.expect(participation)
+    @secured
+    def post(self):
+        """Anlegen eines neuen Participation-Objekts.
+        """
+        adm = ProjectAdministration()
+
+        p = Participation.from_dict(api.payload)
+
+        if p is not None:
+            p = adm.create_participation(p.get_project(), p.get_id(), p.get_student())
+            return p, 200
+        else:
+            return '', 500
+
+@projectmanagement.route('/participation/<int:id>')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID der Participation-Objekts')
+class ParticipationOperations(Resource):
+    @projectmanagement.marshal_with(participation)
+    @secured
+    def get(self, id):
+        """Auslesen eines bestimmten Participation-Objekts.
+
+        Auszulesende Objekt wird durch die id bestimmt.
+        """
+        adm = ProjectAdministration()
+        p = adm.get_participation_by_id(id)
+        return p
+
+    @secured
+    def delete(self, id):
+        """Löschen eines bestimmten Participation-Objekts.
+
+        Das zu löschende Objekt wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        p = adm.get_participation_by_id(id)
+        adm.delete_participation(p)
+        return '', 200
+
+    @projectmanagement.marshal_with(participation)
+    @projectmanagement.expect(participation, validate=True)
+    @secured
+    def put(self, id):
+        """Update eines bestimmten Participation-Objekts.
+        """
+        adm = ProjectAdministration()
+        p = Participation.from_dict(api.payload)
+
+        if p is not None:
+            p.set_id(id)
+            adm.save_participation(p)
+            return '', 200
+        else:
+            return '', 500
 
 @projectmanagement.route('/semester/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -394,17 +551,17 @@ class SemesterOperations(Resource):
     def get(self, id):
         """Auslesen eines bestimmten Semester-Objekts.
 
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das auszulesende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        semestt = adm.get_semester_by_key(id)
-        return semestt
+        sem = adm.get_semester_by_id(id)
+        return sem
 
     @secured
     def delete(self, id):
         """Löschen eines bestimmten Semester-Objekts.
 
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
         semes = adm.get_semester_by_key(id)
@@ -417,24 +574,125 @@ class SemesterOperations(Resource):
     def put(self, id):
         """Update eines bestimmten Semester-Objekts.
 
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
         """
         adm = ProjectAdministration()
-        semest = Semester.from_dict(api.payload)
+        sem = Semester.from_dict(api.payload)
 
-        if semest is not None:
-            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Customer-Objekts gesetzt.
-            Siehe Hinweise oben.
-            """
-            semest.set_id(id)
-            adm.save_semester(semest)
+        if sem is not None:
+            sem.set_id(id)
+            adm.save_semester(sem)
             return '', 200
         else:
             return '', 500
 
+@projectmanagement.route('/module/<int:id>/project')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Modul-Objekts')
+class ModuleRelatedProjectOperations(Resource):
+    @projectmanagement.marshal_with(project)
+    @secured
+    def get(self, id):
+        """Auslesen aller Projekte von einem bestimmten Modul.
 
+        Das Modul-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        mod = adm.get_module_by_id(id)
+
+        if mod is not None:
+
+            project_list = adm.get_project_of_module(mod)
+            return project_list
+        else:
+            return "Module not found", 500
+
+    @projectmanagement.marshal_with(project, code=201)
+    @secured
+    def post(self, id):
+        """Anlegen eines Projekts für ein gegebenes Modul.
+
+        Das neu angelegte Projekt wird als Ergebnis zurückgegeben.
+        """
+        adm = ProjectAdministration()
+        mod = adm.get_modul_by_id(id)
+
+        if mod is not None:
+            result = adm.create_project_for_module(mod)
+            return result
+        else:
+            return "Module unknown", 500
+
+@projectmanagement.route('/semester/<int:id>/project')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Semester-Objekts')
+class SemesterRelatedProjectOperations(Resource):
+    @projectmanagement.marshal_with(project)
+    @secured
+    def get(self, id):
+        """Auslesen aller Projekte von einem bestimmten Semester.
+
+        Das Semester-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        sem = adm.get_semester_by_id(id)
+
+        if sem is not None:
+            project_list = adm.get_project_of_semester(sem)
+            return project_list
+        else:
+            return "Semester not found", 500
+
+    @projectmanagement.marshal_with(project, code=201)
+    @secured
+    def post(self, id):
+        """Anlegen eines Projekts für ein gegebenes Semester.
+
+        Das neu angelegte Projekt wird als Ergebnis zurückgegeben.
+        """
+        adm = ProjectAdministration()
+        sem = adm.get_semester_by_id(id)
+
+        if sem is not None:
+            result = adm.create_project_for_semester(sem)
+            return result
+        else:
+            return "Semester unknown", 500
+
+@projectmanagement.route('/projecttype/<int:id>/project')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Projecttypes-Objekts')
+class ProjectTypeRelatedProjectOperations(Resource):
+    @projectmanagement.marshal_with(project)
+    @secured
+    def get(self, id):
+        """Auslesen aller Projekte von einer bestimmten Projektart.
+
+        Das ProjectType-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        pt = adm.get_projecttype_by_id(id)
+
+        if pt is not None:
+
+            project_list = adm.get_project_for_projecttype(pt)
+            return project_list
+        else:
+            return "Project Type not found", 500
+
+    @projectmanagement.marshal_with(project, code=201)
+    @secured
+    def post(self, id):
+        """Anlegen eines Projekts für eine gegebene Projektart.
+
+        Das neu angelegte Projekt wird als Ergebnis zurückgegeben."""
+        adm = ProjectAdministration()
+        pt = adm.get_projecttype_by_id(id)
+
+        if pt is not None:
+            result = adm.create_project_for_projecttype(pt)
+            return result
+        else:
+            return "Projecttype unknown", 500
 
 @projectmanagement.route('/module')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -443,41 +701,25 @@ class ModuleListOperations(Resource):
     @secured
     def get(self):
         """Auslesen aller Module-Objekte.
-
-        Sollten keine Module-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+        """
         adm = ProjectAdministration()
         m = adm.get_all_module()
         return m
 
     @projectmanagement.marshal_with(module, code=200)
-    @projectmanagement.expect(module)  # Wir erwarten ein module-Objekt von Client-Seite.
+    @projectmanagement.expect(module)
     @secured
     def post(self):
         """Anlegen eines neuen Modul-Objekts.
-
-        **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
-        So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
-        Selbst wenn der Client eine ID in dem Proposal vergeben sollte, so
-        liegt es an der BankAdministration (Businesslogik), eine korrekte ID
-        zu vergeben. *Das korrigierte Objekt wird schließlich zurückgegeben.*
         """
         adm = ProjectAdministration()
+        m = Module.from_dict(api.payload)
 
-        mod = Module.from_dict(api.payload)
-
-        """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
-        if mod is not None:
-            """ Wir verwenden id, name, edv_nr eins Proposals für die Erzeugung
-            eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
-            wird auch dem Client zurückgegeben. 
-            """
-            m = adm.create_module(mod.get_name(), mod.get_id(), mod.get_edv_nr())
-            return m, 200
+        if m is not None:
+            modu = adm.create_module(m.get_name(), m.get_id(), m.get_edv_nr())
+            return modu, 200
         else:
-            # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
             return '', 500
-
-
 
 @projectmanagement.route('/module/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -491,8 +733,8 @@ class SemesterOperations(Resource):
         Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        module= adm.get_module_by_id(id)
-        return module
+        mo = adm.get_module_by_id(id)
+        return mo
 
     @secured
     def delete(self, id):
@@ -501,8 +743,8 @@ class SemesterOperations(Resource):
         Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        modu = adm.get_semester_by_key(id)
-        adm.delete_semester(modu)
+        mo = adm.get_semester_by_key(id)
+        adm.delete_semester(mo)
         return '', 200
 
     @projectmanagement.marshal_with(module)
@@ -510,10 +752,6 @@ class SemesterOperations(Resource):
     @secured
     def put(self, id):
         """Update eines bestimmten Moduler-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
         """
         adm = ProjectAdministration()
         mo = Module.from_dict(api.payload)
@@ -527,105 +765,6 @@ class SemesterOperations(Resource):
             return '', 200
         else:
             return '',
-
-
-"""Participation"""
-
-@projectmanagement.route('/participation')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-class ParticipationListOperations(Resource):
-    @projectmanagement.marshal_list_with(participation)
-    @secured
-    def get(self):
-        """Auslesen aller Participation-Objekte.
-
-        Sollten keine Participation-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
-        adm = ProjectAdministration()
-        p = adm.get_all_participation()
-        return p
-
-    @projectmanagement.marshal_with(participation, code=200)
-    @projectmanagement.expect(participation)  # Wir erwarten ein Participation-Objekt von Client-Seite.
-    @secured
-    def post(self):
-        """Anlegen eines neuen Participation-Objekts.
-
-        **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
-        So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
-        Selbst wenn der Client eine ID in dem Proposal vergeben sollte, so
-        liegt es an der BankAdministration (Businesslogik), eine korrekte ID
-        zu vergeben. *Das korrigierte Objekt wird schließlich zurückgegeben.*
-        """
-        adm = ProjectAdministration()
-
-        pa = Participation.from_dict(api.payload)
-
-        """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
-        if pa is not None:
-            """ Wir verwenden project, id, student Proposals für die Erzeugung
-            eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
-            wird auch dem Client zurückgegeben. 
-            """
-            p = adm.create_participation(pa.get_project(), pa.get_id(), pa.get_student())
-            return p, 200
-        else:
-            # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
-            return '', 500
-
-
-
-@projectmanagement.route('/participation/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID der Participation-Objekts')
-class ParticipationOperations(Resource):
-    @projectmanagement.marshal_with(participation)
-    @secured
-    def get(self, id):
-        """Auslesen eines bestimmten Participation-Objekts.
-
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
-        """
-        adm = ProjectAdministration()
-        par = adm.get_participation_by_id(id)
-        return par
-
-    @secured
-    def delete(self, id):
-        """Löschen eines bestimmten Participation-Objekts.
-
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
-        """
-        adm = ProjectAdministration()
-        part = adm.get_participation_by_id(id)
-        adm.delete_participation(part)
-        return '', 200
-
-    @projectmanagement.marshal_with(participation)
-    @projectmanagement.expect(participation, validate=True)
-    @secured
-    def put(self, id):
-        """Update eines bestimmten Participation-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
-        """
-        adm = ProjectAdministration()
-        pare = Participation.from_dict(api.payload)
-
-        if pare is not None:
-            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Customer-Objekts gesetzt.
-            Siehe Hinweise oben.
-            """
-            pare.set_id(id)
-            adm.save_participation(pare)
-            return '', 200
-        else:
-            return '', 500
-
-    """TeilnahmeStudentoperationen"""
-
-
 
 
 @projectmanagement.route('/participation/<int:id>student')
@@ -771,138 +910,109 @@ class RatingOperations(Resource):
     def get(self, id):
         """Auslesen eines bestimmten Rating-Objekts.
 
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das auszulesende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        rati = adm.get_rating_by_id(id)
-        return rati
+        ra = adm.get_rating_by_id(id)
+        return ra
 
     @secured
     def delete(self, id):
         """Löschen eines bestimmten Rating-Objekts.
 
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        ratin = adm.get_rating_by_id(id)
-        adm.delete_rating(ratin)
+        ra = adm.get_rating_by_id(id)
+        adm.delete_rating(ra)
         return '', 200
 
     @projectmanagement.marshal_with(rating)
     @secured
     def put(self, id):
         """Update eines bestimmten Rating-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
         """
         adm = ProjectAdministration()
         ra = Rating.from_dict(api.payload)
 
         if ra is not None:
-            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Transaction-Objekts gesetzt.
-            Siehe Hinweise oben.
-            """
             ra.set_id(id)
             adm.save_rating(ra)
             return '', 200
         else:
             return '', 500
 
-
-@projectmanagement.route('/student')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-class StudentListOperations(Resource):
-    @projectmanagement.marshal_list_with(student)
-    @secured
-    def get(self):
-        """Auslesen aller Student-Objekte.
-
-        Sollten keine student-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
-        adm = ProjectAdministration()
-        ss = adm.get_all_student()
-        return ss
-
-    @projectmanagement.marshal_with(student, code=200)
-    @projectmanagement.expect(student)  # Wir erwarten ein studentg-Objekt von Client-Seite.
-    @secured
-    def post(self):
-        """Anlegen eines neuen student-Objekts.
-
-        **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
-        So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
-        Selbst wenn der Client eine ID in dem Proposal vergeben sollte, so
-        liegt es an der BankAdministration (Businesslogik), eine korrekte ID
-        zu vergeben. *Das korrigierte Objekt wird schließlich zurückgegeben.*
-        """
-        adm = ProjectAdministration()
-
-        stud = Student.from_dict(api.payload)
-
-        """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
-        if stud is not None:
-            """ Wir verwenden id, evaluator, to_be_assessed, passed, grade des Proposals für die Erzeugung
-            eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
-            wird auch dem Client zurückgegeben. 
-            """
-            ss = adm.create_student(stud.get_id(), stud.get_person(), stud.get_course_abbr(),stud.get_matriculation_nr())
-            return ss, 200
-        else:
-            # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
-            return '', 500
-
-
-
-
-@projectmanagement.route('/student/<int:id>')
+@projectmanagement.route('/student/<int:id>/rating')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des student-Objekts')
-class StudentOperations(Resource):
-    @projectmanagement.marshal_with(student)
+class StudentRelatedRatingOperations(Resource):
+    @projectmanagement.marshal_with(rating)
     @secured
     def get(self, id):
-        """Auslesen eines bestimmten student-Objekts.
+        """Auslesen aller Bewertungen von einer bestimmten Student.
 
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das Student-Objekt dessen Bewertungen wir lesen möchten, wird durch id bestimmt.
         """
         adm = ProjectAdministration()
         stu = adm.get_student_by_id(id)
-        return stu
 
-    @secured
-    def delete(self, id):
-        """Löschen eines bestimmten student-Objekts.
-
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
-        """
-        adm = ProjectAdministration()
-        studen = adm.get_student_by_id(id)
-        adm.delete_student(studen)
-        return '', 200
-
-    @projectmanagement.marshal_with(rating)
-    @secured
-    def put(self, id):
-        """Update eines bestimmten Student-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
-        """
-        adm = ProjectAdministration()
-        std = Student.from_dict(api.payload)
-
-        if std is not None:
-            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Transaction-Objekts gesetzt.
-            Siehe Hinweise oben.
-            """
-            std.set_id(id)
-            adm.save_student(std)
-            return '', 200
+        if stu is not None:
+            rating_list = adm.get_rating_of_student(stu)
+            return rating_list
         else:
-            return '', 500
-"""RollenOperationen"""
+            return "Student not found", 500
+
+    @projectmanagement.marshal_with(project, code=201)
+    @secured
+    def post(self, id):
+        """Anlegen einer Bewertung für ein gegebenen Studenten.
+
+        Die neu angelegte Bewertung wird als Ergebnis zurückgegeben.
+        """
+        adm = ProjectAdministration()
+        stu = adm.get_student_by_id(id)
+
+        if stu is not None:
+            result = adm.create_participation_for_student(stu)
+            return result
+        else:
+            return "Student unknown", 500
+
+@projectmanagement.route('/project/<int:id>/rating')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des Projekt-Objekts')
+class ProjectRelatedRatingOperations(Resource):
+    @projectmanagement.marshal_with(project)
+    @secured
+    def get(self, id):
+        """Auslesen aller Bewertungen von einem bestimmten Projekt.
+
+        Das Projekt-Objekt dessen Bewertungen wir lesen möchten, wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        pro = adm.get_project_by_id(id)
+
+        if pro is not None:
+            rating_list = adm.get_rating_of_project(pro)
+            return rating_list
+        else:
+            return "Project not found", 500
+
+    @projectmanagement.marshal_with(rating, code=201)
+    @secured
+    def post(self, id):
+        """Anlegen einer Bewertung für eine gegebenes Projekt.
+
+        Die neu angelegte Bewertung wird als Ergebnis zurückgegeben.
+        """
+        adm = ProjectAdministration()
+        pro = adm.get_project_by_id(id)
+
+        if pro is not None:
+            result = adm.create_rating_for_project(pro)
+            return result
+        else:
+            return "Project unknown", 500
 
 
 @projectmanagement.route('/role')
@@ -911,39 +1021,25 @@ class RoleListOperations(Resource):
     @projectmanagement.marshal_list_with(role)
     @secured
     def get(self):
-        """Auslesen aller Role-Objekte.
-
-        Sollten keine Role-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+        """Auslesen aller Role-Objekte."""
         adm = ProjectAdministration()
         ro = adm.get_all_role()
         return ro
 
     @projectmanagement.marshal_with(role, code=200)
-    @projectmanagement.expect(role)  # Wir erwarten ein Role-Objekt von Client-Seite.
+    @projectmanagement.expect(role)
     @secured
     def post(self):
         """Anlegen eines neuen Role-Objekts.
-
-        **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
-        So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
-        Selbst wenn der Client eine ID in dem Proposal vergeben sollte, so
-        liegt es an der BankAdministration (Businesslogik), eine korrekte ID
-        zu vergeben. *Das korrigierte Objekt wird schließlich zurückgegeben.*
         """
         adm = ProjectAdministration()
 
-        rol= Role.from_dict(api.payload)
+        ro= Role.from_dict(api.payload)
 
-        """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
-        if rol is not None:
-            """ Wir verwenden lediglich Vor- und Nachnamen des Proposals für die Erzeugung
-            eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
-            wird auch dem Client zurückgegeben. 
-            """
-            r = adm.create_role(rol.get_name(), rol.get_id())
+        if ro is not None:
+            r = adm.create_role(ro.get_name(), ro.get_id())
             return r, 200
         else:
-            # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
             return '', 500
 
 
@@ -956,21 +1052,21 @@ class RoleOperations(Resource):
     def get(self, id):
         """Auslesen eines bestimmten Role-Objekts.
 
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das auszulesende Objekt wird durch die id bestimmt.
         """
         adm = ProjectAdministration()
-        rl = adm.get_role_by_key(id)
-        return rl
+        ro = adm.get_role_by_id(id)
+        return ro
 
     @secured
     def delete(self, id):
         """Löschen eines bestimmten Role-Objekts.
 
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        rolee = adm.get_role_by_key(id)
-        adm.delete_role(rolee)
+        ro = adm.get_role_by_key(id)
+        adm.delete_role(ro)
         return '', 200
 
     @projectmanagement.marshal_with(role)
@@ -978,24 +1074,19 @@ class RoleOperations(Resource):
     @secured
     def put(self, id):
         """Update eines bestimmten role-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
         """
         adm = ProjectAdministration()
-        rn = Role.from_dict(api.payload)
+        ro = Role.from_dict(api.payload)
 
-        if rn is not None:
+        if ro is not None:
             """Hierdurch wird die id des zu überschreibenden (vgl. Update) Customer-Objekts gesetzt.
             Siehe Hinweise oben.
             """
-            rn.set_id(id)
-            adm.save_role(rn)
+            ro.set_id(id)
+            adm.save_role(ro)
             return '', 200
         else:
             return '', 500
-
 
 @projectmanagement.route('/projecttype')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -1004,12 +1095,10 @@ class ProjectTypeListOperations(Resource):
     @secured
     def get(self):
         """Auslesen aller Projecttype-Objekte.
-
-        Sollten keine Projecttyoe-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+        """
         adm = ProjectAdministration()
-        pr = adm.get_all_projecttype()
-        return pr
-
+        pt = adm.get_all_projecttype()
+        return pt
 
 
 @projectmanagement.route('/projecttype/<int:id>')
@@ -1020,22 +1109,20 @@ class ProjectTypeOperations(Resource):
     @secured
     def get(self, id):
         """Auslesen eines bestimmten Projecttype-Objekts.
-
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        pro = adm.get_all_projecttype_by_id(id)
-        return pro
+        pt = adm.get_all_projecttype_by_id(id)
+        return pt
 
     @secured
     def delete(self, id):
         """Löschen eines bestimmten projecttype-Objekts.
 
-        Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
+        Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        proj = adm.get_all_projecttype_by_id(id)
-        adm.delete_projecttype(proj)
+        pt = adm.get_all_projecttype_by_id(id)
+        adm.delete_projecttype(pt)
         return '', 200
 
     @projectmanagement.marshal_with(projecttype)
@@ -1043,73 +1130,19 @@ class ProjectTypeOperations(Resource):
     @secured
     def put(self, id):
         """Update eines bestimmten Projecttype-Objekts.
-
-        **ACHTUNG:** Relevante id ist die id, die mittels URI bereitgestellt und somit als Methodenparameter
-        verwendet wird. Dieser Parameter überschreibt das ID-Attribut des im Payload der Anfrage übermittelten
-        Customer-Objekts.
         """
         adm = ProjectAdministration()
-        proje = ProjectType.from_dict(api.payload)
+        pt = ProjectType.from_dict(api.payload)
 
-        if proje is not None:
+        if pt is not None:
             """Hierdurch wird die id des zu überschreibenden (vgl. Update) Customer-Objekts gesetzt.
             Siehe Hinweise oben.
             """
-            proje.set_id(id)
-            adm.save_projecttype(proje)
+            pt.set_id(id)
+            adm.save_projecttype(pt)
             return '', 200
         else:
             return '', 500
-
-
-
-"""ProjectPrpjectartOperationen"""
-
-
-@projectmanagement.route('/project/<int:id>projecttype')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID der Project-Objekts')
-class ParticipationStudentOperations(Resource):
-    @projectmanagement.marshal_with(projecttype)
-    @secured
-    def get(self, id):
-        """Auslesen aller Project-Objekte eines bestimmten Projecttypes .
-
-        Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
-        """
-        adm = ProjectAdministration()
-        projectt = adm.get_all_projecttype_by_id(id)  # Suche nach projecttype mit vorgegebener id
-
-        if projectt is not None:
-            project_list= adm.get_project_for_projecttype(projectt)
-            return project_list
-
-        else:
-            return "projecttype not found",500
-
-
-    @projectmanagement.marshal_with(projecttype, code=201)
-    @secured
-    def post(self, id):
-        """Anlegen eines Project rür einen gegebenene Projecttyp.
-
-        Das neu angelegte Project  wird als Ergebnis zurückgegeben.
-
-        **Hinweis:** Unter der id muss ein Student existieren, andernfalls wird Status Code 500 ausgegeben."""
-        adm = ProjectAdministration()
-        """Stelle fest, ob es unter der id einen Customer gibt. 
-        Dies ist aus Gründen der referentiellen Integrität sinnvoll!
-        """
-        projectty = adm.get_projecttype_for_project(id)
-
-        if projectty is not None:
-            # Jetzt erst macht es Sinn, dem Project einen neuen Projecttype anzulegen und dieses zurückzugeben.
-            result = adm.create_project_for_projecttype(projectty)
-            return result
-        else:
-            return "projecttype unknown", 500
-
-
 
 
 
