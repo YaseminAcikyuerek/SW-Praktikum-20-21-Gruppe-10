@@ -1,48 +1,42 @@
-import  NamedBusinessObject from './NamedBusinessObject';
+import  BusinessObject from './BusinessObject';
 
 /**
  * Zeigt die Person an, die .
  */
-export default class ParticipationBO extends BusinessObject {
+export default class PersonBO extends BusinessObject {
 
 /**
-   * Ein Konstrukt eines ParticipationBO object mit der  .
+   *
    *
    */
-  constructor(Project, Student) {
+  constructor(aRole) {
     super();
-    this.Project = aProject;
-    this.Student = aStudent;
+    this.Role = aRole;
+
   }
 
-  setProject(aProject) {
-  this.Project = aProject;
+  setRole(aRole) {
+  this.Role= aRole;
   }
 
-  getProject() {
-    return this.Project
+  getRole() {
+    return this.Role
   }
 
-  setStudent(aStudent) {
-  this.Student = aStudent;
-  }
-
-  getStudent() {
-    return this.Student
 
 
-  static fromJSON(participations) {
+  static fromJSON(persons) {
     let result = [];
 
-    if (Array.isArray(participations)) {
-      participations.forEach((c) => {
-        Object.setPrototypeOf(c, ParticipationBO.prototype);
+    if (Array.isArray(persons)) {
+      persons.forEach((c) => {
+        Object.setPrototypeOf(c, PersonBO.prototype);
         result.push(c);
       })
     } else {
       // Ist offenbar ein singuläres Objekt
-      let c = participations;
-      Object.setPrototypeOf(c, ParticipationBO.prototype);
+      let c = persons;
+      Object.setPrototypeOf(c, PersonBO.prototype);
       result.push(c);
     }
 

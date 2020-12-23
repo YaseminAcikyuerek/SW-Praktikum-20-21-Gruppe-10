@@ -9,7 +9,7 @@ export default class ParticipationBO extends BusinessObject {
    *
    *
    */
-  constructor(Project, Student) {
+  constructor(aProject, aStudent) {
     super();
     this.Project = aProject;
     this.Student = aStudent;

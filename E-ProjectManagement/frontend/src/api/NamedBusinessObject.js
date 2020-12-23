@@ -9,7 +9,7 @@ export default class NamedBusinessObjectBO extends BusinessObject {
    *
    *
    */
-  constructor(Name) {
+  constructor(aName) {
     this.Name = aName;
 
   }

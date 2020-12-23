@@ -9,7 +9,7 @@ export default class ModuleBO extends BusinessObject {
    * Ein Konstrukt eines ModuleBO object mit der edv-nr .
    *
    */
-  constructor(edv_nr) {
+  constructor(aEdv_nr) {
     super();
     this.edv_nr = aEdv_nr;
   }
