@@ -1,4 +1,4 @@
-import  NamedBusinessObject from './NamedBusinessObject';
+import  BusinessObject from './BusinessObject';
 
 /**
  * Zeigt eine Teilnahme  am Project an.
@@ -6,7 +6,7 @@ import  NamedBusinessObject from './NamedBusinessObject';
 export default class ParticipationBO extends BusinessObject {
 
 /**
-   * Ein Konstrukt eines ParticipationBO object mit der  .
+   *
    *
    */
   constructor(Project, Student) {
