@@ -11,24 +11,24 @@ export default class ParticipationBO extends BusinessObject {
    */
   constructor(aProject, aStudent) {
     super();
-    this.Project = aProject;
-    this.Student = aStudent;
+    this.project = aProject;
+    this.student = aStudent;
   }
 
   setProject(aProject) {
-  this.Project = aProject;
+  this.projectroject = aProject;
   }
 
   getProject() {
-    return this.Project
+    return this.project
   }
 
   setStudent(aStudent) {
-  this.Student = aStudent;
+  this.student = aStudent;
   }
 
   getStudent() {
-    return this.Student
+    return this.student
 
 
   static fromJSON(participations) {

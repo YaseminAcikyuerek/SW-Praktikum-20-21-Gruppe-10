@@ -1,7 +1,7 @@
 import  BusinessObject from './BusinessObject';
 
 /**
- * Zeigt die Namen der ganzen Projektbestandteile an.
+ *
  */
 export default class NamedBusinessObjectBO extends BusinessObject {
 
@@ -10,16 +10,16 @@ export default class NamedBusinessObjectBO extends BusinessObject {
    *
    */
   constructor(aName) {
-    this.Name = aName;
+    this.name = aName;
 
   }
 
   setName(aName) {
-  this.Name = aName;
+  this.name = aName;
   }
 
   getName() {
-    return this.Name
+    return this.name
   }
 
 

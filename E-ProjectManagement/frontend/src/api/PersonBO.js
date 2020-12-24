@@ -11,16 +11,16 @@ export default class PersonBO extends BusinessObject {
    */
   constructor(aRole) {
     super();
-    this.Role = aRole;
+    this.role = aRole;
 
   }
 
   setRole(aRole) {
-  this.Role= aRole;
+  this.role= aRole;
   }
 
   getRole() {
-    return this.Role
+    return this.role
   }
 
 

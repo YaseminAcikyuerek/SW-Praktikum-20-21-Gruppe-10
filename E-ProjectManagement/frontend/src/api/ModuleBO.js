@@ -1,12 +1,12 @@
 import  BusinessObject from './BusinessObject';
 
 /**
- * Zeigt ein Module eines Semesters an.
+ * .
  */
 export default class ModuleBO extends BusinessObject {
 
 /**
-   * Ein Konstrukt eines ModuleBO object mit der edv-nr .
+   *
    *
    */
   constructor(aEdv_nr) {
@@ -31,7 +31,7 @@ export default class ModuleBO extends BusinessObject {
         result.push(c);
       })
     } else {
-      // Ist offenbar ein singuläres Objekt
+      //
       let c = modules;
       Object.setPrototypeOf(c, ModuleBO.prototype);
       result.push(c);
