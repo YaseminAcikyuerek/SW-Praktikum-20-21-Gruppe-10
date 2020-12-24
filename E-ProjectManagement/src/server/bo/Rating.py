@@ -1,4 +1,4 @@
-from server.bo.Student import Student as stbo
+xfrom server.bo.Student import Student as stbo
 from server.bo.Project import Project
 
 
