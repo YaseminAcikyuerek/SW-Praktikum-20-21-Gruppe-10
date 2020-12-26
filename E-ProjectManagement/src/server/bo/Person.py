@@ -6,7 +6,7 @@ class Person(rbo, nbo):
 
     def __init__(self):
         super().__init__()
-        self._role = None
+        self._role = ""
 
     def set_role(self, role):
         self._role = role
