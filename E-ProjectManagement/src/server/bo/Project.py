@@ -12,7 +12,7 @@ class Project(Module, pbo, sbo, Status, ptbo):
         self._status = None
         self._owner = None
         self._module = None
-        self._projecttype = None
+        self._project_type_id = None
         self._time = None
         self._capacity = ""
         self._external__partner_list = ""
@@ -44,11 +44,11 @@ class Project(Module, pbo, sbo, Status, ptbo):
     def get_owner(self):
         return self._owner
 
-    def set_projecttype(self, projecttype):
-        self._projecttype = projecttype
+    def set_project_type_id(self, project_type_id):
+        self._project_type_id = project_type_id
 
-    def get_projecttype(self):
-        return self._projecttype
+    def get_project_type_id(self):
+        return self._project_type_id
 
     def set_time(self, semester):
         self._time = semester

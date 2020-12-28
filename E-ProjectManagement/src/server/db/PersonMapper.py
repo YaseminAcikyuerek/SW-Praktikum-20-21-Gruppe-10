@@ -18,7 +18,7 @@ class PersonMapper(Mapper):
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role_id)
+            person.set_role_id(role_id)
             result.append(person)
 
         self._cnx.commit()
@@ -27,7 +27,7 @@ class PersonMapper(Mapper):
         return result
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
 
         """Suchen einer Person mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
@@ -39,7 +39,7 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command= "SELECT id, name, role_id FROM person WHERE key={}".format(id)
+        command= "SELECT id, name, role_id FROM person WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -48,7 +48,7 @@ class PersonMapper(Mapper):
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role_id)
+            person.set_role_id(role_id)
 
         result = person
 
@@ -67,7 +67,7 @@ class PersonMapper(Mapper):
             person.set_id(maxid[0] + 1)
 
         command = "INSERT INTO person (id, name, role_id) VALUES (%s,%s,%s)"
-        data = (person.get_id(), person.get_name(), person.get_role)
+        data = (person.get_id(), person.get_name(), person.get_role_id)
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -79,7 +79,7 @@ class PersonMapper(Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE person " + "SET name=%s,role_id=%s WHERE id=%s"
-        data = (person.get_id(), person.get_name(), person.get_role())
+        data = (person.get_id(), person.get_name(), person.get_role_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -113,7 +113,7 @@ class PersonMapper(Mapper):
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role_id)
+            person.set_role_id(role_id)
             result = person
 
         except IndexError:
@@ -140,7 +140,7 @@ class PersonMapper(Mapper):
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role(role_id)
+            person.set_role_id(role_id)
             result = person
 
         except IndexError:

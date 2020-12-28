@@ -44,7 +44,7 @@ class ProjectAdministration(object):
     def get_person_by_id(self, id):
         """Die Person mit der gegebenen ID auslesen."""
         with PersonMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     def get_person_by_role(self, role):
         """Alle Personen mit gegebener Rolle auslesen."""

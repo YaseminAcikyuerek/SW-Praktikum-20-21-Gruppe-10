@@ -6,13 +6,16 @@ class Person(rbo, nbo):
 
     def __init__(self):
         super().__init__()
-        self._role = ""
+        self._role_id = ""
 
-    def set_role(self, role):
-        self._role = role
+    def set_role_id(self, role_id):
+        self._role_id = role_id
 
-    def get_role(self):
-        return self._role
+    def get_role_id(self):
+        return self._role_id
+
+    def __str__(self):
+        return "Person: {}, {}, {}".format(self.get_id(), self._name, self._role_id)
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -20,5 +23,5 @@ class Person(rbo, nbo):
         obj = Person()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
         obj.set_name(dictionary["name"])
-        obj.set_role_id(dictionary["role"])
+        obj.set_role_id(dictionary["role_id"])
         return obj

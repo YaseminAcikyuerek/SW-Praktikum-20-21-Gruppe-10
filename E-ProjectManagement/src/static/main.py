@@ -174,7 +174,7 @@ class PersonListOperations(Resource):
 @projectmanagement.route('/person/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Customer-Objekts')
-class CustomerOperations(Resource):
+class PersonOperations(Resource):
     @projectmanagement.marshal_with(person)
     @secured
     def get(self, id):
@@ -289,7 +289,6 @@ class ProjectOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Person-Objekts')
 class PersonRelatedProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
-    @secured
     def get(self, id):
         """Auslesen aller Projekte von einer bestimmten Person.
 
@@ -301,7 +300,7 @@ class PersonRelatedProjectOperations(Resource):
 
         if pers is not None:
 
-            project_list = adm.get_project_of_person(pers)
+            project_list = adm.get_project_by_owner(pers)
             return project_list
         else:
             return "Person not found", 500
