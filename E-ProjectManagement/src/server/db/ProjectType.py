@@ -26,12 +26,12 @@ class ProjectTypeMapper(Mapper):
 
         return result
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,sws,ects FROM projectTypes WHERE key={}".format(id)
+        command = "SELECT id,sws,ects FROM projecttype WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -49,39 +49,39 @@ class ProjectTypeMapper(Mapper):
 
         return result
 
-    def insert(self, projectType):
+    def insert(self, projecttype):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM projectTypes ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM projecttype ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
-            projectType.set_id(maxid[0] + 1)
+            projecttype.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO projectTypes (sws, ects) VALUES (%s,%s)"
-        data = (projectType.get_id(), projectType.get_sws(), projectType.get_ects())
+        command = "INSERT INTO projecttype (sws, ects) VALUES (%s,%s)"
+        data = (projecttype.get_id(), projecttype.get_sws(), projecttype.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
-        return projectType
+        return projecttype
 
-    def update(self, projectType):
+    def update(self, projecttype):
 
         cursor = self._cnx.cursor()
 
         command = "UPDATE projectTypes " + "SET sws=%s, ects=%s WHERE id=%s"
-        data = (projectType.get_sws(), projectType.get_id(), projectType.get_ects())
+        data = (projecttype.get_sws(), projecttype.get_id(), projecttype.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
-    def delete(self, projectType):
+    def delete(self, projecttype):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM projectTypes WHERE id={}".format(projectType.get_id())
+        command = "DELETE FROM projecttype WHERE id={}".format(projecttype.get_id())
         cursor.execute(command)
 
         self._cnx.commit()

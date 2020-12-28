@@ -28,12 +28,12 @@ class SemesterMapper(Mapper):
 
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, start, end FROM semester WHERE id={}".format(key)
+        command = "SELECT id, start, end FROM semester WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

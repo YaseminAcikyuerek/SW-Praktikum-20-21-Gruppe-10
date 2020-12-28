@@ -27,12 +27,12 @@ class ParticipationMapper(Mapper):
         return result
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, student, project FROM participation WHERE key={}".format(id)
+        command = "SELECT id, student, project FROM participation WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

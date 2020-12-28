@@ -25,12 +25,12 @@ class RoleMapper (Mapper):
 
         return result
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,name FROM projectTypes WHERE key={}".format(id)
+        command = "SELECT id,name FROM projectTypes WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

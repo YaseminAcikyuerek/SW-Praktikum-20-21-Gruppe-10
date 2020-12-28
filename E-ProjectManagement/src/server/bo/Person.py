@@ -14,8 +14,6 @@ class Person(rbo, nbo):
     def get_role_id(self):
         return self._role_id
 
-    def __str__(self):
-        return "Person: {}, {}, {}".format(self.get_id(), self.get_name(), self.get_role_id())
 
     @staticmethod
     def from_dict(dictionary=dict()):

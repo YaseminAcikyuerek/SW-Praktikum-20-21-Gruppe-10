@@ -25,8 +25,31 @@ class RatingMapper(Mapper):
 
         return result
 
+    def find_by_role_id(self, role_id):
+        """Ausleseen einer role_id einer Person.
 
-    def find_by_key(self, key):
+        :param owner_id Schlüssel des zugehörigen Person.
+        :return Eine Sammlung mit Rating-Objekten, die sämtliche Role_IDs der
+                betreffenden Person  repräsentieren.
+        """
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT id, role_id FROM rating WHERE role_id={} ORDER BY id".format(role_id)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, role_id) in tuples:
+            rating = Rating()
+            rating.set_id(id)
+            rating.set_role_id(role_id)
+            result.append(rating)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_by_id(self, id):
         """Suchen eines Ratings mit vorgegebener ID. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -37,7 +60,7 @@ class RatingMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, grade FROM rating WHERE key={}".format(id)
+        command = "SELECT id, grade FROM rating WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -53,6 +76,8 @@ class RatingMapper(Mapper):
         cursor.close()
 
         return result
+
+
 
     def insert(self, rating):
 
