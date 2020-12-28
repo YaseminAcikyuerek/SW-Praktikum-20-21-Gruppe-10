@@ -14,10 +14,10 @@ class StudentMapper (Mapper):
         cursor.execute("SELECT * from student")
         tuples = cursor.fetchall()
 
-        for (id, person, matriculation_nr, course_abbr) in tuples:
+        for (id, name, matriculation_nr, course_abbr) in tuples:
             student = Student()
             student.set_id(id)
-            student.set_person(person)
+            student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
             result.append(student)
@@ -27,20 +27,20 @@ class StudentMapper (Mapper):
 
         return result
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE key={}".format(id)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, person, matriculation_nr, course_abbr) =  tuples[0]
+            (id, name, matriculation_nr, course_abbr) =tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_person(person)
+            student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
 
@@ -61,7 +61,7 @@ class StudentMapper (Mapper):
         for (maxid) in tuples:
             student.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO student (id, name, person_id, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s,%s)"
+        command = "INSERT INTO student (id, name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s,%s)"
         data = (student.get_id(), student.get_person(),student.get_matriculation_nr(),student.get_course_abbr())
 
         cursor.execute(command, data)
@@ -74,7 +74,7 @@ class StudentMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE student " + "SET person_id=%s, ,name=%s, matriculation_nr=%s, course_abbr=%s WHERE id=%s"
+        command = "UPDATE student " + "SET person_id=%s, ,person=%s, matriculation_nr=%s, course_abbr=%s WHERE id=%s"
         data = (student.get_person(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
         cursor.execute(command, data)
 
