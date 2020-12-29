@@ -5,153 +5,56 @@ import BusinessObject from './BusinessObject';
  */
 export default class RatingBO extends BusinessObject {
 
-constructor() {
+constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
     super();
-    this.status = aStatus;
-    this.owner = aOwner;
-    this.module = aModule;
-    this.student = aStudent;
-    this.project_type = aProjectType;
-    this.time = aTime;
-    this.capacity = aCapacity;
-    this.short_description = aShortDescription;
-    this.flag = aFlag;
-    this.bd_before_lecture_period = aBdBeforeLecturePeriod;
-    this.bd_during_lecture_period = aBdDuringLecturePeriod;
-    this.bd_during_exam_period  = aBdDuringExamPeriod ;
-    this.preferred_bd_during_lecture_period = aPreferredBdDuringLecturePeriod;
-    this.special_room = aSpecialRoom;
-    this.language = aLanguage;
-    this.room = aRoom;
+    this.project = aProject;
+    this.evaluator = aEvaluator;
+    this.to_be_assessed = aToBeAssessed;
+    this.grade = aGrade;
+    this.passed = aPassed;
+
   }
 
-  setStatus(aStatus) {
-  this.status = aStatus ;
+  setProject(aProject) {
+  this.project = aProject ;
   }
 
-  getStatus() {
-    return this.status
+  getProject() {
+    return this.project
   }
 
-  setOwner(aOwner) {
-  this.owner = aOwner ;
+  setEvaluator(aEvaluator) {
+  this.evaluator = aEvaluator ;
   }
 
-  getOwner() {
-    return this.owner
+  getEvaluator() {
+    return this.Evaluator
   }
 
-  setModule(aModule) {
-  this.module = aModule ;
+  setToBeAssessed(aToBeAssessed) {
+  this.to_be_assessed = aToBeAssessed ;
   }
 
-  getModule() {
-    return this.module
+  getToBeAssessed() {
+    return this.to_be_assessed
   }
 
-  setStudent(aStudent) {
-  this.student = aStudent ;
+  setGrade(aGrade) {
+  this.grade = aGrade ;
   }
 
-  getStudent() {
-    return this.student
+  getGrade() {
+    return this.grade
   }
 
-  setProjectType(aProjectType) {
-  this.project_type = aProjectType ;
+  setPassed(aPassed) {
+  this.passed = aPassed ;
   }
 
-  getProjectType() {
-    return this.project_type
+  getPassed() {
+    return this.passed
   }
 
-  setTime(aTime) {
-  this.time = aTime;
-  }
-
-  getTime() {
-    return this.time
-  }
-
-  setCapacity(aCapacity) {
-  this.capacity = aCapacity ;
-  }
-
-  getCapacity() {
-    return this.capacity
-  }
-
-  setShortDescription(aShortDescription) {
-  this.short_description = aShortDescription ;
-  }
-
-  getShortDescription() {
-    return this.short_description
-  }
-
-  setFlag(aFlag) {
-  this.flag = aFlag ;
-  }
-
-  getFlag() {
-    return this.Flag
-  }
-
-  setBdBeforeLecturePeriod(aBdBeforeLecturePeriod) {
-  this.bd_before_lecture_period = aBdBeforeLecturePeriod ;
-  }
-
-  getBdBeforeLecturePeriod() {
-    return this.bd_before_lecture_period
-  }
-
-  setBdDuringLecturePeriod(aBdDuringLecturePeriod) {
-  this.bd_during_lecture_period = aBdDuringLecturePeriod ;
-  }
-
-  getBdDuringLecturePeriod() {
-    return this.bd_during_lecture_period
-  }
-
-  setBdDuringExamPeriod(aBdDuringExamPeriod) {
-  this.bd_during_exam_period = aBdDuringExamPeriod ;
-  }
-
-  getBdDuringExamPeriod() {
-    return this.bd_during_exam_period
-  }
-
-  setPreferredBdDuringLecturePeriod(aPreferredBdDuringLecturePeriod) {
-  this.preferred_bd_during_lecture_period = aPreferredBdDuringLecturePeriod ;
-  }
-
-  getPreferredBdDuringLecturePeriod() {
-    return this.preferred_bd_during_lecture_period
-  }
-
-  setSpecialRoom(aSpecialRoom) {
-  this.special_room = aSpecialRoom;
-  }
-
-  getSpecialRoom() {
-    return this.special_room
-  }
-
-  setLanguage(aLanguage) {
-  this.language = aLanguage ;
-  }
-
-  getLanguage() {
-    return this.language
-  }
-
-  setRoom(aRoom) {
-  this.room = aRoom ;
-  }
-
-  getRoom() {
-    return this.room
-  }
 
 
   static fromJSON(ratings) {

@@ -24,7 +24,7 @@ constructor(aStart, aEnd) {
 
 
   setEnd(aEnd) {
-    this.End = aEnd;
+    this.end = aEnd;
   }
 
 
