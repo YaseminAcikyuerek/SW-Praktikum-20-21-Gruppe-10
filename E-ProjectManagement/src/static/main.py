@@ -53,29 +53,30 @@ bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='_id', description='Der Unique Identifier eines Business Object'),
 })
 
+nbo = api.model('NamedBusinessObject', {
+    'name': fields.String(attribute='_name', description='Der Name eines Named Business Object'),
+})
+
 user = api.inherit('User', bo, {
     'name': fields.String(attribute='_name', description='Name eines Benutzers'),
     'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
     'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
 })
 
-module = api.inherit('Module', bo, {
-    'name': fields.String(attribute='_name', description='Name des Moduls'),
+module = api.inherit('Module', bo, nbo, {
     'edv_nr': fields.String(attribute='_edv_nr', description='EDV_Nr des Moduls')
 })
 
-participation = api.inherit('Participation', bo, {
+participation = api.inherit('Participation', {
     'project': fields.String(attribute='_project', description='unique ID vom Projekt'),
     'student': fields.String(attribute='_student', description='unique ID vom Studenten')
 })
 
-person = api.inherit('Person', bo, {
-    'name': fields.String(attribute='_name', description='Name der Person'),
-    'role': fields.String(attribute='_role', description='Rollenname'),
+person = api.inherit('Person', bo, nbo, {
+    'role': fields.Integer(attribute='_role', description='unique ID des Rollennamens'),
 })
 
-project = api.inherit('Project', bo, {
-    'name': fields.String(attribute='_name', description='Name des Projekts'),
+project = api.inherit('Project', bo, nbo, {
     'owner': fields.Integer(attribute='_owner', description='unique ID des Projektbesitzers'),
     'module': fields.Integer(attribute='_module',description='unique ID des Projektmoduls'),
     'language': fields.String(attribute='_language',description='Sprache des Projekts'),
@@ -94,8 +95,7 @@ project = api.inherit('Project', bo, {
     'project_type':fields.Integer(attribute='_project_type', description=''),
 })
 
-project_type = api.inherit('ProjectType', bo, {
-    'name': fields.String(attribute='_name', description='Name der Projektart'),
+project_type = api.inherit('ProjectType', bo, nbo, {
     'sws': fields.Integer(attribute='_sws', description='SWS der Projektart'),
     'ects': fields.Integer(attribute='_ects', description='ECTS der Projektart')
 })
@@ -108,17 +108,16 @@ rating = api.inherit('Rating', bo, {
     'passed': fields.Boolean(attribute='_passed', description='Bestanden bzw. nicht bestehen sein des Projekts')
 })
 
-role = api.inherit('Role', bo, {
+role = api.inherit('Role', {
     'role_name': fields.String(attribute='_role_name', description='Name der Rolle')
 })
 
-semester = api.inherit('Semester', bo, {
-    'name': fields.String(attribute='_name', description='Name des Semesters'),
+semester = api.inherit('Semester', nbo, {
     'start': fields.Date(attribute='_start', description='Start des Semesters'),
     'end': fields.Date(attribute='_end', description='Ende des Semesters')
 })
 
-status = api.inherit('Status', bo, {
+status = api.inherit('Status', {
     'status': fields.String(attribute='_status', description='Name des Zustands')
 })
 
@@ -148,12 +147,11 @@ class PersonListOperations(Resource):
         """
         adm = ProjectAdministration()
 
-        per = Person.from_dict(api.payload)
+        proposal = Person.from_dict(api.payload)
 
-        """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
-        if role is not None:
-            result = adm.create_person(per)
-            return result
+        if proposal is not None:
+            per = adm.create_person(proposal.get_name(), proposal.get_role())
+            return per, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
             return '', 500

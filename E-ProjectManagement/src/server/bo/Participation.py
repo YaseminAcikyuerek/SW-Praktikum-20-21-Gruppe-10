@@ -1,8 +1,7 @@
-from server.bo.Student import Student
-from server.bo.Project import Project
+from server.bo.BusinessObject import BusinessObject as bo
 
 
-class Participation(Project, Student):
+class Participation(bo):
 
     def __init__(self):
         super().__init__()

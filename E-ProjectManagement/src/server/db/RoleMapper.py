@@ -30,15 +30,15 @@ class RoleMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,name FROM projectTypes WHERE id={}".format(id)
+        command = "SELECT id,role_name FROM role WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name) = tuples[0]
+            (id, role_name) = tuples[0]
             role = Role()
             role.set_id(id)
-            role.set_name(name)
+            role.set_role_name(role_name)
 
         result = role
 

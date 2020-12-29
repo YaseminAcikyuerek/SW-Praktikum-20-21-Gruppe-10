@@ -13,9 +13,6 @@ class Person(nbo):
     def get_role(self):
         return self._role
 
-    def __str__(self):
-        """Erzeugen einer einfachen textuellen Repräsentation der jeweiligen Kontoinstanz."""
-        return "Person: {}, role {}".format(self.get_id(), self._role)
 
     @staticmethod
     def from_dict(dictionary=dict()):

@@ -1,17 +1,16 @@
-from server.bo.Student import Student as stbo
-from server.bo.Project import Project
+from server.bo.BusinessObject import BusinessObject as bo
 
 
-class Rating(stbo):
+class Rating(bo):
     def __init__(self):
         super().__init__()
         self._project = None
         self._evaluator = None
         self._to_be_assessed = None
-        self._grade =""
-        self._passed =""
+        self._grade = ""
+        self._passed = ""
 
-    def set_project(self,project):
+    def set_project(self, project):
         self._project = project
 
     def get_project(self):

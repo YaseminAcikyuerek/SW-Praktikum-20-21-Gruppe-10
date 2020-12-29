@@ -28,16 +28,13 @@ class ProjectAdministration(object):
 
     def create_person(self, name, role):
         """Eine Person anlegen"""
-        with PersonMapper() as mapper:
-            if role is not None:
-                person = Person()
-                person.set_name(name)
-                person.set_role(role.get_id())
-                person.set_id(1)
+        p = Person()
+        p.set_id(1)
+        p.set_name(name)
+        p.set_role(role)
 
-                return mapper.insert(person)
-            else:
-                return None
+        with PersonMapper() as mapper:
+            return mapper.insert(p)
 
     def get_person_by_name(self, name):
         """"Alle Personen mit Namen name auslesen."""
@@ -67,7 +64,7 @@ class ProjectAdministration(object):
     def save_person(self, person):
         """Die gegebene Person speichern."""
         with PersonMapper() as mapper:
-            mapper.update(person)
+            return mapper.update(person)
 
     def delete_person(self, person):
         """Die gegebenen Person aus unserem System löschen."""

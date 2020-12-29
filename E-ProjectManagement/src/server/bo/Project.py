@@ -1,11 +1,7 @@
-from server.bo.Module import Module
-from server.bo.ProjectType import ProjectType as ptbo
-from server.bo.Semester import Semester as sbo
-from server.bo.Person import Person as pbo
-from server.bo.Status import Status
+from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
 
 
-class Project(Module, pbo, sbo, Status, ptbo):
+class Project(nbo):
 
     def __init__(self):
         super().__init__()

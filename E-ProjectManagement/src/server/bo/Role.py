@@ -11,7 +11,7 @@ class Role:
     def get_id(self):
         return self._id
 
-    def set_role_name(self,value):
+    def set_role_name(self, value):
         self._role_name = value
 
     def get_role_name(self):
