@@ -128,3 +128,48 @@ constructor() {
   getPreferredBdDuringLecturePeriod() {
     return this.preferred_bd_during_lecture_period
   }
+
+  set(aSpecialRoom) {
+  this.special_room = aSpecialRoom;
+  }
+
+  getSpecialRoom() {
+    return this.special_room
+  }
+
+  set(aLanguage) {
+  this.language = aLanguage ;
+  }
+
+  getLanguage() {
+    return this.language
+  }
+
+  set(aRoom) {
+  this.room = aRoom ;
+  }
+
+  getRoom() {
+    return this.room
+  }
+
+
+  static fromJSON(ratings) {
+    let result = [];
+
+    if (Array.isArray(ratings)) {
+      ratings.forEach((c) => {
+        Object.setPrototypeOf(c, RatingBOBO.prototype);
+        result.push(c);
+      })
+    } else {
+      // Es handelt sich offenbar um ein singuläres Objekt
+      let c = ratings;
+      Object.setPrototypeOf(c, RatingBO.prototype);
+      result.push(c);
+    }
+
+    return result;
+  }
+}
+
