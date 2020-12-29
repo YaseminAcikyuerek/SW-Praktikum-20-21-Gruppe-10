@@ -39,7 +39,7 @@ constructor(aRoleName, aId) {
     let result = [];
 
     if (Array.isArray(roles)) {
-      customers.forEach((c) => {
+      roles.forEach((c) => {
         Object.setPrototypeOf(c, RoleBO.prototype);
         result.push(c);
       })

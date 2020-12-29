@@ -25,7 +25,7 @@ constructor() {
     this.room = aRoom;
   }
 
-  set(aStatus) {
+  setStatus(aStatus) {
   this.status = aStatus ;
   }
 
@@ -33,7 +33,7 @@ constructor() {
     return this.status
   }
 
-  set(aOwner) {
+  setOwner(aOwner) {
   this.owner = aOwner ;
   }
 
@@ -41,7 +41,7 @@ constructor() {
     return this.owner
   }
 
-  set(aModule) {
+  setModule(aModule) {
   this.module = aModule ;
   }
 
@@ -49,7 +49,7 @@ constructor() {
     return this.module
   }
 
-  set(aStudent) {
+  setStudent(aStudent) {
   this.student = aStudent ;
   }
 
@@ -57,7 +57,7 @@ constructor() {
     return this.student
   }
 
-  set(aProjectType) {
+  setProjectType(aProjectType) {
   this.project_type = aProjectType ;
   }
 
@@ -65,7 +65,7 @@ constructor() {
     return this.project_type
   }
 
-  set(aTime) {
+  setTime(aTime) {
   this.time = aTime;
   }
 
@@ -73,7 +73,7 @@ constructor() {
     return this.time
   }
 
-  set(aCapacity) {
+  setCapacity(aCapacity) {
   this.capacity = aCapacity ;
   }
 
@@ -81,7 +81,7 @@ constructor() {
     return this.capacity
   }
 
-  set(aShortDescription) {
+  setShortDescription(aShortDescription) {
   this.short_description = aShortDescription ;
   }
 
@@ -89,7 +89,7 @@ constructor() {
     return this.short_description
   }
 
-  set(aFlag) {
+  setFlag(aFlag) {
   this.flag = aFlag ;
   }
 
@@ -97,7 +97,7 @@ constructor() {
     return this.Flag
   }
 
-  set(aBdBeforeLecturePeriod) {
+  setBdBeforeLecturePeriod(aBdBeforeLecturePeriod) {
   this.bd_before_lecture_period = aBdBeforeLecturePeriod ;
   }
 
@@ -105,7 +105,7 @@ constructor() {
     return this.bd_before_lecture_period
   }
 
-  set(aBdDuringLecturePeriod) {
+  setBdDuringLecturePeriod(aBdDuringLecturePeriod) {
   this.bd_during_lecture_period = aBdDuringLecturePeriod ;
   }
 
@@ -113,7 +113,7 @@ constructor() {
     return this.bd_during_lecture_period
   }
 
-  set(aBdDuringExamPeriod) {
+  setBdDuringExamPeriod(aBdDuringExamPeriod) {
   this.bd_during_exam_period = aBdDuringExamPeriod ;
   }
 
@@ -121,7 +121,7 @@ constructor() {
     return this.bd_during_exam_period
   }
 
-  set(aPreferredBdDuringLecturePeriod) {
+  setPreferredBdDuringLecturePeriod(aPreferredBdDuringLecturePeriod) {
   this.preferred_bd_during_lecture_period = aPreferredBdDuringLecturePeriod ;
   }
 
@@ -129,7 +129,7 @@ constructor() {
     return this.preferred_bd_during_lecture_period
   }
 
-  set(aSpecialRoom) {
+  setSpecialRoom(aSpecialRoom) {
   this.special_room = aSpecialRoom;
   }
 
@@ -137,7 +137,7 @@ constructor() {
     return this.special_room
   }
 
-  set(aLanguage) {
+  setLanguage(aLanguage) {
   this.language = aLanguage ;
   }
 
@@ -145,7 +145,7 @@ constructor() {
     return this.language
   }
 
-  set(aRoom) {
+  setRoom(aRoom) {
   this.room = aRoom ;
   }
 
