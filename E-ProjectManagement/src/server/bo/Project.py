@@ -8,7 +8,7 @@ class Project(nbo):
         self._status = None
         self._owner = None
         self._module = None
-        self._project_type_id = None
+        self._project_type = None
         self._time = None
         self._capacity = ""
         self._external__partner_list = ""
@@ -28,7 +28,7 @@ class Project(nbo):
     def get_status(self):
         return self._status
 
-    def set_module(self,module):
+    def set_module(self, module):
         self._module = module
 
     def get_module(self):
@@ -40,11 +40,11 @@ class Project(nbo):
     def get_owner(self):
         return self._owner
 
-    def set_project_type_id(self, project_type_id):
-        self._project_type_id = project_type_id
+    def set_project_type(self, project_type):
+        self._project_type = project_type
 
-    def get_project_type_id(self):
-        return self._project_type_id
+    def get_project_type(self):
+        return self._project_type
 
     def set_time(self, semester):
         self._time = semester
@@ -58,14 +58,14 @@ class Project(nbo):
     def get_capacity(self):
         return self._capacity
 
-    def set_external_partner_list(self,value):
-        self._external__partner_list= value
+    def set_external_partner_list(self ,value):
+        self._external__partner_list = value
 
     def get_external_partner_list(self):
         return self._external__partner_list
 
-    def set_short_description(self,value):
-        self._short_description= value
+    def set_short_description(self, value):
+        self._short_description = value
 
     def get_short_description(self):
         return self._short_description
@@ -131,18 +131,18 @@ class Project(nbo):
         obj.set_status(dictionary["status"])
         obj.set_owner(dictionary["owner"])
         obj.set_module(dictionary["module"])
-        obj.set_projecttype(dictionary["projecttype"])
-        obj.set_time(dictionary["time"])
+        obj.set_project_type(dictionary["project_type"])
+        obj.set_time(dictionary["semester"])
         obj.set_capacity(dictionary["capacity"])
-        obj.set_external_partner_list(["external_partner_list"])
-        obj.set_short_description(["short_description"])
-        obj.set_flag(["flag"])
-        obj.set_bd_before_lecture_period(["bd_before_lecture_period"])
-        obj.set_bd_during_lecture_period(["bd_during_lecture_period"])
-        obj.set_bd_during_exam_period(["bd_during_exam_period"])
-        obj.set_preferred_bd_during_lecture_period(["preferred_bd_during_lecture_period"])
-        obj.set_special_room(["special_room"])
-        obj.set_language(["language"])
-        obj.set_room(["room"])
+        obj.set_external_partner_list(dictionary["external_partner_list"])
+        obj.set_short_description(dictionary["short_description"])
+        obj.set_flag(dictionary["flag"])
+        obj.set_bd_before_lecture_period(dictionary["bd_before_lecture_period"])
+        obj.set_bd_during_lecture_period(dictionary["bd_during_lecture_period"])
+        obj.set_bd_during_exam_period(dictionary["bd_during_exam_period"])
+        obj.set_preferred_bd_during_lecture_period(dictionary["preferred_bd_during_lecture_period"])
+        obj.set_special_room(dictionary["special_room"])
+        obj.set_language(dictionary["language"])
+        obj.set_room(dictionary["room"])
 
         return obj

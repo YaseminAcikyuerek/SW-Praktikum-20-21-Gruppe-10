@@ -32,7 +32,7 @@ class ModuleMapper(Mapper):
 
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
         """Suchen eines moduls mit vorgegebener id. Da diese eindeutig ist,
         wird genau ein Objekt zurückgegeben.
 
@@ -43,7 +43,7 @@ class ModuleMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr FROM module WHERE key={}".format(id)
+        command = "SELECT id, name, edv_nr FROM module WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

@@ -14,19 +14,19 @@ class ProjectMapper(Mapper):
         cursor.execute("SELECT * from project")
         tuples = cursor.fetchall()
 
-        for (id, name, owner, module_id, language, capacity,
+        for (id, name, owner, module, language, capacity,
              external_partner_list, short_description, flag, bd_before_lecture_period,
              bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
-             special_room, room, status, semester_id, project_type_id) in tuples:
+             special_room, room, status, semester, project_type) in tuples:
 
             project = Project()
             project.set_id(id)
             project.set_name(name)
             project.set_owner(owner)
-            project.set_module(module_id)
+            project.set_module(module)
             project.set_language(language)
-            project.set_project_type_id(project_type_id)
-            project.set_time(semester_id)
+            project.set_project_type(project_type)
+            project.set_time(semester)
             project.set_capacity(capacity)
             project.set_external_partner_list(external_partner_list)
             project.set_short_description(short_description)
@@ -38,14 +38,12 @@ class ProjectMapper(Mapper):
             project.set_status(status)
             project.set_room(room)
             project.set_special_room(special_room)
-
             result.append(project)
 
         self._cnx.commit()
         cursor.close()
 
         return result
-
 
     def find_by_id(self, id):
 
@@ -57,7 +55,7 @@ class ProjectMapper(Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id,name, owner, module_id, language, project_type_id, time, capacity,
+            (id, name, owner, module_id, language, project_type, time, capacity,
              external_partner_list, short_description, flag, bd_before_lecture_period,
              bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
              special_room, room, status) = tuples[0]
@@ -67,7 +65,7 @@ class ProjectMapper(Mapper):
             project.set_owner(owner)
             project.set_module(module_id)
             project.set_language(language)
-            project.set_project_typ_id(project_type_id)
+            project.set_project_type(project_type)
             project.set_time(time)
             project.set_capacity(capacity)
             project.set_external_partner_list(external_partner_list)
@@ -80,8 +78,7 @@ class ProjectMapper(Mapper):
             project.set_status(status)
             project.set_room(room)
             project.set_special_room(special_room)
-
-        result = project
+            result.append(project)
 
         self._cnx.commit()
         cursor.close()
@@ -97,14 +94,14 @@ class ProjectMapper(Mapper):
         for (maxid) in tuples:
             project.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO projects (id,name, owner, module_id, language, project_type_id, time, capacity," \
+        command = "INSERT INTO project (id,name, owner, module_id, language, project_type, time, capacity," \
                   "external_partner_list, short_description, flag, bd_before_lecture_period," \
                   "bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period," \
                   "special_room, room, status) VALUES (%s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s," \
                   "%s, %s)"
 
         data = (project.get_id(), project.get_owner(), project.get_name(), project.get_owner(), project.get_module_id,
-                project.get_language(), project.get_project_type_id(), project.get_time(), project.get_capacity(),
+                project.get_language(), project.get_project_type(), project.get_time(), project.get_capacity(),
                 project.get_external_partner_list(), project.get_short_description(), project.get_flag(),
                 project.get_bd_before_lecture_period(), project.get_bd_during_lecture_period(),
                 project.get_bd_during_exam_period, project.get_preferred_bd_during_lecture_period(),
@@ -119,14 +116,14 @@ class ProjectMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE projects " + "SET owner=%s, name=%s, module=%s, status=%s," \
-                                       "project_typ=%s, time=%s, capacity=%s, " \
+        command = "UPDATE project " + "SET owner=%s, name=%s, module=%s, status=%s," \
+                                       "project_type=%s, time=%s, capacity=%s, " \
                                        "external_partner_list=%s, short_description=%s," \
-                                       "flag=%s, bd_before_lecture_period=%s, bd_during_lecture_period=%s" \
-                                       "bd_during_exam_period=%s, preferred_bd_during_lecture_period=%s " \
+                                       "flag=%s, bd_before_lecture_period=%s, bd_during_lecture_period=%s," \
+                                       "bd_during_exam_period=%s, preferred_bd_during_lecture_period=%s, " \
                                        "special_room=%s, room=%s, language=%s WHERE id=%s"
         data = (project.get_owner(), project.get_id(), project.get_name(), project.get_status(),
-                project.get_module(), project.get_project_typ(), project.get_time(), project.get_capacity(),
+                project.get_module(), project.get_project_type(), project.get_time(), project.get_capacity(),
                 project.get_external_partner_list(), project.get_short_description(), project.get_flag(),
                 project.get_bd_before_lecture_period(), project.get_bd_during_lecture_period(),
                 project.get_bd_during_exam_period(), project.get_preferred_bd_during_lecture_period(),
@@ -148,15 +145,15 @@ class ProjectMapper(Mapper):
 
     def find_project_by_name(self, name):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE project.name={}".format(name)
+        command = "SELECT * FROM project WHERE name={}".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, owner, module, language, project_typ, time, capacity,
+            (id, name, owner, module, language, project_type, time, capacity,
              external_partner_list, short_description, flag, bd_before_lecture_period,
              bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
              status, room, special_room) = tuples[0]
@@ -167,7 +164,7 @@ class ProjectMapper(Mapper):
             project.set_owner(owner)
             project.set_module(module)
             project.set_language(language)
-            project.set_project_typ(project_typ)
+            project.set_project_type(project_type)
             project.set_time(time)
             project.set_capacity(capacity)
             project.set_external_partner_list(external_partner_list)
@@ -180,6 +177,7 @@ class ProjectMapper(Mapper):
             project.set_status(status)
             project.set_room(room)
             project.set_special_room(special_room)
+            result.append(project)
 
 
         except IndexError:
@@ -194,15 +192,15 @@ class ProjectMapper(Mapper):
 
     def find_project_by_owner(self, owner):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE project.owner={}".format(owner)
+        command = "SELECT * FROM project WHERE owner={}".format(owner)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, owner, module, language, project_type_id, time, capacity,
+            (id, name, owner, module, language, project_type, time, capacity,
              external_partner_list, short_description, flag, bd_before_lecture_period,
              bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
              status, room, special_room) = tuples[0]
@@ -213,7 +211,7 @@ class ProjectMapper(Mapper):
             project.set_owner(owner)
             project.set_module(module)
             project.set_language(language)
-            project.set_project_type_id(project_type_id)
+            project.set_project_type(project_type)
             project.set_time(time)
             project.set_capacity(capacity)
             project.set_external_partner_list(external_partner_list)
@@ -226,6 +224,7 @@ class ProjectMapper(Mapper):
             project.set_status(status)
             project.set_room(room)
             project.set_special_room(special_room)
+            result.append(project)
 
 
         except IndexError:
@@ -238,6 +237,27 @@ class ProjectMapper(Mapper):
 
         return result
 
+    def find_project_by_module(self, module):
+
+        result = []
+
+        cursor = self._cnx.cursor()
+        command = " SELECT id, name, module, owner FROM project WHERE module={}".format(module)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for(id, name, module, owner) in tuples:
+            project = Project()
+            project.set_id(id)
+            project.set_name(name)
+            project.set_module(module)
+            project.set_owner(owner)
+            result.append(project)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
 um die grundsätzliche Funktion zu überprüfen.

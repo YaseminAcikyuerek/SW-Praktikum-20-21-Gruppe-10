@@ -77,22 +77,23 @@ person = api.inherit('Person', bo, nbo, {
 })
 
 project = api.inherit('Project', bo, nbo, {
+    'semester': fields.Integer(attribute='_semester', description=''),
+    'module': fields.Integer(attribute='_module', description='unique ID des Projektmoduls'),
+    'short_description': fields.String(attribute='_short_description', description='Die kurze Beschreibung des Projekts'),
     'owner': fields.Integer(attribute='_owner', description='unique ID des Projektbesitzers'),
-    'module': fields.Integer(attribute='_module',description='unique ID des Projektmoduls'),
-    'language': fields.String(attribute='_language',description='Sprache des Projekts'),
+    'language': fields.String(attribute='_language', description='Sprache des Projekts'),
     'capacity': fields.Integer(attribute='_capacity', description='Die Kapazität des Projekts'),
     'external_partner_list': fields.String(attribute='_external_partner_list', description='Die externen Partner des Projektes'),
-    'short_description': fields.String(attribute='_short_description', description='Die kurze Beschreibung des Projekts'),
     'flag': fields.Boolean(attribute='_flag', description='Sonderzeichen ob das Projekt wöchentlich stattfindet'),
     'bd_before_lecture_period': fields.Integer(attribute='_bd_before_lecture_period', description=''),
-    'bd_during_lecture_period': fields.Integer(attribute='bd_during_lecture_period', description=''),
-    'bd_during_exam_period': fields.Integer(attribute='bd_during_exam_period', description=''),
-    'preferred_bd_during_lecture_period': fields.Integer(attribute='preferred_bd_during_lecture_period', description=''),
-    'special_room': fields.Boolean(attribute='special_room', description=''),
+    'bd_during_lecture_period': fields.Integer(attribute='_bd_during_lecture_period', description=''),
+    'bd_during_exam_period': fields.Integer(attribute='_bd_during_exam_period', description=''),
+    'preferred_bd_during_lecture_period': fields.Integer(attribute='_preferred_bd_during_lecture_period', description=''),
+    'special_room': fields.Boolean(attribute='_special_room', description=''),
     'room': fields.String(attribute='_room', description=''),
     'status': fields.String(attribute='_status', description=''),
-    'semester': fields.Integer(attribute='_semester', description=''),
-    'project_type':fields.Integer(attribute='_project_type', description=''),
+
+    'project_type': fields.Integer(attribute='_project_type', description=''),
 })
 
 project_type = api.inherit('ProjectType', bo, nbo, {
@@ -199,7 +200,7 @@ class PersonOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/person-by-name/<string:name>')
+@projectmanagement.route('/person/<string:name>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('Name', 'Der Name einer Person')
 class PersonByNameOperations(Resource):
@@ -218,7 +219,7 @@ class PersonByNameOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectListOperations(Resource):
     @projectmanagement.marshal_list_with(project)
-    @secured
+
     def get(self):
         """Auslesen aller Projekte."""
 
@@ -231,18 +232,18 @@ class ProjectListOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Project-Objekts')
 class ProjectOperations(Resource):
-    @projectmanagement.marshal_with(module)
-    @secured
+    @projectmanagement.marshal_with(project)
+
     def get(self, id):
         """Auslesen eines bestimmten Projekts.
 
-        Auszulesende Projekz wird durch id bestimmt.
+        Auszulesende Projekt wird durch id bestimmt.
         """
         adm = ProjectAdministration()
         proj = adm.get_project_by_id(id)
         return proj
 
-    @secured
+
     def delete(self, id):
         """Löschen eines bestimmten Projekts.
 
@@ -254,7 +255,7 @@ class ProjectOperations(Resource):
         return '', 200
 
     @projectmanagement.marshal_with(project)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Projekts.
         """
@@ -292,7 +293,7 @@ class PersonRelatedProjectOperations(Resource):
             return "Person not found", 500
 
     @projectmanagement.marshal_with(project, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen eines Projekts für eine gegebene Person.
 
@@ -318,7 +319,7 @@ class PersonRelatedProjectOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Projekts')
 class ProjectStatusOperations(Resource):
     @projectmanagement.doc('Read status of given project')
-    @secured
+
     def get(self, id):
         """Auslesen des Status eines Projekts.
 
@@ -337,7 +338,7 @@ class ProjectStatusOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class StudentListOperations(Resource):
     @projectmanagement.marshal_list_with(student)
-    @secured
+
     def get(self):
         """Auslesen aller Student-Objekte.
         """
@@ -347,7 +348,7 @@ class StudentListOperations(Resource):
 
     @projectmanagement.marshal_with(student, code=200)
     @projectmanagement.expect(student)
-    @secured
+
     def post(self):
         """Anlegen eines neuen student-Objekts.
         """
@@ -371,7 +372,7 @@ class StudentListOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Student-Objekts')
 class StudentOperations(Resource):
     @projectmanagement.marshal_with(student)
-    @secured
+
     def get(self, id):
         """Auslesen eines bestimmten Student-Objekts.
 
@@ -381,7 +382,7 @@ class StudentOperations(Resource):
         stu = adm.get_student_by_id(id)
         return stu
 
-    @secured
+
     def delete(self, id):
         """Löschen eines bestimmten student-Objekts.
 
@@ -397,7 +398,7 @@ class StudentOperations(Resource):
     @projectmanagement.param('id', 'Die ID des student-Objekts')
     class StudentRelatedProjectOperations(Resource):
         @projectmanagement.marshal_with(project)
-        @secured
+
         def get(self, id):
             """Auslesen aller Projekte von eines bestimmten Studenten.
 
@@ -418,7 +419,7 @@ class StudentOperations(Resource):
 
 
     @projectmanagement.marshal_with(rating)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Student-Objekts.
 
@@ -445,7 +446,7 @@ class StudentOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class StudentProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
-    @secured
+
     def get(self):
         """Auslesen des Kassenkontos (Cash Account) der Bank.
 
@@ -461,7 +462,7 @@ class StudentProjectOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ParticipationListOperations(Resource):
     @projectmanagement.marshal_list_with(participation)
-    @secured
+
     def get(self):
         """Auslesen aller Participation-Objekte.
         """
@@ -471,7 +472,7 @@ class ParticipationListOperations(Resource):
 
     @projectmanagement.marshal_with(participation, code=200)
     @projectmanagement.expect(participation)
-    @secured
+
     def post(self):
         """Anlegen eines neuen Participation-Objekts.
         """
@@ -490,7 +491,7 @@ class ParticipationListOperations(Resource):
 @projectmanagement.param('id', 'Die ID der Participation-Objekts')
 class ParticipationOperations(Resource):
     @projectmanagement.marshal_with(participation)
-    @secured
+
     def get(self, id):
         """Auslesen eines bestimmten Participation-Objekts.
 
@@ -500,7 +501,7 @@ class ParticipationOperations(Resource):
         p = adm.get_participation_by_id(id)
         return p
 
-    @secured
+
     def delete(self, id):
         """Löschen eines bestimmten Participation-Objekts.
 
@@ -513,7 +514,7 @@ class ParticipationOperations(Resource):
 
     @projectmanagement.marshal_with(participation)
     @projectmanagement.expect(participation, validate=True)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Participation-Objekts.
         """
@@ -532,7 +533,7 @@ class ParticipationOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Semester-Objekts')
 class SemesterOperations(Resource):
     @projectmanagement.marshal_with(semester)
-    @secured
+
     def get(self, id):
         """Auslesen eines bestimmten Semester-Objekts.
 
@@ -542,7 +543,7 @@ class SemesterOperations(Resource):
         sem = adm.get_semester_by_id(id)
         return sem
 
-    @secured
+
     def delete(self, id):
         """Löschen eines bestimmten Semester-Objekts.
 
@@ -555,7 +556,7 @@ class SemesterOperations(Resource):
 
     @projectmanagement.marshal_with(semester)
     @projectmanagement.expect(semester, validate=True)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Semester-Objekts.
 
@@ -574,10 +575,9 @@ class SemesterOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Modul-Objekts')
 class ModuleRelatedProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
-    @secured
+    @projectmanagement.marshal_with(module)
     def get(self, id):
-        """Auslesen aller Projekte von einem bestimmten Modul.
+        """Auslesen aller Projekte von eines bestimmten Moduls.
 
         Das Modul-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
         """
@@ -585,14 +585,13 @@ class ModuleRelatedProjectOperations(Resource):
         mod = adm.get_module_by_id(id)
 
         if mod is not None:
-
-            project_list = adm.get_project_of_module(mod)
+            project_list = adm.get_project_by_module(mod)
             return project_list
         else:
             return "Module not found", 500
 
     @projectmanagement.marshal_with(project, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen eines Projekts für ein gegebenes Modul.
 
@@ -612,7 +611,7 @@ class ModuleRelatedProjectOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Semester-Objekts')
 class SemesterRelatedProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
-    @secured
+
     def get(self, id):
         """Auslesen aller Projekte von einem bestimmten Semester.
 
@@ -628,7 +627,7 @@ class SemesterRelatedProjectOperations(Resource):
             return "Semester not found", 500
 
     @projectmanagement.marshal_with(project, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen eines Projekts für ein gegebenes Semester.
 
@@ -648,7 +647,7 @@ class SemesterRelatedProjectOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Projecttypes-Objekts')
 class ProjectTypeRelatedProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
-    @secured
+
     def get(self, id):
         """Auslesen aller Projekte von einer bestimmten Projektart.
 
@@ -665,7 +664,7 @@ class ProjectTypeRelatedProjectOperations(Resource):
             return "Project Type not found", 500
 
     @projectmanagement.marshal_with(project, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen eines Projekts für eine gegebene Projektart.
 
@@ -683,7 +682,7 @@ class ProjectTypeRelatedProjectOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ModuleListOperations(Resource):
     @projectmanagement.marshal_list_with(module)
-    @secured
+
     def get(self):
         """Auslesen aller Module-Objekte.
         """
@@ -693,7 +692,7 @@ class ModuleListOperations(Resource):
 
     @projectmanagement.marshal_with(module, code=200)
     @projectmanagement.expect(module)
-    @secured
+
     def post(self):
         """Anlegen eines neuen Modul-Objekts.
         """
@@ -701,7 +700,7 @@ class ModuleListOperations(Resource):
         m = Module.from_dict(api.payload)
 
         if m is not None:
-            modu = adm.create_module(m.get_name(), m.get_id(), m.get_edv_nr())
+            modu = adm.create_module(m.get_id(),m.get_name(), m.get_edv_nr())
             return modu, 200
         else:
             return '', 500
@@ -709,9 +708,9 @@ class ModuleListOperations(Resource):
 @projectmanagement.route('/module/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Module-Objekts')
-class SemesterOperations(Resource):
+class ModuleOperations(Resource):
     @projectmanagement.marshal_with(module)
-    @secured
+
     def get(self, id):
         """Auslesen eines bestimmten Module-Objekts anhand der id.
 
@@ -721,15 +720,14 @@ class SemesterOperations(Resource):
         mo = adm.get_module_by_id(id)
         return mo
 
-    @secured
     def delete(self, id):
         """Löschen eines bestimmten Module-Objekts.
 
         Das zu löschende Objekt wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        mo = adm.get_semester_by_key(id)
-        adm.delete_semester(mo)
+        mo = adm.get_module_by_id(id)
+        adm.delete_module(mo)
         return '', 200
 
     @projectmanagement.marshal_with(module)
@@ -757,7 +755,7 @@ class SemesterOperations(Resource):
 @projectmanagement.param('id', 'Die ID der Person-Objekts')
 class ParticipationStudentOperations(Resource):
     @projectmanagement.marshal_with(participation, student)
-    @secured
+
     def get(self, id):
         """Auslesen aller Participation-Objekte eines bestimmten Studenten .
 
@@ -775,7 +773,7 @@ class ParticipationStudentOperations(Resource):
 
 
     @projectmanagement.marshal_with(participation, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen einer Participation für einen gegebenen Studenten.
 
@@ -801,7 +799,7 @@ class ParticipationStudentOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Participation-Objekts')
 class ParticipationModuleOperations(Resource):
     @projectmanagement.marshal_with(module)
-    @secured
+
     def get(self, id):
         """Auslesen aller Participation-Objekte bzgl. eines bestimmten Module-Objekts.
 
@@ -820,7 +818,7 @@ class ParticipationModuleOperations(Resource):
             return "Module not found", 500
 
     @projectmanagement.marshal_with(participation, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen einer Participation für einen gegebenes Modul.
 
@@ -846,7 +844,7 @@ class ParticipationModuleOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RatingListOperations(Resource):
     @projectmanagement.marshal_list_with(rating)
-    @secured
+
     def get(self):
         """Auslesen aller rating-Objekte.
 
@@ -857,7 +855,7 @@ class RatingListOperations(Resource):
 
     @projectmanagement.marshal_with(rating, code=200)
     @projectmanagement.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
-    @secured
+
     def post(self):
         """Anlegen eines neuen Rating-Objekts.
 
@@ -891,7 +889,7 @@ class RatingListOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Rating-Objekts')
 class RatingOperations(Resource):
     @projectmanagement.marshal_with(rating)
-    @secured
+
     def get(self, id):
         """Auslesen eines bestimmten Rating-Objekts.
 
@@ -913,7 +911,7 @@ class RatingOperations(Resource):
         return '', 200
 
     @projectmanagement.marshal_with(rating)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Rating-Objekts.
         """
@@ -932,7 +930,7 @@ class RatingOperations(Resource):
 @projectmanagement.param('id', 'Die ID des student-Objekts')
 class StudentRelatedRatingOperations(Resource):
     @projectmanagement.marshal_with(rating)
-    @secured
+
     def get(self, id):
         """Auslesen aller Bewertungen von einer bestimmten Student.
 
@@ -948,7 +946,7 @@ class StudentRelatedRatingOperations(Resource):
             return "Student not found", 500
 
     @projectmanagement.marshal_with(project, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen einer Bewertung für ein gegebenen Studenten.
 
@@ -968,7 +966,7 @@ class StudentRelatedRatingOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Projekt-Objekts')
 class ProjectRelatedRatingOperations(Resource):
     @projectmanagement.marshal_with(project)
-    @secured
+
     def get(self, id):
         """Auslesen aller Bewertungen von einem bestimmten Projekt.
 
@@ -984,7 +982,7 @@ class ProjectRelatedRatingOperations(Resource):
             return "Project not found", 500
 
     @projectmanagement.marshal_with(rating, code=201)
-    @secured
+
     def post(self, id):
         """Anlegen einer Bewertung für eine gegebenes Projekt.
 
@@ -1004,7 +1002,7 @@ class ProjectRelatedRatingOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RoleListOperations(Resource):
     @projectmanagement.marshal_list_with(role)
-    @secured
+
     def get(self):
         """Auslesen aller Role-Objekte."""
         adm = ProjectAdministration()
@@ -1013,7 +1011,7 @@ class RoleListOperations(Resource):
 
     @projectmanagement.marshal_with(role, code=200)
     @projectmanagement.expect(role)
-    @secured
+
     def post(self):
         """Anlegen eines neuen Role-Objekts.
         """
@@ -1033,7 +1031,7 @@ class RoleListOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Role-Objekts')
 class RoleOperations(Resource):
     @projectmanagement.marshal_with(role)
-    @secured
+
     def get(self, id):
         """Auslesen eines bestimmten Role-Objekts.
 
@@ -1043,7 +1041,7 @@ class RoleOperations(Resource):
         ro = adm.get_role_by_id(id)
         return ro
 
-    @secured
+
     def delete(self, id):
         """Löschen eines bestimmten Role-Objekts.
 
@@ -1056,7 +1054,7 @@ class RoleOperations(Resource):
 
     @projectmanagement.marshal_with(role)
     @projectmanagement.expect(role, validate=True)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten role-Objekts.
         """
@@ -1077,7 +1075,7 @@ class RoleOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectTypeListOperations(Resource):
     @projectmanagement.marshal_list_with(project_type)
-    @secured
+
     def get(self):
         """Auslesen aller Projecttype-Objekte.
         """
@@ -1091,7 +1089,7 @@ class ProjectTypeListOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Projecttype-Objekts')
 class ProjectTypeOperations(Resource):
     @projectmanagement.marshal_with(project_type)
-    @secured
+
     def get(self, id):
         """Auslesen eines bestimmten Projecttype-Objekts.
         """
@@ -1099,7 +1097,7 @@ class ProjectTypeOperations(Resource):
         pt = adm.get_all_projecttype_by_id(id)
         return pt
 
-    @secured
+
     def delete(self, id):
         """Löschen eines bestimmten projecttype-Objekts.
 
@@ -1112,7 +1110,7 @@ class ProjectTypeOperations(Resource):
 
     @projectmanagement.marshal_with(project_type)
     @projectmanagement.expect(project_type, validate=True)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Projecttype-Objekts.
         """

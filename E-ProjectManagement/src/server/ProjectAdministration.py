@@ -177,7 +177,7 @@ class ProjectAdministration(object):
     def get_module_by_id(self, id):
         """Das Modul mit der gegebenen ID auslesen."""
         with ModuleMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     """Modulspezifische Methoden"""
 
@@ -458,9 +458,13 @@ class ProjectAdministration(object):
         with SemesterMapper() as mapper:
             mapper.insert(semester)
 
-    def get_all_module(self, module):
+    def get_all_module(self):
         with ModuleMapper() as mapper:
-            mapper.insert(module)
+            return mapper.find_all()
+
+    def get_project_by_module(self, module):
+        with ProjectMapper() as mapper:
+            return mapper.find_project_by_module(module)
 
     def get_projecttype_for_project(self, projecttype):
         with ProjectTypeMapper() as mapper:
