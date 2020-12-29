@@ -30,7 +30,7 @@ export default class ProjectBO extends BusinessObject {
     this.room = aRoom;
   }
 
-  set(aStatus) {
+  setStatus(aStatus) {
   this.status = aStatus ;
   }
 
@@ -38,7 +38,7 @@ export default class ProjectBO extends BusinessObject {
     return this.status
   }
 
-  set(aOwner) {
+  setOwner(aOwner) {
   this.owner = aOwner ;
   }
 
@@ -46,7 +46,7 @@ export default class ProjectBO extends BusinessObject {
     return this.owner
   }
 
-  set(aModule) {
+  setModule(aModule) {
   this.module = aModule ;
   }
 
@@ -54,7 +54,7 @@ export default class ProjectBO extends BusinessObject {
     return this.module
   }
 
-  set(aStudent) {
+  setStatus(aStudent) {
   this.student = aStudent ;
   }
 
@@ -62,7 +62,7 @@ export default class ProjectBO extends BusinessObject {
     return this.student
   }
 
-  set(aProjectType) {
+  setPrototype(aProjectType) {
   this.project_type = aProjectType ;
   }
 
@@ -70,7 +70,7 @@ export default class ProjectBO extends BusinessObject {
     return this.project_type
   }
 
-  set(aTime) {
+  setTime(aTime) {
   this.time = aTime;
   }
 
@@ -78,7 +78,7 @@ export default class ProjectBO extends BusinessObject {
     return this.time
   }
 
-  set(aCapacity) {
+  setCapacity(aCapacity) {
   this.capacity = aCapacity ;
   }
 
@@ -86,7 +86,7 @@ export default class ProjectBO extends BusinessObject {
     return this.capacity
   }
 
-  set(aShortDescription) {
+  setShortDescription(aShortDescription) {
   this.short_description = aShortDescription ;
   }
 
@@ -94,7 +94,7 @@ export default class ProjectBO extends BusinessObject {
     return this.short_description
   }
 
-  set(aFlag) {
+  setFlag(aFlag) {
   this.flag = aFlag ;
   }
 
@@ -102,7 +102,7 @@ export default class ProjectBO extends BusinessObject {
     return this.Flag
   }
 
-  set(aBdBeforeLecturePeriod) {
+  setBdBeforeLecturePeriod(aBdBeforeLecturePeriod) {
   this.bd_before_lecture_period = aBdBeforeLecturePeriod ;
   }
 
@@ -110,7 +110,7 @@ export default class ProjectBO extends BusinessObject {
     return this.bd_before_lecture_period
   }
 
-  set(aBdDuringLecturePeriod) {
+  setBdDuringLecturePeriod(aBdDuringLecturePeriod) {
   this.bd_during_lecture_period = aBdDuringLecturePeriod ;
   }
 
@@ -118,7 +118,7 @@ export default class ProjectBO extends BusinessObject {
     return this.bd_during_lecture_period
   }
 
-  set(aBdDuringExamPeriod) {
+  setBdDuringExamPeriod(aBdDuringExamPeriod) {
   this.bd_during_exam_period = aBdDuringExamPeriod ;
   }
 
@@ -126,7 +126,7 @@ export default class ProjectBO extends BusinessObject {
     return this.bd_during_exam_period
   }
 
-  set(aPreferredBdDuringLecturePeriod) {
+  setPreferredBdDuringLecturePeriod(aPreferredBdDuringLecturePeriod) {
   this.preferred_bd_during_lecture_period = aPreferredBdDuringLecturePeriod ;
   }
 
@@ -134,7 +134,7 @@ export default class ProjectBO extends BusinessObject {
     return this.preferred_bd_during_lecture_period
   }
 
-  set(aSpecialRoom) {
+  setSpecialRoom(aSpecialRoom) {
   this.special_room = aSpecialRoom ;
   }
 
@@ -142,7 +142,7 @@ export default class ProjectBO extends BusinessObject {
     return this.special_room
   }
 
-  set(aLanguage) {
+  setLanguage(aLanguage) {
   this.language = aLanguage ;
   }
 
@@ -150,7 +150,7 @@ export default class ProjectBO extends BusinessObject {
     return this.language
   }
 
-  set(aRoom){
+  setRoom(aRoom){
   this.room = aRoom ;
   }
   getRoom() {

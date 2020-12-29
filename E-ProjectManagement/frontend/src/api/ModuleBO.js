@@ -26,7 +26,7 @@ export default class ModuleBO extends BusinessObject {
     let result = [];
 
     if (Array.isArray(modules)) {
-      customers.forEach((c) => {
+      modules.forEach((c) => {
         Object.setPrototypeOf(c, ModuleBO.prototype);
         result.push(c);
       })
