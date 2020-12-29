@@ -14,10 +14,10 @@ class RoleMapper (Mapper):
         cursor.execute("SELECT * from role")
         tuples = cursor.fetchall()
 
-        for (id, name) in tuples:
+        for (id, role_name) in tuples:
             role = Role()
             role.set_id(id)
-            role.set_name(name)
+            role.set_role_name(role_name)
             result.append(role)
 
         self._cnx.commit()

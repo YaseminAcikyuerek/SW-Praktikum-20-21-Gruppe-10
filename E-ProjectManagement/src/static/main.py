@@ -71,13 +71,12 @@ participation = api.inherit('Participation', bo, {
 
 person = api.inherit('Person', bo, {
     'name': fields.String(attribute='_name', description='Name der Person'),
-    'role': fields.String(attribute='_role', description='unique ID der Rolle'),
-    'user_id': fields.Integer(attribute='_user_id', description='externe ID die von Google übergeben wird')
+    'role': fields.String(attribute='_role', description='Rollenname'),
 })
 
 project = api.inherit('Project', bo, {
     'name': fields.String(attribute='_name', description='Name des Projekts'),
-    'owner': fields.Integer(attribute='_owner',description='unique ID des Projektbesitzers'),
+    'owner': fields.Integer(attribute='_owner', description='unique ID des Projektbesitzers'),
     'module': fields.Integer(attribute='_module',description='unique ID des Projektmoduls'),
     'language': fields.String(attribute='_language',description='Sprache des Projekts'),
     'capacity': fields.Integer(attribute='_capacity', description='Die Kapazität des Projekts'),
@@ -91,11 +90,11 @@ project = api.inherit('Project', bo, {
     'special_room': fields.Boolean(attribute='special_room', description=''),
     'room': fields.String(attribute='_room', description=''),
     'status': fields.String(attribute='_status', description=''),
-    'semester_id': fields.Integer(attribute='_semester_id', description=''),
-    'projecttype_id':fields.Integer(attribute='_projecttype_id', description=''),
+    'semester': fields.Integer(attribute='_semester', description=''),
+    'project_type':fields.Integer(attribute='_project_type', description=''),
 })
 
-projecttype = api.inherit('ProjectType', bo, {
+project_type = api.inherit('ProjectType', bo, {
     'name': fields.String(attribute='_name', description='Name der Projektart'),
     'sws': fields.Integer(attribute='_sws', description='SWS der Projektart'),
     'ects': fields.Integer(attribute='_ects', description='ECTS der Projektart')
@@ -132,8 +131,8 @@ student = api.inherit('Student', bo, {
 @projectmanagement.route('/person')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class PersonListOperations(Resource):
-    @projectmanagement.marshal_list_with(person)
     @secured
+    @projectmanagement.marshal_list_with(person)
     def get(self):
         """Auslesen aller Person-Objekte.
 
@@ -143,29 +142,18 @@ class PersonListOperations(Resource):
         return persons
 
     @projectmanagement.marshal_with(person, code=200)
-    @projectmanagement.expect(person)  # Wir erwarten ein Customer-Objekt von Client-Seite.
-    @secured
+    @projectmanagement.expect(person)  # Wir erwarten ein Person-Objekt von Client-Seite.
     def post(self):
-        """Anlegen eines neuen Customer-Objekts.
-
-        **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
-        So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
-        Selbst wenn der Client eine ID in dem Proposal vergeben sollte, so
-        liegt es an der BankAdministration (Businesslogik), eine korrekte ID
-        zu vergeben. *Das korrigierte Objekt wird schließlich zurückgegeben.*
+        """Anlegen eines neuen Person-Objekts.
         """
         adm = ProjectAdministration()
 
-        proposal = Person.from_dict(api.payload)
+        per = Person.from_dict(api.payload)
 
         """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
-        if proposal is not None:
-            """ Wir verwenden lediglich Vor- und Nachnamen des Proposals für die Erzeugung
-            eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
-            wird auch dem Client zurückgegeben. 
-            """
-            c = adm.create_person(proposal.get_name(), proposal.get_role())
-            return c, 200
+        if role is not None:
+            result = adm.create_person(per)
+            return result
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
             return '', 500
@@ -176,7 +164,7 @@ class PersonListOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Customer-Objekts')
 class PersonOperations(Resource):
     @projectmanagement.marshal_with(person)
-    @secured
+
     def get(self, id):
         """Auslesen einer bestimmten Person-BO.
 
@@ -186,7 +174,7 @@ class PersonOperations(Resource):
         pers = adm.get_person_by_id(id)
         return pers
 
-    @secured
+
     def delete(self, id):
         """Löschen einer bestimmten Person-BO.
 
@@ -199,7 +187,7 @@ class PersonOperations(Resource):
 
     @projectmanagement.marshal_with(person)
     @projectmanagement.expect(person, validate=True)
-    @secured
+
     def put(self, id):
         """Update einer bestimmten Person.
         """
@@ -218,7 +206,7 @@ class PersonOperations(Resource):
 @projectmanagement.param('Name', 'Der Name einer Person')
 class PersonByNameOperations(Resource):
     @projectmanagement.marshal_with(person)
-    @secured
+
     def get(self, name):
         """ Auslesen von einer Person anhand des Namens
         Auszulesende Objekt wird anhand des Namens bestimmt.
@@ -1090,7 +1078,7 @@ class RoleOperations(Resource):
 @projectmanagement.route('/projecttype')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectTypeListOperations(Resource):
-    @projectmanagement.marshal_list_with(projecttype)
+    @projectmanagement.marshal_list_with(project_type)
     @secured
     def get(self):
         """Auslesen aller Projecttype-Objekte.
@@ -1104,7 +1092,7 @@ class ProjectTypeListOperations(Resource):
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Projecttype-Objekts')
 class ProjectTypeOperations(Resource):
-    @projectmanagement.marshal_with(projecttype)
+    @projectmanagement.marshal_with(project_type)
     @secured
     def get(self, id):
         """Auslesen eines bestimmten Projecttype-Objekts.
@@ -1124,8 +1112,8 @@ class ProjectTypeOperations(Resource):
         adm.delete_projecttype(pt)
         return '', 200
 
-    @projectmanagement.marshal_with(projecttype)
-    @projectmanagement.expect(projecttype, validate=True)
+    @projectmanagement.marshal_with(project_type)
+    @projectmanagement.expect(project_type, validate=True)
     @secured
     def put(self, id):
         """Update eines bestimmten Projecttype-Objekts.

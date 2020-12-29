@@ -3,14 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 21. Dez 2020 um 20:34
+-- Erstellungszeit: 29. Dez 2020 um 11:52
 -- Server-Version: 10.4.13-MariaDB
 -- PHP-Version: 7.2.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-GRANT ALL PRIVILEGES ON *.* TO `root`@`127.0.0.1` with grant option;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -71,18 +70,18 @@ INSERT INTO `participation` (`participation_id`, `project_id`, `student_matr_nr`
 CREATE TABLE `person` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `role_id` int(11) NOT NULL
+  `role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `person`
 --
 
-INSERT INTO `person` (`id`, `name`, `role_id`) VALUES
-(0, 'jens', 6),
-(63, 'alex', 5),
+INSERT INTO `person` (`id`, `name`, `role`) VALUES
+(0, 'jens', 2),
+(63, 'alex', 1),
 (123, 'ghg', 2),
-(143, 'ali', 7);
+(143, 'ali', 3);
 
 -- --------------------------------------------------------
 
@@ -92,8 +91,8 @@ INSERT INTO `person` (`id`, `name`, `role_id`) VALUES
 
 CREATE TABLE `project` (
   `id` int(11) NOT NULL,
-  `semester_id` int(11) NOT NULL,
-  `module_id` int(11) DEFAULT NULL,
+  `semester` int(11) NOT NULL,
+  `module` int(11) DEFAULT NULL,
   `short_description` varchar(45) DEFAULT NULL,
   `external_partner_list` varchar(45) DEFAULT NULL,
   `capacity` int(11) DEFAULT NULL,
@@ -107,7 +106,7 @@ CREATE TABLE `project` (
   `flag` tinyint(4) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
-  `projecttype_id` int(10) NOT NULL,
+  `project_type` int(10) NOT NULL,
   `owner` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -115,8 +114,8 @@ CREATE TABLE `project` (
 -- Daten für Tabelle `project`
 --
 
-INSERT INTO `project` (`id`, `semester_id`, `module_id`, `short_description`, `external_partner_list`, `capacity`, `bd_during_exam_period`, `bd_before_lecture_period`, `bd_during_leture_period`, `preferred_bd_during_lecture_period`, `language`, `room`, `special_room`, `flag`, `name`, `status`, `projecttype_id`, `owner`) VALUES
-(4000, 70, 5000, 'Hallo Welt', 'Forster, Kunz', 25, 2, 4, 6, 7, 'Deutsch', 'I002', NULL, NULL, 'Projekt1', 'new', 1, 0),
+INSERT INTO `project` (`id`, `semester`, `module`, `short_description`, `external_partner_list`, `capacity`, `bd_during_exam_period`, `bd_before_lecture_period`, `bd_during_leture_period`, `preferred_bd_during_lecture_period`, `language`, `room`, `special_room`, `flag`, `name`, `status`, `project_type`, `owner`) VALUES
+(4000, 70, 5000, 'Hallo Welt', 'Forster, Kunz', 25, 2, 4, 6, 7, 'Deutsch', 'I002', NULL, NULL, 'Projekt1', 'new', 1, 63),
 (4001, 71, 235424, 'fkldglerk', 'Klotz', 45, 2, 4, 1, 3, 'Englisch', 'I007', 0, 0, '', 'Projekt2', 2, 0);
 
 -- --------------------------------------------------------
@@ -169,17 +168,17 @@ INSERT INTO `rating` (`id`, `passed`, `grade`, `evaluator`, `to_be_assessed`) VA
 
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL
+  `role_name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `role`
 --
 
-INSERT INTO `role` (`id`, `name`) VALUES
-(2, 'dozent'),
-(5, 'dozent'),
-(6, 'admin');
+INSERT INTO `role` (`id`, `role_name`) VALUES
+(1, 'dozent'),
+(2, 'student'),
+(3, 'admin');
 
 -- --------------------------------------------------------
 
@@ -324,3 +323,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+

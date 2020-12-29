@@ -11,14 +11,14 @@ class PersonMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, name, role_id from person")
+        cursor.execute("SELECT id, name, role from person")
         tuples = cursor.fetchall()
 
-        for (id, name, role_id) in tuples:
+        for (id, name, role) in tuples:
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role_id(role_id)
+            person.set_role(role)
             result.append(person)
 
         self._cnx.commit()
@@ -39,16 +39,16 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command= "SELECT id, name, role_id FROM person WHERE id={}".format(id)
+        command= "SELECT id, name, role FROM person WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, role_id) = tuples[0]
+            (id, name, role) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role_id(role_id)
+            person.set_role(role)
 
         result = person
 
@@ -66,8 +66,8 @@ class PersonMapper(Mapper):
         for (maxid) in tuples:
             person.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO person (id, name, role_id) VALUES (%s,%s,%s)"
-        data = (person.get_id(), person.get_name(), person.get_role_id)
+        command = "INSERT INTO person (id, name, role) VALUES (%s,%s,%s)"
+        data = (person.get_id(), person.get_name(), person.get_role())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -78,8 +78,8 @@ class PersonMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE person " + "SET name=%s,role_id=%s WHERE id=%s"
-        data = (person.get_id(), person.get_name(), person.get_role_id())
+        command = "UPDATE person " + "SET name=%s,role=%s WHERE id=%s"
+        data = (person.get_id(), person.get_name(), person.get_role())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -104,16 +104,16 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role_id FROM person WHERE role={}".format(role)
+        command = "SELECT id, name, role FROM person WHERE role={}".format(role)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, role_id) = tuples[0]
+            (id, name, role) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role_id(role_id)
+            person.set_role(role)
             result = person
 
         except IndexError:
@@ -131,16 +131,16 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role_id FROM person WHERE student.name={}".format(name)
+        command = "SELECT id, name, role FROM person WHERE student.name={}".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, role_id) = tuples[0]
+            (id, name, role) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_name(name)
-            person.set_role_id(role_id)
+            person.set_role(role)
             result = person
 
         except IndexError:

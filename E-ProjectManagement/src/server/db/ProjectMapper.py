@@ -213,7 +213,7 @@ class ProjectMapper(Mapper):
             project.set_owner(owner)
             project.set_module(module)
             project.set_language(language)
-            project.set_project_type_id(project_typ_id)
+            project.set_project_type_id(project_type_id)
             project.set_time(time)
             project.set_capacity(capacity)
             project.set_external_partner_list(external_partner_list)

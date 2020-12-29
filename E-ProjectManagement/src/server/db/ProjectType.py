@@ -15,11 +15,11 @@ class ProjectTypeMapper(Mapper):
         tuples = cursor.fetchall()
 
         for (id,sws, ects) in tuples:
-            projecttype = ProjectType()
-            projecttype.set_id(id)
-            projecttype.set_sws(sws)
-            projecttype.set_ects(ects)
-            result.append(projecttype)
+            project_type = ProjectType()
+            project_type.set_id(id)
+            project_type.set_sws(sws)
+            project_type.set_ects(ects)
+            result.append(project_type)
 
         self._cnx.commit()
         cursor.close()
@@ -31,57 +31,57 @@ class ProjectTypeMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,sws,ects FROM projecttype WHERE id={}".format(id)
+        command = "SELECT id,sws,ects FROM project_type WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
             (id,sws,ects) = tuples[0]
-            projecttype = ProjectType()
-            projecttype.set_id(id)
-            projecttype.set_sws(sws)
-            projecttype.set_ects(ects)
+            project_type = ProjectType()
+            project_type.set_id(id)
+            project_type.set_sws(sws)
+            project_type.set_ects(ects)
 
-        result = projecttype
+        result = project_type
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-    def insert(self, projecttype):
+    def insert(self, project_type):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM projecttype ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM project_type ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
-            projecttype.set_id(maxid[0] + 1)
+            project_type.set_id(maxid[0] + 1)
 
         command = "INSERT INTO projecttype (sws, ects) VALUES (%s,%s)"
-        data = (projecttype.get_id(), projecttype.get_sws(), projecttype.get_ects())
+        data = (project_type.get_id(), project_type.get_sws(), project_type.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
-        return projecttype
+        return project_type
 
-    def update(self, projecttype):
+    def update(self, project_type):
 
         cursor = self._cnx.cursor()
 
         command = "UPDATE projectTypes " + "SET sws=%s, ects=%s WHERE id=%s"
-        data = (projecttype.get_sws(), projecttype.get_id(), projecttype.get_ects())
+        data = (project_type.get_sws(), project_type.get_id(), project_type.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
-    def delete(self, projecttype):
+    def delete(self, project_type):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM projecttype WHERE id={}".format(projecttype.get_id())
+        command = "DELETE FROM project_type WHERE id={}".format(project_type.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
