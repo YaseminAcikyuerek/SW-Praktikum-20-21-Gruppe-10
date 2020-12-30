@@ -28,7 +28,7 @@ class SemesterMapper(Mapper):
 
 
 
-    def find_by_id(self, id):
+    def find_by_id(self, id): #suche semester nach id
 
         result = None
 
