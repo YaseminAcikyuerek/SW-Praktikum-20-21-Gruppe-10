@@ -212,7 +212,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/E-ProjectManagement/src/static" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -344,13 +344,13 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f7cdd951-4dcf-4e96-a4f5-b5c42a02469a" name="Default Changelist" comment="" />
+      <changelist id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="Korrekturen" />
       <created>1606409236603</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -475,7 +475,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608405047480</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="workspace.xml">
+      <created>1609340596958</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1609340596958</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -601,7 +608,8 @@
     <MESSAGE value="Projektadminstration bearbeitet" />
     <MESSAGE value="Projektadminstration angepasst" />
     <MESSAGE value="main.py+Projekadministration bearbeitet" />
-    <option name="LAST_COMMIT_MESSAGE" value="main.py+Projekadministration bearbeitet" />
+    <MESSAGE value="workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
