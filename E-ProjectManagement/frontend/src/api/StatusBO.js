@@ -1,9 +1,9 @@
-import BusinessObject from './BusinessObject';
+import NamedBusinessObject from './NamedBusinessObject';
 
 /**
  * Represents a customer of the bank.
  */
-export default class StatusBO extends BusinessObject {
+export default class StatusBO extends NamedBusinessObject {
 
 constructor(aStatus) {
     super();
