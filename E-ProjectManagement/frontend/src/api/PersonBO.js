@@ -1,9 +1,9 @@
-import  BusinessObject from './BusinessObject';
+import  NamedBusinessObject from './NamedBusinessObject';
 
 /**
  * Zeigt die Person an, die .
  */
-export default class PersonBO extends BusinessObject {
+export default class PersonBO extends NamedBusinessObject {
 
 /**
    *

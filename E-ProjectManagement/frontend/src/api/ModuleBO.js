@@ -1,9 +1,9 @@
-import  BusinessObject from './BusinessObject';
+import  NamedBusinessObject from './NamedBusinessObject';
 
 /**
  * .
  */
-export default class ModuleBO extends BusinessObject {
+export default class ModuleBO extends NamedBusinessObject {
 
 /**
    *
