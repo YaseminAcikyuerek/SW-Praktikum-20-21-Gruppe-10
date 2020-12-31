@@ -1,4 +1,4 @@
-from server.bo import BusinessObject as bo
+from server.bo.BusinessObject import BusinessObject as bo
 
 
 class Participation(bo):
@@ -14,8 +14,8 @@ class Participation(bo):
     def get_project(self):
         return self._project
 
-    def set_student(self,student):
-        self._student= student
+    def set_student(self, student):
+        self._student = student
 
     def get_student(self):
         return self._student

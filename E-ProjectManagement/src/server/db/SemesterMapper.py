@@ -1,5 +1,5 @@
 from server.bo.Semester import Semester
-from server.db import Mapper
+from server.db.Mapper import Mapper
 
 
 class SemesterMapper(Mapper):
@@ -11,7 +11,7 @@ class SemesterMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, start, end from semesters")
+        cursor.execute("SELECT id, start, end from semester")
         tuples = cursor.fetchall()
 
         for (id, start, end) in tuples:
@@ -28,12 +28,12 @@ class SemesterMapper(Mapper):
 
 
 
-    def find_by_key(self, key):
+    def find_by_id(self, id): #suche semester nach id
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, start, end FROM semesters WHERE id={}".format(key)
+        command = "SELECT id, start, end FROM semester WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -54,7 +54,7 @@ class SemesterMapper(Mapper):
     def insert(self, semester):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM semesters ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM semester ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
@@ -72,7 +72,7 @@ class SemesterMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE semesters " + "SET start=%s, end=%s WHERE id=%s"
+        command = "UPDATE semester " + "SET start=%s, end=%s WHERE id=%s"
         data = (semester.get_start(), semester.get_end(), semester.get_id())
         cursor.execute(command, data)
 
@@ -83,7 +83,7 @@ class SemesterMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM semesters WHERE id={}".format(semester.get_id())
+        command = "DELETE FROM semester WHERE id={}".format(semester.get_id())
         cursor.execute(command)
 
         self._cnx.commit()

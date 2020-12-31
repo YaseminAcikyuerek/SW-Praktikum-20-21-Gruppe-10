@@ -1,4 +1,4 @@
-from server.db import Mapper
+from server.db.Mapper import Mapper
 from server.bo.Role import Role
 
 
@@ -14,10 +14,10 @@ class RoleMapper (Mapper):
         cursor.execute("SELECT * from role")
         tuples = cursor.fetchall()
 
-        for (id,name) in tuples:
+        for (id, role_name) in tuples:
             role = Role()
             role.set_id(id)
-            role.set_name(name)
+            role.set_role_name(role_name)
             result.append(role)
 
         self._cnx.commit()
@@ -25,20 +25,20 @@ class RoleMapper (Mapper):
 
         return result
 
-    def find_by_key(self, key):
+    def find_by_id(self, id):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,name FROM projectTypes WHERE key={}".format(id)
+        command = "SELECT id,role_name FROM role WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name) = tuples[0]
+            (id, role_name) = tuples[0]
             role = Role()
             role.set_id(id)
-            role.set_name(name)
+            role.set_role_name(role_name)
 
         result = role
 

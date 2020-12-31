@@ -1,8 +1,7 @@
-from server.bo.EA import EA
+from server.bo.BusinessObject import BusinessObject
 from server.bo.Status import Status
 
-
-class DEA(EA):
+class DEA (BusinessObject):
     """
      Eine rudimentäre Klasse zur Darstellung von Deterministischen Endlichen Automaten (DEA).
      Ein DEA A ist definitiert als A=(Q,S,d,q0,F).

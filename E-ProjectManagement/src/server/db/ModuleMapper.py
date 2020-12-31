@@ -1,5 +1,5 @@
 from server.bo.Module import Module
-from server import Mapper
+from server.db.Mapper import Mapper
 
 
 class ModuleMapper(Mapper):
@@ -15,7 +15,7 @@ class ModuleMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT *  from modules")
+        cursor.execute("SELECT *  from module")
         tuples = cursor.fetchall()
 
         for (id, name, edv_nr) in tuples:
@@ -43,7 +43,7 @@ class ModuleMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr FROM modules WHERE id={}".format(id)
+        command = "SELECT id, name, edv_nr FROM module WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -71,13 +71,13 @@ class ModuleMapper(Mapper):
         :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
         """
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM modules ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM module ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
             module.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO modules (id, name, edv_nr) VALUES (%s,%s,%s)"
+        command = "INSERT INTO module (id, name, edv_nr) VALUES (%s,%s,%s)"
         data = (module.get_id(), module.get_name(), module.get_edv_nr())
         cursor.execute(command, data)
 
@@ -92,7 +92,7 @@ class ModuleMapper(Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE modules " + "SET name=%s, edv_nr=%s WHERE id=%s"
+        command = "UPDATE module " + "SET name=%s, edv_nr=%s WHERE id=%s"
         data = (module.get_name(), module.get_id(), module.get_edv_nr())
         cursor.execute(command, data)
 
@@ -106,7 +106,7 @@ class ModuleMapper(Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM modules WHERE id={}".format(module.get_id())
+        command = "DELETE FROM module WHERE id={}".format(module.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -116,7 +116,7 @@ class ModuleMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr,  FROM users WHERE name LIKE '{}' ORDER BY edv_nr".format(edv_nr)
+        command = "SELECT id, name, edv_nr,  FROM module WHERE name LIKE '{}' ORDER BY edv_nr".format(edv_nr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -141,7 +141,7 @@ class ModuleMapper(Mapper):
 
         result=[]
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr,  FROM users WHERE name LIKE '{}' ORDER BY name".format(name)
+        command = "SELECT id, name, edv_nr,  FROM module WHERE name LIKE '{}' ORDER BY name".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -156,6 +156,31 @@ class ModuleMapper(Mapper):
         cursor.close()
 
         return result
+
+    def find_by_edv_nr(self, edv_nr):
+        """Auslesen aller Benutzer anhand des Benutzernamens.
+        :param name Name der zugehörigen Benutzer.
+        :return Eine Sammlung mit User-Objekten, die sämtliche Benutzer
+                mit dem gewünschten Namen enthält."""
+
+        result=[]
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, edv_nr,  FROM module WHERE edv_nr LIKE '{}' ORDER BY edv_nr".format(edv_nr)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, name, edv_nr) in tuples:
+            module = Module()
+            module.set_id(id)
+            module.set_name(name)
+            module.set_edv_nr(edv_nr)
+            result.append(module)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
 
 
 

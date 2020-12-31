@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BusinessObject(ABC):
 
     """Oberklasse aller BusinessObject-Klassen in diesem Projekt .

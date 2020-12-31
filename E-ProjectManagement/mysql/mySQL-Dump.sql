@@ -1,280 +1,326 @@
-CREATE DATABASE  IF NOT EXISTS `swproject` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `swproject`;
--- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.0.2
+-- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1    Database: swproject
--- ------------------------------------------------------
--- Server version	8.0.22
+-- Host: 127.0.0.1
+-- Erstellungszeit: 29. Dez 2020 um 11:52
+-- Server-Version: 10.4.13-MariaDB
+-- PHP-Version: 7.2.32
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `module`
+-- Datenbank: `sw-project`
 --
 
-DROP TABLE IF EXISTS `module`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `module`
+--
+
 CREATE TABLE `module` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `edv_nr` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `edv_nr` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `module`
+-- Daten für Tabelle `module`
 --
 
-LOCK TABLES `module` WRITE;
-/*!40000 ALTER TABLE `module` DISABLE KEYS */;
-/*!40000 ALTER TABLE `module` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `module` (`id`, `name`, `edv_nr`) VALUES
+(300, 'IT-Projekt', '5000'),
+(500, 'WI-Mathe', '235424');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `participation`
+-- Tabellenstruktur für Tabelle `participation`
 --
 
-DROP TABLE IF EXISTS `participation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `participation` (
-  `participation_id` int NOT NULL,
-  `project_id` int NOT NULL,
-  `student_matr_nr` int NOT NULL,
-  PRIMARY KEY (`participation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='participation of a person  to a project';
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `participation_id` int(11) NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `student_matr_nr` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `participation`
+-- Daten für Tabelle `participation`
 --
 
-LOCK TABLES `participation` WRITE;
-/*!40000 ALTER TABLE `participation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `participation` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `participation` (`participation_id`, `project_id`, `student_matr_nr`) VALUES
+(25, 90, 1001),
+(26, 91, 1002);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `person`
+-- Tabellenstruktur für Tabelle `person`
 --
 
-DROP TABLE IF EXISTS `person`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `person` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `role_id` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `role` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `person`
+-- Daten für Tabelle `person`
 --
 
-LOCK TABLES `person` WRITE;
-/*!40000 ALTER TABLE `person` DISABLE KEYS */;
-/*!40000 ALTER TABLE `person` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `person` (`id`, `name`, `role`) VALUES
+(0, 'jens', 2),
+(63, 'alex', 1),
+(123, 'ghg', 2),
+(143, 'ali', 3);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `project`
+-- Tabellenstruktur für Tabelle `project`
 --
 
-DROP TABLE IF EXISTS `project`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `project` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `semester_id` int NOT NULL,
-  `module_id` int DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `semester` int(11) NOT NULL,
+  `module` int(11) DEFAULT NULL,
   `short_description` varchar(45) DEFAULT NULL,
   `external_partner_list` varchar(45) DEFAULT NULL,
-  `capacity` int DEFAULT NULL,
-  `bd_during_exam_period` int DEFAULT NULL,
-  `bd_before_lecture_period` int DEFAULT NULL,
-  `bd_during_leture_period` int DEFAULT NULL,
-  `preferred_bd_during_lecture_period` int DEFAULT NULL,
+  `capacity` int(11) DEFAULT NULL,
+  `bd_during_exam_period` int(11) DEFAULT NULL,
+  `bd_before_lecture_period` int(11) DEFAULT NULL,
+  `bd_during_leture_period` int(11) DEFAULT NULL,
+  `preferred_bd_during_lecture_period` int(11) DEFAULT NULL,
   `language` varchar(45) DEFAULT NULL,
   `room` varchar(45) DEFAULT NULL,
-  `special_room` tinyint DEFAULT NULL,
-  `flag` tinyint DEFAULT NULL,
+  `special_room` tinyint(4) DEFAULT NULL,
+  `flag` tinyint(4) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Table stores the projects with parameters';
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `project_type` int(10) NOT NULL,
+  `owner` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `project`
+-- Daten für Tabelle `project`
 --
 
-LOCK TABLES `project` WRITE;
-/*!40000 ALTER TABLE `project` DISABLE KEYS */;
-/*!40000 ALTER TABLE `project` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `project` (`id`, `semester`, `module`, `short_description`, `external_partner_list`, `capacity`, `bd_during_exam_period`, `bd_before_lecture_period`, `bd_during_leture_period`, `preferred_bd_during_lecture_period`, `language`, `room`, `special_room`, `flag`, `name`, `status`, `project_type`, `owner`) VALUES
+(4000, 70, 5000, 'Hallo Welt', 'Forster, Kunz', 25, 2, 4, 6, 7, 'Deutsch', 'I002', NULL, NULL, 'Projekt1', 'new', 1, 63),
+(4001, 71, 235424, 'fkldglerk', 'Klotz', 45, 2, 4, 1, 3, 'Englisch', 'I007', 0, 0, '', 'Projekt2', 2, 0);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `projecttype`
+-- Tabellenstruktur für Tabelle `projecttype`
 --
 
-DROP TABLE IF EXISTS `projecttype`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `projecttype` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `sws` int NOT NULL,
-  `ects` int NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `sws` int(11) NOT NULL,
+  `ects` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `projecttype`
+-- Daten für Tabelle `projecttype`
 --
 
-LOCK TABLES `projecttype` WRITE;
-/*!40000 ALTER TABLE `projecttype` DISABLE KEYS */;
-/*!40000 ALTER TABLE `projecttype` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `projecttype` (`id`, `sws`, `ects`, `name`) VALUES
+(1, 23, 12, 'Inter'),
+(2, 46, 30, 'Wahl');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `rating`
+-- Tabellenstruktur für Tabelle `rating`
 --
 
-DROP TABLE IF EXISTS `rating`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `rating` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `passed` tinyint DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `passed` tinyint(4) DEFAULT NULL,
   `grade` double DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `evaluator` int(10) NOT NULL,
+  `to_be_assessed` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `rating`
+-- Daten für Tabelle `rating`
 --
 
-LOCK TABLES `rating` WRITE;
-/*!40000 ALTER TABLE `rating` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rating` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `rating` (`id`, `passed`, `grade`, `evaluator`, `to_be_assessed`) VALUES
+(1414, 1, 2, 123, 1);
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Tabellenstruktur für Tabelle `role`
 --
 
-DROP TABLE IF EXISTS `role`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `role_name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `role`
+-- Daten für Tabelle `role`
 --
 
-LOCK TABLES `role` WRITE;
-/*!40000 ALTER TABLE `role` DISABLE KEYS */;
-/*!40000 ALTER TABLE `role` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `role` (`id`, `role_name`) VALUES
+(1, 'dozent'),
+(2, 'student'),
+(3, 'admin');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `semester`
+-- Tabellenstruktur für Tabelle `semester`
 --
 
-DROP TABLE IF EXISTS `semester`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `semester` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `semester_start` date DEFAULT NULL,
-  `semester_end` date DEFAULT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `id` int(11) NOT NULL,
+  `start` date DEFAULT NULL,
+  `end` date DEFAULT NULL,
+  `name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `semester`
+-- Daten für Tabelle `semester`
 --
 
-LOCK TABLES `semester` WRITE;
-/*!40000 ALTER TABLE `semester` DISABLE KEYS */;
-/*!40000 ALTER TABLE `semester` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `semester` (`id`, `start`, `end`, `name`) VALUES
+(2020, '2020-12-01', '2020-12-18', 'WS20'),
+(2021, '2020-12-20', '2020-12-25', 'SS21');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `student`
+-- Tabellenstruktur für Tabelle `student`
 --
 
-DROP TABLE IF EXISTS `student`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `student` (
-  `matriculation_nr` int NOT NULL AUTO_INCREMENT,
-  `course_abbr` varchar(45) NOT NULL,
-  PRIMARY KEY (`matriculation_nr`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `matriculation_nr` int(10) NOT NULL,
+  `course_abbr` varchar(10) NOT NULL,
+  `person_id` int(10) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `student`
+-- Daten für Tabelle `student`
 --
 
-LOCK TABLES `student` WRITE;
-/*!40000 ALTER TABLE `student` DISABLE KEYS */;
-/*!40000 ALTER TABLE `student` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `student` (`matriculation_nr`, `course_abbr`, `person_id`, `id`) VALUES
+(6565, 'WI', 17, 1);
 
 --
--- Table structure for table `users`
+-- Indizes der exportierten Tabellen
 --
 
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `username` varchar(16) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(32) NOT NULL,
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `usertype` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+--
+-- Indizes für die Tabelle `module`
+--
+ALTER TABLE `module`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Dumping data for table `users`
+-- Indizes für die Tabelle `participation`
+--
+ALTER TABLE `participation`
+  ADD PRIMARY KEY (`participation_id`);
+
+--
+-- Indizes für die Tabelle `person`
+--
+ALTER TABLE `person`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `project`
+--
+ALTER TABLE `project`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `projecttype`
+--
+ALTER TABLE `projecttype`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `rating`
+--
+ALTER TABLE `rating`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `role`
+--
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `semester`
+--
+ALTER TABLE `semester`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT für exportierte Tabellen
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+--
+-- AUTO_INCREMENT für Tabelle `person`
+--
+ALTER TABLE `person`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- AUTO_INCREMENT für Tabelle `project`
+--
+ALTER TABLE `project`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4002;
+
+--
+-- AUTO_INCREMENT für Tabelle `projecttype`
+--
+ALTER TABLE `projecttype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT für Tabelle `rating`
+--
+ALTER TABLE `rating`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1416;
+
+--
+-- AUTO_INCREMENT für Tabelle `role`
+--
+ALTER TABLE `role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT für Tabelle `semester`
+--
+ALTER TABLE `semester`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2022;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
