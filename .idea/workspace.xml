@@ -26,23 +26,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="lokale Datenbank angebunden">
-      <change afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/AutomatonMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/AutomatonMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ModuleMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ParticipationMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ParticipationMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectType.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectType.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/__init__.py" afterDir="false" />
-    </list>
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="lokale Datenbank angebunden" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,7 +44,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1l4PfYjfqjVSKfeJBYoOATwkTMU" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -255,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607464304923</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="-Test2">
+      <created>1609422102624</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1609422102624</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -279,7 +273,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/Yasemin" />
                       </list>
                     </value>
                   </entry>
@@ -321,7 +315,8 @@
     <MESSAGE value="EA und DEA modifiziert" />
     <MESSAGE value="Mapper modifiziert" />
     <MESSAGE value="lokale Datenbank angebunden" />
-    <option name="LAST_COMMIT_MESSAGE" value="lokale Datenbank angebunden" />
+    <MESSAGE value="-Test2" />
+    <option name="LAST_COMMIT_MESSAGE" value="-Test2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
