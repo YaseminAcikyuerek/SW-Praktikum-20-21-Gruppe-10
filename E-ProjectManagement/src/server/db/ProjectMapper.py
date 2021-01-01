@@ -48,7 +48,7 @@ class ProjectMapper(Mapper):
 
     def find_by_id(self, id):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
         command = "SELECT * FROM project WHERE id={}".format(id)

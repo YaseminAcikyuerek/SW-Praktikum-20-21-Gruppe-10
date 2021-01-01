@@ -3,6 +3,7 @@ from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
 
 class Module(nbo):
     def __init__(self):
+        super().__init__()
         self._edv_nr = ""
 
     def set_edv_nr(self, value):
