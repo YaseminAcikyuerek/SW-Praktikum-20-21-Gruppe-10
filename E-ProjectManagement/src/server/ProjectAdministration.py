@@ -134,7 +134,7 @@ class ProjectAdministration(object):
     def get_project_by_id(self, id):
         """Das Projekt mit der gegebenen ID auslesen."""
         with ProjectMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     """Modulspezifische Methoden"""
 
@@ -164,10 +164,11 @@ class ProjectAdministration(object):
         with ModuleMapper() as mapper:
             return mapper.find_all()
 
-    def save_module(self, module):
+    def save_module(self, mo):
         """Das gegebene Modul speichern."""
         with ModuleMapper() as mapper:
-            mapper.update(module)
+            mapper.update(mo)
+
 
     def delete_module(self, module):
         """Den gegebenen Modul aus unserem System löschen."""
@@ -355,6 +356,7 @@ class ProjectAdministration(object):
 
     def create_participation(self, id, project, student):
         """Einen Teilnahme anlegen"""
+
         participation = Participation()
         participation.set_project(project)
         participation.set_student(student)
@@ -372,12 +374,12 @@ class ProjectAdministration(object):
     def get_all_participation_by_id(self, id):
         """Die Teilnahme mit der gegebenen ID auslesen."""
         with ParticipationMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     def get_participation_by_id(self, id):
         """Die Teilnahme mit der gegebenen ID auslesen."""
         with ParticipationMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     def get_participation_by_student(self, student):
         """Alle Teilnahmen von Studenten auslesen."""
@@ -407,7 +409,8 @@ class ProjectAdministration(object):
     def save_participation(self, participation):
         """die Teilnahme speichern"""
         with ParticipationMapper() as mapper:
-            mapper.insert(participation)
+            mapper.update(participation)
+
 
     """Semesterspezifische"""
 
@@ -516,3 +519,5 @@ class ProjectAdministration(object):
 
     def get_project_for_projecttype(self, projectt):
         pass
+
+

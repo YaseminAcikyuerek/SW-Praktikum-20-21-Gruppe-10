@@ -32,7 +32,7 @@ class ParticipationMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, student, project FROM participation WHERE id={}".format(id)
+        command = "SELECT id, project, student FROM participation WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -42,9 +42,7 @@ class ParticipationMapper(Mapper):
             participation.set_id(id)
             participation.set_project(project)
             participation.set_student(student)
-
-
-        result = participation
+            result = participation
 
         self._cnx.commit()
         cursor.close()
@@ -61,7 +59,7 @@ class ParticipationMapper(Mapper):
             participation.set_id(maxid[0] + 1)
 
         command = "INSERT INTO participation (id,project,student) VALUES (%s,%s,%s)"
-        data = (participation.get_id(), participation.get_student(),participation.get_project())
+        data = (participation.get_id(), participation.get_project(), participation.get_student())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -73,7 +71,7 @@ class ParticipationMapper(Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE participation " + "SET project=%s, student=%s WHERE id=%s"
-        data = (participation.get_id(), participation.get_project(),participation.get_student())
+        data = (participation.get_id(), participation.get_project(), participation.get_student())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -89,52 +87,42 @@ class ParticipationMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def find_participation_by_student(self, id):
+    def find_participation_by_student(self, student):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, student, project FROM participation WHERE student.id={}".format(id)
+        command = "SELECT id, project, student FROM participation WHERE student.id={}".format(student)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        try:
-            (id, name, project, student) = tuples[0]
+        for (id, project, student) in tuples:
             participation = Participation()
             participation.set_id(id)
             participation.set_project(project)
             participation.set_student(student)
-            result = participation
-        except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
-            result = None
+            result.append(participation)
 
         self._cnx.commit()
         cursor.close()
 
         return result
 
-    def find_participation_by_project(self,id):
+    def find_participation_by_project(self, project):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, student, project FROM participation WHERE id={}".format(id)
+        command = "SELECT id, project, student FROM participation WHERE participation.project={}".format(project)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        try:
-            (id, name, project, student) = tuples[0]
+        for (id, project, student) in tuples:
             participation = Participation()
             participation.set_id(id)
             participation.set_project(project)
             participation.set_student(student)
-            result = participation
-        except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
-            result = None
+            result.append(participation)
 
         self._cnx.commit()
         cursor.close()

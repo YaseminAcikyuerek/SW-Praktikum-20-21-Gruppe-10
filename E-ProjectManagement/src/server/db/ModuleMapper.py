@@ -51,10 +51,9 @@ class ModuleMapper(Mapper):
             (id, name, edv_nr) = tuples[0]
             module = Module()
             module.set_id(id)
-            module.set_edv_nr(edv_nr)
             module.set_name(name)
-
-        result = module
+            module.set_edv_nr(edv_nr)
+            result = module
 
         self._cnx.commit()
         cursor.close()
@@ -93,7 +92,7 @@ class ModuleMapper(Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE module " + "SET name=%s, edv_nr=%s WHERE id=%s"
-        data = (module.get_name(), module.get_id(), module.get_edv_nr())
+        data = (module.get_id(), module.get_name(), module.get_edv_nr())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -157,29 +156,6 @@ class ModuleMapper(Mapper):
 
         return result
 
-    def find_by_edv_nr(self, edv_nr):
-        """Auslesen aller Benutzer anhand des Benutzernamens.
-        :param name Name der zugehörigen Benutzer.
-        :return Eine Sammlung mit User-Objekten, die sämtliche Benutzer
-                mit dem gewünschten Namen enthält."""
-
-        result=[]
-        cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr,  FROM module WHERE edv_nr LIKE '{}' ORDER BY edv_nr".format(edv_nr)
-        cursor.execute(command)
-        tuples = cursor.fetchall()
-
-        for (id, name, edv_nr) in tuples:
-            module = Module()
-            module.set_id(id)
-            module.set_name(name)
-            module.set_edv_nr(edv_nr)
-            result.append(module)
-
-        self._cnx.commit()
-        cursor.close()
-
-        return result
 
 
 
