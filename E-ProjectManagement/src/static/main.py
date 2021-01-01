@@ -67,9 +67,9 @@ module = api.inherit('Module', bo, nbo, {
     'edv_nr': fields.String(attribute='_edv_nr', description='EDV_Nr des Moduls')
 })
 
-participation = api.inherit('Participation', {
-    'project': fields.String(attribute='_project', description='unique ID vom Projekt'),
-    'student': fields.String(attribute='_student', description='unique ID vom Studenten')
+participation = api.inherit('Participation', bo, {
+    'project': fields.Integer(attribute='_project', description='unique ID vom Projekt'),
+    'student': fields.Integer(attribute='_student', description='unique ID vom Studenten')
 })
 
 person = api.inherit('Person', bo, nbo, {
@@ -481,8 +481,8 @@ class ParticipationListOperations(Resource):
         p = Participation.from_dict(api.payload)
 
         if p is not None:
-            p = adm.create_participation(p.get_project(), p.get_id(), p.get_student())
-            return p, 200
+            pa = adm.create_participation(p.get_id(), p.get_project(), p.get_student())
+            return pa, 200
         else:
             return '', 500
 
@@ -513,7 +513,7 @@ class ParticipationOperations(Resource):
         return '', 200
 
     @projectmanagement.marshal_with(participation)
-    @projectmanagement.expect(participation, validate=True)
+
 
     def put(self, id):
         """Update eines bestimmten Participation-Objekts.
@@ -571,24 +571,18 @@ class SemesterOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/module/<int:id>/project')
+@projectmanagement.route('/project/<int:id>/module')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Modul-Objekts')
 class ModuleRelatedProjectOperations(Resource):
-    @projectmanagement.marshal_with(module)
+    @projectmanagement.marshal_with(project)
     def get(self, id):
         """Auslesen aller Projekte von eines bestimmten Moduls.
-
-        Das Modul-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
         """
         adm = ProjectAdministration()
-        mod = adm.get_module_by_id(id)
+        proj = adm.get_project_by_module(id)
 
-        if mod is not None:
-            project_list = adm.get_project_by_module(mod)
-            return project_list
-        else:
-            return "Module not found", 500
+        return proj
 
     @projectmanagement.marshal_with(project, code=201)
 
@@ -598,10 +592,10 @@ class ModuleRelatedProjectOperations(Resource):
         Das neu angelegte Projekt wird als Ergebnis zurückgegeben.
         """
         adm = ProjectAdministration()
-        mod = adm.get_modul_by_id(id)
+        mod = adm.get_module_by_id(id)
 
         if mod is not None:
-            result = adm.create_project_for_module(mod)
+            result = adm.create_project(mod)
             return result
         else:
             return "Module unknown", 500
@@ -732,7 +726,7 @@ class ModuleOperations(Resource):
 
     @projectmanagement.marshal_with(module)
     @projectmanagement.expect(module, validate=True)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Moduler-Objekts.
         """
@@ -747,7 +741,7 @@ class ModuleOperations(Resource):
             adm.save_module(mo)
             return '', 200
         else:
-            return '',
+            return '', 500
 
 
 @projectmanagement.route('/participation/<int:id>student')
@@ -794,28 +788,28 @@ class ParticipationStudentOperations(Resource):
             return "Student unknown", 500
 
 
-@projectmanagement.route('/participation/<int:id>/module')
+@projectmanagement.route('/project/<int:id>/participation')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Participation-Objekts')
-class ParticipationModuleOperations(Resource):
-    @projectmanagement.marshal_with(module)
+@projectmanagement.param('id', 'Die ID des Projekt-Objekts')
+class ParticipationProjectOperations(Resource):
+    @projectmanagement.marshal_with(participation)
 
     def get(self, id):
-        """Auslesen aller Participation-Objekte bzgl. eines bestimmten Module-Objekts.
+        """Auslesen aller Participation-Objekte bzgl. eines bestimmten Projekt-Objekts.
 
-        Das Participation-Objekt dessen Module wir lesen möchten, wird durch die ```id``` in dem URI bestimmt.
+        Das Projekt-Objekt dessen Participation wir lesen möchten, wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        # Zunächst benötigen wir die Participation durch eine eine gegebene Id.
-        mod1= adm.get_participation_by_id(id)
+        # Zunächst benötigen wir die Projekt durch eine eine gegebene Id.
+        project = adm.get_project_by_id(id)
 
         # Haben wir eine brauchbare Referenz auf ein Participation-Objekt bekommen?
-        if mod1 is not None:
+        if project is not None:
             # Jetzt erst lesen wir die die Teilnahmeliste anhand der Module aus.
-            participation_list = adm.get_participation_of_module(mod1)
+            participation_list = adm.get_participation_by_project(project)
             return participation_list
         else:
-            return "Module not found", 500
+            return "Project not found", 500
 
     @projectmanagement.marshal_with(participation, code=201)
 

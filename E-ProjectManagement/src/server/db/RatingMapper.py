@@ -25,7 +25,7 @@ class RatingMapper(Mapper):
 
         return result
 
-    def find_by_role_id(self, role_id):
+    def find_by_role_id(self, role):
         """Ausleseen einer role_id einer Person.
 
         :param owner_id Schlüssel des zugehörigen Person.
@@ -34,7 +34,7 @@ class RatingMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, role_id FROM rating WHERE role_id={} ORDER BY id".format(role_id)
+        command = "SELECT id, role FROM rating WHERE role={} ORDER BY id".format(role)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
