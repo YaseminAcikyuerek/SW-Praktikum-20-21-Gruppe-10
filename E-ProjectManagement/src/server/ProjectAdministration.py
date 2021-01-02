@@ -428,10 +428,10 @@ class ProjectAdministration(object):
         with SemesterMapper() as mapper:
             return mapper.find_semester_by_name(name)
 
-    def get_semester_by_key(self, id):
+    def get_semester_by_id(self, id):
         """Das Semester mit der gegebenen ID auslesen."""
         with SemesterMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     def get_all_semester(self):
         """Alle Semester auslesen."""
