@@ -550,7 +550,7 @@ class SemesterOperations(Resource):
         Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        semes = adm.get_semester_by_key(id)
+        semes = adm.get_semester_by_id(id)
         adm.delete_semester(semes)
         return '', 200
 
