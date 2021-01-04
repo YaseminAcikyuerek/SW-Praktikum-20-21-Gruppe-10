@@ -14,9 +14,13 @@ class RatingMapper(Mapper):
         cursor.execute("SELECT id, grade from rating")
         tuples = cursor.fetchall()
 
-        for (id, grade) in tuples:
+        for (id, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
+            rating.set_grade(grade)
+            rating.set_passed(passed)
             rating.set_grade(grade)
             result.append(rating)
 
@@ -25,7 +29,7 @@ class RatingMapper(Mapper):
 
         return result
 
-    def find_by_role_id(self, role):
+    def find_by_to_be_assessed(self, to_be_assessed):
         """Ausleseen einer role_id einer Person.
 
         :param owner_id Schlüssel des zugehörigen Person.
@@ -34,14 +38,17 @@ class RatingMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, role FROM rating WHERE role={} ORDER BY id".format(role)
+        command = "SELECT * FROM rating WHERE to_be_assessed={}".format(to_be_assessed)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, role_id) in tuples:
+        for (id, passed, grade, evaluator, to_be_assessed) in tuples:
             rating = Rating()
             rating.set_id(id)
-            rating.set_role_id(role_id)
+            rating.set_passed(passed)
+            rating.set_grade(grade)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
             result.append(rating)
 
         self._cnx.commit()
@@ -60,15 +67,18 @@ class RatingMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, grade FROM rating WHERE id={}".format(id)
+        command = "SELECT * FROM rating WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, grade) = tuples[0]
+            (id, passed, grade, evaluator, to_be_assessed) = tuples[0]
             rating = Rating()
             rating.set_id(id)
+            rating.set_passed(passed)
             rating.set_grade(grade)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
 
         result = rating
 
@@ -76,8 +86,6 @@ class RatingMapper(Mapper):
         cursor.close()
 
         return result
-
-
 
     def insert(self, rating):
 
@@ -88,8 +96,9 @@ class RatingMapper(Mapper):
         for (maxid) in tuples:
             rating.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO rating (id, grade) VALUES (%s,%s)"
-        data = (rating.get_id(), rating.get_grade())
+        command = "INSERT INTO rating (id, passed, grade, evaluator, to_be_assessed) VALUES (%s,%s,%s,%s,%s)"
+        data = (rating.get_id(), rating.get_passed(), rating.get_grade(), rating.get_evaluator(),
+                rating.get_to_be_assessed())
         cursor.execute(command, data)
 
         self._cnx.commit()

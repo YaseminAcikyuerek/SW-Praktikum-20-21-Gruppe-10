@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 29. Dez 2020 um 11:52
+-- Erstellungszeit: 01. Jan 2021 um 20:02
 -- Server-Version: 10.4.13-MariaDB
 -- PHP-Version: 7.2.32
 
@@ -48,18 +48,26 @@ INSERT INTO `module` (`id`, `name`, `edv_nr`) VALUES
 --
 
 CREATE TABLE `participation` (
-  `participation_id` int(11) NOT NULL,
-  `project_id` int(11) NOT NULL,
-  `student_matr_nr` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `project` int(11) NOT NULL,
+  `student` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `participation`
 --
 
-INSERT INTO `participation` (`participation_id`, `project_id`, `student_matr_nr`) VALUES
-(25, 90, 1001),
-(26, 91, 1002);
+INSERT INTO `participation` (`id`, `project`, `student`) VALUES
+(27, 4000, 3),
+(28, 0, 1),
+(29, 4, 1),
+(30, 0, 1),
+(31, 14, 12),
+(32, 0, 1000),
+(33, 90, 1000),
+(34, 90, 1000),
+(35, 90, 1000),
+(5000, 91, 1002);
 
 -- --------------------------------------------------------
 
@@ -78,10 +86,11 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`id`, `name`, `role`) VALUES
-(0, 'jens', 2),
+(0, '63', 0),
 (63, 'alex', 1),
 (123, 'ghg', 2),
-(143, 'ali', 3);
+(143, 'ali', 3),
+(144, 'Yasemin', 2);
 
 -- --------------------------------------------------------
 
@@ -92,18 +101,18 @@ INSERT INTO `person` (`id`, `name`, `role`) VALUES
 CREATE TABLE `project` (
   `id` int(11) NOT NULL,
   `semester` int(11) NOT NULL,
-  `module` int(11) DEFAULT NULL,
-  `short_description` varchar(45) DEFAULT NULL,
-  `external_partner_list` varchar(45) DEFAULT NULL,
-  `capacity` int(11) DEFAULT NULL,
-  `bd_during_exam_period` int(11) DEFAULT NULL,
-  `bd_before_lecture_period` int(11) DEFAULT NULL,
-  `bd_during_leture_period` int(11) DEFAULT NULL,
-  `preferred_bd_during_lecture_period` int(11) DEFAULT NULL,
-  `language` varchar(45) DEFAULT NULL,
-  `room` varchar(45) DEFAULT NULL,
-  `special_room` tinyint(4) DEFAULT NULL,
-  `flag` tinyint(4) DEFAULT NULL,
+  `module` int(11) NOT NULL,
+  `short_description` mediumtext NOT NULL,
+  `external_partner_list` varchar(45) NOT NULL,
+  `capacity` int(11) NOT NULL,
+  `bd_during_exam_period` int(11) NOT NULL,
+  `bd_before_lecture_period` int(11) NOT NULL,
+  `bd_during_leture_period` int(11) NOT NULL,
+  `preferred_bd_during_lecture_period` int(11) NOT NULL,
+  `language` varchar(45) NOT NULL,
+  `room` varchar(45) NOT NULL,
+  `special_room` tinyint(1) NOT NULL,
+  `flag` tinyint(1) NOT NULL,
   `name` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   `project_type` int(10) NOT NULL,
@@ -115,8 +124,8 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id`, `semester`, `module`, `short_description`, `external_partner_list`, `capacity`, `bd_during_exam_period`, `bd_before_lecture_period`, `bd_during_leture_period`, `preferred_bd_during_lecture_period`, `language`, `room`, `special_room`, `flag`, `name`, `status`, `project_type`, `owner`) VALUES
-(4000, 70, 5000, 'Hallo Welt', 'Forster, Kunz', 25, 2, 4, 6, 7, 'Deutsch', 'I002', NULL, NULL, 'Projekt1', 'new', 1, 63),
-(4001, 71, 235424, 'fkldglerk', 'Klotz', 45, 2, 4, 1, 3, 'Englisch', 'I007', 0, 0, '', 'Projekt2', 2, 0);
+(4000, 70, 300, 'hjhjfjfgjkfkl', 'Forster', 25, 2, 4, 6, 7, 'Deutsch', 'I002', 0, 0, 'Projekt1', 'new', 1, 63),
+(4001, 71, 500, 'fkldglerk', 'Klotz', 45, 2, 4, 1, 3, 'Englisch', 'I007', 0, 0, '', 'Projekt2', 2, 0);
 
 -- --------------------------------------------------------
 
@@ -235,7 +244,7 @@ ALTER TABLE `module`
 -- Indizes für die Tabelle `participation`
 --
 ALTER TABLE `participation`
-  ADD PRIMARY KEY (`participation_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `person`
@@ -287,7 +296,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT für Tabelle `person`
 --
 ALTER TABLE `person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT für Tabelle `project`
@@ -323,4 +332,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
 

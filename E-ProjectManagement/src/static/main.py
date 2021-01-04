@@ -131,7 +131,7 @@ student = api.inherit('Student', bo, {
 @projectmanagement.route('/person')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class PersonListOperations(Resource):
-    @secured
+
     @projectmanagement.marshal_list_with(person)
     def get(self):
         """Auslesen aller Person-Objekte.
@@ -767,7 +767,7 @@ class ParticipationStudentOperations(Resource):
 
 
     @projectmanagement.marshal_with(participation, code=201)
-
+    @projectmanagement.expect(participation)
     def post(self, id):
         """Anlegen einer Participation für einen gegebenen Studenten.
 
@@ -793,7 +793,6 @@ class ParticipationStudentOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Projekt-Objekts')
 class ParticipationProjectOperations(Resource):
     @projectmanagement.marshal_with(participation)
-
     def get(self, id):
         """Auslesen aller Participation-Objekte bzgl. eines bestimmten Projekt-Objekts.
 
@@ -801,36 +800,31 @@ class ParticipationProjectOperations(Resource):
         """
         adm = ProjectAdministration()
         # Zunächst benötigen wir die Projekt durch eine eine gegebene Id.
-        project = adm.get_project_by_id(id)
+        pro = adm.get_project_by_id(id)
 
         # Haben wir eine brauchbare Referenz auf ein Participation-Objekt bekommen?
-        if project is not None:
-            # Jetzt erst lesen wir die die Teilnahmeliste anhand der Module aus.
-            participation_list = adm.get_participation_by_project(project)
+        if pro is not None:
+            # Jetzt erst lesen wir die die Teilnahmeliste anhand des Projekts aus.
+            participation_list = adm.get_participation_by_project(id)
             return participation_list
         else:
             return "Project not found", 500
 
     @projectmanagement.marshal_with(participation, code=201)
+    @projectmanagement.expect(participation)
 
     def post(self, id):
-        """Anlegen einer Participation für einen gegebenes Modul.
+        """Anlegen einer Participation für einen gegebenes Projekt.
 
-        Die neu angelegte Participation wird als Ergebnis zurückgegeben.
-
-        **Hinweis:** Unter der id muss ein Participation existieren, andernfalls wird Status Code 500 ausgegeben."""
+        Die neu angelegte Participation wird als Ergebnis zurückgegeben."""
         adm = ProjectAdministration()
-        """Stelle fest, ob es unter der id einen Customer gibt. 
-        Dies ist aus Gründen der referentiellen Integrität sinnvoll!
-        """
-        mod1 = adm.get_all_participation_by_id(id)
+        pro = adm.get_project_by_id(id)
 
-        if mod1 is not None:
-            # Jetzt erst macht es Sinn, für den Customer ein neues Konto anzulegen und dieses zurückzugeben.
-            result = adm.create_participation_for_module(mod1)
+        if pro is not None:
+            result = adm.create_participation_for_project(id, pro, student)
             return result
         else:
-            return "Module unknown", 500
+            return "Project unknown", 500
 
 
 

@@ -108,12 +108,12 @@ class ParticipationMapper(Mapper):
 
         return result
 
-    def find_participation_by_project(self, project):
+    def find_participation_by_project(self, id):
 
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, project, student FROM participation WHERE participation.project={}".format(project)
+        command = "SELECT id, project, student FROM participation WHERE project={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
