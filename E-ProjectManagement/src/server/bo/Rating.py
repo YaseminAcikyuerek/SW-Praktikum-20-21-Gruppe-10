@@ -7,8 +7,8 @@ class Rating(bo):
         self._project = None
         self._evaluator = None
         self._to_be_assessed = None
-        self._grade = ""
-        self._passed = ""
+        self._grade = 0.0
+        self._passed = True
 
     def set_project(self, project):
         self._project = project
@@ -46,10 +46,11 @@ class Rating(bo):
         """Umwandeln eines Python dict() in ein Rating()."""
         obj = Rating()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_project(dictionary["project"])
         obj.set_evaluator(dictionary["evaluator"])
         obj.set_to_be_assessed(dictionary["to_be_assessed"])
-        obj.set_grade(["grade"])
-        obj.set_passed(["passed"])
+        obj.set_grade(dictionary["grade"])
+        obj.set_passed(dictionary["passed"])
         return obj
 
 

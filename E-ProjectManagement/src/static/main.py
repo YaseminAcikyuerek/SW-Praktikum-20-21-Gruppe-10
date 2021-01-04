@@ -110,10 +110,16 @@ rating = api.inherit('Rating', bo, {
 })
 
 role = api.inherit('Role', {
-    'role_name': fields.String(attribute='_role_name', description='Name der Rolle')
+    'id': fields.Integer(attribute='_id', description='id der Rolle'),
+    'name': fields.String(attribute='_name',description='nameder Rolle')
+
+
+
 })
 
 semester = api.inherit('Semester', nbo, {
+
+    'id': fields.Integer(attribute='_id', description='id des Semesters'),
     'start': fields.Date(attribute='_start', description='Start des Semesters'),
     'end': fields.Date(attribute='_end', description='Ende des Semesters')
 })
@@ -123,9 +129,9 @@ status = api.inherit('Status', {
 })
 
 student = api.inherit('Student', bo, {
-    'person': fields.Integer(attribute='_person', description='unique ID der Person'),
-    'course_abbr': fields.String(attribute='_course_abbr', description='Studiengang des Studenten'),
-    'matriculation_nr': fields.Integer(attribute='_matriculation_nr', description='Matrikelnummer des Studenten')
+    'name': fields.Integer(attribute='_name', description='unique ID der Person'),
+    'matriculation_nr': fields.String(attribute='_matriculation_nr', description='Matrikelnummer des Studenten'),
+    'course_abbr': fields.String(attribute='_course_abbr', description='Studiengangskuerzel des Studenten')
 })
 
 @projectmanagement.route('/person')
@@ -343,8 +349,8 @@ class StudentListOperations(Resource):
         """Auslesen aller Student-Objekte.
         """
         adm = ProjectAdministration()
-        stu = adm.get_all_student()
-        return stu
+        s = adm.get_all_student()
+        return s
 
     @projectmanagement.marshal_with(student, code=200)
     @projectmanagement.expect(student)
@@ -354,15 +360,14 @@ class StudentListOperations(Resource):
         """
         adm = ProjectAdministration()
 
-        stu = Student.from_dict(api.payload)
+        std = Student.from_dict(api.payload)
 
-        if stu is not None:
+        if std is not None:
             """ Wir verwenden id, evaluator, to_be_assessed, passed, grade des Proposals für die Erzeugung
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            stu = adm.create_student(stu.get_id(), stu.get_person(), stu.get_course_abbr(), stu.get_matriculation_nr())
-            return stu, 200
+            s = adm.create_student (std.get_matriculation_nr(),std.get_course_abbr(),std.get_name())
         else:
             return '', 500
 
@@ -418,7 +423,7 @@ class StudentOperations(Resource):
 
 
 
-    @projectmanagement.marshal_with(rating)
+    @projectmanagement.marshal_with(student)
 
     def put(self, id):
         """Update eines bestimmten Student-Objekts.
@@ -428,35 +433,20 @@ class StudentOperations(Resource):
         Customer-Objekts.
         """
         adm = ProjectAdministration()
-        std = Student.from_dict(api.payload)
+        stu = Student.from_dict(api.payload)
 
-        if std is not None:
+        if stu is not None:
             """Hierdurch wird die id des zu überschreibenden (vgl. Update) Transaction-Objekts gesetzt.
             Siehe Hinweise oben.
             """
-            std.set_id(id)
-            adm.save_student(std)
+            stu.set_id(id)
+            adm.save_student(stu)
             return '', 200
         else:
             return '', 500
 
 
 
-@projectmanagement.route('/student-project')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-class StudentProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
-
-    def get(self):
-        """Auslesen des Kassenkontos (Cash Account) der Bank.
-
-        Sollten keine Cash Account-Objekt verfügbar sein, so wird Response Status 500 zurückgegeben."""
-        adm = ProjectAdministration()
-        acc = adm.get_cash_account()
-        if acc is not None:
-            return acc
-        else:
-            return '', 500
 
 @projectmanagement.route('/participation')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -527,6 +517,46 @@ class ParticipationOperations(Resource):
             return '', 200
         else:
             return '', 500
+@projectmanagement.route('/semester')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class SemesterListOperations(Resource):
+    @projectmanagement.marshal_list_with(semester)
+
+    def get(self):
+        """Auslesen aller Semester-Objekte.
+
+        Sollten keine Semester-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+        adm = ProjectAdministration()
+        s = adm.get_all_semester()
+        return s
+
+    @projectmanagement.marshal_with(semester, code=200)
+    @projectmanagement.expect(semester)  # Wir erwarten ein rating-Objekt von Client-Seite.
+
+    def post(self):
+        """Anlegen eines neuen Semester-Objekts.
+
+        **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
+        So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
+        Selbst wenn der Client eine ID in dem Proposal vergeben sollte, so
+        liegt es an der BankAdministration (Businesslogik), eine korrekte ID
+        zu vergeben. *Das korrigierte Objekt wird schließlich zurückgegeben.*
+        """
+        adm = ProjectAdministration()
+
+        se = Semester.from_dict(api.payload)
+
+        """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
+        if se is not None:
+            """ Wir verwenden id, evaluator, to_be_assessed, passed, grade des Proposals für die Erzeugung
+            eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
+            wird auch dem Client zurückgegeben. 
+            """
+            s = adm.create_semester(se.get_name(),se.get_start(),se.get_end())
+            return s, 200
+        else:
+            # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
+            return '', 500
 
 @projectmanagement.route('/semester/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -550,7 +580,7 @@ class SemesterOperations(Resource):
         Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        semes = adm.get_semester_by_key(id)
+        semes = adm.get_semester_by_id(id)
         adm.delete_semester(semes)
         return '', 200
 
@@ -570,6 +600,48 @@ class SemesterOperations(Resource):
             return '', 200
         else:
             return '', 500
+
+
+    @projectmanagement.route('/rating')
+    @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+    class RatingListOperations(Resource):
+        @projectmanagement.marshal_list_with(rating)
+        def get(self):
+            """Auslesen aller rating-Objekte.
+
+            Sollten keine Rating-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+            adm = ProjectAdministration()
+            r = adm.get_all_rating()
+            return r
+
+        @projectmanagement.marshal_with(rating, code=200)
+        @projectmanagement.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
+        def post(self):
+            """Anlegen eines neuen Rating-Objekts.
+
+            **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
+            So ist zum Beispiel die Vergabe der ID nicht Aufgabe des Clients.
+            Selbst wenn der Client eine ID in dem Proposal vergeben sollte, so
+            liegt es an der BankAdministration (Businesslogik), eine korrekte ID
+            zu vergeben. *Das korrigierte Objekt wird schließlich zurückgegeben.*
+            """
+            adm = ProjectAdministration()
+
+            rat = Rating.from_dict(api.payload)
+
+            """RATSCHLAG: Prüfen Sie stets die Referenzen auf valide Werte, bevor Sie diese verwenden!"""
+            if rat is not None:
+                """ Wir verwenden id, evaluator, to_be_assessed, passed, grade des Proposals für die Erzeugung
+                eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
+                wird auch dem Client zurückgegeben. 
+                """
+                r = adm.create_rating(rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(), rat.get_grade(),
+                                      rat.get_passed())
+                return r, 200
+            else:
+                # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
+                return '', 500
+
 
 @projectmanagement.route('/project/<int:id>/module')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -648,11 +720,11 @@ class ProjectTypeRelatedProjectOperations(Resource):
         Das ProjectType-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
         """
         adm = ProjectAdministration()
-        pt = adm.get_projecttype_by_id(id)
+        pt = adm.get_project_type_by_id(id)
 
         if pt is not None:
 
-            project_list = adm.get_project_for_projecttype(pt)
+            project_list = adm.get_project_for_project_type(pt)
             return project_list
         else:
             return "Project Type not found", 500
@@ -664,10 +736,10 @@ class ProjectTypeRelatedProjectOperations(Resource):
 
         Das neu angelegte Projekt wird als Ergebnis zurückgegeben."""
         adm = ProjectAdministration()
-        pt = adm.get_projecttype_by_id(id)
+        pt = adm.get_project_type_by_id(id)
 
         if pt is not None:
-            result = adm.create_project_for_projecttype(pt)
+            result = adm.create_project_for_project_type(pt)
             return result
         else:
             return "Projecttype unknown", 500
@@ -801,10 +873,10 @@ class ParticipationProjectOperations(Resource):
         """
         adm = ProjectAdministration()
         # Zunächst benötigen wir die Projekt durch eine eine gegebene Id.
-        project = adm.get_project_by_id(id)
+        pro = adm.get_project_by_id(id)
 
         # Haben wir eine brauchbare Referenz auf ein Participation-Objekt bekommen?
-        if project is not None:
+        if pro is not None:
             # Jetzt erst lesen wir die die Teilnahmeliste anhand der Module aus.
             participation_list = adm.get_participation_by_project(project)
             return participation_list
@@ -869,7 +941,7 @@ class RatingListOperations(Resource):
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            r = adm.create_rating(rat.get_id(), rat.get_evaluator(), rat.get_to_be_assessed(),rat.get_passed(),rat.get_grade())
+            r = adm.create_rating(rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(),rat.get_grade(),rat.get_passed())
             return r, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
@@ -893,7 +965,7 @@ class RatingOperations(Resource):
         ra = adm.get_rating_by_id(id)
         return ra
 
-    @secured
+
     def delete(self, id):
         """Löschen eines bestimmten Rating-Objekts.
 
@@ -1000,8 +1072,8 @@ class RoleListOperations(Resource):
     def get(self):
         """Auslesen aller Role-Objekte."""
         adm = ProjectAdministration()
-        ro = adm.get_all_role()
-        return ro
+        r = adm.get_all_role()
+        return r
 
     @projectmanagement.marshal_with(role, code=200)
     @projectmanagement.expect(role)
@@ -1011,10 +1083,10 @@ class RoleListOperations(Resource):
         """
         adm = ProjectAdministration()
 
-        ro= Role.from_dict(api.payload)
+        rose= Role.from_dict(api.payload)
 
-        if ro is not None:
-            r = adm.create_role(ro.get_name(), ro.get_id())
+        if rose is not None:
+            r = adm.create_role(rose.get_id(),rose.get_name())
             return r, 200
         else:
             return '', 500
@@ -1042,7 +1114,7 @@ class RoleOperations(Resource):
         Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        ro = adm.get_role_by_key(id)
+        ro = adm.get_role_by_id(id)
         adm.delete_role(ro)
         return '', 200
 
@@ -1065,7 +1137,7 @@ class RoleOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/projecttype')
+@projectmanagement.route('/project_type')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectTypeListOperations(Resource):
     @projectmanagement.marshal_list_with(project_type)
@@ -1074,11 +1146,11 @@ class ProjectTypeListOperations(Resource):
         """Auslesen aller Projecttype-Objekte.
         """
         adm = ProjectAdministration()
-        pt = adm.get_all_projecttype()
+        pt = adm.get_all_project_type()
         return pt
 
 
-@projectmanagement.route('/projecttype/<int:id>')
+@projectmanagement.route('/project_type/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Projecttype-Objekts')
 class ProjectTypeOperations(Resource):
@@ -1088,7 +1160,7 @@ class ProjectTypeOperations(Resource):
         """Auslesen eines bestimmten Projecttype-Objekts.
         """
         adm = ProjectAdministration()
-        pt = adm.get_all_projecttype_by_id(id)
+        pt = adm.get_project_type_by_id(id)
         return pt
 
 
@@ -1098,8 +1170,8 @@ class ProjectTypeOperations(Resource):
         Das zu löschende Objekt wird durch die ```id``` bestimmt.
         """
         adm = ProjectAdministration()
-        pt = adm.get_all_projecttype_by_id(id)
-        adm.delete_projecttype(pt)
+        pt = adm.get_project_type_by_id(id)
+        adm.delete_project_type(pt)
         return '', 200
 
     @projectmanagement.marshal_with(project_type)
@@ -1116,7 +1188,7 @@ class ProjectTypeOperations(Resource):
             Siehe Hinweise oben.
             """
             pt.set_id(id)
-            adm.save_projecttype(pt)
+            adm.save_project_type(pt)
             return '', 200
         else:
             return '', 500

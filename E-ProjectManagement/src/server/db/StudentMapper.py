@@ -32,18 +32,17 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE id={}".format(id)
+        command = "SELECT matriculation_nr, course_abbr, name, id FROM student WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, matriculation_nr, course_abbr) =tuples[0]
+            (matriculation_nr, course_abbr, name , id)=tuples[0]
             student = Student()
-            student.set_id(id)
-            student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
-
+            student.set_name(name)
+            student.set_id(id)
 
         result = student
 
@@ -61,9 +60,8 @@ class StudentMapper (Mapper):
         for (maxid) in tuples:
             student.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO student (id, name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s,%s)"
-        data = (student.get_id(), student.get_person(),student.get_matriculation_nr(),student.get_course_abbr())
-
+        command = "INSERT INTO student (matriculation_nr, course_abbr, name, id) VALUES (%s,%s,%s,%s)"
+        data = (student.get_matriculation_nr(),student.get_course_abbr(),student.get_name(),student.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -181,6 +179,20 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
             print(p)
+
+if (__name__ == "__main__"):
+    s = Student()
+    s.set_id(1)
+    s.set_name(3)
+    s.set_matriculation_nr("sts")
+    s.set_course_abbr("awfw")
+
+    with StudentMapper() as mapper:
+        result = mapper.insert(s)
+
+
+
+
 
 
 

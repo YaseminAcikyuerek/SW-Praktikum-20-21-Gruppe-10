@@ -60,8 +60,8 @@ class SemesterMapper(Mapper):
         for (maxid) in tuples:
             semester.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO semester (id, start, end) VALUES (%s,%s)"
-        data = (semester.get_id(), semester.get_start(), semester.get_end())
+        command = "INSERT INTO semester (id,name,start,end) VALUES (%s,%s,%s,%s)"
+        data = (semester.get_id(), semester.get_name(), semester.get_start(), semester.get_end())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -99,6 +99,19 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
             print(p)
+
+"""if (__name__ == "__main__"):
+    s = Semester()
+    s.set_id(2)
+    s.set_name("WI")
+    s.set_start(2020-12-10)
+    s.set_end(2020-13-12)
+
+    with SemesterMapper() as mapper:
+        result = mapper.insert(s)"""
+
+
+
 
 
 

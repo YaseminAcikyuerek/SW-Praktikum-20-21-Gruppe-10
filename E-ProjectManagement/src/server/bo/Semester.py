@@ -4,6 +4,7 @@ from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
 class Semester(nbo):
 
     def __init__(self):
+        super().__init__()
         self._start =""
         self._end =""
 
@@ -26,6 +27,8 @@ class Semester(nbo):
         obj = Semester()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
         obj.set_name(dictionary["name"])
-        obj.set_start(dictionary["semester_start"])
-        obj.set_end(["semester_end"])
+        obj.set_start(dictionary["start"])
+        obj.set_end(dictionary["end"])
+
+
         return obj

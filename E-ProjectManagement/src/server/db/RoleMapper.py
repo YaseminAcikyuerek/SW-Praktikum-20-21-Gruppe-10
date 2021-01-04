@@ -14,10 +14,10 @@ class RoleMapper (Mapper):
         cursor.execute("SELECT * from role")
         tuples = cursor.fetchall()
 
-        for (id, role_name) in tuples:
+        for (id,name) in tuples:
             role = Role()
             role.set_id(id)
-            role.set_role_name(role_name)
+            role.set_name(name)
             result.append(role)
 
         self._cnx.commit()
@@ -27,20 +27,19 @@ class RoleMapper (Mapper):
 
     def find_by_id(self, id):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,role_name FROM role WHERE id={}".format(id)
+        command = "SELECT id, name FROM role WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, role_name) = tuples[0]
+            (id, name) = tuples[0]
             role = Role()
             role.set_id(id)
-            role.set_role_name(role_name)
-
-        result = role
+            role.set_name(name)
+            result.append(role)
 
         self._cnx.commit()
         cursor.close()
@@ -56,7 +55,7 @@ class RoleMapper (Mapper):
         for (maxid) in tuples:
             role.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO role (name) VALUES (%s)"
+        command = "INSERT INTO role (id, name) VALUES (%s),&s)"
         data = (role.get_id(), role.get_name())
         cursor.execute(command, data)
 
@@ -97,3 +96,14 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
             print(p)
+
+if (__name__ == "__main__"):
+    r = Role()
+    r.set_id(1)
+    r.set_name("sayo")
+
+    with RoleMapper() as mapper:
+        result = mapper.insert(r)
+
+
+

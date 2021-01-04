@@ -11,7 +11,7 @@ class ProjectTypeMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, sws, ects from projecttype")
+        cursor.execute("SELECT id, sws, ects from project_type")
         tuples = cursor.fetchall()
 
         for (id,sws, ects) in tuples:
@@ -42,6 +42,7 @@ class ProjectTypeMapper(Mapper):
             project_type.set_sws(sws)
             project_type.set_ects(ects)
 
+
         result = project_type
 
         self._cnx.commit()
@@ -58,7 +59,7 @@ class ProjectTypeMapper(Mapper):
         for (maxid) in tuples:
             project_type.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO projecttype (sws, ects) VALUES (%s,%s)"
+        command = "INSERT INTO project_type (id,sws, ects) VALUES (%s,%s,%s)"
         data = (project_type.get_id(), project_type.get_sws(), project_type.get_ects())
         cursor.execute(command, data)
 
@@ -70,8 +71,8 @@ class ProjectTypeMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE projectTypes " + "SET sws=%s, ects=%s WHERE id=%s"
-        data = (project_type.get_sws(), project_type.get_id(), project_type.get_ects())
+        command = "UPDATE project_type " + "SET sws=%s, ects=%s WHERE id=%s"
+        data = (project_type.get_id(), project_type.get_sws(), project_type.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
