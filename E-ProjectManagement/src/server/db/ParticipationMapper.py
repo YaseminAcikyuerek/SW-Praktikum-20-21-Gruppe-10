@@ -113,7 +113,7 @@ class ParticipationMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, project, student FROM participation WHERE project={}".format(project)
+        command = "SELECT id, project, student FROM participation WHERE project={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

@@ -93,7 +93,7 @@ class PersonMapper(Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM person WHERE id={}".format(id)
+        command = "DELETE FROM person WHERE id={}".format(person.get_id())
         cursor.execute(command)
 
         self._cnx.commit()

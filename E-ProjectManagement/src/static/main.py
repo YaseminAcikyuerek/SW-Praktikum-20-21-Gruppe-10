@@ -118,8 +118,6 @@ role = api.inherit('Role', {
 })
 
 semester = api.inherit('Semester', nbo, {
-
-    'id': fields.Integer(attribute='_id', description='id des Semesters'),
     'start': fields.Date(attribute='_start', description='Start des Semesters'),
     'end': fields.Date(attribute='_end', description='Ende des Semesters')
 })
@@ -137,7 +135,7 @@ student = api.inherit('Student', bo, {
 @projectmanagement.route('/person')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class PersonListOperations(Resource):
-    @secured
+
     @projectmanagement.marshal_list_with(person)
     def get(self):
         """Auslesen aller Person-Objekte.
@@ -349,8 +347,8 @@ class StudentListOperations(Resource):
         """Auslesen aller Student-Objekte.
         """
         adm = ProjectAdministration()
-        s = adm.get_all_student()
-        return s
+        stu = adm.get_all_student()
+        return stu
 
     @projectmanagement.marshal_with(student, code=200)
     @projectmanagement.expect(student)

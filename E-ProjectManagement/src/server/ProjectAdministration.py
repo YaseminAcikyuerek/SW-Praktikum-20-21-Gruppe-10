@@ -136,8 +136,6 @@ class ProjectAdministration(object):
         with ProjectMapper() as mapper:
             return mapper.find_by_id(id)
 
-   
-
     """Modulspezifische Methoden"""
 
     def create_module(self, id, name, edv_nr):
@@ -501,16 +499,23 @@ class ProjectAdministration(object):
 
 
 
+    def get_participation_for_student(self, id):
+        pass
 
-    def get_participation_by_project(self, pro):
-        with ParticipationMapper as mapper:
-            return mapper.find_participation_by_project(pro)
+    def create_participation_for_student(self, stu):
+        pass
 
-    def get_project_for_project_type(self, pt):
-        with ProjectMapper as mapper:
-            return mapper.find_project_for_project_type(pt)
+    def create_participation_for_project(self, id, project, student):
+        participation = Participation()
+        participation.set_project(project)
+        participation.set_student(student)
+        participation.set_id(1)
+        participation.set_id(id)
 
+        with ParticipationMapper() as mapper:
+            mapper.insert(participation)
 
-
+    def get_project_for_projecttype(self, projectt):
+        pass
 
 
