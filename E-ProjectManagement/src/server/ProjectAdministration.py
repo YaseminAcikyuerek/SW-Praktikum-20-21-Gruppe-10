@@ -221,7 +221,7 @@ class ProjectAdministration(object):
 
     """Ratingspezifische Methoden"""
 
-    def create_rating(self, id, evaluator, to_be_assessed, grade, passed):
+    def create_rating(self,id,passed, grade, evaluator, to_be_assessed):
         """Ein Rating anlegen"""
         rating = Rating()
         rating.set_evaluator(evaluator)
@@ -366,10 +366,10 @@ class ProjectAdministration(object):
         with ParticipationMapper() as mapper:
             return mapper.insert(participation)
 
-    def get_participation_by_project(self, project):
-        """Alle Teilnahmen mit Namen name auslesen."""
+    def get_participation_by_project(self, id):
+        """Alle Teilnahmen mit Namen auslesen."""
         with ParticipationMapper() as mapper:
-            return mapper.find_participation_by_project(project)
+            return mapper.find_participation_by_project(id)
 
     def get_all_participation_by_id(self, id):
         """Die Teilnahme mit der gegebenen ID auslesen."""
@@ -511,11 +511,15 @@ class ProjectAdministration(object):
     def create_participation_for_student(self, stu):
         pass
 
-    def get_participation_of_module(self, mod1):
-        pass
+    def create_participation_for_project(self, id, project, student):
+        participation = Participation()
+        participation.set_project(project)
+        participation.set_student(student)
+        participation.set_id(1)
+        participation.set_id(id)
 
-    def create_participation_for_module(self, mod1):
-        pass
+        with ParticipationMapper() as mapper:
+            mapper.insert(participation)
 
     def get_project_for_projecttype(self, projectt):
         pass
