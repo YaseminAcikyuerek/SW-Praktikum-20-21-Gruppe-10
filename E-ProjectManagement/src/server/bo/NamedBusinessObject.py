@@ -6,6 +6,7 @@ from server.bo.BusinessObject import BusinessObject as bo
 class NamedBusinessObject(bo):
 
     def __init__(self):
+        super().__init__()
         self._name = ""
 
     def set_name(self, value):

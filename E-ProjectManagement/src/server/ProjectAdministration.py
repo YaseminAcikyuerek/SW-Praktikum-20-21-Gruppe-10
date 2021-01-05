@@ -269,12 +269,12 @@ class ProjectAdministration(object):
 
     """Studentenspezifische Methoden"""
 
-    def create_student(self,matriculation_nr, course_abbr,name):
+    def create_student(self,name,matriculation_nr, course_abbr):
         """Einen Studenten  anlegen"""
         student = Student()
+        student.set_name(name)
         student.set_matriculation_nr(matriculation_nr)
         student.set_course_abbr(course_abbr)
-        student.set_name(name)
         student.set_id(1)
 
         with StudentMapper() as mapper:
@@ -454,7 +454,7 @@ class ProjectAdministration(object):
     def save_semester(self, semester):
         """das Semester speichern"""
         with SemesterMapper() as mapper:
-            mapper.insert(semester)
+            mapper.update(semester)
 
     def get_all_module(self):
         with ModuleMapper() as mapper:
@@ -517,5 +517,15 @@ class ProjectAdministration(object):
 
     def get_project_for_projecttype(self, projectt):
         pass
+
+    def get_participation_of_student(self, stu):
+        with ParticipationMapper() as mapper:
+            return mapper.find_participation_of_student(stu)
+
+    def get_rating_of_student(self, stu):
+        pass
+
+
+
 
 

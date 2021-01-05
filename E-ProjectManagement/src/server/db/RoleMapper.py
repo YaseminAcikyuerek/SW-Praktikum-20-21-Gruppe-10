@@ -55,7 +55,7 @@ class RoleMapper (Mapper):
         for (maxid) in tuples:
             role.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO role (id, name) VALUES (%s),&s)"
+        command = "INSERT INTO role (id, name) VALUES (%s,&s)"
         data = (role.get_id(), role.get_name())
         cursor.execute(command, data)
 
@@ -67,8 +67,8 @@ class RoleMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE role " + "SET name=%s"
-        data = (role.get_name())
+        command = "UPDATE role SET name=%s WHERE id=%s"
+        data = (role.get_name(), role.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -96,14 +96,4 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
             print(p)
-
-if (__name__ == "__main__"):
-    r = Role()
-    r.set_id(1)
-    r.set_name("sayo")
-
-    with RoleMapper() as mapper:
-        result = mapper.insert(r)
-
-
 

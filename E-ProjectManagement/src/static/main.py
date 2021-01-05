@@ -126,8 +126,8 @@ status = api.inherit('Status', {
     'status': fields.String(attribute='_status', description='Name des Zustands')
 })
 
-student = api.inherit('Student', bo, {
-    'name': fields.Integer(attribute='_name', description='unique ID der Person'),
+student = api.inherit('Student', bo,nbo, {
+
     'matriculation_nr': fields.String(attribute='_matriculation_nr', description='Matrikelnummer des Studenten'),
     'course_abbr': fields.String(attribute='_course_abbr', description='Studiengangskuerzel des Studenten')
 })
@@ -365,7 +365,7 @@ class StudentListOperations(Resource):
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            s = adm.create_student (std.get_matriculation_nr(),std.get_course_abbr(),std.get_name())
+            s = adm.create_student (std.get_name(),std.get_matriculation_nr(),std.get_course_abbr())
         else:
             return '', 500
 
@@ -422,6 +422,7 @@ class StudentOperations(Resource):
 
 
     @projectmanagement.marshal_with(student)
+    @projectmanagement.expect(student)
 
     def put(self, id):
         """Update eines bestimmten Student-Objekts.
@@ -583,7 +584,7 @@ class SemesterOperations(Resource):
         return '', 200
 
     @projectmanagement.marshal_with(semester)
-    @projectmanagement.expect(semester, validate=True)
+    @projectmanagement.expect(semester)
 
     def put(self, id):
         """Update eines bestimmten Semester-Objekts.
@@ -814,11 +815,11 @@ class ModuleOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/participation/<int:id>student')
+@projectmanagement.route('/student/<int:id>participation')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID der Person-Objekts')
 class ParticipationStudentOperations(Resource):
-    @projectmanagement.marshal_with(participation, student)
+    @projectmanagement.marshal_with(participation)
 
     def get(self, id):
         """Auslesen aller Participation-Objekte eines bestimmten Studenten .
@@ -826,10 +827,10 @@ class ParticipationStudentOperations(Resource):
         Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        stu = adm.get_student_by_id(id)  # Suche nach Student mit vorgegebener id
-
+         # Suche nach Student mit vorgegebener id
+        stu = adm.get_participation_of_student(student)
         if stu is not None:
-            participation_list= adm.get_participation_of_student(stu)
+            participation_list = adm.get_participation_of_student(stu)
             return participation_list
 
         else:
@@ -837,6 +838,8 @@ class ParticipationStudentOperations(Resource):
 
 
     @projectmanagement.marshal_with(participation, code=201)
+    @projectmanagement.expect(participation)
+
 
     def post(self, id):
         """Anlegen einer Participation für einen gegebenen Studenten.
@@ -975,6 +978,7 @@ class RatingOperations(Resource):
         return '', 200
 
     @projectmanagement.marshal_with(rating)
+    @projectmanagement.expect(rating)
 
     def put(self, id):
         """Update eines bestimmten Rating-Objekts.
@@ -1193,6 +1197,13 @@ class ProjectTypeOperations(Resource):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
+
+
+
 
 
 

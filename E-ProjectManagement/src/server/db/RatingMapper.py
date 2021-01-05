@@ -45,7 +45,7 @@ class RatingMapper(Mapper):
         for (id, role_id) in tuples:
             rating = Rating()
             rating.set_id(id)
-            rating.set_role_id(role_id)
+            rating.set_role(role_id)
             result.append(rating)
 
         self._cnx.commit()
@@ -108,9 +108,8 @@ class RatingMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE rating" + "SET id=%s, project=%s, evaluator=%s,to_be_assessed=%s,grade=%s,passed=%s WHERE " \
-                                    "id=%s "
-        data = (rating.get_id(),rating.get_project(),rating.get_evaluator(),rating.get_to_be_assessed(),rating.get_grade(),rating.get_passed())
+        command = "UPDATE rating SET project=%s, evaluator=%s,to_be_assessed=%s,grade=%s,passed=%s WHERE id=%s "
+        data = (rating.get_project(),rating.get_evaluator(),rating.get_to_be_assessed(),rating.get_grade(),rating.get_passed(),rating.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -133,15 +132,16 @@ um die grundsätzliche Funktion zu überprüfen.
 Anmerkung: Nicht professionell aber hilfreich..."""
 if (__name__ == "__main__"):
     r = Rating()
-    r.set_id(1)
-    r.set_project(2)
-    r.set_evaluator(3)
-    r.set_to_be_assessed(4)
-    r.set_grade(1.0)
-    r.set_passed(0)
+    r.set_id(1414)
+    r.set_project(3)
+    r.set_evaluator(7)
+    r.set_to_be_assessed(8)
+    r.set_grade(6.0)
+    r.set_passed(1)
 
     with RatingMapper() as mapper:
-        result = mapper.insert(r)
+        result = mapper.update(r)
+
 
 
 

@@ -79,8 +79,8 @@ class PersonMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE person " + "SET name=%s,role=%s WHERE id=%s"
-        data = (person.get_id(), person.get_name(), person.get_role())
+        command = "UPDATE person SET name=%s,role=%s WHERE id=%s"
+        data = (person.get_name(), person.get_role(),person.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -163,6 +163,19 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
             print(p)
+
+
+
+
+if (__name__ == "__main__"):
+    r = PersonMapper()
+    r.set_id(63)
+    r.set_name("Harald")
+    r.set_role(1)
+
+    with PersonMapper() as mapper:
+        result = mapper.update(r)
+
 
 
 
