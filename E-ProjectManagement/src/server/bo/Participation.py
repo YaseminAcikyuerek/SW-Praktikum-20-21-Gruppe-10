@@ -5,8 +5,8 @@ class Participation(bo):
 
     def __init__(self):
         super().__init__()
-        self._project = int
-        self._student = int
+        self._project = ""
+        self._student = ""
 
     def set_project(self, project):
         self._project = project

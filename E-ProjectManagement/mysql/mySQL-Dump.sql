@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 04. Jan 2021 um 02:10
+-- Erstellungszeit: 06. Jan 2021 um 17:16
 -- Server-Version: 10.4.17-MariaDB
 -- PHP-Version: 8.0.0
 
@@ -39,7 +39,8 @@ CREATE TABLE `module` (
 
 INSERT INTO `module` (`id`, `name`, `edv_nr`) VALUES
 (300, 'IT-Projekt', '5000'),
-(500, 'WI-Mathe', '235424');
+(500, 'WI-Mathe', '235424'),
+(501, 'ssf', 'ekv');
 
 -- --------------------------------------------------------
 
@@ -67,7 +68,10 @@ INSERT INTO `participation` (`id`, `project`, `student`) VALUES
 (33, 90, 1000),
 (34, 90, 1000),
 (35, 90, 1000),
-(5000, 91, 1002);
+(5000, 91, 1002),
+(5001, 2, 3),
+(5002, 4000, 1),
+(5003, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -87,10 +91,12 @@ CREATE TABLE `person` (
 
 INSERT INTO `person` (`id`, `name`, `role`) VALUES
 (0, '63', 0),
-(63, 'alex', 1),
+(63, 'hansg', 1),
 (123, 'ghg', 2),
 (143, 'ali', 3),
-(144, 'Yasemin', 2);
+(144, 'Yasemin', 2),
+(145, 'dozent', 1),
+(146, 'ss', 2);
 
 -- --------------------------------------------------------
 
@@ -167,7 +173,7 @@ CREATE TABLE `rating` (
 --
 
 INSERT INTO `rating` (`id`, `passed`, `grade`, `evaluator`, `to_be_assessed`, `project`) VALUES
-(1414, 1, 2, 123, 1, 1414),
+(1414, 1, 6, 7, 8, 3),
 (1415, 0, 1, 3, 4, 2),
 (1416, 1, 1, 3, 4, 2),
 (1417, 0, 1, 3, 4, 2),
@@ -193,7 +199,14 @@ INSERT INTO `rating` (`id`, `passed`, `grade`, `evaluator`, `to_be_assessed`, `p
 (1437, 7, 0, 2, 4, 1),
 (1438, 5, 1, 3, 4, 2),
 (1439, 1, 2, 3, 4, 2),
-(1440, 1, 2, 5, 6, 4);
+(1440, 1, 2, 5, 6, 4),
+(1441, 1, 3, 2, 1, 5),
+(1442, 0, 1, 3, 4, 2),
+(1443, 1, 2, 2, 1, 1),
+(1444, 1, 2, 3, 4, 2),
+(1445, 1, 4, 7, 7, 5),
+(1446, 1, 4, 7, 9, 5),
+(1447, 1, 2.3, 0, 7, 5);
 
 -- --------------------------------------------------------
 
@@ -203,14 +216,14 @@ INSERT INTO `rating` (`id`, `passed`, `grade`, `evaluator`, `to_be_assessed`, `p
 
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
-  `role_name` varchar(45) NOT NULL
+  `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `role`
 --
 
-INSERT INTO `role` (`id`, `role_name`) VALUES
+INSERT INTO `role` (`id`, `name`) VALUES
 (1, 'dozent'),
 (2, 'student'),
 (3, 'admin');
@@ -223,19 +236,22 @@ INSERT INTO `role` (`id`, `role_name`) VALUES
 
 CREATE TABLE `semester` (
   `id` int(11) NOT NULL,
+  `name` varchar(45) NOT NULL,
   `start` date DEFAULT NULL,
-  `end` date DEFAULT NULL,
-  `name` varchar(45) NOT NULL
+  `end` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `semester`
 --
 
-INSERT INTO `semester` (`id`, `start`, `end`, `name`) VALUES
-(2020, '2020-12-01', '2020-12-18', 'WS20'),
-(2021, '2020-12-20', '2020-12-25', 'SS21'),
-(2022, '0000-00-00', '0000-00-00', 'WI');
+INSERT INTO `semester` (`id`, `name`, `start`, `end`) VALUES
+(2020, 'WS20', '0000-00-00', '0000-00-00'),
+(2021, 'SS21', '0000-00-00', '0000-00-00'),
+(2022, 'WI', '0000-00-00', '0000-00-00'),
+(2023, 'it', '2021-01-08', '2021-01-09'),
+(2024, 'hft', '2021-01-04', '2021-01-05'),
+(2025, 'sss', '2021-01-05', '2021-01-06');
 
 -- --------------------------------------------------------
 
@@ -244,18 +260,29 @@ INSERT INTO `semester` (`id`, `start`, `end`, `name`) VALUES
 --
 
 CREATE TABLE `student` (
+  `id` int(11) NOT NULL,
+  `name` varchar(10) NOT NULL,
   `matriculation_nr` varchar(10) NOT NULL,
-  `course_abbr` varchar(10) NOT NULL,
-  `name` int(10) NOT NULL,
-  `id` int(11) NOT NULL
+  `course_abbr` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `student`
 --
 
-INSERT INTO `student` (`matriculation_nr`, `course_abbr`, `name`, `id`) VALUES
-('6565', 'WI', 17, 1);
+INSERT INTO `student` (`id`, `name`, `matriculation_nr`, `course_abbr`) VALUES
+(1, 'strifafng', 'strafawfin', 'striafawfn'),
+(2, '3', 'sts', 'awfw'),
+(3, '2', 'sfg', 'sayo'),
+(4, '2', 'sfg', 'sayo'),
+(5, '4', 'awffaaw', 'asfwaawf'),
+(6, '1', 'bwl', 'hdm'),
+(7, '6', 'hft', 'wit'),
+(8, '1', 'sz', 'fs'),
+(9, '3', 'sssss', 'ssss'),
+(10, '0', 'sz', 'abbr'),
+(11, '0', 'strs', 'ffs'),
+(12, 'sslafgwg', 'ssf', 'strid');
 
 --
 -- Indizes der exportierten Tabellen
@@ -323,7 +350,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT für Tabelle `person`
 --
 ALTER TABLE `person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT für Tabelle `project`
@@ -341,7 +368,7 @@ ALTER TABLE `project_type`
 -- AUTO_INCREMENT für Tabelle `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1441;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1448;
 
 --
 -- AUTO_INCREMENT für Tabelle `role`
@@ -353,7 +380,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT für Tabelle `semester`
 --
 ALTER TABLE `semester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2023;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2026;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

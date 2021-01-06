@@ -120,20 +120,20 @@ class StudentMapper (Mapper):
 
     def find_student_by_matriculation_nr(self, matriculation_nr):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE matriculation_nr={}".format(matriculation_nr)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE matriculation_nr={}".format(matriculation_nr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, matriculation_nr, matriculation_nr) = tuples[0]
+            (id, name, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
             student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
-            student.set_course_abbr(matriculation_nr)
+            student.set_course_abbr(course_abbr)
             result = student
 
         except IndexError:
@@ -150,7 +150,7 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE course_abbr={}".format(course_abbr)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE course_abbr={}".format(course_abbr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -183,16 +183,10 @@ if (__name__ == "__main__"):
             print(p)
 
 if (__name__ == "__main__"):
-    s = StudentMapper()
-    s.set_id(7)
-    s.set_matriculation_nr("SSSSSSSS")
-    s.set_course_abbr("SSSSSSS")
-    s.name(2)
-
     with StudentMapper() as mapper:
-        result = mapper.update(s)
-
-
+        result = mapper.find_student_by_matriculation_nr("sz")
+        for p in result:
+            print(p)
 
 
 

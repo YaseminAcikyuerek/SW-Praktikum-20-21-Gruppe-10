@@ -376,10 +376,10 @@ class ProjectAdministration(object):
         with ParticipationMapper() as mapper:
             return mapper.find_by_id(id)
 
-    def get_participation_by_student(self, student):
-        """Alle Teilnahmen von Studenten auslesen."""
-        with StudentMapper() as mapper:
-            return mapper.find_participation_by_student(student)
+    def get_participation_of_student(self, stu):
+        with ParticipationMapper() as mapper:
+            return mapper.find_participation_of_student(stu)
+
 
     def get_all_participation(self):
         """Alle Teilnahmen auslesen."""
@@ -499,31 +499,27 @@ class ProjectAdministration(object):
 
 
 
-    def get_participation_for_student(self, id):
-        pass
 
     def create_participation_for_student(self, stu):
-        pass
+        with ParticipationMapper() as mapper:
+            mapper.find_participation_of_student(stu)
 
-    def create_participation_for_project(self, id, project, student):
+
+
+    def create_participation_for_project(self, project, student):
         participation = Participation()
         participation.set_project(project)
         participation.set_student(student)
         participation.set_id(1)
-        participation.set_id(id)
 
         with ParticipationMapper() as mapper:
-            mapper.insert(participation)
+            return mapper.insert(participation)
 
-    def get_project_for_projecttype(self, projectt):
-        pass
-
-    def get_participation_of_student(self, stu):
+    def get_participation_by_project(self, pro):
         with ParticipationMapper() as mapper:
-            return mapper.find_participation_of_student(stu)
+            return mapper.find_participation_by_project(pro)
 
-    def get_rating_of_student(self, stu):
-        pass
+
 
 
 

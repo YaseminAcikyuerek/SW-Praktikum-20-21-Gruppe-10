@@ -828,7 +828,7 @@ class ParticipationStudentOperations(Resource):
         """
         adm = ProjectAdministration()
          # Suche nach Student mit vorgegebener id
-        stu = adm.get_participation_of_student(student)
+        stu = adm.get_participation_of_student(id)
         if stu is not None:
             participation_list = adm.get_participation_of_student(stu)
             return participation_list
@@ -851,7 +851,7 @@ class ParticipationStudentOperations(Resource):
         """Stelle fest, ob es unter der id einen Customer gibt. 
         Dies ist aus Gründen der referentiellen Integrität sinnvoll!
         """
-        stu = adm.get_participation_for_student(id)
+        stu = adm.get_participation_of_student(id)
 
         if stu is not None:
             # Jetzt erst macht es Sinn, für den Customer ein neues Konto anzulegen und dieses zurückzugeben.
@@ -879,7 +879,7 @@ class ParticipationProjectOperations(Resource):
         # Haben wir eine brauchbare Referenz auf ein Participation-Objekt bekommen?
         if pro is not None:
             # Jetzt erst lesen wir die die Teilnahmeliste anhand der Module aus.
-            participation_list = adm.get_participation_by_project(project)
+            participation_list = adm.get_participation_by_project(pro)
             return participation_list
         else:
             return "Project not found", 500
@@ -900,7 +900,7 @@ class ParticipationProjectOperations(Resource):
 
         if mod1 is not None:
             # Jetzt erst macht es Sinn, für den Customer ein neues Konto anzulegen und dieses zurückzugeben.
-            result = adm.create_participation_for_module(mod1)
+            result = adm.create_participation_for_project(mod1)
             return result
         else:
             return "Module unknown", 500

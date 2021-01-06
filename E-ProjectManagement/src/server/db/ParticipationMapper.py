@@ -89,10 +89,10 @@ class ParticipationMapper(Mapper):
 
     def find_participation_of_student(self, student):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, project, student FROM participation WHERE student={}".format(student)
+        command = "SELECT id, project, student FROM participation WHERE student".format(student)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -108,12 +108,14 @@ class ParticipationMapper(Mapper):
 
         return result
 
+
+
     def find_participation_by_project(self, project):
 
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, project, student FROM participation WHERE project={}".format(id)
+        command = "SELECT id, project, student FROM participation WHERE project".format(project)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -135,7 +137,7 @@ um die grundsätzliche Funktion zu überprüfen.
 Anmerkung: Nicht professionell aber hilfreich..."""
 if (__name__ == "__main__"):
     with ParticipationMapper() as mapper:
-        result = mapper.find_participation_of_student(1)
+        result = mapper.find_participation_by_project(1)
         for p in result:
             print(p)
 

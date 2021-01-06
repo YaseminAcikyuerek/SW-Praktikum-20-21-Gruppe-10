@@ -196,7 +196,7 @@ class ProjectMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE owner={}".format(owner)
+        command = "SELECT * FROM project WHERE owner".format(owner)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
