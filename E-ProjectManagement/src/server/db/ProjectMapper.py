@@ -122,12 +122,12 @@ class ProjectMapper(Mapper):
                   "flag=%s, bd_before_lecture_period=%s, bd_during_lecture_period=%s," \
                   "bd_during_exam_period=%s, preferred_bd_during_lecture_period=%s,special_room=%s, room=%s, " \
                   "language=%s WHERE id=%s"
-        data = (project.get_owner(),project.get_name(), project.get_status(),
-                project.get_module(), project.get_project_type(), project.get_semester(), project.get_capacity(),
-                project.get_external_partner_list(), project.get_short_description(), project.get_flag(),
+        data = (project.get_id(), project.get_semester(), project.get_module(), project.get_short_description(),
+                project.get_external_partner_list(), project.get_capacity(), project.get_bd_during_exam_period(),
                 project.get_bd_before_lecture_period(), project.get_bd_during_lecture_period(),
-                project.get_bd_during_exam_period(), project.get_preferred_bd_during_lecture_period(),
-                project.get_special_room(), project.get_room(), project.get_language(), project.get_id())
+                project.get_preferred_bd_during_lecture_period(), project.get_language(), project.get_room(),
+                project.get_special_room(), project.get_flag(), project.get_name(), project.get_status(),
+                project.get_project_type(), project.get_owner())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -160,23 +160,23 @@ class ProjectMapper(Mapper):
 
             project = Project()
             project.set_id(id)
-            project.set_name(name)
-            project.set_owner(owner)
+            project.set_semester(semester)
             project.set_module(module)
-            project.set_language(language)
-            project.set_project_type(project_type)
-            project.set_time(semester)
-            project.set_capacity(capacity)
-            project.set_external_partner_list(external_partner_list)
             project.set_short_description(short_description)
-            project.set_flag(flag)
+            project.set_external_partner_list(external_partner_list)
+            project.set_capacity(capacity)
+            project.set_bd_during_exam_period(bd_during_exam_period)
             project.set_bd_before_lecture_period(bd_before_lecture_period)
             project.set_bd_during_lecture_period(bd_during_lecture_period)
-            project.set_bd_during_exam_period(bd_during_exam_period)
             project.set_preferred_bd_during_lecture_period(preferred_bd_during_lecture_period)
-            project.set_status(status)
+            project.set_language(language)
             project.set_room(room)
             project.set_special_room(special_room)
+            project.set_flag(flag)
+            project.set_name(name)
+            project.set_status(status)
+            project.set_project_type(project_type)
+            project.set_owner(owner)
             result.append(project)
 
 
@@ -207,23 +207,23 @@ class ProjectMapper(Mapper):
 
             project = Project()
             project.set_id(id)
-            project.set_name(name)
-            project.set_owner(owner)
+            project.set_semester(semester)
             project.set_module(module)
-            project.set_language(language)
-            project.set_project_type(project_type)
-            project.set_time(semester)
-            project.set_capacity(capacity)
-            project.set_external_partner_list(external_partner_list)
             project.set_short_description(short_description)
-            project.set_flag(flag)
+            project.set_external_partner_list(external_partner_list)
+            project.set_capacity(capacity)
+            project.set_bd_during_exam_period(bd_during_exam_period)
             project.set_bd_before_lecture_period(bd_before_lecture_period)
             project.set_bd_during_lecture_period(bd_during_lecture_period)
-            project.set_bd_during_exam_period(bd_during_exam_period)
             project.set_preferred_bd_during_lecture_period(preferred_bd_during_lecture_period)
-            project.set_status(status)
+            project.set_language(language)
             project.set_room(room)
             project.set_special_room(special_room)
+            project.set_flag(flag)
+            project.set_name(name)
+            project.set_status(status)
+            project.set_project_type(project_type)
+            project.set_owner(owner)
             result.append(project)
 
 
@@ -250,12 +250,14 @@ class ProjectMapper(Mapper):
              bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
              preferred_bd_during_lecture_period, language, room, special_room, flag, name,
              status, project_type, owner) in tuples:
+
             project = Project()
             project.set_id(id)
-            project.set_time(semester)
+            project.set_semester(semester)
+            project.set_module(module)
             project.set_short_description(short_description)
-            project.set_capacity(capacity)
             project.set_external_partner_list(external_partner_list)
+            project.set_capacity(capacity)
             project.set_bd_during_exam_period(bd_during_exam_period)
             project.set_bd_before_lecture_period(bd_before_lecture_period)
             project.set_bd_during_lecture_period(bd_during_lecture_period)
@@ -264,11 +266,10 @@ class ProjectMapper(Mapper):
             project.set_room(room)
             project.set_special_room(special_room)
             project.set_flag(flag)
-            project.set_project_type(project_type)
             project.set_name(name)
-            project.set_module(module)
-            project.set_owner(owner)
             project.set_status(status)
+            project.set_project_type(project_type)
+            project.set_owner(owner)
             result.append(project)
 
         self._cnx.commit()

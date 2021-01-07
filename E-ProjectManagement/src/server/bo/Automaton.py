@@ -10,7 +10,7 @@ class Automaton:
     status_reviewCompleted = Status("Review completed")
 
     def __init__(self):
-        self.current_state = DEA.status_new
+        self.current_state = Automaton.status_new
 
     def set_state(self, zustand):
         self.current_state = zustand
