@@ -16,7 +16,7 @@ from server.bo.Rating import Rating
 from server.bo.ProjectType import ProjectType
 from server.bo.Semester import Semester
 from server.bo.Role import Role
-from server.bo.DEA import DEA
+from server.bo.Automaton import DEA
 from server.bo.Student import Student
 
 
@@ -80,20 +80,19 @@ project = api.inherit('Project', bo, nbo, {
     'semester': fields.Integer(attribute='_semester', description=''),
     'module': fields.Integer(attribute='_module', description='unique ID des Projektmoduls'),
     'short_description': fields.String(attribute='_short_description', description='Die kurze Beschreibung des Projekts'),
-    'owner': fields.Integer(attribute='_owner', description='unique ID des Projektbesitzers'),
-    'language': fields.String(attribute='_language', description='Sprache des Projekts'),
-    'capacity': fields.Integer(attribute='_capacity', description='Die Kapazität des Projekts'),
     'external_partner_list': fields.String(attribute='_external_partner_list', description='Die externen Partner des Projektes'),
-    'flag': fields.Boolean(attribute='_flag', description='Sonderzeichen ob das Projekt wöchentlich stattfindet'),
+    'capacity': fields.Integer(attribute='_capacity', description='Die Kapazität des Projekts'),
+    'bd_during_exam_period': fields.Integer(attribute='_bd_during_exam_period', description=''),
     'bd_before_lecture_period': fields.Integer(attribute='_bd_before_lecture_period', description=''),
     'bd_during_lecture_period': fields.Integer(attribute='_bd_during_lecture_period', description=''),
-    'bd_during_exam_period': fields.Integer(attribute='_bd_during_exam_period', description=''),
     'preferred_bd_during_lecture_period': fields.Integer(attribute='_preferred_bd_during_lecture_period', description=''),
-    'special_room': fields.Boolean(attribute='_special_room', description=''),
+    'language': fields.String(attribute='_language', description='Sprache des Projekts'),
     'room': fields.String(attribute='_room', description=''),
+    'special_room': fields.Boolean(attribute='_special_room', description=''),
+    'flag': fields.Boolean(attribute='_flag', description='Sonderzeichen ob das Projekt wöchentlich stattfindet'),
     'status': fields.String(attribute='_status', description=''),
-
-    'project_type': fields.Integer(attribute='_project_type', description=''),
+    'owner': fields.Integer(attribute='_owner', description='unique ID des Projektbesitzers'),
+    'project_type': fields.Integer(attribute='_project_type', description='')
 })
 
 project_type = api.inherit('ProjectType', bo, nbo, {
@@ -112,9 +111,6 @@ rating = api.inherit('Rating', bo, {
 role = api.inherit('Role', {
     'id': fields.Integer(attribute='_id', description='id der Rolle'),
     'name': fields.String(attribute='_name',description='nameder Rolle')
-
-
-
 })
 
 semester = api.inherit('Semester', nbo, {
@@ -204,20 +200,6 @@ class PersonOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/person/<string:name>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('Name', 'Der Name einer Person')
-class PersonByNameOperations(Resource):
-    @projectmanagement.marshal_with(person)
-
-    def get(self, name):
-        """ Auslesen von einer Person anhand des Namens
-        Auszulesende Objekt wird anhand des Namens bestimmt.
-        """
-        adm = ProjectAdministration()
-        pers = adm.get_person_by_name(name)
-        return pers
-
 
 @projectmanagement.route('/project')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -230,6 +212,28 @@ class ProjectListOperations(Resource):
         adm = ProjectAdministration()
         proj = adm.get_all_project()
         return proj
+
+    """Projektspezifische Methoden"""
+    @projectmanagement.marshal_with(project)
+    @projectmanagement.expect(project)
+    def post(self):
+        """Anlegen eines neuen Projekt-Objekts.
+                """
+        adm = ProjectAdministration()
+        proj = Project.from_dict(api.payload)
+
+        if proj is not None:
+            pro = adm.create_project(proj.get_semester(), proj.get_module(), proj.get_short_description(),
+                                     proj.get_external_partner_list(), proj.get_capacity(),
+                                     proj.get_bd_during_exam_period(), proj.get_bd_before_lecture_period(),
+                                     proj.get_bd_during_lecture_period(), proj.get_preferred_bd_during_lecture_period(),
+                                     proj.get_language(), proj.get_room(), proj.get_special_room(), proj.get_flag(),
+                                     proj.get_name(), proj.get_status(), proj.get_project_type(),
+                                     proj.get_owner())
+            return pro, 200
+        else:
+            # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
+            return '', 500
 
 
 @projectmanagement.route('/project/<int:id>')
@@ -259,7 +263,7 @@ class ProjectOperations(Resource):
         return '', 200
 
     @projectmanagement.marshal_with(project)
-
+    @projectmanagement.expect(project)
     def put(self, id):
         """Update eines bestimmten Projekts.
         """
@@ -267,12 +271,12 @@ class ProjectOperations(Resource):
         p = Project.from_dict(api.payload)
 
         if p is not None:
-
             p.set_id(id)
             adm.save_project(p)
             return '', 200
         else:
             return '', 500
+
 
 
 @projectmanagement.route('/person/<int:id>/project')
@@ -338,6 +342,8 @@ class ProjectStatusOperations(Resource):
         else:
             return 0, 500
 
+
+"""Studentenspezifische Methoden"""
 @projectmanagement.route('/student')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class StudentListOperations(Resource):
@@ -396,30 +402,6 @@ class StudentOperations(Resource):
         adm.delete_student(stu)
         return '', 200
 
-    @projectmanagement.route('/student/<int:id>/project')
-    @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-    @projectmanagement.param('id', 'Die ID des student-Objekts')
-    class StudentRelatedProjectOperations(Resource):
-        @projectmanagement.marshal_with(project)
-
-        def get(self, id):
-            """Auslesen aller Projekte von eines bestimmten Studenten.
-
-            Das student-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
-            """
-            adm = ProjectAdministration()
-            stu = adm.get_student_by_id(id)
-
-            if stu is not None:
-
-                project_list = adm.get_project_of_student(stu)
-                return project_list
-            else:
-                return "Student not found", 500
-
-
-
-
 
     @projectmanagement.marshal_with(student)
 
@@ -443,7 +425,26 @@ class StudentOperations(Resource):
         else:
             return '', 500
 
+@projectmanagement.route('/student/<int:id>/project')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des student-Objekts')
+class StudentRelatedProjectOperations(Resource):
+    @projectmanagement.marshal_with(project)
 
+    def get(self, id):
+            """Auslesen aller Projekte von eines bestimmten Studenten.
+
+            Das student-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
+            """
+            adm = ProjectAdministration()
+            stu = adm.get_student_by_id(id)
+
+            if stu is None:
+
+                return "Student not found", 500
+            else:
+                project_list = adm.get_project_of_student(stu)
+                return project_list
 
 
 @projectmanagement.route('/participation')
@@ -600,21 +601,21 @@ class SemesterOperations(Resource):
             return '', 500
 
 
-    @projectmanagement.route('/rating')
-    @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-    class RatingListOperations(Resource):
-        @projectmanagement.marshal_list_with(rating)
-        def get(self):
-            """Auslesen aller rating-Objekte.
+@projectmanagement.route('/rating')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class RatingListOperations(Resource):
+    @projectmanagement.marshal_list_with(rating)
+    def get(self):
+        """Auslesen aller rating-Objekte.
 
-            Sollten keine Rating-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
-            adm = ProjectAdministration()
-            r = adm.get_all_rating()
-            return r
+        Sollten keine Rating-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
+        adm = ProjectAdministration()
+        r = adm.get_all_rating()
+        return r
 
-        @projectmanagement.marshal_with(rating, code=200)
-        @projectmanagement.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
-        def post(self):
+    @projectmanagement.marshal_with(rating, code=200)
+    @projectmanagement.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
+    def post(self):
             """Anlegen eines neuen Rating-Objekts.
 
             **ACHTUNG:** Wir fassen die vom Client gesendeten Daten als Vorschlag auf.
@@ -654,22 +655,6 @@ class ModuleRelatedProjectOperations(Resource):
 
         return proj
 
-    @projectmanagement.marshal_with(project, code=201)
-
-    def post(self, id):
-        """Anlegen eines Projekts für ein gegebenes Modul.
-
-        Das neu angelegte Projekt wird als Ergebnis zurückgegeben.
-        """
-        adm = ProjectAdministration()
-        mod = adm.get_module_by_id(id)
-
-        if mod is not None:
-            result = adm.create_project(mod)
-            return result
-        else:
-            return "Module unknown", 500
-
 @projectmanagement.route('/semester/<int:id>/project')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @projectmanagement.param('id', 'Die ID des Semester-Objekts')
@@ -690,21 +675,6 @@ class SemesterRelatedProjectOperations(Resource):
         else:
             return "Semester not found", 500
 
-    @projectmanagement.marshal_with(project, code=201)
-
-    def post(self, id):
-        """Anlegen eines Projekts für ein gegebenes Semester.
-
-        Das neu angelegte Projekt wird als Ergebnis zurückgegeben.
-        """
-        adm = ProjectAdministration()
-        sem = adm.get_semester_by_id(id)
-
-        if sem is not None:
-            result = adm.create_project_for_semester(sem)
-            return result
-        else:
-            return "Semester unknown", 500
 
 @projectmanagement.route('/projecttype/<int:id>/project')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -727,20 +697,6 @@ class ProjectTypeRelatedProjectOperations(Resource):
         else:
             return "Project Type not found", 500
 
-    @projectmanagement.marshal_with(project, code=201)
-
-    def post(self, id):
-        """Anlegen eines Projekts für eine gegebene Projektart.
-
-        Das neu angelegte Projekt wird als Ergebnis zurückgegeben."""
-        adm = ProjectAdministration()
-        pt = adm.get_project_type_by_id(id)
-
-        if pt is not None:
-            result = adm.create_project_for_project_type(pt)
-            return result
-        else:
-            return "Projecttype unknown", 500
 
 @projectmanagement.route('/module')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -884,7 +840,7 @@ class ParticipationProjectOperations(Resource):
     @projectmanagement.marshal_with(participation, code=201)
 
     def post(self, id):
-        """Anlegen einer Participation für einen gegebenes Modul.
+        """Anlegen einer Participation für einen gegebenes Projekt.
 
         Die neu angelegte Participation wird als Ergebnis zurückgegeben.
 
@@ -1084,7 +1040,7 @@ class RoleListOperations(Resource):
         rose= Role.from_dict(api.payload)
 
         if rose is not None:
-            r = adm.create_role(rose.get_id(),rose.get_name())
+            r = adm.create_role(rose.get_name())
             return r, 200
         else:
             return '', 500
@@ -1147,6 +1103,19 @@ class ProjectTypeListOperations(Resource):
         pt = adm.get_all_project_type()
         return pt
 
+    @projectmanagement.marshal_with(project_type)
+    @projectmanagement.expect(project_type)
+    def post(self):
+        """Anlegen eines neuen ProjectTypes-Objekts.
+                """
+        adm = ProjectAdministration()
+        prot = ProjectType.from_dict(api.payload)
+
+        if prot is not None:
+            r = adm.create_project_type(prot.get_name(), prot.get_sws(),prot.get_ects())
+            return r, 200
+        else:
+            return '', 500
 
 @projectmanagement.route('/project_type/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')

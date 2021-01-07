@@ -55,7 +55,7 @@ class RoleMapper (Mapper):
         for (maxid) in tuples:
             role.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO role (id, name) VALUES (%s),&s)"
+        command = "INSERT INTO role (id, name) VALUES (%s,%s)"
         data = (role.get_id(), role.get_name())
         cursor.execute(command, data)
 
