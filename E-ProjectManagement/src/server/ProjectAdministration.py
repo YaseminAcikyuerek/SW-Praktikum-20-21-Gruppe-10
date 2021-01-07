@@ -73,29 +73,29 @@ class ProjectAdministration(object):
 
     """Projektspezifisch"""
 
-    def create_project(self, name, owner, module, language, capacity,
-                       external_partner_list, short_description, flag, bd_before_lecture_period,
-                       bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
-                       special_room, room, status, time, project_type):
+    def create_project(self, semester, module, short_description, external_partner_list, capacity,
+                       bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
+                       preferred_bd_during_lecture_period, language, room, special_room, flag, name,
+                       status, project_type, owner):
         """Ein Projekt anlegen"""
         project = Project()
-        project.set_name(name)
-        project.set_owner(owner)
+        project.set_semester(semester)
         project.set_module(module)
-        project.set_language(language)
-        project.set_capacity(capacity)
-        project.set_external_partner_list(external_partner_list)
         project.set_short_description(short_description)
-        project.set_flag(flag)
+        project.set_external_partner_list(external_partner_list)
+        project.set_capacity(capacity)
+        project.set_bd_during_exam_period(bd_during_exam_period)
         project.set_bd_before_lecture_period(bd_before_lecture_period)
         project.set_bd_during_lecture_period(bd_during_lecture_period)
-        project.set_bd_during_exam_period(bd_during_exam_period)
         project.set_preferred_bd_during_lecture_period(preferred_bd_during_lecture_period)
-        project.get_special_room(special_room)
+        project.set_language(language)
         project.set_room(room)
+        project.set_special_room(special_room)
+        project.set_flag(flag)
+        project.set_name(name)
         project.set_status(status)
         project.set_project_type(project_type)
-        project.set_time(time)
+        project.set_owner(owner)
         project.set_id(1)
 
         with ProjectMapper() as mapper:
@@ -182,13 +182,12 @@ class ProjectAdministration(object):
 
     """Modulspezifische Methoden"""
 
-    def create_project_type(self, id, sws, ects, name):
+    def create_project_type(self, name, sws, ects):
         """Ein Projekttyp anlegen"""
         project_type = ProjectType()
+        project_type.set_name(name)
         project_type.set_sws(sws)
         project_type.set_ects(ects)
-        project_type.set_name(name)
-        project_type.set_id(id)
         project_type.set_id(1)
 
         with ProjectTypeMapper() as mapper:
@@ -317,7 +316,7 @@ class ProjectAdministration(object):
 
     """Rollenspezifische"""
 
-    def create_role(self,name):
+    def create_role(self, name):
         """Eine Rolle  anlegen"""
         role = Role()
         role.set_name(name)

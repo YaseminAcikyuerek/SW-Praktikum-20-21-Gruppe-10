@@ -11,14 +11,16 @@ class ProjectTypeMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, sws, ects from project_type")
+        cursor.execute("SELECT * from project_type")
         tuples = cursor.fetchall()
 
-        for (id,sws, ects) in tuples:
+        for (id,name,sws, ects) in tuples:
             project_type = ProjectType()
             project_type.set_id(id)
+            project_type.set_name(name)
             project_type.set_sws(sws)
             project_type.set_ects(ects)
+
             result.append(project_type)
 
         self._cnx.commit()
@@ -31,16 +33,18 @@ class ProjectTypeMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,sws,ects FROM project_type WHERE id={}".format(id)
+        command = "SELECT * FROM project_type WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id,sws,ects) = tuples[0]
+            (id, name, sws,ects) = tuples[0]
             project_type = ProjectType()
             project_type.set_id(id)
+            project_type.set_name(name)
             project_type.set_sws(sws)
             project_type.set_ects(ects)
+
 
 
         result = project_type
@@ -59,8 +63,8 @@ class ProjectTypeMapper(Mapper):
         for (maxid) in tuples:
             project_type.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO project_type (id,sws, ects) VALUES (%s,%s,%s)"
-        data = (project_type.get_id(), project_type.get_sws(), project_type.get_ects())
+        command = "INSERT INTO project_type (id, name,sws,ects) VALUES (%s,%s,%s, %s)"
+        data = (project_type.get_id(), project_type.get_name(), project_type.get_sws(), project_type.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -71,8 +75,8 @@ class ProjectTypeMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE project_type " + "SET sws=%s, ects=%s WHERE id=%s"
-        data = (project_type.get_id(), project_type.get_sws(), project_type.get_ects())
+        command = "UPDATE project_type SET sws=%s, ects=%s, name=%s WHERE id=%s"
+        data = (project_type.get_name(),project_type.get_sws(), project_type.get_ects(),  project_type.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
