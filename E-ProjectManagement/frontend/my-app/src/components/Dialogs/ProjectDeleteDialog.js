@@ -15,7 +15,7 @@ import LoadingProgress from './LoadingProgress';
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-class ProectDeleteDialog extends Component {
+class ProjectDeleteDialog extends Component {
 
   constructor(props) {
     super(props);
