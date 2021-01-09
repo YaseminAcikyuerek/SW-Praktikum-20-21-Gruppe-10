@@ -28,7 +28,7 @@ import firebaseConfig from './firebaseconfig';
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 import  Start from "./components/Start"
-import Header from "./components/Header"
+import Header from "./components/layout/Header"
 
 class App extends React.Component {
 
