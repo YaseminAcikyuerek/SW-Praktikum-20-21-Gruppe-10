@@ -20,7 +20,7 @@ export default class PersonBO extends NamedBusinessObject {
   }
 
   getRole() {
-    return this.role
+    return this.role;
   }
 
 
@@ -42,4 +42,6 @@ export default class PersonBO extends NamedBusinessObject {
 
     return result;
   }
+
+}
 

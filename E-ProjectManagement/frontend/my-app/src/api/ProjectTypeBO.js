@@ -16,14 +16,14 @@ constructor(aSws,aEcts) {
   }
 
   getSws() {
-    return this.sws
+    return this.sws;
   }
   setEcts(aEcts) {
   this.ects = aEcts;
   }
 
   getEcts() {
-    return this.Ects
+    return this.Ects;
   }
 
   static fromJSON(ProjectType) {
@@ -43,3 +43,5 @@ constructor(aSws,aEcts) {
 
     return result;
   }
+
+}

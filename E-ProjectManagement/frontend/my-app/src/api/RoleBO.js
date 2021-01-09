@@ -35,17 +35,17 @@ constructor(aRoleName, aId) {
   }
 
 
-  static fromJSON(roles) {
+  static fromJSON(role) {
     let result = [];
 
-    if (Array.isArray(roles)) {
-      roles.forEach((c) => {
+    if (Array.isArray(role)) {
+      role.forEach((c) => {
         Object.setPrototypeOf(c, RoleBO.prototype);
         result.push(c);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = roles;
+      let c = role;
       Object.setPrototypeOf(c, RoleBO.prototype);
       result.push(c);
     }

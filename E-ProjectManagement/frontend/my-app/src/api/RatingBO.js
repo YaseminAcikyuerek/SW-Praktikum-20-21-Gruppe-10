@@ -20,7 +20,7 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
   }
 
   getProject() {
-    return this.project
+    return this.project;
   }
 
   setEvaluator(aEvaluator) {
@@ -28,7 +28,7 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
   }
 
   getEvaluator() {
-    return this.Evaluator
+    return this.evaluator;
   }
 
   setToBeAssessed(aToBeAssessed) {
@@ -36,38 +36,38 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
   }
 
   getToBeAssessed() {
-    return this.to_be_assessed
+    return this.to_be_assessed;
   }
 
   setGrade(aGrade) {
-  this.grade = aGrade ;
+  this.grade = aGrade;
   }
 
   getGrade() {
-    return this.grade
+    return this.grade;
   }
 
   setPassed(aPassed) {
-  this.passed = aPassed ;
+  this.passed = aPassed;
   }
 
   getPassed() {
-    return this.passed
+    return this.passed;
   }
 
 
 
-  static fromJSON(ratings) {
+  static fromJSON(rating) {
     let result = [];
 
-    if (Array.isArray(ratings)) {
-      ratings.forEach((c) => {
-        Object.setPrototypeOf(c, RatingBOBO.prototype);
+    if (Array.isArray(rating)) {
+      rating.forEach((c) => {
+        Object.setPrototypeOf(c, RatingBO.prototype);
         result.push(c);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = ratings;
+      let c = rating;
       Object.setPrototypeOf(c, RatingBO.prototype);
       result.push(c);
     }
