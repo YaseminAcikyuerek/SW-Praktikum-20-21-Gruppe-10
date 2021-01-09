@@ -39,7 +39,7 @@ class Header extends Component {
       <Paper variant='outlined' >
         <ProfileDropDown user={user} />
         <Typography variant='h3' component='h1' align='center'>
-          HdM Bank Administration
+          HdM Management-System
         </Typography>
         <Typography variant='h4' component='h2' align='center'>
           Client Advisor Home
