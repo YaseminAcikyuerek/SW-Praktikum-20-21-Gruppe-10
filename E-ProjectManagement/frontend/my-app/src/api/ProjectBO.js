@@ -15,7 +15,7 @@ export default class ProjectBO extends NamedBusinessObject {
     this.status = aStatus;
     this.owner = aOwner;
     this.module = aModule;
-    this.student = aStudent;
+
     this.project_type = aProjectType;
     this.time = aTime;
     this.capacity = aCapacity;
@@ -54,13 +54,8 @@ export default class ProjectBO extends NamedBusinessObject {
     return this.module;
   }
 
-  setStatus(aStudent) {
-  this.student = aStudent ;
-  }
 
-  getStudent() {
-    return this.student;
-  }
+
 
   setPrototype(aProjectType) {
   this.project_type = aProjectType ;
