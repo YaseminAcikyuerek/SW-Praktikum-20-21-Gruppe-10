@@ -26,12 +26,15 @@ class ProjectAdministration(object):
 
     """person-spezifische Methoden"""
 
-    def create_person(self, name, role):
+    def create_person(self, name, role,rechte_student, rechte_admin, rechte_dozent):
         """Eine Person anlegen"""
         p = Person()
         p.set_id(1)
         p.set_name(name)
         p.set_role(role)
+        p.set_rechte_student(rechte_student)
+        p.set_rechte_admin(rechte_admin)
+        p.set_rechte_dozent(rechte_dozent)
 
         with PersonMapper() as mapper:
             return mapper.insert(p)
@@ -517,6 +520,9 @@ class ProjectAdministration(object):
     def get_participation_by_project(self, pro):
         with ParticipationMapper() as mapper:
             return mapper.find_participation_by_project(pro)
+
+    def get_rating_of_student(self, sftu):
+        pass
 
 
 

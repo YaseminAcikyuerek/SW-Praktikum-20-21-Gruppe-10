@@ -102,10 +102,10 @@ class PersonMapper(Mapper):
 
     def find_person_by_role(self, role):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role FROM person WHERE role={}".format(role)
+        command = "SELECT id, name, role, rechte_student, rechte_admin,rechte_dozent FROM person WHERE role={}".format(role)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -115,6 +115,7 @@ class PersonMapper(Mapper):
             person.set_id(id)
             person.set_name(name)
             person.set_role(role)
+
             result = person
 
         except IndexError:

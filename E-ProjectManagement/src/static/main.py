@@ -1164,6 +1164,28 @@ class ProjectTypeOperations(Resource):
         else:
             return '', 500
 
+@projectmanagement.route('/person/<int:id>/role')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('id', 'Die ID des student-Objekts')
+class StudentRelatedRatingOperations(Resource):
+    @projectmanagement.marshal_with(rating)
+
+    def get(self, id):
+        """Auslesen aller Bewertungen von einer bestimmten Student.
+
+        Das Student-Objekt dessen Bewertungen wir lesen möchten, wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        per = adm.get_person_by_role(id)
+
+        if per is not None:
+            rating_list = adm.get_person_by_role(per)
+            return rating_list
+        else:
+            return "Student not found", 500
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
 

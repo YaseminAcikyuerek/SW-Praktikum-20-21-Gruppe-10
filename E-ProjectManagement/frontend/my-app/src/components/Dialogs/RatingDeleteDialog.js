@@ -29,7 +29,7 @@ class RatingDeleteDialog extends Component {
 
   /** Delete the Rating */
   deleteRating = () => {
-    BankAPI.getAPI().deleteRating(this.props.Rating.getID()).then(Rating => {
+    ManagementAPI.getAPI().deleteRating(this.props.rating.getID()).then(rating => {
       this.setState({
         deletingInProgress: false,              // disable loading indicator
         deletingError: null                     // no error message
