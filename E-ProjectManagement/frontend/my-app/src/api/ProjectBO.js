@@ -10,12 +10,11 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aStatus,aOwner,aModule,aStudent,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage) {
+  constructor(aStatus,aOwner,aModule,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage) {
     super();
     this.status = aStatus;
     this.owner = aOwner;
     this.module = aModule;
-
     this.project_type = aProjectType;
     this.time = aTime;
     this.capacity = aCapacity;
@@ -53,9 +52,6 @@ export default class ProjectBO extends NamedBusinessObject {
   getModule() {
     return this.module;
   }
-
-
-
 
   setPrototype(aProjectType) {
   this.project_type = aProjectType ;
