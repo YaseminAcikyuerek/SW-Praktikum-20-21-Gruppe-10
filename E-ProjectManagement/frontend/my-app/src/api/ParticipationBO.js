@@ -16,7 +16,7 @@ export default class ParticipationBO extends BusinessObject {
   }
 
   setProject(aProject) {
-  this.projectroject = aProject;
+  this.project = aProject;
   }
 
   getProject() {
@@ -31,23 +31,25 @@ export default class ParticipationBO extends BusinessObject {
     return this.student;
 
 
-  static fromJSON(participation) {
+  static fromJSON(participations) {
     let result = [];
 
-    if (Array.isArray(participation)) {
-      participation.forEach((c) => {
-        Object.setPrototypeOf(c, ParticipationBO.prototype);
-        result.push(c);
+    if (Array.isArray(participations)) {
+      participations.forEach((p) => {
+        Object.setPrototypeOf(p, ParticipationBO.prototype);
+        result.push(p);
       })
     } else {
       //
-      let c = participation;
-      Object.setPrototypeOf(c, ParticipationBO.prototype);
-      result.push(c);
+      let p = participations;
+      Object.setPrototypeOf(p, ParticipationBO.prototype);
+      result.push(p);
     }
 
     return result;
   }
+
+}
 
 
 

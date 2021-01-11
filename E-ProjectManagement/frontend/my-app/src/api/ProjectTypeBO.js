@@ -29,16 +29,16 @@ constructor(aSws,aEcts) {
   static fromJSON(ProjectType) {
     let result = [];
 
-    if (Array.isArray(project_types)) {
-      project_types.forEach((c) => {
-        Object.setPrototypeOf(c, ProjectTypeBO.prototype);
-        result.push(c);
+    if (Array.isArray(projectTypes)) {
+      projectTypes.forEach((t) => {
+        Object.setPrototypeOf(t, ProjectTypeBO.prototype);
+        result.push(t);
       })
     } else {
       //
-      let c = project_types;
-      Object.setPrototypeOf(c, ProjectTypeBO.prototype);
-      result.push(c);
+      let c = projectTypes;
+      Object.setPrototypeOf(t, ProjectTypeBO.prototype);
+      result.push(t);
     }
 
     return result;
