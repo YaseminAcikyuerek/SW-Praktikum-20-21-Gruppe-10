@@ -35,19 +35,19 @@ constructor(aStart, aEnd) {
   /**
    * Returns an Array of CustomerBOs from a given JSON structure.
    */
-  static fromJSON(semester) {
+  static fromJSON(semesters) {
     let result = [];
 
-    if (Array.isArray(semester)) {
-      semester.forEach((c) => {
-        Object.setPrototypeOf(c, SemesterBO.prototype);
-        result.push(c);
+    if (Array.isArray(semesters)) {
+      semesters.forEach((s) => {
+        Object.setPrototypeOf(s, SemesterBO.prototype);
+        result.push(s);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = semester;
-      Object.setPrototypeOf(c, SemesterBO.prototype);
-      result.push(c);
+      let s = semesters;
+      Object.setPrototypeOf(s, SemesterBO.prototype);
+      result.push(s);
     }
 
     return result;

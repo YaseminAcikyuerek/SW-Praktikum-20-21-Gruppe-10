@@ -32,19 +32,19 @@ constructor(aCourse_abbr,aMatriculation_nr) {
   }
 
 
-  static fromJSON(student) {
+  static fromJSON(students) {
     let result = [];
 
-    if (Array.isArray(student)) {
-      student.forEach((t) => {
-        Object.setPrototypeOf(t, StudentBO.prototype);
-        result.push(t);
+    if (Array.isArray(students)) {
+      students.forEach((u) => {
+        Object.setPrototypeOf(u, StudentBO.prototype);
+        result.push(u);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let t = student
-      Object.setPrototypeOf(t, StudentBO.prototype);
-      result.push(t);
+      let u = students
+      Object.setPrototypeOf(u, StudentBO.prototype);
+      result.push(u);
     }
 
     return result;

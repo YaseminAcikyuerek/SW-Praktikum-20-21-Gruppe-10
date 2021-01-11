@@ -22,19 +22,19 @@ export default class ModuleBO extends NamedBusinessObject {
     return this.edv_nr;
   }
 
-  static fromJSON(module) {
+  static fromJSON(modules) {
     let result = [];
 
-    if (Array.isArray(module)) {
-      module.forEach((c) => {
-        Object.setPrototypeOf(c, ModuleBO.prototype);
-        result.push(c);
+    if (Array.isArray(modules)) {
+      modules.forEach((m) => {
+        Object.setPrototypeOf(m, ModuleBO.prototype);
+        result.push(m);
       })
     } else {
       //
-      let c = module;
-      Object.setPrototypeOf(c, ModuleBO.prototype);
-      result.push(c);
+      let c = modules;
+      Object.setPrototypeOf(m, ModuleBO.prototype);
+      result.push(m);
     }
 
     return result;
