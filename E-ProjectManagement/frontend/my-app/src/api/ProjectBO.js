@@ -156,15 +156,15 @@ export default class ProjectBO extends NamedBusinessObject {
     let result = [];
 
     if (Array.isArray(projects)) {
-      projects.forEach((c) => {
-        Object.setPrototypeOf(c, ProjectBO.prototype);
-        result.push(c);
+      projects.forEach((j) => {
+        Object.setPrototypeOf(j, ProjectBO.prototype);
+        result.push(j);
       })
     } else {
       // Ist offenbar ein singuläres Objekt
-      let c = projects;
-      Object.setPrototypeOf(c, ProjectBO.prototype);
-      result.push(c);
+      let j = projects;
+      Object.setPrototypeOf(j, ProjectBO.prototype);
+      result.push(j);
     }
 
     return result;

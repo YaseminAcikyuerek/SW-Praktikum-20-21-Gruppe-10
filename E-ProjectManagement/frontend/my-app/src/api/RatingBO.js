@@ -57,19 +57,19 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
 
 
 
-  static fromJSON(rating) {
+  static fromJSON(ratings) {
     let result = [];
 
-    if (Array.isArray(rating)) {
-      rating.forEach((c) => {
-        Object.setPrototypeOf(c, RatingBO.prototype);
-        result.push(c);
+    if (Array.isArray(ratings)) {
+      ratings.forEach((i) => {
+        Object.setPrototypeOf(i, RatingBO.prototype);
+        result.push(i);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = rating;
-      Object.setPrototypeOf(c, RatingBO.prototype);
-      result.push(c);
+      let i = ratings;
+      Object.setPrototypeOf(i, RatingBO.prototype);
+      result.push(i);
     }
 
     return result;
