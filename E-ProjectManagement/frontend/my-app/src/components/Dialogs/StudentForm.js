@@ -25,7 +25,7 @@ class StudentForm extends Component {
   constructor(props) {
     super(props);
 
-    let n = '', ca = ''; mn = '';
+    let n = '', ca = '', mn = '';
     if (props.student) {
       n = props.student.getName();
       ca = props.student.getCourseAbbr();
@@ -91,7 +91,7 @@ class StudentForm extends Component {
       this.baseState.name = this.state.name;
       this.baseState.courseAbbr = this.state.courseAbbr;
       this.baseState.matriculationNr = this.state.matriculationNr;
-      this.props.onClose(updatedStudent;      // call the parent with the new student
+      this.props.onClose(updatedStudent);     // call the parent with the new student
     }).catch(e =>
       this.setState({
         updatingInProgress: false,              // disable loading indicator
@@ -133,7 +133,7 @@ class StudentForm extends Component {
   render() {
     const { classes, student, show } = this.props;
     const { name, nameValidationFailed, nameEdited, courseAbbr, courseAbbrValidationFailed, courseAbbrEdited,
-    matriculationNr, matriculationNrValidationFailed, matriculationNrEdited
+    matriculationNr, matriculationNrValidationFailed, matriculationNrEdited,
     addingInProgress, addingError, updatingInProgress, updatingError } = this.state;
 
     let title = '';
