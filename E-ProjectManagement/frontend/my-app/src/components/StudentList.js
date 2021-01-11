@@ -44,6 +44,7 @@ class StudentList extends Component {
   /** Fetches all CustomerBOs from the backend */
   getStudent = () => {
     ManagementAPI.getAPI().getStudent()
+
       .then(studentBOs =>
         this.setState({               // Set new state when CustomerBOs have been fetched
          student: studentBOs,
