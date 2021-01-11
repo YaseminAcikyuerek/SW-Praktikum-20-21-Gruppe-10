@@ -29,15 +29,15 @@ export default class PersonBO extends NamedBusinessObject {
     let result = [];
 
     if (Array.isArray(persons)) {
-      persons.forEach((c) => {
-        Object.setPrototypeOf(c, PersonBO.prototype);
-        result.push(c);
+      persons.forEach((e) => {
+        Object.setPrototypeOf(e, PersonBO.prototype);
+        result.push(e);
       })
     } else {
       // Ist offenbar ein singuläres Objekt
-      let c = persons;
-      Object.setPrototypeOf(c, PersonBO.prototype);
-      result.push(c);
+      let e = persons;
+      Object.setPrototypeOf(e, PersonBO.prototype);
+      result.push(e);
     }
 
     return result;

@@ -25,19 +25,19 @@ export default class NamedBusinessObjectBO extends BusinessObject {
 
 
 
-  static fromJSON(namedbusinessobject) {
+  static fromJSON(namedBusinessObjects) {
     let result = [];
 
-    if (Array.isArray(namedbusinessobject)) {
-      namedbusinessobject.forEach((c) => {
-        Object.setPrototypeOf(c, NamedBusinessObjectBO.prototype);
-        result.push(c);
+    if (Array.isArray(namedBusinessObjects)) {
+      namedBusinessObjects.forEach((n) => {
+        Object.setPrototypeOf(n, NamedBusinessObjectBO.prototype);
+        result.push(n);
       })
     } else {
       // Ist offenbar ein singuläres Objekt
-      let c = namedbusinessobject;
-      Object.setPrototypeOf(c, NamedBusinessObjectBO.prototype);
-      result.push(c);
+      let n = namedBusinessObjects;
+      Object.setPrototypeOf(n, NamedBusinessObjectBO.prototype);
+      result.push(n);
     }
 
     return result;

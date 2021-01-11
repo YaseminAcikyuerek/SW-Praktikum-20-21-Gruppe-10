@@ -31,8 +31,8 @@ class StudentList extends Component {
 
     // Init an empty state
     this.state = {
-      student: [],
-      filteredStudent: [],
+      students: [],
+      filteredStudents: [],
       studentFilter: '',
       error: null,
       loadingInProgress: false,
@@ -42,17 +42,17 @@ class StudentList extends Component {
   }
 
   /** Fetches all CustomerBOs from the backend */
-  getStudent = () => {
-    ManagementAPI.getAPI().getStudent()
+  getStudents = () => {
+    ManagementAPI.getAPI().getStudents()
       .then(studentBOs =>
         this.setState({               // Set new state when CustomerBOs have been fetched
-         student: studentBOs,
-          filteredStudent: [...studentBOs], // store a copy
+         students: studentBOs,
+          filteredStudents: [...studentBOs], // store a copy
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           student: [],
+           students: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
@@ -67,7 +67,7 @@ class StudentList extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.getStudent();
+    this.getStudents();
   }
 
   /**
@@ -77,13 +77,13 @@ class StudentList extends Component {
    * @param {customer} CustomerBO of the CustomerListEntry to be toggeled
    */
   onExpandedStateChange = student => {
-    // console.log(customerID);
-    // Set expandend customer entry to null by default
+    // console.log(studentID);
+    // Set expandend student entry to null by default
     let newID = null;
 
-    // If same customer entry is clicked, collapse it else expand a new one
+    // If same student entry is clicked, collapse it else expand a new one
     if (student.getID() !== this.state.expandedStudentID) {
-      // Expand the customer entry with customerID
+      // Expand the student entry with studentID
       newID = student.getID();
     }
     // console.log(newID);
@@ -98,9 +98,9 @@ class StudentList extends Component {
    * @param {customer} CustomerBO of the CustomerListEntry to be deleted
    */
   studentDeleted = student => {
-    const newStudenList = this.state.student.filter(studentFromState => studentFromState.getID() !== student.getID());
+    const newStudenList = this.state.students.filter(studentFromState => studentFromState.getID() !== student.getID());
     this.setState({
-      student: newCustomrList,
+      students: newCustomrList,
       filteredCustomers: [...newStudenList],
       showStudentForm: false
     });
@@ -110,7 +110,7 @@ class StudentList extends Component {
   addStudentButtonClicked = event => {
     // Do not toggle the expanded state
     event.stopPropagation();
-    //Show the CustmerForm
+    //Show the StudenForm
     this.setState({
       showStudentForm: true
     });
@@ -120,10 +120,10 @@ class StudentList extends Component {
   studentFormClosed = student => {
     // customer is not null and therefore created
     if (student) {
-      const newStudenList = [...this.state.student, student];
+      const newStudenList = [...this.state.students, student];
       this.setState({
-        student: newStudenList,
-        filteredStudent: [...newStudenList],
+        students: newStudenList,
+        filteredStudents: [...newStudenList],
         showStudentForm: false
       });
     } else {
@@ -137,7 +137,7 @@ class StudentList extends Component {
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
-      filteredStudent: this.state.student.filter(student => {
+      filteredStudents: this.state.students.filter(student => {
         let CourseAbbrContainsValue = student.getCourseAbbr().toLowerCase().includes(value);
         let MatriculationNrContainsValue = student.getMatriculationNr().toLowerCase().includes(value);
         return CourseAbbrContainsValue || MatriculationNrContainsValue;
@@ -150,7 +150,7 @@ class StudentList extends Component {
   clearFilterFieldButtonClicked = () => {
     // Reset the filter
     this.setState({
-      filtereStudent: [...this.state.student],
+      filtereStudents: [...this.state.students],
       studentFilter: ''
     });
   }
@@ -158,7 +158,7 @@ class StudentList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredStudent, studentFilter, expandedStudentID, loadingInProgress, error, showStudentForm } = this.state;
+    const { filteredStudents, studentFilter, expandedStudentID, loadingInProgress, error, showStudentForm } = this.state;
 
     return (
       <div className={classes.root}>
@@ -202,7 +202,7 @@ class StudentList extends Component {
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of student could not be loaded.`} onReload={this.getStudent} />
+        <ContextErrorMessage error={error} contextErrorMsg={`The list of student could not be loaded.`} onReload={this.getStudents} />
         <StudentForm show={showStudentForm} onClose={this.studentFormClosed} />
       </div>
     );

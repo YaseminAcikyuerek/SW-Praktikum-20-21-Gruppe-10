@@ -23,7 +23,7 @@ class StudentListEntry extends Component {
 
     // Init the state
     this.state = {
-      student props.student,
+      student: props.student,
       showStudentForm: false,
       showStudentDeleteDialog: false,
     };
