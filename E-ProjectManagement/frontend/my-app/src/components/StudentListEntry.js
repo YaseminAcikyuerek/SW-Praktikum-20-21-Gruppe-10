@@ -5,7 +5,7 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import StudentForm from './dialogs/StudentForm';
 import StudentDeleteDialog from './dialogs/StudentDeleteDialog';
-import ProjectList from './ProjectList';
+/**import ProjectList from './ProjectList';
 
 
 /**
@@ -34,7 +34,7 @@ class StudentListEntry extends Component {
     this.props.onExpandedStateChange(this.props.student);
   }
 
-  /** Handles onAccountDelete events from an AccountListEntry  */
+  /** Handles onAccountDelete events from an AccountListEntry
   deleteProjectHandler = (deletedProject) => {
     // console.log(deletedProject.getID());
     this.setState({
