@@ -105,7 +105,7 @@ class PersonMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role, rechte_student, rechte_admin,rechte_dozent FROM person WHERE role={}".format(role)
+        command = "SELECT id, name, role FROM person WHERE role={}".format(role)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
