@@ -28,7 +28,7 @@ Instanzieren von Flask. Am Ende dieser Datei erfolgt dann erst der 'Start' von F
 """
 app = Flask(__name__)
 
-CORS(app, resources=r'/Eproject/*')
+CORS(app, resources=r'/management/*')
 
 """
 In dem folgenden Abschnitt bauen wir ein Modell auf, das die Datenstruktur beschreibt, 
@@ -40,15 +40,15 @@ api = Api(app, version='1.0', title='ProjectManagement API',
 """Anlegen eines Namespace
 
 Namespaces erlauben uns die Strukturierung von APIs. In diesem Fall fasst dieser Namespace alle
-Bank-relevanten Operationen unter dem Präfix /bank zusammen. Eine alternative bzw. ergänzende Nutzung
+Bank-relevanten Operationen unter dem Präfix /management zusammen. Eine alternative bzw. ergänzende Nutzung
 von Namespace könnte etwa sein, unterschiedliche API-Version voneinander zu trennen, um etwa 
 Abwärtskompatibilität (vgl. Lehrveranstaltungen zu Software Engineering) zu gewährleisten. Dies ließe
-sich z.B. umsetzen durch /bank/v1, /bank/v2 usw."""
-projectmanagement = api.namespace('projectmanagement', description='Funktionen des Projekt-Systems')
+sich z.B. umsetzen durch /management/v1, /management/v2 usw."""
+projectmanagement = api.namespace('management', description='Funktionen des Projekt-Systems')
 
 """Nachfolgend werden analog zu unseren BusinessObject-Klassen transferierbare Strukturen angelegt.
 
-BusinessObject dient als Basisklasse, auf der die weiteren Strukturen Customer, Account und Transaction aufsetzen."""
+BusinessObject dient als Basisklasse, auf der die weiteren Strukturen  und  aufsetzen."""
 bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='_id', description='Der Unique Identifier eines Business Object'),
 })
