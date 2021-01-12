@@ -26,15 +26,12 @@ class ProjectAdministration(object):
 
     """person-spezifische Methoden"""
 
-    def create_person(self, name, role,rechte_student, rechte_admin, rechte_dozent):
+    def create_person(self, name, role):
         """Eine Person anlegen"""
         p = Person()
         p.set_id(1)
         p.set_name(name)
         p.set_role(role)
-        p.set_rechte_student(rechte_student)
-        p.set_rechte_admin(rechte_admin)
-        p.set_rechte_dozent(rechte_dozent)
 
         with PersonMapper() as mapper:
             return mapper.insert(p)
