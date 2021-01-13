@@ -75,7 +75,7 @@ class StudentMapper (Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE student SET  name=%s, matriculation_nr=%s, course_abbr=%s  WHERE id=%s"
-        data = (student.get_name(),student.get_matriculation_nr(), student.get_course_abbr(),student.get_id())
+        data = (student.get_name(), student.get_matriculation_nr(), student.get_course_abbr(), student.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -91,20 +91,20 @@ class StudentMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def find_student_by_name(self, name):
+    def find_by_name(self, name):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE name={}".format(name)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE name LIKE '%{}%'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, person, matriculation_nr, course_abbr) = tuples[0]
+            (id, name, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_name(person)
+            student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
             result = student

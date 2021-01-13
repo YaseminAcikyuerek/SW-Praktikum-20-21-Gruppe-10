@@ -16,7 +16,6 @@ from server.bo.Rating import Rating
 from server.bo.ProjectType import ProjectType
 from server.bo.Semester import Semester
 from server.bo.Role import Role
-from server.bo.Automaton import DEA
 from server.bo.Student import Student
 
 
@@ -643,60 +642,40 @@ class RatingListOperations(Resource):
                 return '', 500
 
 
-@projectmanagement.route('/project/<int:id>/module')
+@projectmanagement.route('/rating/<int:id>/project')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Modul-Objekts')
-class ModuleRelatedProjectOperations(Resource):
+@projectmanagement.param('id', 'Die ID des Projekt-Objekts')
+class RatingRelatedProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
     def get(self, id):
-        """Auslesen aller Projekte von eines bestimmten Moduls.
+        """Auslesen aller Bewertungen von eines bestimmten Projekts.
         """
         adm = ProjectAdministration()
-        proj = adm.get_project_by_module(id)
+        proj = adm.get_rating_by_project(id)
 
         return proj
 
-@projectmanagement.route('/semester/<int:id>/project')
+@projectmanagement.route('/participation/<int:id>/student')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Semester-Objekts')
-class SemesterRelatedProjectOperations(Resource):
+@projectmanagement.param('id', 'Die ID des Student-Objekts')
+class RatingRelatedProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
 
     def get(self, id):
-        """Auslesen aller Projekte von einem bestimmten Semester.
+        """Auslesen aller Projekte von einem bestimmten Studenten.
 
-        Das Semester-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
+        Das Student-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
         """
         adm = ProjectAdministration()
-        sem = adm.get_semester_by_id(id)
+        sem = adm.get_student_by_id(id)
 
         if sem is not None:
-            project_list = adm.get_project_of_semester(sem)
+            project_list = adm.get_projects_of_student(sem)
             return project_list
         else:
-            return "Semester not found", 500
+            return "Student not found", 500
 
 
-@projectmanagement.route('/projecttype/<int:id>/project')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Projecttypes-Objekts')
-class ProjectTypeRelatedProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
-
-    def get(self, id):
-        """Auslesen aller Projekte von einer bestimmten Projektart.
-
-        Das ProjectType-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
-        """
-        adm = ProjectAdministration()
-        pt = adm.get_project_type_by_id(id)
-
-        if pt is not None:
-
-            project_list = adm.get_project_for_project_type(pt)
-            return project_list
-        else:
-            return "Project Type not found", 500
 
 
 @projectmanagement.route('/module')
@@ -1164,26 +1143,50 @@ class ProjectTypeOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/person/<int:id>/role')
+@projectmanagement.route('/person-by-name/<string:name>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des student-Objekts')
-class StudentRelatedRatingOperations(Resource):
-    @projectmanagement.marshal_with(rating)
+@projectmanagement.param('name', 'Der Name der Person')
+class PersonByNameOperations(Resource):
+    @projectmanagement.marshal_with(person)
 
-    def get(self, id):
-        """Auslesen aller Bewertungen von einer bestimmten Student.
+    def get(self, name):
+        """ Auslesen von Personen-Objekten, die durch den Namen bestimmt werden.
 
-        Das Student-Objekt dessen Bewertungen wir lesen möchten, wird durch id bestimmt.
+        Die auszulesenden Objekte werden durch ```name``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        per = adm.get_person_by_role(id)
+        per = adm.get_person_by_name(name)
+        return per
 
-        if per is not None:
-            rating_list = adm.get_person_by_role(per)
-            return rating_list
-        else:
-            return "Student not found", 500
+@projectmanagement.route('/project-by-name/<string:name>')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('name', 'Der Name des Projekts')
+class ProjectByNameOperations(Resource):
+    @projectmanagement.marshal_with(project)
 
+    def get(self, name):
+        """ Auslesen von Projekt-Objekten, die durch den Namen bestimmt werden.
+
+        Die auszulesenden Objekte werden durch ```lastname``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        pro = adm.get_project_by_name(name)
+        return pro
+
+@projectmanagement.route('/student-by-name/<string:name>')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@projectmanagement.param('name', 'Der Name des Studenten')
+class StudentByNameOperations(Resource):
+    @projectmanagement.marshal_with(student)
+
+    def get(self, name):
+        """ Auslesen von Student-Objekten, die durch den Namen bestimmt werden.
+
+        Die auszulesenden Objekte werden durch ```name``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        stu = adm.get_student_by_name(name)
+        return stu
 
 
 if __name__ == '__main__':
