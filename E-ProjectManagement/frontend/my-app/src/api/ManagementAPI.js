@@ -66,6 +66,8 @@ export default class ManagementAPI {
 
 
 
+
+
   getCurrencyFormatter() {
     return this.#currencyFormatter;
   }
@@ -107,7 +109,7 @@ export default class ManagementAPI {
    * @public
    */
 
-  addPerson(personBO:PersonBO) {
+  addPerson(personBO) {
     return this.#fetchAdvanced(this.#addPersonURL(), {
       method: 'POST',
       headers: {

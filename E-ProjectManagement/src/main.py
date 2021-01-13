@@ -16,12 +16,12 @@ from server.bo.Rating import Rating
 from server.bo.ProjectType import ProjectType
 from server.bo.Semester import Semester
 from server.bo.Role import Role
-from server.bo.Automaton import DEA
+'''***from server.bo.Automaton import DEA'''
 from server.bo.Student import Student
 
 
 # Außerdem nutzen wir einen selbstgeschriebenen Decorator, der die Authentifikation übernimmt
-from static.SecurityDecorator import secured
+'''from static.SecurityDecorator import secured'''
 
 """
 Instanzieren von Flask. Am Ende dieser Datei erfolgt dann erst der 'Start' von Flask.
