@@ -143,12 +143,12 @@ class ProjectMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def find_project_by_name(self, name):
+    def find_by_name(self, name):
 
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE name={}".format(name)
+        command = "SELECT * FROM project WHERE name LIKE '%{}%'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 

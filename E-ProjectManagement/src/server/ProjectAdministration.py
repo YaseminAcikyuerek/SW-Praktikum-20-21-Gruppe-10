@@ -39,7 +39,7 @@ class ProjectAdministration(object):
     def get_person_by_name(self, name):
         """"Alle Personen mit Namen name auslesen."""
         with PersonMapper() as mapper:
-            return mapper.find_person_by_name(name)
+            return mapper.find_by_name(name)
 
     def get_person_by_id(self, id):
         """Die Person mit der gegebenen ID auslesen."""

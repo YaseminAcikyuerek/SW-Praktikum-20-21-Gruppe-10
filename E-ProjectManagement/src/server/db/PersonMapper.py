@@ -128,12 +128,12 @@ class PersonMapper(Mapper):
 
         return result
 
-    def find_person_by_name(self, name):
+    def find_by_name(self, name):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role FROM person WHERE name={}".format(name)
+        command = "SELECT id, name, role FROM person WHERE name LIKE '%{}%'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
