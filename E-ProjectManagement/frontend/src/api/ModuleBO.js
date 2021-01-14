@@ -19,26 +19,28 @@ export default class ModuleBO extends NamedBusinessObject {
   }
 
   getEdvNr() {
-    return this.edv_nr
+    return this.edv_nr;
   }
 
   static fromJSON(modules) {
     let result = [];
 
     if (Array.isArray(modules)) {
-      modules.forEach((c) => {
-        Object.setPrototypeOf(c, ModuleBO.prototype);
-        result.push(c);
+      modules.forEach((m) => {
+        Object.setPrototypeOf(m, ModuleBO.prototype);
+        result.push(m);
       })
     } else {
       //
       let c = modules;
-      Object.setPrototypeOf(c, ModuleBO.prototype);
-      result.push(c);
+      Object.setPrototypeOf(m, ModuleBO.prototype);
+      result.push(m);
     }
 
     return result;
   }
+
+}
 
 
 

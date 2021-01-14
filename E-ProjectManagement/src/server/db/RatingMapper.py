@@ -11,13 +11,17 @@ class RatingMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, grade from rating")
+        cursor.execute("SELECT id, project,evaluator, to_be_assessed, grade, passed  from rating")
         tuples = cursor.fetchall()
 
-        for (id, grade) in tuples:
+        for (id, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
+            rating.set_project(project)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
             rating.set_grade(grade)
+            rating.set_passed(passed)
             result.append(rating)
 
         self._cnx.commit()
@@ -25,7 +29,7 @@ class RatingMapper(Mapper):
 
         return result
 
-    def find_by_role_id(self, role_id):
+    def find_by_role_id(self, role):
         """Ausleseen einer role_id einer Person.
 
         :param owner_id Schlüssel des zugehörigen Person.
@@ -34,14 +38,14 @@ class RatingMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, role_id FROM rating WHERE role_id={} ORDER BY id".format(role_id)
+        command = "SELECT id, role FROM rating WHERE role={} ORDER BY id".format(role)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         for (id, role_id) in tuples:
             rating = Rating()
             rating.set_id(id)
-            rating.set_role_id(role_id)
+            rating.set_role(role_id)
             result.append(rating)
 
         self._cnx.commit()
@@ -57,20 +61,23 @@ class RatingMapper(Mapper):
         :return ID Objekt, das dem übergebenen Schlüssel entspricht, None bei
             nicht vorhandenem DB-Tupel.
         """
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, grade FROM rating WHERE id={}".format(id)
+        command = "SELECT id, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, grade) = tuples[0]
+            (id, project, evaluator, to_be_assessed, grade, passed) = tuples[0]
             rating = Rating()
             rating.set_id(id)
+            rating.set_project(project)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
             rating.set_grade(grade)
-
-        result = rating
+            rating.set_passed(passed)
+            result.append(rating)
 
         self._cnx.commit()
         cursor.close()
@@ -88,8 +95,9 @@ class RatingMapper(Mapper):
         for (maxid) in tuples:
             rating.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO rating (id, grade) VALUES (%s,%s)"
-        data = (rating.get_id(), rating.get_grade())
+        command = "INSERT INTO rating (id, project, evaluator, to_be_assessed, grade, passed) VALUES (%s,%s,%s,%s,%s," \
+                  "%s) "
+        data = (rating.get_id(),rating.get_project(),rating.get_evaluator(),rating.get_to_be_assessed(),rating.get_grade(),rating.get_passed())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -100,8 +108,8 @@ class RatingMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE rating " + "SET grade=%s WHERE id=%s"
-        data = (rating.get_grade(), rating.get_id())
+        command = "UPDATE rating SET project=%s, evaluator=%s,to_be_assessed=%s,grade=%s,passed=%s WHERE id=%s "
+        data = (rating.get_project(),rating.get_evaluator(),rating.get_to_be_assessed(),rating.get_grade(),rating.get_passed(),rating.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -123,9 +131,22 @@ um die grundsätzliche Funktion zu überprüfen.
 
 Anmerkung: Nicht professionell aber hilfreich..."""
 if (__name__ == "__main__"):
+    r = Rating()
+    r.set_id(1414)
+    r.set_project(3)
+    r.set_evaluator(7)
+    r.set_to_be_assessed(8)
+    r.set_grade(6.0)
+    r.set_passed(1)
+
     with RatingMapper() as mapper:
-        result = mapper.find_all()
-        for p in result:
-            print(p)
+        result = mapper.update(r)
+
+
+
+
+
+
+
 
 

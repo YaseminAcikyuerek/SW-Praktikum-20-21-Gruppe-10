@@ -36,15 +36,15 @@ constructor(aCourse_abbr,aMatriculation_nr) {
     let result = [];
 
     if (Array.isArray(students)) {
-      students.forEach((t) => {
-        Object.setPrototypeOf(t, StudentBO.prototype);
-        result.push(t);
+      students.forEach((u) => {
+        Object.setPrototypeOf(u, StudentBO.prototype);
+        result.push(u);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let t = students
-      Object.setPrototypeOf(t, StudentBO.prototype);
-      result.push(t);
+      let u = students
+      Object.setPrototypeOf(u, StudentBO.prototype);
+      result.push(u);
     }
 
     return result;

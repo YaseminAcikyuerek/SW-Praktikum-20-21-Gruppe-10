@@ -20,7 +20,7 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
   }
 
   getProject() {
-    return this.project
+    return this.project;
   }
 
   setEvaluator(aEvaluator) {
@@ -28,7 +28,7 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
   }
 
   getEvaluator() {
-    return this.Evaluator
+    return this.evaluator;
   }
 
   setToBeAssessed(aToBeAssessed) {
@@ -36,23 +36,23 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
   }
 
   getToBeAssessed() {
-    return this.to_be_assessed
+    return this.to_be_assessed;
   }
 
   setGrade(aGrade) {
-  this.grade = aGrade ;
+  this.grade = aGrade;
   }
 
   getGrade() {
-    return this.grade
+    return this.grade;
   }
 
   setPassed(aPassed) {
-  this.passed = aPassed ;
+  this.passed = aPassed;
   }
 
   getPassed() {
-    return this.passed
+    return this.passed;
   }
 
 
@@ -61,15 +61,15 @@ constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
     let result = [];
 
     if (Array.isArray(ratings)) {
-      ratings.forEach((c) => {
-        Object.setPrototypeOf(c, RatingBOBO.prototype);
-        result.push(c);
+      ratings.forEach((i) => {
+        Object.setPrototypeOf(i, RatingBO.prototype);
+        result.push(i);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = ratings;
-      Object.setPrototypeOf(c, RatingBO.prototype);
-      result.push(c);
+      let i = ratings;
+      Object.setPrototypeOf(i, RatingBO.prototype);
+      result.push(i);
     }
 
     return result;

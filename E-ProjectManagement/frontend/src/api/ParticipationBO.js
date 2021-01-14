@@ -16,11 +16,11 @@ export default class ParticipationBO extends BusinessObject {
   }
 
   setProject(aProject) {
-  this.projectroject = aProject;
+  this.project = aProject;
   }
 
   getProject() {
-    return this.project
+    return this.project;
   }
 
   setStudent(aStudent) {
@@ -28,23 +28,33 @@ export default class ParticipationBO extends BusinessObject {
   }
 
   getStudent() {
-    return this.student
+    return this.student;
 
 
   static fromJSON(participations) {
+
     let result = [];
 
     if (Array.isArray(participations)) {
-      participations.forEach((c) => {
-        Object.setPrototypeOf(c, ParticipationBO.prototype);
-        result.push(c);
+      participations.forEach((p) => {
+        Object.setPrototypeOf(p, ParticipationBO.prototype);
+        result.push(p);
       })
     } else {
-      // Ist offenbar ein singuläres Objekt
-      let c = participations;
-      Object.setPrototypeOf(c, ParticipationBO.prototype);
-      result.push(c);
+      //
+      let p = participations;
+      Object.setPrototypeOf(p, ParticipationBO.prototype);
+      result.push(p);
     }
 
     return result;
   }
+
+}
+
+
+
+
+
+
+

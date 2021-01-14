@@ -11,14 +11,16 @@ class SemesterMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, start, end from semester")
+        cursor.execute("SELECT id,name, start, end from semester")
         tuples = cursor.fetchall()
 
-        for (id, start, end) in tuples:
+        for (id,name ,start, end) in tuples:
             semester = Semester()
             semester.set_id(id)
+            semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
+
             result.append(semester)
 
         self._cnx.commit()
@@ -33,16 +35,18 @@ class SemesterMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, start, end FROM semester WHERE id={}".format(id)
+        command = "SELECT id, name, start, end  FROM semester WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, start, end) = tuples[0]
+            (id, name, start, end) = tuples[0]
             semester = Semester()
             semester.set_id(id)
+            semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
+
 
         result = semester
 
@@ -60,8 +64,8 @@ class SemesterMapper(Mapper):
         for (maxid) in tuples:
             semester.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO semester (id, start, end) VALUES (%s,%s)"
-        data = (semester.get_id(), semester.get_start(), semester.get_end())
+        command = "INSERT INTO semester (id,name,start,end) VALUES (%s,%s,%s,%s)"
+        data = (semester.get_id(), semester.get_name(), semester.get_start(), semester.get_end())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -72,12 +76,13 @@ class SemesterMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE semester " + "SET start=%s, end=%s WHERE id=%s"
-        data = (semester.get_start(), semester.get_end(), semester.get_id())
+        command = "UPDATE semester SET name=%, start=%s, end=%s WHERE id=%s"
+        data = (semester.get_name(),semester.get_start(), semester.get_end(), semester.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
+
 
     def delete(self, semester):
 
@@ -99,6 +104,19 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
             print(p)
+
+if (__name__ == "__main__"):
+    s = Semester()
+    s.set_id(2023)
+    s.set_name("SSSasfsfaf")
+    s.set_start(2023-12-10)
+    s.set_end(2023-13-12)
+
+    with SemesterMapper() as mapper:
+        result = mapper.update(s)
+
+
+
 
 
 

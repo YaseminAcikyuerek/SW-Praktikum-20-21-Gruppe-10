@@ -12,7 +12,7 @@ from server.db.PersonMapper import PersonMapper
 from server.db.StudentMapper import StudentMapper
 from server.db.RoleMapper import RoleMapper
 from server.db.ProjectMapper import ProjectMapper
-from server.db.ProjectType import ProjectTypeMapper
+from server.db.ProjectTypeMapper import ProjectTypeMapper
 from server.db.ModuleMapper import ModuleMapper
 from server.db.SemesterMapper import SemesterMapper
 from server.db.ParticipationMapper import ParticipationMapper
@@ -39,7 +39,7 @@ class ProjectAdministration(object):
     def get_person_by_name(self, name):
         """"Alle Personen mit Namen name auslesen."""
         with PersonMapper() as mapper:
-            return mapper.find_person_by_name(name)
+            return mapper.find_by_name(name)
 
     def get_person_by_id(self, id):
         """Die Person mit der gegebenen ID auslesen."""
@@ -73,29 +73,29 @@ class ProjectAdministration(object):
 
     """Projektspezifisch"""
 
-    def create_project(self, name, owner, module, language, capacity,
-                       external_partner_list, short_description, flag, bd_before_lecture_period,
-                       bd_during_lecture_period, bd_during_exam_period, preferred_bd_during_lecture_period,
-                       special_room, room, status, time, project_type):
+    def create_project(self, semester, module, short_description, external_partner_list, capacity,
+                       bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
+                       preferred_bd_during_lecture_period, language, room, special_room, flag, name,
+                       status, project_type, owner):
         """Ein Projekt anlegen"""
         project = Project()
-        project.set_name(name)
-        project.set_owner(owner)
+        project.set_semester(semester)
         project.set_module(module)
-        project.set_language(language)
-        project.set_capacity(capacity)
-        project.set_external_partner_list(external_partner_list)
         project.set_short_description(short_description)
-        project.set_flag(flag)
+        project.set_external_partner_list(external_partner_list)
+        project.set_capacity(capacity)
+        project.set_bd_during_exam_period(bd_during_exam_period)
         project.set_bd_before_lecture_period(bd_before_lecture_period)
         project.set_bd_during_lecture_period(bd_during_lecture_period)
-        project.set_bd_during_exam_period(bd_during_exam_period)
         project.set_preferred_bd_during_lecture_period(preferred_bd_during_lecture_period)
-        project.get_special_room(special_room)
+        project.set_language(language)
         project.set_room(room)
+        project.set_special_room(special_room)
+        project.set_flag(flag)
+        project.set_name(name)
         project.set_status(status)
         project.set_project_type(project_type)
-        project.set_time(time)
+        project.set_owner(owner)
         project.set_id(1)
 
         with ProjectMapper() as mapper:
@@ -134,7 +134,7 @@ class ProjectAdministration(object):
     def get_project_by_id(self, id):
         """Das Projekt mit der gegebenen ID auslesen."""
         with ProjectMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     """Modulspezifische Methoden"""
 
@@ -164,10 +164,11 @@ class ProjectAdministration(object):
         with ModuleMapper() as mapper:
             return mapper.find_all()
 
-    def save_module(self, module):
+    def save_module(self, mo):
         """Das gegebene Modul speichern."""
         with ModuleMapper() as mapper:
-            mapper.update(module)
+            mapper.update(mo)
+
 
     def delete_module(self, module):
         """Den gegebenen Modul aus unserem System löschen."""
@@ -181,53 +182,52 @@ class ProjectAdministration(object):
 
     """Modulspezifische Methoden"""
 
-    def create_projecttype(self, id, name, ects, sws):
+    def create_project_type(self, name, sws, ects):
         """Ein Projekttyp anlegen"""
-        projecttype = ProjectType()
-        projecttype.set_name(name)
-        projecttype.set_ects(ects)
-        projecttype.set_sws(sws)
-        projecttype.set_id(id)
-        projecttype.set_id(1)
+        project_type = ProjectType()
+        project_type.set_name(name)
+        project_type.set_sws(sws)
+        project_type.set_ects(ects)
+        project_type.set_id(1)
 
         with ProjectTypeMapper() as mapper:
-            return mapper.insert(projecttype)
+            return mapper.insert(project_type)
 
-    def get_projecttype_by_name(self, name):
+    def get_project_type_by_name(self, name):
         """Alle Projekttypen mit Namen name auslesen."""
         with ProjectTypeMapper() as mapper:
             return mapper.find_by_name(name)
 
-    def get_all_projecttype(self):
+    def get_all_project_type(self):
         """Alle Projekttypen auslesen."""
         with ProjectTypeMapper() as mapper:
             return mapper.find_all()
 
-    def save_projecttype(self, projecttype):
+    def save_project_type(self, project_type):
         """Den gegebenen Projekttypen speichern."""
         with ProjectTypeMapper() as mapper:
-            mapper.update(projecttype)
+            mapper.update(project_type)
 
-    def delete_projecttype(self, projecttype):
+    def delete_project_type(self, projecttype):
         """Den gegebenen Projekttypen aus unserem System löschen."""
         with ProjectTypeMapper() as mapper:
             mapper.delete(projecttype)
 
-    def get_all_projecttype_by_id(self, id):
+    def get_project_type_by_id(self, id):
         """Den Projekttypen mit der gegebenen ID auslesen."""
         with ProjectTypeMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     """Ratingspezifische Methoden"""
 
-    def create_rating(self, id, evaluator, to_be_assessed, grade, passed):
+    def create_rating(self, project, evaluator, to_be_assessed, grade, passed):
         """Ein Rating anlegen"""
         rating = Rating()
+        rating.set_project(project)
         rating.set_evaluator(evaluator)
         rating.set_to_be_assessed(to_be_assessed)
         rating.set_grade(grade)
         rating.set_passed(passed)
-        rating.set_id(id)
         rating.set_id(1)
 
         with RatingMapper() as mapper:
@@ -243,7 +243,7 @@ class ProjectAdministration(object):
         with ModuleMapper() as mapper:
             return mapper.find_by_edv_nr(edv_nr)
 
-    'BEARBEITEN!--> MAPPER'
+
 
     def get_all_rating(self):
         """Alle Ratings auslesen."""
@@ -260,20 +260,20 @@ class ProjectAdministration(object):
         with RatingMapper() as mapper:
             mapper.delete(rating)
 
+
     def get_rating_by_id(self, id):
         """Das Rating mit der gegebenen ID auslesen."""
         with RatingMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     """Studentenspezifische Methoden"""
 
-    def create_student(self, id, name, course_abbr, matriculation_nr):
+    def create_student(self,name,matriculation_nr, course_abbr):
         """Einen Studenten  anlegen"""
         student = Student()
         student.set_name(name)
-        student.set_course_abbr(course_abbr)
         student.set_matriculation_nr(matriculation_nr)
-        student.set_id(id)
+        student.set_course_abbr(course_abbr)
         student.set_id(1)
 
         with StudentMapper() as mapper:
@@ -312,15 +312,14 @@ class ProjectAdministration(object):
     def get_student_by_id(self, id):
         """Den Studenten mit der gegebenen ID auslesen."""
         with StudentMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     """Rollenspezifische"""
 
-    def create_role(self, id, name):
+    def create_role(self, name):
         """Eine Rolle  anlegen"""
         role = Role()
         role.set_name(name)
-        role.set_id(id)
         role.set_id(1)
 
         with RoleMapper() as mapper:
@@ -331,10 +330,10 @@ class ProjectAdministration(object):
         with RoleMapper() as mapper:
             return mapper.find_by_name(name)
 
-    def get_role_by_key(self, id):
+    def get_role_by_id(self, id):
         """Die Rollen mit der gegebenen ID auslesen."""
         with RoleMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     def get_all_role(self):
         """Alle Rollen auslesen."""
@@ -355,6 +354,7 @@ class ProjectAdministration(object):
 
     def create_participation(self, id, project, student):
         """Einen Teilnahme anlegen"""
+
         participation = Participation()
         participation.set_project(project)
         participation.set_student(student)
@@ -364,25 +364,21 @@ class ProjectAdministration(object):
         with ParticipationMapper() as mapper:
             return mapper.insert(participation)
 
-    def get_participation_by_project(self, project):
-        """Alle Teilnahmen mit Namen name auslesen."""
-        with ParticipationMapper() as mapper:
-            return mapper.find_participation_by_project(project)
 
     def get_all_participation_by_id(self, id):
         """Die Teilnahme mit der gegebenen ID auslesen."""
         with ParticipationMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
     def get_participation_by_id(self, id):
         """Die Teilnahme mit der gegebenen ID auslesen."""
         with ParticipationMapper() as mapper:
-            return mapper.find_by_key(id)
+            return mapper.find_by_id(id)
 
-    def get_participation_by_student(self, student):
-        """Alle Teilnahmen von Studenten auslesen."""
-        with StudentMapper() as mapper:
-            return mapper.find_participation_by_student(student)
+    def get_participation_of_student(self, stu):
+        with ParticipationMapper() as mapper:
+            return mapper.find_participation_of_student(stu)
+
 
     def get_all_participation(self):
         """Alle Teilnahmen auslesen."""
@@ -407,18 +403,19 @@ class ProjectAdministration(object):
     def save_participation(self, participation):
         """die Teilnahme speichern"""
         with ParticipationMapper() as mapper:
-            mapper.insert(participation)
+            mapper.update(participation)
+
 
     """Semesterspezifische"""
 
-    def create_semester(self, id, name, start, end):
+    def create_semester(self,name, start, end):
         """Ein Semester anlegen"""
         semester = Semester()
         semester.set_name(name)
         semester.set_start(start)
         semester.set_end(end)
-        semester.set_id(id)
         semester.set_id(1)
+
 
         with SemesterMapper() as mapper:
             return mapper.insert(semester)
@@ -456,7 +453,7 @@ class ProjectAdministration(object):
     def save_semester(self, semester):
         """das Semester speichern"""
         with SemesterMapper() as mapper:
-            mapper.insert(semester)
+            mapper.update(semester)
 
     def get_all_module(self):
         with ModuleMapper() as mapper:
@@ -466,15 +463,15 @@ class ProjectAdministration(object):
         with ProjectMapper() as mapper:
             return mapper.find_project_by_module(module)
 
-    def get_projecttype_for_project(self, projecttype):
+    def get_project_type_for_project(self, project_type):
         with ProjectTypeMapper() as mapper:
-            mapper.insert(projecttype)
+            mapper.insert(project_type)
 
-    def create_project_for_projecttype(self, name, owner, module, language, capacity,
+    def create_project_for_project_type(self, name, owner, module, language, capacity,
                                        external_partner_list, short_description, flag, bd_before_lecture_period,
                                        bd_during_lecture_period, bd_during_exam_period,
                                        preferred_bd_during_lecture_period,
-                                       special_room, room, status, time, projecttype):
+                                       special_room, room, status, time, project_type):
         """Ein Projekt anlegen"""
         project = Project()
         project.set_name(name)
@@ -492,27 +489,41 @@ class ProjectAdministration(object):
         project.get_special_room(special_room)
         project.set_room(room)
         project.set_status(status)
-        project.set_project_type(projecttype)
+        project.set_project_type(project_type)
         project.set_time(time)
         project.set_id(1)
 
         with ProjectMapper() as mapper:
             return mapper.insert(project)
 
-    def get_participation_of_student(self, stu):
-        pass
 
-    def get_participation_for_student(self, id):
-        pass
+
 
     def create_participation_for_student(self, stu):
+        with ParticipationMapper() as mapper:
+            mapper.find_participation_of_student(stu)
+
+
+
+    def create_participation_for_project(self, project, student):
+        participation = Participation()
+        participation.set_project(project)
+        participation.set_student(student)
+        participation.set_id(1)
+
+        with ParticipationMapper() as mapper:
+            return mapper.insert(participation)
+
+    def get_participation_by_project(self, pro):
+        with ParticipationMapper() as mapper:
+            return mapper.find_participation_by_project(pro)
+
+    def get_rating_of_student(self, sftu):
         pass
 
-    def get_participation_of_module(self, mod1):
-        pass
 
-    def create_participation_for_module(self, mod1):
-        pass
 
-    def get_project_for_projecttype(self, projectt):
-        pass
+
+
+
+

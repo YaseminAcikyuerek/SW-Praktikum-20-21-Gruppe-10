@@ -22,19 +22,19 @@ constructor(aStatus) {
     return this.status;
   }
 
- static fromJSON(status) {
+ static fromJSON(statuses) {
     let result = [];
 
-    if (Array.isArray(status)) {
-      status.forEach((t) => {
-        Object.setPrototypeOf(t, StatusBO.prototype);
-        result.push(t);
+    if (Array.isArray(statuses)) {
+      statuses.forEach((u) => {
+        Object.setPrototypeOf(u, StatusBO.prototype);
+        result.push(u);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let t = status
-      Object.setPrototypeOf(t, StatusBO.prototype);
-      result.push(t);
+      let u = statuses
+      Object.setPrototypeOf(u, StatusBO.prototype);
+      result.push(u);
     }
 
     return result;

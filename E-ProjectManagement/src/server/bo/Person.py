@@ -7,11 +7,23 @@ class Person(nbo):
         super().__init__()
         self._role = None
 
+
+
+
     def set_role(self, role):
         self._role = role
 
     def get_role(self):
         return self._role
+
+
+
+
+
+
+
+
+
 
 
     @staticmethod
@@ -21,4 +33,6 @@ class Person(nbo):
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
         obj.set_name(dictionary["name"])
         obj.set_role(dictionary["role"])
+
+
         return obj

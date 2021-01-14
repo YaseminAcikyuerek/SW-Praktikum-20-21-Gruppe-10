@@ -9,7 +9,7 @@ class Project(nbo):
         self._owner = None
         self._module = None
         self._project_type = None
-        self._time = None
+        self._semester = None
         self._capacity = ""
         self._external__partner_list = ""
         self._short_description = ""
@@ -46,11 +46,11 @@ class Project(nbo):
     def get_project_type(self):
         return self._project_type
 
-    def set_time(self, semester):
-        self._time = semester
+    def set_semester(self, semester):
+        self._semester = semester
 
-    def get_time(self):
-        return self._time
+    def get_semester(self):
+        return self._semester
 
     def set_capacity(self, value):
         self._capacity = value
@@ -127,22 +127,21 @@ class Project(nbo):
         """Umwandeln eines Python dict() in ein Account()."""
         obj = Project()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_name(dictionary["name"])
-        obj.set_status(dictionary["status"])
-        obj.set_owner(dictionary["owner"])
+        obj.set_semester(dictionary["semester"])
         obj.set_module(dictionary["module"])
-        obj.set_project_type(dictionary["project_type"])
-        obj.set_time(dictionary["semester"])
-        obj.set_capacity(dictionary["capacity"])
-        obj.set_external_partner_list(dictionary["external_partner_list"])
         obj.set_short_description(dictionary["short_description"])
-        obj.set_flag(dictionary["flag"])
+        obj.set_external_partner_list(dictionary["external_partner_list"])
+        obj.set_capacity(dictionary["capacity"])
+        obj.set_bd_during_exam_period(dictionary["bd_during_exam_period"])
         obj.set_bd_before_lecture_period(dictionary["bd_before_lecture_period"])
         obj.set_bd_during_lecture_period(dictionary["bd_during_lecture_period"])
-        obj.set_bd_during_exam_period(dictionary["bd_during_exam_period"])
         obj.set_preferred_bd_during_lecture_period(dictionary["preferred_bd_during_lecture_period"])
-        obj.set_special_room(dictionary["special_room"])
         obj.set_language(dictionary["language"])
         obj.set_room(dictionary["room"])
-
+        obj.set_special_room(dictionary["special_room"])
+        obj.set_flag(dictionary["flag"])
+        obj.set_name(dictionary["name"])
+        obj.set_status(dictionary["status"])
+        obj.set_project_type(dictionary["project_type"])
+        obj.set_owner(dictionary["owner"])
         return obj

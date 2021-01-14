@@ -4,15 +4,16 @@ import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import Header from './components/layout/Header';
-import CustomerList from './components/CustomerList';
-import TransactionList from './components/TransactionList';
 import About from './components/pages/About';
-import AllAccountList from './components/AllAccountList';
+import AllPersonList from './components/AllPersonList';
+import AllProjectList from './components/AllProjectList';
+import ManagementAPI from './api/ManagementAPI';
 import Theme from './Theme';
 import SignIn from './components/pages/SignIn';
-import LoadingProgress from './components/dialogs/LoadingProgress';
-import ContextErrorMessage from './components/dialogs/ContextErrorMessage';
-import firebaseConfig from './firebaseconfig';
+import LoadingProgress from './components/Dialogs/LoadingProgress';
+import ContextErrorMessage from './components/Dialogs/ContextErrorMessage';
+import firebaseConfig from './Firebaseconfig';
+
 
 /**
  * The main bank administration app. It uses Googles firebase to log into the bank end. For routing the
@@ -24,39 +25,40 @@ import firebaseConfig from './firebaseconfig';
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
+
 class App extends React.Component {
 
 
-	constructor(props) {
-		super(props);
+    //Constrcutor welcher Firebase initialisiert
+    constructor (props) {
+        super(props)
 
-		// Init an empty state
-		this.state = {
-			currentUser: null,
-			appError: null,
-			authError: null,
-			authLoading: false
-		};
-	}
 
-	/**
-	 * Create an error boundary for this app and recieve all errors from below the component tree.
-	 *
-	 * @See See Reacts [Error Boundaries](https://reactjs.org/docs/error-boundaries.html)
- 	 */
-	static getDerivedStateFromError(error) {
-		// Update state so the next render will show the fallback UI.
+    //Dann wird ein leeres state initalisiert
+	    this.state = {
+            person: null,
+            appError: null,
+            authError: null,
+            authLoading: false
+        };
+    }
+
+
+
+    static getDerivedStateFromError(error) {   //Status wird aktualisiert
+                                               //so dass beim nächsten Rendern die Fallback UI angezeigt wird
+
 		return { appError: error };
 	}
 
-	/** Handles firebase users logged in state changes  */
-	handleAuthStateChange = user => {
-		if (user) {
+    	// Firebase Nutzer logt sich ein und der state wechselt den Zustand
+	handleAuthStateChange = person => {
+		if (person) {
 			this.setState({
 				authLoading: true
 			});
-			// The user is signed in
-			user.getIdToken().then(token => {
+			//Person ist eingeloggt
+			person.getIdToken().then(token => {
 				// Add the token to the browser's cookies. The server will then be
 				// able to verify the token against the API.
 				// SECURITY NOTE: As cookies can easily be modified, only put the
@@ -64,12 +66,15 @@ class App extends React.Component {
 				// user information.
 				document.cookie = `token=${token};path=/`;
 
-				// Set the user not before the token arrived
+				// setzt den Nutzer auf Not bevor der Token angekommt
 				this.setState({
-					currentUser: user,
+					person: person,
 					authError: null,
 					authLoading: false
 				});
+
+
+
 			}).catch(e => {
 				this.setState({
 					authError: e,
@@ -77,12 +82,12 @@ class App extends React.Component {
 				});
 			});
 		} else {
-			// User has logged out, so clear the id token
+			// Person hat sich ausgeloggt, also clear token
 			document.cookie = 'token=;path=/';
 
-			// Set the logged out user to null
+			// setze die ausgeloggte Person auf null
 			this.setState({
-				currentUser: null,
+				person: null,
 				authLoading: false
 			});
 		}
@@ -97,11 +102,12 @@ class App extends React.Component {
 		this.setState({
 			authLoading: true
 		});
-		const provider = new firebase.auth.GoogleAuthProvider();
+		const provider = new firebase.auth.GoogleAuthProvider(); //Erstelle eine Instanz des Google-Provider-Objekts
 		firebase.auth().signInWithRedirect(provider);
-	}
+    }
 
-	/**
+
+    /**
 	 * Lifecycle method, which is called when the component gets inserted into the browsers DOM.
 	 * Initializes the firebase SDK.
 	 *
@@ -113,9 +119,11 @@ class App extends React.Component {
 		firebase.auth().onAuthStateChanged(this.handleAuthStateChange);
 	}
 
+
+
 	/** Renders the whole app */
-	render() {
-		const { currentUser, appError, authError, authLoading } = this.state;
+    render() {
+		const { person, appError, authError, authLoading } = this.state;
 
 		return (
 			<ThemeProvider theme={Theme}>
@@ -123,21 +131,16 @@ class App extends React.Component {
 				<CssBaseline />
 				<Router basename={process.env.PUBLIC_URL}>
 					<Container maxWidth='md'>
-						<Header user={currentUser} />
+						<Header user={person} />
 						{
 							// Is a user signed in?
-							currentUser ?
+							person ?
 								<>
-									<Redirect from='/' to='customers' />
-									<Route exact path='/customers'>
-										<CustomerList />
+									<Redirect from='/' to='persons' />
+									<Route exact path='/persons'>
+										<AllPersonList />
 									</Route>
-									<Route path='/transactions'>
-										<TransactionList />
-									</Route>
-									<Route path='/accounts'>
-										<AllAccountList />
-									</Route>
+
 									<Route path='/about' component={About} />
 								</>
 								:
@@ -156,5 +159,4 @@ class App extends React.Component {
 		);
 	}
 }
-
 export default App;

@@ -39,15 +39,15 @@ constructor(aRoleName, aId) {
     let result = [];
 
     if (Array.isArray(roles)) {
-      roles.forEach((c) => {
-        Object.setPrototypeOf(c, RoleBO.prototype);
-        result.push(c);
+      roles.forEach((s) => {
+        Object.setPrototypeOf(s, RoleBO.prototype);
+        result.push(s);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = roles;
-      Object.setPrototypeOf(c, RoleBO.prototype);
-      result.push(c);
+      let s = roles;
+      Object.setPrototypeOf(s, RoleBO.prototype);
+      result.push(s);
     }
 
     return result;

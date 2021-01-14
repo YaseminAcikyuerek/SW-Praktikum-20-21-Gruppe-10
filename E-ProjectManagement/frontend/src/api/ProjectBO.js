@@ -10,12 +10,11 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aStatus,aOwner,aModule,aStudent,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage) {
+  constructor(aStatus,aOwner,aModule,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage) {
     super();
     this.status = aStatus;
     this.owner = aOwner;
     this.module = aModule;
-    this.student = aStudent;
     this.project_type = aProjectType;
     this.time = aTime;
     this.capacity = aCapacity;
@@ -35,7 +34,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getStatus() {
-    return this.status
+    return this.status;
   }
 
   setOwner(aOwner) {
@@ -43,7 +42,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getOwner() {
-    return this.owner
+    return this.owner;
   }
 
   setModule(aModule) {
@@ -51,15 +50,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getModule() {
-    return this.module
-  }
-
-  setStatus(aStudent) {
-  this.student = aStudent ;
-  }
-
-  getStudent() {
-    return this.student
+    return this.module;
   }
 
   setPrototype(aProjectType) {
@@ -67,7 +58,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getProjectType() {
-    return this.project_type
+    return this.project_type;
   }
 
   setTime(aTime) {
@@ -75,7 +66,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getTime() {
-    return this.time
+    return this.time;
   }
 
   setCapacity(aCapacity) {
@@ -83,7 +74,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getCapacity() {
-    return this.capacity
+    return this.capacity;
   }
 
   setShortDescription(aShortDescription) {
@@ -91,7 +82,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getShortDescription() {
-    return this.short_description
+    return this.short_description;
   }
 
   setFlag(aFlag) {
@@ -99,7 +90,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getFlag() {
-    return this.Flag
+    return this.Flag;
   }
 
   setBdBeforeLecturePeriod(aBdBeforeLecturePeriod) {
@@ -107,7 +98,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getBdBeforeLecturePeriod() {
-    return this.bd_before_lecture_period
+    return this.bd_before_lecture_period;
   }
 
   setBdDuringLecturePeriod(aBdDuringLecturePeriod) {
@@ -115,7 +106,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getBdDuringLecturePeriod() {
-    return this.bd_during_lecture_period
+    return this.bd_during_lecture_period;
   }
 
   setBdDuringExamPeriod(aBdDuringExamPeriod) {
@@ -123,7 +114,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getBdDuringExamPeriod() {
-    return this.bd_during_exam_period
+    return this.bd_during_exam_period;
   }
 
   setPreferredBdDuringLecturePeriod(aPreferredBdDuringLecturePeriod) {
@@ -131,7 +122,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getPreferredBdDuringLecturePeriod() {
-    return this.preferred_bd_during_lecture_period
+    return this.preferred_bd_during_lecture_period;
   }
 
   setSpecialRoom(aSpecialRoom) {
@@ -139,7 +130,7 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getSpecialRoom() {
-    return this.special_room
+    return this.special_room;
   }
 
   setLanguage(aLanguage) {
@@ -147,14 +138,14 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   getLanguage() {
-    return this.language
+    return this.language;
   }
 
   setRoom(aRoom){
   this.room = aRoom ;
   }
   getRoom() {
-  return this.Room
+  return this.Room;
   }
 
 
@@ -165,17 +156,19 @@ export default class ProjectBO extends NamedBusinessObject {
     let result = [];
 
     if (Array.isArray(projects)) {
-      projects.forEach((c) => {
-        Object.setPrototypeOf(c, ProjectBO.prototype);
-        result.push(c);
+      projects.forEach((j) => {
+        Object.setPrototypeOf(j, ProjectBO.prototype);
+        result.push(j);
       })
     } else {
       // Ist offenbar ein singuläres Objekt
-      let c = projects;
-      Object.setPrototypeOf(c, ProjectBO.prototype);
-      result.push(c);
+      let j = projects;
+      Object.setPrototypeOf(j, ProjectBO.prototype);
+      result.push(j);
     }
 
     return result;
   }
+
+}
 

@@ -37,12 +37,13 @@ class StudentMapper (Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, matriculation_nr, course_abbr) =tuples[0]
+            (id, name, matriculation_nr, course_abbr)=tuples[0]
             student = Student()
             student.set_id(id)
             student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
+
 
 
         result = student
@@ -61,9 +62,8 @@ class StudentMapper (Mapper):
         for (maxid) in tuples:
             student.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO student (id, name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s,%s)"
-        data = (student.get_id(), student.get_person(),student.get_matriculation_nr(),student.get_course_abbr())
-
+        command = "INSERT INTO student (id, name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s)"
+        data = (student.get_id(),student.get_name(),student.get_matriculation_nr(),student.get_course_abbr())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -74,8 +74,8 @@ class StudentMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE student " + "SET person_id=%s, ,person=%s, matriculation_nr=%s, course_abbr=%s WHERE id=%s"
-        data = (student.get_person(), student.get_id(), student.get_matriculation_nr(), student.get_course_abbr())
+        command = "UPDATE student SET  name=%s, matriculation_nr=%s, course_abbr=%s  WHERE id=%s"
+        data = (student.get_name(), student.get_matriculation_nr(), student.get_course_abbr(), student.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -91,20 +91,20 @@ class StudentMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def find_student_by_name(self, name):
+    def find_by_name(self, name):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE name={}".format(name)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE name LIKE '%{}%'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, person, matriculation_nr, course_abbr) = tuples[0]
+            (id, name, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_person(person)
+            student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
             result = student
@@ -120,20 +120,20 @@ class StudentMapper (Mapper):
 
     def find_student_by_matriculation_nr(self, matriculation_nr):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE matriculation_nr={}".format(matriculation_nr)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE matriculation_nr={}".format(matriculation_nr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, person, matriculation_nr, matriculation_nr) = tuples[0]
+            (id, name, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_person(person)
+            student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
-            student.set_course_abbr(matriculation_nr)
+            student.set_course_abbr(course_abbr)
             result = student
 
         except IndexError:
@@ -150,7 +150,7 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, person_id, matriculation_nr, course_abbr FROM student WHERE course_abbr={}".format(course_abbr)
+        command = "SELECT id, name, matriculation_nr, course_abbr FROM student WHERE course_abbr={}".format(course_abbr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -158,7 +158,7 @@ class StudentMapper (Mapper):
             (id, person, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
-            student.set_person(person)
+            student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
             result = student
@@ -182,8 +182,11 @@ if (__name__ == "__main__"):
         for p in result:
             print(p)
 
-
-
+if (__name__ == "__main__"):
+    with StudentMapper() as mapper:
+        result = mapper.find_student_by_matriculation_nr("sz")
+        for p in result:
+            print(p)
 
 
 

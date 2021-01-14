@@ -39,15 +39,15 @@ constructor(aStart, aEnd) {
     let result = [];
 
     if (Array.isArray(semesters)) {
-      semesters.forEach((c) => {
-        Object.setPrototypeOf(c, SemesterBO.prototype);
-        result.push(c);
+      semesters.forEach((s) => {
+        Object.setPrototypeOf(s, SemesterBO.prototype);
+        result.push(s);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = semesters;
-      Object.setPrototypeOf(c, SemesterBO.prototype);
-      result.push(c);
+      let s = semesters;
+      Object.setPrototypeOf(s, SemesterBO.prototype);
+      result.push(s);
     }
 
     return result;

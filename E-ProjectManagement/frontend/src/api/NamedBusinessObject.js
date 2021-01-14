@@ -10,6 +10,7 @@ export default class NamedBusinessObjectBO extends BusinessObject {
    *
    */
   constructor(aName) {
+    super();
     this.name = aName;
 
   }
@@ -19,25 +20,28 @@ export default class NamedBusinessObjectBO extends BusinessObject {
   }
 
   getName() {
-    return this.name
+    return this.name;
   }
 
+getID(){
+    return super.getID();
+}
 
-
-  static fromJSON(namedbusinessobjects) {
+  static fromJSON(namedBusinessObjects) {
     let result = [];
 
-    if (Array.isArray(namedbusinessobjects)) {
-      namedbusinessobjects.forEach((c) => {
-        Object.setPrototypeOf(c, NamedBusinessObjectBO.prototype);
-        result.push(c);
+    if (Array.isArray(namedBusinessObjects)) {
+      namedBusinessObjects.forEach((n) => {
+        Object.setPrototypeOf(n, NamedBusinessObjectBO.prototype);
+        result.push(n);
       })
     } else {
       // Ist offenbar ein singuläres Objekt
-      let c = namedbusinessobjects;
-      Object.setPrototypeOf(c, NamedBusinessObjectBO.prototype);
-      result.push(c);
+      let n = namedBusinessObjects;
+      Object.setPrototypeOf(n, NamedBusinessObjectBO.prototype);
+      result.push(n);
     }
 
     return result;
   }
+}

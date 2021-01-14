@@ -79,8 +79,8 @@ class PersonMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE person " + "SET name=%s,role=%s WHERE id=%s"
-        data = (person.get_id(), person.get_name(), person.get_role())
+        command = "UPDATE person SET name=%s,role=%s WHERE id=%s"
+        data = (person.get_name(), person.get_role(),person.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -93,7 +93,7 @@ class PersonMapper(Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM person WHERE id={}".format(id)
+        command = "DELETE FROM person WHERE id={}".format(person.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
@@ -102,7 +102,7 @@ class PersonMapper(Mapper):
 
     def find_person_by_role(self, role):
 
-        result = None
+        result = []
 
         cursor = self._cnx.cursor()
         command = "SELECT id, name, role FROM person WHERE role={}".format(role)
@@ -115,6 +115,7 @@ class PersonMapper(Mapper):
             person.set_id(id)
             person.set_name(name)
             person.set_role(role)
+
             result = person
 
         except IndexError:
@@ -127,12 +128,12 @@ class PersonMapper(Mapper):
 
         return result
 
-    def find_person_by_name(self, name):
+    def find_by_name(self, name):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role FROM person WHERE name={}".format(name)
+        command = "SELECT id, name, role FROM person WHERE name LIKE '%{}%'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -163,6 +164,19 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
             print(p)
+
+
+
+
+if (__name__ == "__main__"):
+    r = PersonMapper()
+    r.set_id(63)
+    r.set_name("Harald")
+    r.set_role(1)
+
+    with PersonMapper() as mapper:
+        result = mapper.update(r)
+
 
 
 
