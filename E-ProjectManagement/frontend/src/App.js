@@ -6,8 +6,8 @@ import 'firebase/auth';
 import Header from './components/layout/Header';
 import About from './components/pages/About';
 import AllPersonList from './components/AllPersonList';
-import AllProjectList from './components/AllProjectList';
-import ManagementAPI from './api/ManagementAPI';
+//import AllProjectList from './components/AllProjectList';
+//import ManagementAPI from './api/ManagementAPI';
 import Theme from './Theme';
 import SignIn from './components/pages/SignIn';
 import LoadingProgress from './components/Dialogs/LoadingProgress';
@@ -23,7 +23,7 @@ import firebaseConfig from './Firebaseconfig';
  * @see See Google [firebase.auth().signInWithRedirect](https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signinwithredirect)
  * @see [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+ *
  */
 
 class App extends React.Component {

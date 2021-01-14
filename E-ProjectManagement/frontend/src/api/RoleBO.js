@@ -3,7 +3,7 @@ import NamedBusinessObject from './NamedBusinessObject';
 /**
  * Represents a customer of the bank.
  */
-export default class RoleBO extends NamedBusinessObject {
+export default class Role extends NamedBusinessObject {
 
 
 constructor(aRoleName, aId) {
@@ -40,13 +40,13 @@ constructor(aRoleName, aId) {
 
     if (Array.isArray(roles)) {
       roles.forEach((s) => {
-        Object.setPrototypeOf(s, RoleBO.prototype);
+        Object.setPrototypeOf(s, Role.prototype);
         result.push(s);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
       let s = roles;
-      Object.setPrototypeOf(s, RoleBO.prototype);
+      Object.setPrototypeOf(s, Role.prototype);
       result.push(s);
     }
 

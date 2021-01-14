@@ -23,7 +23,7 @@ export default class NamedBusinessObjectBO extends BusinessObject {
     return this.name;
   }
 
-getID(){
+  getID(){
     return super.getID();
 }
 

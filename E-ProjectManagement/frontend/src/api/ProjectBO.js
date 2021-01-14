@@ -1,7 +1,7 @@
 import NamedBusinessObject from './NamedBusinessObject';
 
 /**
- * Represents a customer of the bank.
+ * Represents a Project of the Management-system.
  */
 export default class ProjectBO extends NamedBusinessObject {
 
