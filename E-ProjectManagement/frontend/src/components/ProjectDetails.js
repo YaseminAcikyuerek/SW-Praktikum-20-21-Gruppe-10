@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Typography, Paper } from '@material-ui/core';
-import { ProjectAPI } from '../api';
-import ContextErrorMessage from './dialogs/ContextErrorMessage';
-import LoadingProgress from './dialogs/LoadingProgress';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './Dialogs/ContextErrorMessage';
+import LoadingProgress from './Dialogs/LoadingProgress';
 
 /**
  * Renders a AccountBO object within a ListEntry and provides a delete button to delete it.

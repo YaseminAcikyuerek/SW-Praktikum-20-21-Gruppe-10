@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Typography, Paper } from '@material-ui/core';
-import { ManagementAPI } from '../api';
-import ContextErrorMessage from './dialogs/ContextErrorMessage';
-import LoadingProgress from './dialogs/LoadingProgress';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './Dialogs/ContextErrorMessage';
+import LoadingProgress from './Dialogs/LoadingProgress';
 
 /**
  * Renders a AccountBO object within a ListEntry and provides a delete button to delete it.
@@ -13,14 +13,14 @@ import LoadingProgress from './dialogs/LoadingProgress';
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-class RatingDetail extends Component {
+class PersonDetails extends Component {
 
   constructor(props) {
     super(props);
 
     // Init state
     this.state = {
-      rating: null,
+      Person: null,
       loadingInProgress: false,
       loadingError: null,
     };
@@ -28,19 +28,19 @@ class RatingDetail extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.getRating();
+    this.getPerson();
   }
 
   /** gets the balance for this account */
-  getRating = () => {
-    ManagementAPI.getAPI().getRating(this.props.ratingID).then(rating =>
+  getPerson = () => {
+    ManagementAPI.getAPI().getPerson(this.props.personID).then(person =>
       this.setState({
-        rating: rating,
+        person: person,
         loadingInProgress: false,
         loadingError: null
       })).catch(e =>
         this.setState({ // Reset state with error from catch
-          rating: null,
+          person: null,
           loadingInProgress: false,
           loadingError: e
         })
@@ -55,27 +55,27 @@ class RatingDetail extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, ratingID } = this.props;
-    const { rating, loadingInProgress, loadingError } = this.state;
+    const { classes, PersonID } = this.props;
+    const { person, loadingInProgress, loadingError } = this.state;
 
     return (
       <Paper variant='outlined' className={classes.root}>
 
         <Typography variant='h6'>
-          Rating
+          Person
         </Typography>
-        <Typography className={classes.ratingEntry}>
-          ID: {ratingID}
+        <Typography>
+          ID: {person.getID()}
         </Typography>
         {
-          rating?
+          person ?
             <Typography>
-              Rating: {rating.getProject()}, {rating.getEvaluator()},{rating.getToBeAssessed()},{rating.getGrade()},{rating.getPassed()}
+              Person: {person.getRole()}
             </Typography>
             : null
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of rating id ${ratingID} could not be loaded.`} onReload={this.getRating} />
+        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of person id ${person.getID()} could not be loaded.`} onReload={this.getPerson} />
       </Paper>
     );
   }
@@ -88,7 +88,7 @@ const styles = theme => ({
     padding: theme.spacing(1),
     marginTop: theme.spacing(1)
   },
-  ratingEntry: {
+  accountEntry: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
     flexShrink: 0,
@@ -96,13 +96,13 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-RatingDetail.propTypes = {
+PersonDetails.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
-  /** The ratingID to be rendered */
-  ratingID: PropTypes.string.isRequired,
-  /** The ratingID to be rendered */
-  ratingID: PropTypes.string.isRequired,
+  /** The customerID to be rendered */
+  StudentID: PropTypes.string.isRequired,
+  /** The accountID to be rendered */
+  PersonID: PropTypes.string.isRequired,
 }
 
-export default withStyles(styles)(RatingDetail);
+export default withStyles(styles)(PersonDetails);

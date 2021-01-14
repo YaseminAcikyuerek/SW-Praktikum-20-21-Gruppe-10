@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { ManagementAPI } from '../api';
-import ContextErrorMessage from './dialogs/ContextErrorMessage';
-import LoadingProgress from './dialogs/LoadingProgress';
-/**import Detail from './AccountDetail';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './Dialogs/ContextErrorMessage';
+import LoadingProgress from './Dialogs/LoadingProgress';
+import ProjectDetails from './ProjectDetails';
 
 /**
  * Shows all accounts of the bank.
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-class AllRatingList extends Component {
+class AllProjectList extends Component {
 
   constructor(props) {
     super(props);
 
     // Init an empty state
     this.state = {
-      ratings: [],
+      projects: [],
       loadingInProgress: false,
       loadingError: null,
     };
@@ -26,14 +26,14 @@ class AllRatingList extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.loadAccounts();
+    this.loadProjects();
   }
 
   /** gets the account list for this account */
-  loadAccounts = () => {
-    ManagementAPIAPI.getAPI().getAllRatings().then(ratings =>
+  loadProjects = () => {
+    ManagementAPI.getAPI().getAllProjects().then(projects =>
       this.setState({
-        ratings: ratings,
+        projects: projects,
         loadingInProgress: false, // loading indicator
         loadingError: null
       })).catch(e =>
@@ -53,13 +53,13 @@ class AllRatingList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { accounts, loadingInProgress, loadingError } = this.state;
+    const { projects, loadingInProgress, loadingError } = this.state;
 
     return (
       <div className={classes.root}>
           {
-            ratings.map(rating => <RatingDetail key={rating.getID()}
-            ratingID={rating.getOwner().toString()} ratingID={account.getID().toString()} />)
+            projects.map(project => <ProjectDetails key={project.getID()}
+            projectID={project.getOwner().toString()} ProjectID={project.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
           <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all accounts of the bank could not be loaded.`} onReload={this.loadAccounts} />
@@ -76,9 +76,9 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-AllRatingList.propTypes = {
+AllProjectList.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(AllRatingList);
+export default withStyles(styles)(AllProjectList);

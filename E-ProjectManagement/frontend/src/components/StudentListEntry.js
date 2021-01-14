@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import StudentForm from './dialogs/StudentForm';
+import StudentForm from './Dialogs/StudentForm';
 import StudentDeleteDialog from './dialogs/StudentDeleteDialog';
 /**import ProjectList from './ProjectList';
 

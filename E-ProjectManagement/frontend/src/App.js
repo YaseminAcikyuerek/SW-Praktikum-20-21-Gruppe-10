@@ -4,15 +4,16 @@ import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import Header from './components/layout/Header';
-import CustomerList from './components/CustomerList';
-import TransactionList from './components/TransactionList';
 import About from './components/pages/About';
-import AllAccountList from './components/AllAccountList';
+import AllPersonList from './components/AllPersonList';
+import AllProjectList from './components/AllProjectList';
+import ManagementAPI from './api/ManagementAPI';
 import Theme from './Theme';
 import SignIn from './components/pages/SignIn';
-import LoadingProgress from './components/dialogs/LoadingProgress';
-import ContextErrorMessage from './components/dialogs/ContextErrorMessage';
-import firebaseConfig from './firebaseconfig';
+import LoadingProgress from './components/Dialogs/LoadingProgress';
+import ContextErrorMessage from './components/Dialogs/ContextErrorMessage';
+import firebaseConfig from './Firebaseconfig';
+
 
 /**
  * The main bank administration app. It uses Googles firebase to log into the bank end. For routing the
@@ -24,10 +25,6 @@ import firebaseConfig from './firebaseconfig';
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-
-//import  Start from './components/Start';
-//import Header from './components/layout/Header';
-
 
 class App extends React.Component {
 
@@ -134,21 +131,16 @@ class App extends React.Component {
 				<CssBaseline />
 				<Router basename={process.env.PUBLIC_URL}>
 					<Container maxWidth='md'>
-						<Header user={currentUser} />
+						<Header user={person} />
 						{
 							// Is a user signed in?
-							currentUser ?
+							person ?
 								<>
-									<Redirect from='/' to='customers' />
-									<Route exact path='/customers'>
-										<CustomerList />
+									<Redirect from='/' to='persons' />
+									<Route exact path='/persons'>
+										<AllPersonList />
 									</Route>
-									<Route path='/transactions'>
-										<TransactionList />
-									</Route>
-									<Route path='/accounts'>
-										<AllAccountList />
-									</Route>
+
 									<Route path='/about' component={About} />
 								</>
 								:

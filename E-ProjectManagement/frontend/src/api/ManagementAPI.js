@@ -1,33 +1,25 @@
-import ModuleBO from './api/ModuleBO';
+/**import ModuleBO from './api/ModuleBO';
 import ParticipationBO from './api/ParticipationBO';
-import PersonBO from './api/PersonBO';
 import ProjectBO from './api/ProjectBO';
 import ProjectTypeBO from './api/ProjectTypeBO';
 import RatingBO from './api/RatingBO';
 import RoleBO from './api/RoleBO';
 import SemesterBO from './api/SemesterBO';
 import StatusBO from './api/StatusBO';
-import StudentBO from './api/StudentBO';
+import StudentBO from './api/StudentBO';*/
+import PersonBO from './PersonBO';
 
 export default class ManagementAPI {
 
     static #api = null;
 
 
-  // Local Python backend
+  //Local Python backend
   #managementServerBaseURL = '/management';
 
-  // Local http-fake-backend
-  //#managementServerBaseURL = '/api/management';
 
-  #currencyFormatter = new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: ''
-  });
 
-  #currency = '';
 
-}
 
  // Person  related
   #getPersonsURL = () => `${this.#managementServerBaseURL}/person`;
@@ -68,14 +60,7 @@ export default class ManagementAPI {
 
 
 
-  getCurrencyFormatter() {
-    return this.#currencyFormatter;
-  }
 
-
-  getCurrency() {
-    return this.#currency;
-  }
 
 
   getPerson() {
@@ -145,7 +130,7 @@ export default class ManagementAPI {
       body: JSON.stringify(personBO)
     }).then((responseJSON) => {
       // We always get an array of CustomerBOs.fromJSON
-      let responseCustomerBO = PersonBO.fromJSON(responseJSON)[0];
+      let responsePersonBO = PersonBO.fromJSON(responseJSON)[0];
       // console.info(projectBOs);
       return new Promise(function (resolve) {
         resolve(responsePersonBO);
@@ -160,7 +145,9 @@ export default class ManagementAPI {
    * @public
    */
 
-  deletePerson(personID) {
+
+
+deletePerson(personID) {
     return this.#fetchAdvanced(this.#deletePersonURL(personID), {
       method: 'DELETE'
     }).then((responseJSON) => {
@@ -190,6 +177,10 @@ export default class ManagementAPI {
       })
     })
   }
+
+}
+
+
 
 
 

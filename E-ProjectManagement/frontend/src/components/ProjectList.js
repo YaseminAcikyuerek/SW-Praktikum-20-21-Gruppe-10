@@ -4,11 +4,11 @@ import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typogr
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
 import { withRouter } from 'react-router-dom';
-import { ManagementAPI } from '../api';
-import ContextErrorMessage from './dialogs/ContextErrorMessage';
-import LoadingProgress from './dialogs/LoadingProgress';
-import StudentForm from './dialogs/StudentForm';
-import StudentListEntry from './StudentListEntry';
+import { ManagementAPI } from './api/ManagementAPI';
+import ContextErrorMessage from './Dialogs/ContextErrorMessage';
+import LoadingProgress from './Dialogs/LoadingProgress';
+import ProjectForm from './Dialogs/ProjectForm';
+import ProjectListEntry from './ProjectListEntry';
 
 /**
  * Controlls a list of CustomerListEntrys to create a accordion for each customer.
@@ -17,7 +17,7 @@ import StudentListEntry from './StudentListEntry';
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-class StudentList extends Component {
+class ProjectList extends Component {
 
   constructor(props) {
     super(props);
@@ -25,35 +25,34 @@ class StudentList extends Component {
     // console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandStudent) {
-      expandedID = this.props.location.expandStudent.getID();
+    if (this.props.location.expandProject) {
+      expandedID = this.props.location.expandProject.getID();
     }
 
     // Init an empty state
     this.state = {
-      student: [],
-      filteredStudent: [],
-      studentFilter: '',
+      projects: [],
+      filteredProjects: [],
+      customerFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedStudentID: expandedID,
-      showStudentForm: false
+      expandedCustomerID: expandedID,
+      showCustomerForm: false
     };
   }
 
   /** Fetches all CustomerBOs from the backend */
-  getStudent = () => {
-    ManagementAPI.getAPI().getStudent()
-
-      .then(studentBOs =>
+  getCustomers = () => {
+    ManagementAPI.getAPI().getProjects()
+      .then(projectBOs =>
         this.setState({               // Set new state when CustomerBOs have been fetched
-         student: studentBOs,
-          filteredStudent: [...studentBOs], // store a copy
+          projects: projectBOs,
+          filteredProjects: [...projectBOs], // store a copy
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           student: [],
+           projects: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
@@ -68,7 +67,7 @@ class StudentList extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.getStudent();
+    this.getProjects();
   }
 
   /**
@@ -77,19 +76,19 @@ class StudentList extends Component {
    *
    * @param {customer} CustomerBO of the CustomerListEntry to be toggeled
    */
-  onExpandedStateChange = student => {
+  onExpandedStateChange = project => {
     // console.log(customerID);
     // Set expandend customer entry to null by default
     let newID = null;
 
     // If same customer entry is clicked, collapse it else expand a new one
-    if (student.getID() !== this.state.expandedStudentID) {
+    if (project.getID() !== this.state.expandedProjectID) {
       // Expand the customer entry with customerID
-      newID = student.getID();
+      newID = project.getID();
     }
     // console.log(newID);
     this.setState({
-      expandedStudentID: newID,
+      expandedProjectID: newID,
     });
   }
 
@@ -98,38 +97,38 @@ class StudentList extends Component {
    *
    * @param {customer} CustomerBO of the CustomerListEntry to be deleted
    */
-  studentDeleted = student => {
-    const newStudenList = this.state.student.filter(studentFromState => studentFromState.getID() !== student.getID());
+  projectDeleted = project => {
+    const newProjectList = this.state.projects.filter(projectFromState => projectFromState.getID() !==project.getID());
     this.setState({
-      student: newCustomrList,
-      filteredCustomers: [...newStudenList],
-      showStudentForm: false
+      projects: newProjectList,
+      filteredProjects: [...newProjectList],
+      showProjectForm: false
     });
   }
 
-  /** Handles the onClick event of the add customer button */
-  addStudentButtonClicked = event => {
+  /** Handles the onClick event of the add project button */
+  addProjectButtonClicked = event => {
     // Do not toggle the expanded state
     event.stopPropagation();
-    //Show the CustmerForm
+    //Show the ProjectForm
     this.setState({
-      showStudentForm: true
+      showProjectForm: true
     });
   }
 
-  /** Handles the onClose event of the CustomerForm */
-  studentFormClosed = student => {
+  /** Handles the onClose event of the ProjectForm */
+  projectFormClosed = project => {
     // customer is not null and therefore created
-    if (student) {
-      const newStudenList = [...this.state.student, student];
+    if (project) {
+      const newProjectList = [...this.state.projects, project;
       this.setState({
-        student: newStudenList,
-        filteredStudent: [...newStudenList],
-        showStudentForm: false
+        projects: newProjectList,
+        filteredProjects: [...newProjectList],
+        showProjectForm: false
       });
     } else {
       this.setState({
-        showStudentForm: false
+        showProjectForm: false
       });
     }
   }
@@ -138,12 +137,12 @@ class StudentList extends Component {
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
-      filteredStudent: this.state.student.filter(student => {
-        let CourseAbbrContainsValue = student.getCourseAbbr().toLowerCase().includes(value);
-        let MatriculationNrContainsValue = student.getMatriculationNr().toLowerCase().includes(value);
-        return CourseAbbrContainsValue || MatriculationNrContainsValue;
+      filteredProjects: this.state.projects.filter(customer => {
+        let firstNameContainsValue = customer.getFirstName().toLowerCase().includes(value);
+        let lastNameContainsValue = customer.getLastName().toLowerCase().includes(value);
+        return firstNameContainsValue || lastNameContainsValue;
       }),
-      studentFilter: value
+      customerFilter: value
     });
   }
 
@@ -151,31 +150,31 @@ class StudentList extends Component {
   clearFilterFieldButtonClicked = () => {
     // Reset the filter
     this.setState({
-      filtereStudent: [...this.state.student],
-      studentFilter: ''
+      filteredProjects: [...this.state.projects],
+      projectFilter: ''
     });
   }
 
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredStudent, studentFilter, expandedStudentID, loadingInProgress, error, showStudentForm } = this.state;
+    const { filteredProjects, projectFilter, expandedProjectID, loadingInProgress, error, showProjectForm } = this.state;
 
     return (
       <div className={classes.root}>
-        <Grid className={classes.studentFilter} container spacing={1} justify='flex-start' alignItems='center'>
+        <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
           <Grid item>
             <Typography>
-              Filter student list course_abbr :
+              Filter project list by name:
               </Typography>
           </Grid>
           <Grid item xs={4}>
             <TextField
               autoFocus
               fullWidth
-              id='studentFilter'
+              id='projectFilter'
               type='text'
-              value={studentFilter}
+              value={projectFilter}
               onChange={this.filterFieldValueChange}
               InputProps={{
                 endAdornment: <InputAdornment position='end'>
@@ -188,7 +187,7 @@ class StudentList extends Component {
           </Grid>
           <Grid item xs />
           <Grid item>
-            <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addCustomerButtonClicked}>
+            <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addProjectButtonClicked}>
               Add Customer
           </Button>
           </Grid>
@@ -196,15 +195,15 @@ class StudentList extends Component {
         {
           // Show the list of CustomerListEntry components
           // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
-          filteredStudent.map(student =>
-            <StudentListEntry key={student.getID()} student{student} expandedState={expandedStudentID === student.getID()}
+          filteredProjects.map(project =>
+            <ProjectListEntry key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
               onExpandedStateChange={this.onExpandedStateChange}
-              onStudentDeleted={this.studentDeleted}
+              onProjectDeleted={this.projectDeleted}
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of student could not be loaded.`} onReload={this.getStudent} />
-        <StudentForm show={showStudentForm} onClose={this.studentFormClosed} />
+        <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.getCustomers} />
+        <ProjectForm show={showProjectForm} onClose={this.projectFormClosed} />
       </div>
     );
   }
@@ -215,18 +214,18 @@ const styles = theme => ({
   root: {
     width: '100%',
   },
-  studentFilter: {
+  customerFilter: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
   }
 });
 
 /** PropTypes */
-StudentList.propTypes = {
+ProjectList.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** @ignore */
   location: PropTypes.object.isRequired,
 }
 
-export default withRouter(withStyles(styles)(StudentList));
+export default withRouter(withStyles(styles)(ProjectList));

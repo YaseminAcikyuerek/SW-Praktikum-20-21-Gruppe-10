@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { ManagementAPI } from '../api';
-import ContextErrorMessage from './dialogs/ContextErrorMessage';
-import LoadingProgress from './dialogs/LoadingProgress';
-import ProjectDetail from './ProjectDetail';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './Dialogs/ContextErrorMessage';
+import LoadingProgress from './Dialogs/LoadingProgress';
+import PersonDetails from './PersonDetails';
 
 /**
  * Shows all accounts of the bank.
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-class AllProjectList extends Component {
+class AllPersonList extends Component {
 
   constructor(props) {
     super(props);
 
     // Init an empty state
     this.state = {
-      projects: [],
+      accounts: [],
       loadingInProgress: false,
       loadingError: null,
     };
@@ -26,14 +26,14 @@ class AllProjectList extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.loadProjects();
+    this.loadPersons();
   }
 
   /** gets the account list for this account */
-  loadProjects = () => {
-    ManagementAPI.getAPI().getAllProjects().then(projects =>
+  loadPersons = () => {
+    ManagementAPI.getAPI().getAllPersons().then(persons =>
       this.setState({
-        projects: projects,
+        persons: persons,
         loadingInProgress: false, // loading indicator
         loadingError: null
       })).catch(e =>
@@ -53,16 +53,16 @@ class AllProjectList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { projects, loadingInProgress, loadingError } = this.state;
+    const { persons, loadingInProgress, loadingError } = this.state;
 
     return (
       <div className={classes.root}>
           {
-            projects.map(project => <ProjectDetail key={project.getID()}
-            projectID={project.getOwner().toString()} ProjectID={project.getID().toString()} />)
+            persons.map(person => <PersonDetails key={person.getID()}
+            personID={person.getRole().toString()} personID={person.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
-          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all accounts of the bank could not be loaded.`} onReload={this.loadAccounts} />
+          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all person of the bank could not be loaded.`} onReload={this.loadPersons} />
       </div>
     );
   }
@@ -76,9 +76,9 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-AllProjectListList.propTypes = {
+AllPersonList.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(AllProjectListList);
+export default withStyles(styles)(AllPersonList);

@@ -23,7 +23,9 @@ export default class NamedBusinessObjectBO extends BusinessObject {
     return this.name;
   }
 
-
+getID(){
+    return super.getID();
+}
 
   static fromJSON(namedBusinessObjects) {
     let result = [];
