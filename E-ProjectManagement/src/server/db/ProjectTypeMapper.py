@@ -14,9 +14,10 @@ class ProjectTypeMapper(Mapper):
         cursor.execute("SELECT * from project_type")
         tuples = cursor.fetchall()
 
-        for (id,name,sws, ects) in tuples:
+        for (id, creation_time, name,sws, ects) in tuples:
             project_type = ProjectType()
             project_type.set_id(id)
+            project_type.set_creation_time(creation_time)
             project_type.set_name(name)
             project_type.set_sws(sws)
             project_type.set_ects(ects)
@@ -38,9 +39,10 @@ class ProjectTypeMapper(Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, sws,ects) = tuples[0]
+            (id, creation_time, name, sws,ects) = tuples[0]
             project_type = ProjectType()
             project_type.set_id(id)
+            project_type.set_creation_time(creation_time)
             project_type.set_name(name)
             project_type.set_sws(sws)
             project_type.set_ects(ects)
@@ -63,8 +65,8 @@ class ProjectTypeMapper(Mapper):
         for (maxid) in tuples:
             project_type.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO project_type (id, name,sws,ects) VALUES (%s,%s,%s, %s)"
-        data = (project_type.get_id(), project_type.get_name(), project_type.get_sws(), project_type.get_ects())
+        command = "INSERT INTO project_type (id, creation_time, name,sws,ects) VALUES (%s,%s,%s,%s, %s)"
+        data = (project_type.get_id(), project_type.get_creation_time(), project_type.get_name(), project_type.get_sws(), project_type.get_ects())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -76,7 +78,7 @@ class ProjectTypeMapper(Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE project_type SET sws=%s, ects=%s, name=%s WHERE id=%s"
-        data = (project_type.get_name(),project_type.get_sws(), project_type.get_ects(),  project_type.get_id())
+        data = (project_type.get_name(),project_type.get_sws(), project_type.get_ects(),  project_type.get_id(), project_type.get_creation_time())
         cursor.execute(command, data)
 
         self._cnx.commit()

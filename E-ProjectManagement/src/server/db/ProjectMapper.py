@@ -1,7 +1,6 @@
 from server.bo.Project import Project
 from server.db.Mapper import Mapper
 
-#test
 
 class ProjectMapper(Mapper):
 
@@ -15,13 +14,14 @@ class ProjectMapper(Mapper):
         cursor.execute("SELECT * from project")
         tuples = cursor.fetchall()
 
-        for (id, semester, module, short_description, external_partner_list, capacity,
+        for (id, creation_time, semester, module, short_description, external_partner_list, capacity,
              bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
              preferred_bd_during_lecture_period, language, room, special_room, flag, name,
              status, project_type, owner) in tuples:
 
             project = Project()
             project.set_id(id)
+            project.set_creation_time(creation_time)
             project.set_name(name)
             project.set_owner(owner)
             project.set_module(module)
@@ -56,12 +56,13 @@ class ProjectMapper(Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, semester, module, short_description, external_partner_list, capacity,
+            (id, creation_time, semester, module, short_description, external_partner_list, capacity,
              bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
              preferred_bd_during_lecture_period, language, room, special_room, flag, name,
              status, project_type, owner) = tuples[0]
             project = Project()
             project.set_id(id)
+            project.set_creation_time(creation_time)
             project.set_name(name)
             project.set_owner(owner)
             project.set_module(module)
@@ -95,13 +96,13 @@ class ProjectMapper(Mapper):
         for (maxid) in tuples:
             project.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO project (id, semester, module, short_description, external_partner_list, capacity," \
+        command = "INSERT INTO project (id, creation_time, semester, module, short_description, external_partner_list, capacity," \
                   "bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period," \
                   "preferred_bd_during_lecture_period, language, room, special_room, flag, name," \
-                  "status, project_type, owner) VALUES (%s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s," \
+                  "status, project_type, owner) VALUES (%s, %s,%s,%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s," \
                   "%s, %s)"
 
-        data = (project.get_id(), project.get_semester(), project.get_module(), project.get_short_description(),
+        data = (project.get_id(), project.get_creation_time(), project.get_semester(), project.get_module(), project.get_short_description(),
                 project.get_external_partner_list(), project.get_capacity(), project.get_bd_during_exam_period(),
                 project.get_bd_before_lecture_period(), project.get_bd_during_lecture_period(),
                 project.get_preferred_bd_during_lecture_period(), project.get_language(), project.get_room(),
@@ -122,7 +123,7 @@ class ProjectMapper(Mapper):
                   "flag=%s, bd_before_lecture_period=%s, bd_during_lecture_period=%s," \
                   "bd_during_exam_period=%s, preferred_bd_during_lecture_period=%s,special_room=%s, room=%s, " \
                   "language=%s WHERE id=%s"
-        data = (project.get_id(), project.get_semester(), project.get_module(), project.get_short_description(),
+        data = (project.get_id(), project.get_creation_time(),project.get_semester(), project.get_module(), project.get_short_description(),
                 project.get_external_partner_list(), project.get_capacity(), project.get_bd_during_exam_period(),
                 project.get_bd_before_lecture_period(), project.get_bd_during_lecture_period(),
                 project.get_preferred_bd_during_lecture_period(), project.get_language(), project.get_room(),
@@ -153,13 +154,14 @@ class ProjectMapper(Mapper):
         tuples = cursor.fetchall()
 
         try:
-            (id, semester, module, short_description, external_partner_list, capacity,
+            (id, creation_time, semester, module, short_description, external_partner_list, capacity,
              bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
              preferred_bd_during_lecture_period, language, room, special_room, flag, name,
              status, project_type, owner) = tuples[0]
 
             project = Project()
             project.set_id(id)
+            project.set_creation_time(creation_time)
             project.set_semester(semester)
             project.set_module(module)
             project.set_short_description(short_description)
@@ -200,13 +202,14 @@ class ProjectMapper(Mapper):
         tuples = cursor.fetchall()
 
         try:
-            (id, semester, module, short_description, external_partner_list, capacity,
+            (id, creation_time, semester, module, short_description, external_partner_list, capacity,
              bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
              preferred_bd_during_lecture_period, language, room, special_room, flag, name,
              status, project_type, owner) = tuples[0]
 
             project = Project()
             project.set_id(id)
+            project.set_creation_time(creation_time)
             project.set_semester(semester)
             project.set_module(module)
             project.set_short_description(short_description)
@@ -246,13 +249,14 @@ class ProjectMapper(Mapper):
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, semester, module, short_description, external_partner_list, capacity,
+        for (id, creation_time, semester, module, short_description, external_partner_list, capacity,
              bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
              preferred_bd_during_lecture_period, language, room, special_room, flag, name,
              status, project_type, owner) in tuples:
 
             project = Project()
             project.set_id(id)
+            project.set_creation_time(creation_time)
             project.set_semester(semester)
             project.set_module(module)
             project.set_short_description(short_description)

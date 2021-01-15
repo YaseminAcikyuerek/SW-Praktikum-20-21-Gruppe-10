@@ -31,6 +31,7 @@ class Person(nbo):
         """Umwandeln eines Python dict() in ein Role()."""
         obj = Person()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_creation_time(dictionary["creation_time"])
         obj.set_name(dictionary["name"])
         obj.set_role(dictionary["role"])
 

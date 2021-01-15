@@ -127,6 +127,7 @@ class Project(nbo):
         """Umwandeln eines Python dict() in ein Account()."""
         obj = Project()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_creation_time(dictionary["creation_time"])
         obj.set_semester(dictionary["semester"])
         obj.set_module(dictionary["module"])
         obj.set_short_description(dictionary["short_description"])
