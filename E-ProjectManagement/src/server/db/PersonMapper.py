@@ -170,7 +170,7 @@ if (__name__ == "__main__"):
 
 if (__name__ == "__main__"):
     r = PersonMapper()
-    r.set_id(63)
+    r.set_id(0)
     r.set_name("Harald")
     r.set_role(1)
 
