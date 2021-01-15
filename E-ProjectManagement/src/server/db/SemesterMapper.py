@@ -11,12 +11,13 @@ class SemesterMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id,name, start, end from semester")
+        cursor.execute("SELECT * from semester")
         tuples = cursor.fetchall()
 
-        for (id,name ,start, end) in tuples:
+        for (id,creation_time, name ,start, end) in tuples:
             semester = Semester()
             semester.set_id(id)
+            semester.set_creation_time()
             semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
@@ -28,21 +29,20 @@ class SemesterMapper(Mapper):
 
         return result
 
-
-
     def find_by_id(self, id): #suche semester nach id
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, start, end  FROM semester WHERE id={}".format(id)
+        command = "SELECT *  FROM semester WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, start, end) = tuples[0]
+            (id,creation_time, name, start, end) = tuples[0]
             semester = Semester()
             semester.set_id(id)
+            semester.set_creation_time()
             semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
@@ -64,8 +64,8 @@ class SemesterMapper(Mapper):
         for (maxid) in tuples:
             semester.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO semester (id,name,start,end) VALUES (%s,%s,%s,%s)"
-        data = (semester.get_id(), semester.get_name(), semester.get_start(), semester.get_end())
+        command = "INSERT INTO semester (id,creation_time,name,start,end) VALUES (%s,%s,%s,%s,%s)"
+        data = (semester.get_id(),semester.get_creation_time(), semester.get_name(), semester.get_start(), semester.get_end())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -77,7 +77,7 @@ class SemesterMapper(Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE semester SET name=%, start=%s, end=%s WHERE id=%s"
-        data = (semester.get_name(),semester.get_start(), semester.get_end(), semester.get_id())
+        data = (semester.get_name(),semester.get_start(), semester.get_end(), semester.get_id(), semester.get_creation_time())
         cursor.execute(command, data)
 
         self._cnx.commit()
