@@ -4,8 +4,8 @@ import ProjectTypeBO from './api/ProjectTypeBO';
 import RatingBO from './api/RatingBO';
 import RoleBO from './api/RoleBO';
 import SemesterBO from './api/SemesterBO';
-import StatusBO from './api/StatusBO';
-import StudentBO from './api/StudentBO';*
+//import StatusBO from './api/StatusBO';
+import StudentBO from './api/StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
 
@@ -92,7 +92,12 @@ export default class ManagementAPI {
   #searchProjectTypeURL = (project_typeName) => `${this.#managementServerBaseURL}/project_type-by-name/${project_typeName}`;
 
 
-
+  #getModulesURL = () => `${this.#managementServerBaseURL}/module`;
+  #addModuleURL = () => `${this.#managementServerBaseURL}/module`;
+  #getModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
+  #updateModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
+  #deleteModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
+  #searchModuleURL = (ModuleName) => `${this.#managementServerBaseURL}/module-by-name/${ModuleName}`;
 
 
 
@@ -1079,6 +1084,130 @@ export default class ManagementAPI {
   }
 
 }
+
+
+
+  getModules(){
+    return this.#fetchAdvanced(this.#getModulesURL()).then((responseJSON) => {
+      let moduleBOs = ModuleBO.fromJSON(responseJSON);
+      // console.info(moduleBOs);
+      return new Promise(function (resolve) {
+        resolve(moduleBOs);
+      })
+    })
+
+  }
+
+
+  getModule(moduleID) {
+    return this.#fetchAdvanced(this.#getModuleURL(moduleID)).then((responseJSON) => {
+      // We always get an array of ModuleBOs.fromJSON, but only need one object
+      let responseModuleBO = ModuleBO.fromJSON(responseJSON)[0];
+      // console.info(responseModuleBO);
+      return new Promise(function (resolve) {
+        resolve(responseModuleBO);
+      })
+    })
+  }
+
+
+  /**
+   * Adds a Module and returns a Promise, which resolves to a new ModuleBO object with all
+   *  the parameter of moduleBO object.
+   *
+   * @param {ModuleBO} moduleBO to be added. The ID of the new module is set by the backend
+   * @public
+   */
+
+  addModule(moduleBO) {
+    return this.#fetchAdvanced(this.#addModuleURL(), {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(moduleBO)
+    }).then((responseJSON) => {
+      // We always get an array of ModuleBOs.fromJSON, but only need one object
+      let responseModuleBO = ModuleBO.fromJSON(responseJSON)[0];
+      // console.info(moduleBOs);
+      return new Promise(function (resolve) {
+        resolve(responseModuleBO);
+      })
+    })
+  }
+
+
+
+
+  /**
+   * Updates a module and returns a Promise, which resolves to a ModuleBO.
+   *
+   * @param {ModuleBO} moduleBO to be updated
+   * @public
+   */
+
+  updateModule(moduleBO) {
+    return this.#fetchAdvanced(this.#updateModuleURL(moduleBO.getID()), {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(moduleBO)
+    }).then((responseJSON) => {
+      // We always get an array of moduleBOs.fromJSON
+      let responseModuleBO = ModuleBO.fromJSON(responseJSON)[0];
+      // console.info(moduleBOs);
+      return new Promise(function (resolve) {
+        resolve(responseModuleBO);
+      })
+    })
+  }
+
+  /**
+   * Returns a Promise, which resolves to an Array of ModuleBOs
+   *
+   * @param {Number} ModuleID to be deleted
+   * @public
+   */
+
+
+
+  deleteModule(moduleID) {
+    return this.#fetchAdvanced(this.#deleteModuleURL(moduleID), {
+      method: 'DELETE'
+    }).then((responseJSON) => {
+      // We always get an array of moduleBOs.fromJSON
+      let responseModuleBO = ModuleBO.fromJSON(responseJSON)[0];
+      // console.info(moduleBOs);
+      return new Promise(function (resolve) {
+        resolve(responseModuleBO);
+      })
+    })
+  }
+
+
+   /**
+   * Returns a Promise, which resolves to an Array of ModuleBOs
+   *
+   * @param {Number} moduleID to be deleted
+   * @public
+   */
+
+   searchModule(moduleName) {
+     return this.#fetchAdvanced(this.#searchModuleURL(moduleName)).then((responseJSON) => {
+      let moduleBOs = ModuleBO.fromJSON(responseJSON);
+      // console.info(moduleBOs);
+      return new Promise(function (resolve) {
+        resolve(moduleBOs);
+      })
+    })
+
+   }
+
+
+
 
 
 
