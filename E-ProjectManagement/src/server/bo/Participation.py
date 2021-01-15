@@ -37,6 +37,7 @@ class Participation(bo):
         """Umwandeln eines Python dict() in ein Participation()."""
         obj = Participation()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_creation_time(dictionary["creation_time"])
         obj.set_project(dictionary["project"])
         obj.set_student(dictionary["student"])
 

@@ -11,12 +11,13 @@ class RatingMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, project,evaluator, to_be_assessed, grade, passed  from rating")
+        cursor.execute("SELECT *  from rating")
         tuples = cursor.fetchall()
 
-        for (id, project, evaluator, to_be_assessed, grade, passed) in tuples:
+        for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
+            rating.set_creation_time()
             rating.set_project(project)
             rating.set_evaluator(evaluator)
             rating.set_to_be_assessed(to_be_assessed)
@@ -29,7 +30,7 @@ class RatingMapper(Mapper):
 
         return result
 
-    def find_by_role_id(self, role):
+    def find_by_student(self, student):
         """Ausleseen einer role_id einer Person.
 
         :param owner_id Schlüssel des zugehörigen Person.
@@ -38,14 +39,48 @@ class RatingMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, role FROM rating WHERE role={} ORDER BY id".format(role)
+        command = "SELECT * FROM rating WHERE to_be_assessed={} ORDER BY id".format(student)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, role_id) in tuples:
+        for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
-            rating.set_role(role_id)
+            rating.set_creation_time()
+            rating.set_project(project)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
+            rating.set_grade(grade)
+            rating.set_passed(passed)
+            result.append(rating)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_by_project(self, project):
+        """Ausleseen einer role_id einer Person.
+
+        :param owner_id Schlüssel des zugehörigen Person.
+        :return Eine Sammlung mit Rating-Objekten, die sämtliche Role_IDs der
+                betreffenden Person  repräsentieren.
+        """
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM rating WHERE project={} ORDER BY id".format(project)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
+            rating = Rating()
+            rating.set_id(id)
+            rating.set_creation_time()
+            rating.set_project(project)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
+            rating.set_grade(grade)
+            rating.set_passed(passed)
             result.append(rating)
 
         self._cnx.commit()

@@ -18,9 +18,10 @@ class ModuleMapper(Mapper):
         cursor.execute("SELECT *  from module")
         tuples = cursor.fetchall()
 
-        for (id, name, edv_nr) in tuples:
+        for (id, creation_time, name, edv_nr) in tuples:
             module = Module()
             module.set_id(id)
+            module.set_creation_time(creation_time)
             module.set_name(name)
             module.set_edv_nr(edv_nr)
             result.append(module)
@@ -43,14 +44,15 @@ class ModuleMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr FROM module WHERE id={}".format(id)
+        command = "SELECT * FROM module WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, name, edv_nr) = tuples[0]
+            (id, creation_time, name, edv_nr) = tuples[0]
             module = Module()
             module.set_id(id)
+            module.set_creation_time(creation_time)
             module.set_name(name)
             module.set_edv_nr(edv_nr)
             result = module
@@ -76,8 +78,8 @@ class ModuleMapper(Mapper):
         for (maxid) in tuples:
             module.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO module (id, name, edv_nr) VALUES (%s,%s,%s)"
-        data = (module.get_id(), module.get_name(), module.get_edv_nr())
+        command = "INSERT INTO module (id, creation_time, name, edv_nr) VALUES (%s,%s,%s,%s)"
+        data = (module.get_id(), module.get_creation_time(), module.get_name(), module.get_edv_nr())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -92,7 +94,7 @@ class ModuleMapper(Mapper):
         cursor = self._cnx.cursor()
 
         command = "UPDATE module SET name=%s, edv_nr=%s WHERE id=%s"
-        data = (module.get_name(), module.get_edv_nr(),module.get_id())
+        data = (module.get_name(), module.get_edv_nr(),module.get_id(), module.get_creation_time())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -115,13 +117,14 @@ class ModuleMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr,  FROM module WHERE name LIKE '{}' ORDER BY edv_nr".format(edv_nr)
+        command = "SELECT * FROM module WHERE name LIKE '{}' ORDER BY edv_nr".format(edv_nr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, edv_nr ) in tuples:
+        for (id, creation_time, name, edv_nr ) in tuples:
             module = Module()
             module.set_id(id)
+            module.set_creation_time(creation_time)
             module.set_name(name)
             module.set_edv_nr(edv_nr)
             result.append(module)
@@ -140,13 +143,14 @@ class ModuleMapper(Mapper):
 
         result=[]
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, edv_nr,  FROM module WHERE name LIKE '{}' ORDER BY name".format(name)
+        command = "SELECT *  FROM module WHERE name LIKE '{}' ORDER BY name".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, name, edv_nr) in tuples:
+        for (id, creation_time, name, edv_nr) in tuples:
             module = Module()
             module.set_id(id)
+            module.set_creation_time(creation_time)
             module.set_name(name)
             module.set_edv_nr(edv_nr)
             result.append(module)

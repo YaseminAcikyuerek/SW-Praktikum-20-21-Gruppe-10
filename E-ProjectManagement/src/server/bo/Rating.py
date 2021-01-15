@@ -46,6 +46,7 @@ class Rating(bo):
         """Umwandeln eines Python dict() in ein Rating()."""
         obj = Rating()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_creation_time(dictionary["creation_time"])
         obj.set_project(dictionary["project"])
         obj.set_evaluator(dictionary["evaluator"])
         obj.set_to_be_assessed(dictionary["to_be_assessed"])

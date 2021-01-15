@@ -18,6 +18,7 @@ class Module(nbo):
         """Umwandeln eines Python dict() in ein Module()."""
         obj = Module()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_creation_time(dictionary["creation_time"])
         obj.set_name(dictionary["name"])
         obj.set_edv_nr(dictionary["edv_nr"])
         return obj
