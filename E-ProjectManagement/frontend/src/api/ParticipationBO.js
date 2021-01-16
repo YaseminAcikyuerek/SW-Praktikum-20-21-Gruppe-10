@@ -52,6 +52,8 @@ export default class ParticipationBO extends BusinessObject {
 
 }
 
+}
+
 
 
 
