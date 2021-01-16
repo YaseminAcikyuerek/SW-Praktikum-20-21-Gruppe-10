@@ -4,7 +4,7 @@ import ProjectTypeBO from './api/ProjectTypeBO';
 import RatingBO from './api/RatingBO';
 import RoleBO from './api/RoleBO';
 import SemesterBO from './api/SemesterBO';
-//import StatusBO from './api/StatusBO';
+import StatusBO from './api/StatusBO';
 import StudentBO from './api/StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
@@ -53,7 +53,7 @@ export default class ManagementAPI {
   #searchParticipationURL = (participationStudent) => `${this.#managementServerBaseURL}/participation-by-student/${participationStudent}`;
 
 
-    //Semester related
+  //Semester related
   #getSemestersURL = () => `${this.#managementServerBaseURL}/semester`;
   #addSemesterURL = () => `${this.#managementServerBaseURL}/semester`;
   #getSemesterURL = (id) => `${this.#managementServerBaseURL}/semester/${id}`;
@@ -62,7 +62,7 @@ export default class ManagementAPI {
   #searchSemesterURL = (semesterName) => `${this.#managementServerBaseURL}/semester-by-name/${semesterName}`;
 
 
-   //Rating related
+  //Rating related
   #getRatingsURL = () => `${this.#managementServerBaseURL}/rating`;
   #addRatingURL = () => `${this.#managementServerBaseURL}/rating`;
   #getRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
@@ -92,7 +92,7 @@ export default class ManagementAPI {
   #searchProjectTypeURL = (project_typeName) => `${this.#managementServerBaseURL}/project_type-by-name/${project_typeName}`;
 
 
-   // Status  related
+  // Status  related
   #getStatusesURL = () => `${this.#managementServerBaseURL}/status`;
   #addStatusURL = () => `${this.#managementServerBaseURL}/status`;
   #getStatusURL = (id) => `${this.#managementServerBaseURL}/status/${id}`;
@@ -102,9 +102,7 @@ export default class ManagementAPI {
 
 
 
-
-
-
+  // Module related
   #getModulesURL = () => `${this.#managementServerBaseURL}/module`;
   #addModuleURL = () => `${this.#managementServerBaseURL}/module`;
   #getModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
@@ -519,9 +517,6 @@ export default class ManagementAPI {
     })
 
   }
-
-
-
 
 
   getParticipation(participationID) {
