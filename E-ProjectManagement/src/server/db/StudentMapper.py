@@ -65,7 +65,7 @@ class StudentMapper (Mapper):
             student.set_id(maxid[0] + 1)
 
         command = "INSERT INTO student (id,creation_time, name, matriculation_nr, course_abbr) VALUES (%s,%s,%s,%s,%s)"
-        data = (student.get_id(),student.get_name(),student.get_matriculation_nr(),student.get_course_abbr())
+        data = (student.get_id(),student.get_creation_time(),student.get_name(),student.get_matriculation_nr(),student.get_course_abbr())
         cursor.execute(command, data)
 
         self._cnx.commit()

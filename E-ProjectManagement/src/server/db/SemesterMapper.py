@@ -17,7 +17,7 @@ class SemesterMapper(Mapper):
         for (id,creation_time, name ,start, end) in tuples:
             semester = Semester()
             semester.set_id(id)
-            semester.set_creation_time()
+            semester.set_creation_time(creation_time)
             semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
@@ -39,10 +39,10 @@ class SemesterMapper(Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id,creation_time, name, start, end) = tuples[0]
+            (id, creation_time, name, start, end) = tuples[0]
             semester = Semester()
             semester.set_id(id)
-            semester.set_creation_time()
+            semester.set_creation_time(creation_time)
             semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
