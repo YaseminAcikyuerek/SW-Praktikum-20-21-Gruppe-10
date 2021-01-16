@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ProjectForm from './Dialogs/ProjectForm';
-import ProjectDeleteDialog from './Dialogs/ProjectDeleteDialog';
-import AccountList from './ParticipationList';
+import ProjectForm from './dialogs/ProjectForm';
+import ProjectDeleteDialog from './dialogs/ProjectDeleteDialog';
+
 
 
 /**
