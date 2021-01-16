@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 06. Jan 2021 um 17:16
--- Server-Version: 10.4.17-MariaDB
--- PHP-Version: 8.0.0
+-- Erstellungszeit: 16. Jan 2021 um 22:36
+-- Server-Version: 10.4.13-MariaDB
+-- PHP-Version: 7.2.32
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `module` (
   `id` int(50) NOT NULL,
+  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
   `name` varchar(50) NOT NULL,
   `edv_nr` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -37,10 +38,11 @@ CREATE TABLE `module` (
 -- Daten für Tabelle `module`
 --
 
-INSERT INTO `module` (`id`, `name`, `edv_nr`) VALUES
-(300, 'IT-Projekt', '5000'),
-(500, 'WI-Mathe', '235424'),
-(501, 'ssf', 'ekv');
+INSERT INTO `module` (`id`, `creation_time`, `name`, `edv_nr`) VALUES
+(300, '2021-01-15 21:07:29', 'IT-Projekt', '5000'),
+(500, '2021-01-15 21:07:29', 'stdsfg', 'string'),
+(501, '2021-01-15 21:07:29', 'MM', 'DDSR'),
+(502, '2021-01-16 12:14:10', 'strdfg', 'stgfrng');
 
 -- --------------------------------------------------------
 
@@ -50,6 +52,7 @@ INSERT INTO `module` (`id`, `name`, `edv_nr`) VALUES
 
 CREATE TABLE `participation` (
   `id` int(11) NOT NULL,
+  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
   `project` int(11) NOT NULL,
   `student` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -58,20 +61,18 @@ CREATE TABLE `participation` (
 -- Daten für Tabelle `participation`
 --
 
-INSERT INTO `participation` (`id`, `project`, `student`) VALUES
-(27, 4000, 3),
-(28, 0, 1),
-(29, 4, 1),
-(30, 0, 1),
-(31, 14, 12),
-(32, 0, 1000),
-(33, 90, 1000),
-(34, 90, 1000),
-(35, 90, 1000),
-(5000, 91, 1002),
-(5001, 2, 3),
-(5002, 4000, 1),
-(5003, 2, 3);
+INSERT INTO `participation` (`id`, `creation_time`, `project`, `student`) VALUES
+(27, '2021-01-15 21:08:27', 4000, 3),
+(28, '2021-01-15 21:08:27', 0, 1),
+(29, '2021-01-15 21:08:27', 4, 1),
+(30, '2021-01-15 21:08:27', 0, 1),
+(31, '2021-01-15 21:08:27', 14, 12),
+(32, '2021-01-15 21:08:27', 0, 1000),
+(33, '2021-01-15 21:08:27', 90, 1000),
+(34, '2021-01-15 21:08:27', 90, 1000),
+(35, '2021-01-15 21:08:27', 90, 1000),
+(5000, '2021-01-15 21:08:27', 91, 1002),
+(5001, '2021-01-16 12:22:41', 6, 5);
 
 -- --------------------------------------------------------
 
@@ -81,6 +82,7 @@ INSERT INTO `participation` (`id`, `project`, `student`) VALUES
 
 CREATE TABLE `person` (
   `id` int(11) NOT NULL,
+  `creation_time` int(11) NOT NULL DEFAULT current_timestamp(),
   `name` varchar(45) NOT NULL,
   `role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -89,14 +91,13 @@ CREATE TABLE `person` (
 -- Daten für Tabelle `person`
 --
 
-INSERT INTO `person` (`id`, `name`, `role`) VALUES
-(0, '63', 0),
-(63, 'hansg', 1),
-(123, 'ghg', 2),
-(143, 'ali', 3),
-(144, 'Yasemin', 2),
-(145, 'dozent', 1),
-(146, 'ss', 2);
+INSERT INTO `person` (`id`, `creation_time`, `name`, `role`) VALUES
+(0, 2147483647, '123', 0),
+(63, 2147483647, 'alex', 1),
+(123, 2147483647, 'ghg', 2),
+(143, 2147483647, 'ali', 3),
+(145, 2147483647, 'Yasemin', 1),
+(146, 2021, 'strtg', 2);
 
 -- --------------------------------------------------------
 
@@ -106,6 +107,7 @@ INSERT INTO `person` (`id`, `name`, `role`) VALUES
 
 CREATE TABLE `project` (
   `id` int(11) NOT NULL,
+  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
   `semester` int(11) NOT NULL,
   `module` int(11) NOT NULL,
   `short_description` mediumtext NOT NULL,
@@ -113,12 +115,12 @@ CREATE TABLE `project` (
   `capacity` int(11) NOT NULL,
   `bd_during_exam_period` int(11) NOT NULL,
   `bd_before_lecture_period` int(11) NOT NULL,
-  `bd_during_leture_period` int(11) NOT NULL,
+  `bd_during_lecture_period` int(11) NOT NULL,
   `preferred_bd_during_lecture_period` int(11) NOT NULL,
   `language` varchar(45) NOT NULL,
   `room` varchar(45) NOT NULL,
-  `special_room` tinyint(1) NOT NULL,
-  `flag` tinyint(1) NOT NULL,
+  `special_room` tinyint(5) NOT NULL,
+  `flag` tinyint(5) NOT NULL,
   `name` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   `project_type` int(10) NOT NULL,
@@ -129,9 +131,13 @@ CREATE TABLE `project` (
 -- Daten für Tabelle `project`
 --
 
-INSERT INTO `project` (`id`, `semester`, `module`, `short_description`, `external_partner_list`, `capacity`, `bd_during_exam_period`, `bd_before_lecture_period`, `bd_during_leture_period`, `preferred_bd_during_lecture_period`, `language`, `room`, `special_room`, `flag`, `name`, `status`, `project_type`, `owner`) VALUES
-(4000, 70, 300, 'hjhjfjfgjkfkl', 'Forster', 25, 2, 4, 6, 7, 'Deutsch', 'I002', 0, 0, 'Projekt1', 'new', 1, 63),
-(4001, 71, 500, 'fkldglerk', 'Klotz', 45, 2, 4, 1, 3, 'Englisch', 'I007', 0, 0, '', 'Projekt2', 2, 0);
+INSERT INTO `project` (`id`, `creation_time`, `semester`, `module`, `short_description`, `external_partner_list`, `capacity`, `bd_during_exam_period`, `bd_before_lecture_period`, `bd_during_lecture_period`, `preferred_bd_during_lecture_period`, `language`, `room`, `special_room`, `flag`, `name`, `status`, `project_type`, `owner`) VALUES
+(4000, '0000-00-00 00:00:00', 0, 0, 'string', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'str435g', '0', 0, 0),
+(4001, '0000-00-00 00:00:00', 71, 500, 'fkldglerk', 'Klotz', 45, 2, 4, 1, 3, 'Englisch', 'I007', 0, 0, '', 'Projekt2', 2, 0),
+(4002, '0000-00-00 00:00:00', 5, 5, 'sttting', 'reer', 4, 6, 6, 4, 6, 'stri44ng', 'st34ring', 1, 1, 's54ng', 'str33ing', 5, 3),
+(4003, '0000-00-00 00:00:00', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'Test', 'string', 0, 4),
+(4004, '0000-00-00 00:00:00', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'Test', 'string', 0, 4),
+(4005, '2021-01-16 20:08:50', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'Test2', 'string', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -141,17 +147,19 @@ INSERT INTO `project` (`id`, `semester`, `module`, `short_description`, `externa
 
 CREATE TABLE `project_type` (
   `id` int(11) NOT NULL,
+  `creation_time` int(11) NOT NULL DEFAULT current_timestamp(),
+  `name` varchar(45) NOT NULL,
   `sws` int(11) NOT NULL,
-  `ects` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL
+  `ects` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `project_type`
 --
 
-INSERT INTO `project_type` (`id`, `sws`, `ects`, `name`) VALUES
-(2, 46, 30, 'Wahl');
+INSERT INTO `project_type` (`id`, `creation_time`, `name`, `sws`, `ects`) VALUES
+(1, 2147483647, '6', 0, 5),
+(2, 2147483647, 'Test', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -161,52 +169,22 @@ INSERT INTO `project_type` (`id`, `sws`, `ects`, `name`) VALUES
 
 CREATE TABLE `rating` (
   `id` int(11) NOT NULL,
-  `passed` tinyint(5) DEFAULT NULL,
-  `grade` float DEFAULT NULL,
+  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `project` int(11) NOT NULL,
+  `passed` tinyint(4) DEFAULT NULL,
+  `grade` double DEFAULT NULL,
   `evaluator` int(10) NOT NULL,
-  `to_be_assessed` int(10) NOT NULL,
-  `project` int(11) NOT NULL
+  `to_be_assessed` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `rating`
 --
 
-INSERT INTO `rating` (`id`, `passed`, `grade`, `evaluator`, `to_be_assessed`, `project`) VALUES
-(1414, 1, 6, 7, 8, 3),
-(1415, 0, 1, 3, 4, 2),
-(1416, 1, 1, 3, 4, 2),
-(1417, 0, 1, 3, 4, 2),
-(1418, 1, 1, 3, 4, 2),
-(1419, 1, 1, 3, 4, 2),
-(1420, 2, 1, 3, 3, 2),
-(1421, 0, 1, 3, 4, 2),
-(1422, 0, 1, 3, 4, 2),
-(1423, 1, 1, 3, 4, 2),
-(1424, 1, 1, 3, 4, 2),
-(1425, 2, 1, 3, 4, 2),
-(1426, 2, 1, 3, 4, 2),
-(1427, 1, 1, 3, 4, 2),
-(1428, 1, 1, 3, 4, 2),
-(1429, 0, 1, 3, 4, 2),
-(1430, 2, 1, 8, 8, 4000),
-(1431, 2, 1, 8, 8, 4000),
-(1432, 0, 1, 3, 4, 2),
-(1433, 4, 1, 2, 4, 1),
-(1434, 4, 1, 2, 4, 1),
-(1435, 4, 1, 2, 4, 1),
-(1436, 7, 0, 2, 4, 1),
-(1437, 7, 0, 2, 4, 1),
-(1438, 5, 1, 3, 4, 2),
-(1439, 1, 2, 3, 4, 2),
-(1440, 1, 2, 5, 6, 4),
-(1441, 1, 3, 2, 1, 5),
-(1442, 0, 1, 3, 4, 2),
-(1443, 1, 2, 2, 1, 1),
-(1444, 1, 2, 3, 4, 2),
-(1445, 1, 4, 7, 7, 5),
-(1446, 1, 4, 7, 9, 5),
-(1447, 1, 2.3, 0, 7, 5);
+INSERT INTO `rating` (`id`, `creation_time`, `project`, `passed`, `grade`, `evaluator`, `to_be_assessed`) VALUES
+(1414, '0000-00-00 00:00:00', 0, 1, 2, 123, 1),
+(1415, '0000-00-00 00:00:00', 4000, 1, 0, 0, 0),
+(1416, '2021-01-16 20:40:30', 4600, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -226,7 +204,8 @@ CREATE TABLE `role` (
 INSERT INTO `role` (`id`, `name`) VALUES
 (1, 'dozent'),
 (2, 'student'),
-(3, 'admin');
+(3, 'admin'),
+(4, 'Test');
 
 -- --------------------------------------------------------
 
@@ -236,22 +215,22 @@ INSERT INTO `role` (`id`, `name`) VALUES
 
 CREATE TABLE `semester` (
   `id` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
+  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
   `start` date DEFAULT NULL,
-  `end` date DEFAULT NULL
+  `end` date DEFAULT NULL,
+  `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `semester`
 --
 
-INSERT INTO `semester` (`id`, `name`, `start`, `end`) VALUES
-(2020, 'WS20', '0000-00-00', '0000-00-00'),
-(2021, 'SS21', '0000-00-00', '0000-00-00'),
-(2022, 'WI', '0000-00-00', '0000-00-00'),
-(2023, 'it', '2021-01-08', '2021-01-09'),
-(2024, 'hft', '2021-01-04', '2021-01-05'),
-(2025, 'sss', '2021-01-05', '2021-01-06');
+INSERT INTO `semester` (`id`, `creation_time`, `start`, `end`, `name`) VALUES
+(2020, '0000-00-00 00:00:00', '2020-12-01', '2020-12-18', 'WS20'),
+(2021, '0000-00-00 00:00:00', '2020-12-20', '2020-12-25', 'SS21'),
+(2022, '0000-00-00 00:00:00', '2021-01-16', '2021-01-16', 'test2'),
+(2023, '2021-01-16 21:02:34', '2021-01-16', '2021-01-16', 'test3'),
+(2024, '2021-01-16 21:18:36', '2021-01-16', '2021-01-16', 'Testg');
 
 -- --------------------------------------------------------
 
@@ -261,8 +240,9 @@ INSERT INTO `semester` (`id`, `name`, `start`, `end`) VALUES
 
 CREATE TABLE `student` (
   `id` int(11) NOT NULL,
+  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
   `name` varchar(10) NOT NULL,
-  `matriculation_nr` varchar(10) NOT NULL,
+  `matriculation_nr` int(10) NOT NULL,
   `course_abbr` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -270,19 +250,10 @@ CREATE TABLE `student` (
 -- Daten für Tabelle `student`
 --
 
-INSERT INTO `student` (`id`, `name`, `matriculation_nr`, `course_abbr`) VALUES
-(1, 'strifafng', 'strafawfin', 'striafawfn'),
-(2, '3', 'sts', 'awfw'),
-(3, '2', 'sfg', 'sayo'),
-(4, '2', 'sfg', 'sayo'),
-(5, '4', 'awffaaw', 'asfwaawf'),
-(6, '1', 'bwl', 'hdm'),
-(7, '6', 'hft', 'wit'),
-(8, '1', 'sz', 'fs'),
-(9, '3', 'sssss', 'ssss'),
-(10, '0', 'sz', 'abbr'),
-(11, '0', 'strs', 'ffs'),
-(12, 'sslafgwg', 'ssf', 'strid');
+INSERT INTO `student` (`id`, `creation_time`, `name`, `matriculation_nr`, `course_abbr`) VALUES
+(1, '0000-00-00 00:00:00', 'Hallo', 6565, 'WI'),
+(43, '0000-00-00 00:00:00', 'Alex', 2342, 'WI'),
+(44, '2021-01-16 21:20:13', 'Testg', 0, 'string');
 
 --
 -- Indizes der exportierten Tabellen
@@ -356,7 +327,7 @@ ALTER TABLE `person`
 -- AUTO_INCREMENT für Tabelle `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4002;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4006;
 
 --
 -- AUTO_INCREMENT für Tabelle `project_type`
@@ -368,7 +339,7 @@ ALTER TABLE `project_type`
 -- AUTO_INCREMENT für Tabelle `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1448;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1417;
 
 --
 -- AUTO_INCREMENT für Tabelle `role`
@@ -380,7 +351,7 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT für Tabelle `semester`
 --
 ALTER TABLE `semester`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2026;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2025;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
