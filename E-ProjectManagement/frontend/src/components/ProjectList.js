@@ -5,9 +5,9 @@ import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
 import { withRouter } from 'react-router-dom';
 import { ManagementAPI } from './api/ManagementAPI';
-import ContextErrorMessage from './Dialogs/ContextErrorMessage';
-import LoadingProgress from './Dialogs/LoadingProgress';
-import ProjectForm from './Dialogs/ProjectForm';
+import ContextErrorMessage from './dialogs/ContextErrorMessage';
+import LoadingProgress from './dialogs/LoadingProgress';
+import ProjectForm from './dialogs/ProjectForm';
 import ProjectListEntry from './ProjectListEntry';
 
 /**
