@@ -14,10 +14,10 @@ class RatingMapper(Mapper):
         cursor.execute("SELECT *  from rating")
         tuples = cursor.fetchall()
 
-        for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
+        for (id, creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
-            rating.set_creation_time()
+            rating.set_creation_time(creation_time)
             rating.set_project(project)
             rating.set_evaluator(evaluator)
             rating.set_to_be_assessed(to_be_assessed)
@@ -46,7 +46,7 @@ class RatingMapper(Mapper):
         for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
-            rating.set_creation_time()
+            rating.set_creation_time(creation_time)
             rating.set_project(project)
             rating.set_evaluator(evaluator)
             rating.set_to_be_assessed(to_be_assessed)
@@ -75,7 +75,7 @@ class RatingMapper(Mapper):
         for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
-            rating.set_creation_time()
+            rating.set_creation_time(creation_time)
             rating.set_project(project)
             rating.set_evaluator(evaluator)
             rating.set_to_be_assessed(to_be_assessed)
@@ -107,6 +107,7 @@ class RatingMapper(Mapper):
             (id, project, evaluator, to_be_assessed, grade, passed) = tuples[0]
             rating = Rating()
             rating.set_id(id)
+            rating.set_creation_time(creation_time)
             rating.set_project(project)
             rating.set_evaluator(evaluator)
             rating.set_to_be_assessed(to_be_assessed)
@@ -130,9 +131,9 @@ class RatingMapper(Mapper):
         for (maxid) in tuples:
             rating.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO rating (id, project, evaluator, to_be_assessed, grade, passed) VALUES (%s,%s,%s,%s,%s," \
+        command = "INSERT INTO rating (id,creation_time, project, evaluator, to_be_assessed, grade, passed) VALUES (%s,%s,%s,%s,%s,%s," \
                   "%s) "
-        data = (rating.get_id(),rating.get_project(),rating.get_evaluator(),rating.get_to_be_assessed(),rating.get_grade(),rating.get_passed())
+        data = (rating.get_id(),rating.get_creation_time(),rating.get_project(),rating.get_evaluator(),rating.get_to_be_assessed(),rating.get_grade(),rating.get_passed())
         cursor.execute(command, data)
 
         self._cnx.commit()

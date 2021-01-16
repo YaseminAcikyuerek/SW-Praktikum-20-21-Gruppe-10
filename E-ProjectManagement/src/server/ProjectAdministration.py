@@ -26,10 +26,11 @@ class ProjectAdministration(object):
 
     """person-spezifische Methoden"""
 
-    def create_person(self, name, role):
+    def create_person(self,creation_time, name, role):
         """Eine Person anlegen"""
         p = Person()
         p.set_id(1)
+        p.set_creation_time(creation_time)
         p.set_name(name)
         p.set_role(role)
 
@@ -73,12 +74,14 @@ class ProjectAdministration(object):
 
     """Projektspezifisch"""
 
-    def create_project(self, semester, module, short_description, external_partner_list, capacity,
+    def create_project(self,id,creation_time, semester, module, short_description, external_partner_list, capacity,
                        bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
                        preferred_bd_during_lecture_period, language, room, special_room, flag, name,
                        status, project_type, owner):
         """Ein Projekt anlegen"""
         project = Project()
+        project.set_id(id)
+        project.set_creation_time(creation_time)
         project.set_semester(semester)
         project.set_module(module)
         project.set_short_description(short_description)
@@ -97,6 +100,7 @@ class ProjectAdministration(object):
         project.set_project_type(project_type)
         project.set_owner(owner)
         project.set_id(1)
+
 
         with ProjectMapper() as mapper:
             return mapper.insert(project)
@@ -138,12 +142,13 @@ class ProjectAdministration(object):
 
     """Modulspezifische Methoden"""
 
-    def create_module(self, id, name, edv_nr):
+    def create_module(self, id,creation_time, name, edv_nr):
         """Ein Modul anlegen"""
         module = Module()
         module.set_name(name)
         module.set_edv_nr(edv_nr)
         module.set_id(id)
+        module.set_creation_time(creation_time)
         module.set_id(1)
 
         with ModuleMapper() as mapper:
@@ -182,9 +187,10 @@ class ProjectAdministration(object):
 
     """Modulspezifische Methoden"""
 
-    def create_project_type(self, name, sws, ects):
+    def create_project_type(self,creation_time, name, sws, ects):
         """Ein Projekttyp anlegen"""
         project_type = ProjectType()
+        project_type.set_creation_time(creation_time)
         project_type.set_name(name)
         project_type.set_sws(sws)
         project_type.set_ects(ects)
@@ -220,9 +226,10 @@ class ProjectAdministration(object):
 
     """Ratingspezifische Methoden"""
 
-    def create_rating(self, project, evaluator, to_be_assessed, grade, passed):
+    def create_rating(self,creation_time, project, evaluator, to_be_assessed, grade, passed):
         """Ein Rating anlegen"""
         rating = Rating()
+        rating.set_creation_time(creation_time)
         rating.set_project(project)
         rating.set_evaluator(evaluator)
         rating.set_to_be_assessed(to_be_assessed)
@@ -268,9 +275,10 @@ class ProjectAdministration(object):
 
     """Studentenspezifische Methoden"""
 
-    def create_student(self,name,matriculation_nr, course_abbr):
+    def create_student(self,creation_time, name,matriculation_nr, course_abbr):
         """Einen Studenten  anlegen"""
         student = Student()
+        student.set_creation_time(creation_time)
         student.set_name(name)
         student.set_matriculation_nr(matriculation_nr)
         student.set_course_abbr(course_abbr)
@@ -352,10 +360,11 @@ class ProjectAdministration(object):
 
     """Participationspezifische"""
 
-    def create_participation(self, id, project, student):
+    def create_participation(self, id, creation_time, project, student):
         """Einen Teilnahme anlegen"""
 
         participation = Participation()
+        participation.set_creation_time(creation_time)
         participation.set_project(project)
         participation.set_student(student)
         participation.set_id(id)
@@ -408,9 +417,10 @@ class ProjectAdministration(object):
 
     """Semesterspezifische"""
 
-    def create_semester(self,name, start, end):
+    def create_semester(self,creation_time,name, start, end):
         """Ein Semester anlegen"""
         semester = Semester()
+        semester.set_creation_time(creation_time)
         semester.set_name(name)
         semester.set_start(start)
         semester.set_end(end)
@@ -467,46 +477,15 @@ class ProjectAdministration(object):
         with ProjectTypeMapper() as mapper:
             mapper.insert(project_type)
 
-    def create_project_for_project_type(self, name, owner, module, language, capacity,
-                                       external_partner_list, short_description, flag, bd_before_lecture_period,
-                                       bd_during_lecture_period, bd_during_exam_period,
-                                       preferred_bd_during_lecture_period,
-                                       special_room, room, status, time, project_type):
-        """Ein Projekt anlegen"""
-        project = Project()
-        project.set_name(name)
-        project.set_owner(owner)
-        project.set_module(module)
-        project.set_language(language)
-        project.set_capacity(capacity)
-        project.set_external_partner_list(external_partner_list)
-        project.set_short_description(short_description)
-        project.set_flag(flag)
-        project.set_bd_before_lecture_period(bd_before_lecture_period)
-        project.set_bd_during_lecture_period(bd_during_lecture_period)
-        project.set_bd_during_exam_period(bd_during_exam_period)
-        project.set_preferred_bd_during_lecture_period(preferred_bd_during_lecture_period)
-        project.get_special_room(special_room)
-        project.set_room(room)
-        project.set_status(status)
-        project.set_project_type(project_type)
-        project.set_time(time)
-        project.set_id(1)
-
-        with ProjectMapper() as mapper:
-            return mapper.insert(project)
-
-
-
 
     def create_participation_for_student(self, stu):
         with ParticipationMapper() as mapper:
             mapper.find_participation_of_student(stu)
 
 
-
-    def create_participation_for_project(self, project, student):
+    def create_participation_for_project(self,creation_time, project, student):
         participation = Participation()
+        participation.set_creation_time(creation_time)
         participation.set_project(project)
         participation.set_student(student)
         participation.set_id(1)

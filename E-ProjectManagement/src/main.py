@@ -51,6 +51,7 @@ projectmanagement = api.namespace('management', description='Funktionen des Proj
 BusinessObject dient als Basisklasse, auf der die weiteren Strukturen  und  aufsetzen."""
 bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='_id', description='Der Unique Identifier eines Business Object'),
+    'creation_time': fields.DateTime(attribute='_creation_time', description='Erstellungszeitpunkt des Objekts')
 })
 
 nbo = api.model('NamedBusinessObject', {
@@ -113,7 +114,7 @@ role = api.inherit('Role', {
     'name': fields.String(attribute='_name',description='nameder Rolle')
 })
 
-semester = api.inherit('Semester', nbo, {
+semester = api.inherit('Semester', bo, nbo, {
     'start': fields.Date(attribute='_start', description='Start des Semesters'),
     'end': fields.Date(attribute='_end', description='Ende des Semesters')
 })
@@ -151,7 +152,7 @@ class PersonListOperations(Resource):
         proposal = Person.from_dict(api.payload)
 
         if proposal is not None:
-            per = adm.create_person(proposal.get_name(), proposal.get_role())
+            per = adm.create_person(proposal.get_creation_time(),proposal.get_name(), proposal.get_role())
             return per, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
@@ -160,7 +161,7 @@ class PersonListOperations(Resource):
 
 @projectmanagement.route('/person/<int:id>')
 @projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Customer-Objekts')
+@projectmanagement.param('id', 'Die ID des Person-Objekts')
 class PersonOperations(Resource):
     @projectmanagement.marshal_with(person)
 
@@ -223,7 +224,7 @@ class ProjectListOperations(Resource):
         proj = Project.from_dict(api.payload)
 
         if proj is not None:
-            pro = adm.create_project(proj.get_semester(), proj.get_module(), proj.get_short_description(),
+            pro = adm.create_project(proj.get_id(), proj.get_creation_time(),proj.get_semester(), proj.get_module(), proj.get_short_description(),
                                      proj.get_external_partner_list(), proj.get_capacity(),
                                      proj.get_bd_during_exam_period(), proj.get_bd_before_lecture_period(),
                                      proj.get_bd_during_lecture_period(), proj.get_preferred_bd_during_lecture_period(),
@@ -371,7 +372,7 @@ class StudentListOperations(Resource):
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            s = adm.create_student (std.get_name(),std.get_matriculation_nr(),std.get_course_abbr())
+            s = adm.create_student (std.get_creation_time(),std.get_name(),std.get_matriculation_nr(),std.get_course_abbr())
         else:
             return '', 500
 
@@ -471,7 +472,7 @@ class ParticipationListOperations(Resource):
         p = Participation.from_dict(api.payload)
 
         if p is not None:
-            pa = adm.create_participation(p.get_id(), p.get_project(), p.get_student())
+            pa = adm.create_participation(p.get_id(),p.get_creation_time(), p.get_project(), p.get_student())
             return pa, 200
         else:
             return '', 500
@@ -552,7 +553,7 @@ class SemesterListOperations(Resource):
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            s = adm.create_semester(se.get_name(),se.get_start(),se.get_end())
+            s = adm.create_semester(se.get_creation_time(),se.get_name(),se.get_start(),se.get_end())
             return s, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
@@ -635,7 +636,7 @@ class RatingListOperations(Resource):
                 eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
                 wird auch dem Client zurückgegeben. 
                 """
-                r = adm.create_rating(rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(), rat.get_grade(),
+                r = adm.create_rating(rat.get_creation_time(),rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(), rat.get_grade(),
                                       rat.get_passed())
                 return r, 200
             else:
@@ -701,7 +702,7 @@ class ModuleListOperations(Resource):
         m = Module.from_dict(api.payload)
 
         if m is not None:
-            modu = adm.create_module(m.get_id(),m.get_name(), m.get_edv_nr())
+            modu = adm.create_module(m.get_id(),m.get_creation_time(),m.get_name(), m.get_edv_nr())
             return modu, 200
         else:
             return '', 500
@@ -878,7 +879,7 @@ class RatingListOperations(Resource):
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            r = adm.create_rating(rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(),rat.get_grade(),rat.get_passed())
+            r = adm.create_rating(rat.get_creation_time(),rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(),rat.get_grade(),rat.get_passed())
             return r, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
@@ -1096,7 +1097,7 @@ class ProjectTypeListOperations(Resource):
         prot = ProjectType.from_dict(api.payload)
 
         if prot is not None:
-            r = adm.create_project_type(prot.get_name(), prot.get_sws(),prot.get_ects())
+            r = adm.create_project_type(prot.get_creation_time(),prot.get_name(), prot.get_sws(),prot.get_ects())
             return r, 200
         else:
             return '', 500
