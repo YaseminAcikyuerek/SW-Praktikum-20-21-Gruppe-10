@@ -258,14 +258,14 @@ export default class ManagementAPI {
 
 //Jetzt kommt Project
 
-  getProjects(){
+   getProjects() {
     return this.#fetchAdvanced(this.#getProjectsURL()).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       // console.info(projectBOs);
       return new Promise(function (resolve) {
         resolve(projectBOs);
       })
-    })
+    }}
 
   }
 
@@ -1214,6 +1214,130 @@ export default class ManagementAPI {
 
    }
 
+
+    /Jetzt kommt Status
+
+   getStatuses () {
+    return this.#fetchAdvanced(this.#getStatusesURL()).then((responseJSON) => {
+      let statusBOs = StatusBO.fromJSON(responseJSON);
+      // console.info(statusBOs);
+      return new Promise(function (resolve) {
+        resolve(statusBOs);
+      })
+    }}
+
+  }
+
+
+
+
+
+  getStatus(statusID) {
+    return this.#fetchAdvanced(this.#getStatusURL(statusID)).then((responseJSON) => {
+      // We always get an array of StatusBOs.fromJSON, but only need one object
+      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
+      // console.info(responseStatusBO);
+      return new Promise(function (resolve) {
+        resolve(responseStatusBO);
+      })
+    })
+  }
+
+
+  /**
+   * Adds a Status and returns a Promise, which resolves to a new StatusBO object with all
+   *  the parameter of statusBO object.
+   *
+   * @param {StatusBO} statusBO to be added. The ID of the new status is set by the backend
+   * @public
+   */
+
+  addStatus(statusBO) {
+    return this.#fetchAdvanced(this.#addStatusURL(), {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(statusBO)
+    }).then((responseJSON) => {
+      // We always get an array of StatusBOs.fromJSON, but only need one object
+      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
+      // console.info(statusBOs);
+      return new Promise(function (resolve) {
+        resolve(responseStatusBO);
+      })
+    })
+  }
+
+
+
+
+  /**
+   * Updates a status and returns a Promise, which resolves to a StatusBO.
+   *
+   * @param {StatusBO} statusBO to be updated
+   * @public
+   */
+
+  updateStatus(statusBO) {
+    return this.#fetchAdvanced(this.#updateStatusURL(statusBO.getID()), {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(statusBO)
+    }).then((responseJSON) => {
+      // We always get an array of statusBOs.fromJSON
+      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
+      // console.info(statusBOs);
+      return new Promise(function (resolve) {
+        resolve(responseStatusBO);
+      })
+    })
+  }
+
+  /**
+   * Returns a Promise, which resolves to an Array of StatusBOs
+   *
+   * @param {Number} PStatusID to be deleted
+   * @public
+   */
+
+
+
+  deleteStatus(statusID) {
+    return this.#fetchAdvanced(this.#deleteStatusURL(statusID), {
+      method: 'DELETE'
+    }).then((responseJSON) => {
+      // We always get an array of StatusBOs.fromJSON
+      let responseStatusBO = StatusO.fromJSON(responseJSON)[0];
+      // console.info(statusBOs);
+      return new Promise(function (resolve) {
+        resolve(responseStatusBO);
+      })
+    })
+  }
+
+
+   /**
+   * Returns a Promise, which resolves to an Array of StatusBOs
+   *
+   * @param {Number} statusID to be deleted
+   * @public
+   */
+
+   searchStatus(statusOwner) {
+     return this.#fetchAdvanced(this.#searchStatusURL(statusOwner)).then((responseJSON) => {
+      let statusBOs = StatusBO.fromJSON(responseJSON);
+      // console.info(statusBOs);
+      return new Promise(function (resolve) {
+        resolve(statusBOs);
+      })
+    })
+
+   }
 
 
 
