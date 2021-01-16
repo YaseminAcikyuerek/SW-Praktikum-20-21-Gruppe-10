@@ -10,8 +10,8 @@ import AllPersonList from './components/AllPersonList';
 //import ManagementAPI from './api/ManagementAPI';
 import Theme from './Theme';
 import SignIn from './components/pages/SignIn';
-import LoadingProgress from './components/Dialogs/LoadingProgress';
-import ContextErrorMessage from './components/Dialogs/ContextErrorMessage';
+import LoadingProgress from './components/dialogs/LoadingProgress';
+import ContextErrorMessage from './components/dialogs/ContextErrorMessage';
 import firebaseConfig from './Firebaseconfig';
 
 
