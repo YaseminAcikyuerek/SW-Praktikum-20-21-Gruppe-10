@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { ManagementAPI, StudentBO } from '../../api/ManagementAPI';
+import ManagementAPI from "../../api/ManagementAPI";
+import StudentBO from '../../api/StudentBO'
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -55,7 +56,7 @@ class StudentForm extends Component {
   /** Adds the student */
   addStudent = () => {
     let newStudent = new StudentBO(this.state.name, this.state.courseAbbr, this.state.matriculationNr);
-    ProjectAPI.getAPI().addStudent(newStudent).then(student => {
+    ManagementAPI.getAPI().addStudent(newStudent).then(student => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty student
       this.setState(this.baseState);
@@ -82,7 +83,7 @@ class StudentForm extends Component {
     updatedStudent.setName(this.state.name);
     updatedStudent.setCourseAbbr(this.state.courseAbbr);
     updatedStudent.setMatriculationNr(this.state.matriculationNr);
-    ProjectAPI.getAPI().updateStudent(updatedStudent).then(student => {
+    ManagementAPI.getAPI().updateStudent(updatedStudent).then(student => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message

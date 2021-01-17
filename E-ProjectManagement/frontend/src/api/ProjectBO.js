@@ -10,12 +10,12 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aStatus,aOwner,aModule,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage) {
+  constructor(aStatus,aOwner,aModule,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage,aExternalPartnerList) {
     super();
     this.status = aStatus;
     this.owner = aOwner;
     this.module = aModule;
-    this.project_type = aProjectType;
+    this.projectType = aProjectType;
     this.time = aTime;
     this.capacity = aCapacity;
     this.short_description = aShortDescription;
@@ -27,6 +27,7 @@ export default class ProjectBO extends NamedBusinessObject {
     this.special_room = aSpecialRoom;
     this.language = aLanguage;
     this.room = aRoom;
+    this.external_partner_list = aExternalPartnerList;
   }
 
   setStatus(aStatus) {
@@ -144,8 +145,17 @@ export default class ProjectBO extends NamedBusinessObject {
   setRoom(aRoom){
   this.room = aRoom ;
   }
+
   getRoom() {
-  return this.Room;
+  return this.room;
+  }
+
+  setExternalPartnerList(aExternalPartnerList){
+    this.external_partner_list;
+  }
+
+  getExternalPartnerList(){
+    return this.external_partner_list
   }
 
 

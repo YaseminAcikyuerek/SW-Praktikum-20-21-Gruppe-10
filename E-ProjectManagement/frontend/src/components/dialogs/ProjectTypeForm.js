@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { ManagementAPI, ProjectTypeBO } from '../../api/ManagementAPI';
+import ManagementAPI from '../../api/ManagementAPI';
+import ProjectTypeBO from '../../api/ProjectBO'
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -25,7 +26,7 @@ class ProjectTypeForm extends Component {
   constructor(props) {
     super(props);
 
-    let n = '', sw = ''; ec;
+    let n = '', sw = '', ec;
     if (props.projecttype) {
       n = props.projecttype.getName();
       sw = props.projecttype.getSws();
@@ -55,7 +56,7 @@ class ProjectTypeForm extends Component {
   /** Adds the projecttype */
   addProjectType = () => {
     let newProjectType = new ProjectTypeBO(this.state.name, this.state.sws, this.state.ects);
-    ProjectAPI.getAPI().addProjectType(newProjectType).then(projecttype => {
+    ManagementAPI.getAPI().addProjectType(newProjectType).then(projecttype => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty projecttype
       this.setState(this.baseState);
@@ -82,7 +83,7 @@ class ProjectTypeForm extends Component {
     updatedProjectType.setName(this.state.name);
     updatedProjectType.setSws(this.state.sws);
     updatedProjectType.setEcts(this.state.ects);
-    ProjectAPI.getAPI().updateProjectType(updatedProjectType).then(projecttype => {
+    ManagementAPI.getAPI().updateProjectType(updatedProjectType).then(projecttype => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message

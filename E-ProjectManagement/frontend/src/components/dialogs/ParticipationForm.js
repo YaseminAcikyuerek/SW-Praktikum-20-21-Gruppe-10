@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { ManagementAPI, ParticipationBO } from '../../api/ManagementAPI';
+import  ManagementAPI   from '../../api/ManagementAPI';
+import ParticipationBO from '../../api/ParticipationBO';
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -51,7 +52,7 @@ class ParticipationForm extends Component {
   /** Adds the participation */
   addParticipation = () => {
     let newParticipation = new ParticipationBO(this.state.project, this.state.student);
-    ProjectAPI.getAPI().addParticipation(newParticipation).then(participation => {
+    ManagementAPI.getAPI().addParticipation(newParticipation).then(participation => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty participation
       this.setState(this.baseState);
@@ -77,7 +78,7 @@ class ParticipationForm extends Component {
     // set the new attributes from our dialog
     updatedParticipation.setProject(this.state.project);
     updatedParticipation.setStudent(this.state.student);
-    ProjectAPI.getAPI().updateParticipation(updatedParticipation).then(participation => {
+    ManagementAPI.getAPI().updateParticipation(updatedParticipation).then(participation => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message

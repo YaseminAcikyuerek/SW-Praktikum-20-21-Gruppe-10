@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ManagementAPI from '../../api/ManagementAPI';
-import PersonBO from from '../../api/PersonBO';
+import ProjectBO from  '../../api/ProjectBO';
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -26,8 +26,8 @@ class ProjectForm extends Component {
   constructor(props) {
     super(props);
 
-    let n = '', se = ''; mo= ''; sd=''; ep=''; c=''; bdap=''; bblp=''; bdlp=''; pdl=''; la=''; ro=''; sr='';fl='';
-    st=''; pt=''; ow='';
+    let n = '', se = '', mo= '', sd='', ep='', c='', bdep='', bblp='', bdlp='', bpdl='', la='', ro='', sr='', fl='',
+    st='', pt='', ow='';
     if (props.project) {
       n = props.project.getName();
       se = props.project.getSemester();
@@ -35,10 +35,10 @@ class ProjectForm extends Component {
       sd = props.project.getShortDescription();
       ep = props.project.getExternalPartnerlist();
       c = props.project.getCapacity();
-      bdap = props.project.getBDAP();
-      bblp = props.project.getBBLP();
-      bdlp = props.project.getBDLP();
-      pdl = props.project.getPDL();
+      bdep = props.project.getBdDuringExamPeriod();
+      bblp = props.project.getBdBeforeLecturePeriod();
+      bdlp = props.project.getBdDuringLecturePeriod();
+      bpdl = props.project.getPreferredBdDuringLecturePeriod();
       la = props.project.getLanguage();
       ro = props.project.getRoom();
       sr = props.project.getSpecialRoom();
@@ -68,18 +68,18 @@ class ProjectForm extends Component {
       capacity: c,
       capacityValidationFailed: false,
       capacityEdited: false,
-      BDAP: bdap,
-      BDAPValidationFailed: false,
-      BDAPEdited: false,
+      BDEP: bdep,
+      BDEPValidationFailed: false,
+      BDEPEdited: false,
       BBLP: bblp,
       BBLPValidationFailed: false,
       BBLPEdited: false,
       BDLP: bdlp,
       BDLPValidationFailed: false,
       BDLPEdited: false,
-      PDL: pdl,
-      PDLValidationFailed: false,
-      PDLEdited: false,
+      BPDL: bpdl,
+      BPDLValidationFailed: false,
+      BPDLEdited: false,
       language: la,
       languageValidationFailed: false,
       languageEdited: false,
@@ -89,6 +89,9 @@ class ProjectForm extends Component {
       specialRoom: sr,
       specialRoomValidationFailed: false,
       specialRoomEdited: false,
+      flag: fl,
+      flagValidationFailed: false,
+      flagEdited: false,
       status: st,
       statusValidationFailed: false,
       statusEdited: false,
@@ -112,10 +115,10 @@ class ProjectForm extends Component {
   /** Adds the project */
   addProject = () => {
     let newProject = new ProjectBO(this.state.name, this.state.semester, this.state.module, this.state.shortDescription,
-    this.state.externalPartnerlist, this.state.capacity, this.state.BDAP, this.state.BBLP, this.state.BDLP,
-    this.state.PDL, this.state.language, this.state.room, this.state.specialRoom, this.state.status,
+    this.state.externalPartnerlist, this.state.capacity, this.state.BDEP, this.state.BBLP, this.state.BDLP,
+    this.state.BPDL, this.state.language, this.state.room, this.state.specialRoom, this.state.status,
     this.state.projectType, this.state.owner);
-    ProjectAPI.getAPI().addProject(newProject).then(project => {
+    ManagementAPI.getAPI().addProject(newProject).then(project => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty project
       this.setState(this.baseState);
@@ -145,18 +148,19 @@ class ProjectForm extends Component {
     updatedProject.setShortDescription(this.state.shortDescription);
     updatedProject.setExternalPartnerlist(this.state.externalPartnerlist);
     updatedProject.setCapacity(this.state.capacity);
-    updatedProject.setBDAP(this.state.BDAP);
+    updatedProject.setBDEP(this.state.BDEP);
     updatedProject.setBBLP(this.state.BBLP);
     updatedProject.setBDLP (this.state.BDLP);
-    updatedProject.setPDL (this.state.PDL);
+    updatedProject.setBPDL (this.state.BPDL);
     updatedProject.setLanguage (this.state.language);
     updatedProject.setRoom (this.state.room);
     updatedProject.setSpecialRoom (this.state.specialRoom);
     updatedProject.setStatus (this.state.status);
     updatedProject.setProjectType (this.state.projectType);
     updatedProject.setOwner (this.state.owner);
+    updateFlag.setFlag (this.state.flag)
 
-    ProjectAPI.getAPI().updateProject(updatedProject).then(project => {
+    ManagementAPI.getAPI().updateProject(updatedProject).then(project => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
@@ -168,17 +172,18 @@ class ProjectForm extends Component {
       this.baseState.shortDescription = this.state.shortDescription;
       this.baseState.externalPartnerlist = this.state.externalPartnerlist;
       this.baseState.capacity = this.state.capacity;
-      this.baseState.bdap = this.state.bdap;
+      this.baseState.bdep = this.state.bdep;
       this.baseState.bblp = this.state.bblp;
       this.baseState.bdlp = this.state.bdlp;
-      this.baseState.pdl = this.state.pdl;
+      this.baseState.bpdl = this.state.bpdl;
       this.baseState.language = this.state.language;
       this.baseState.room = this.state.room;
       this.baseState.specialRoom = this.state.specialRoom;
       this.baseState.status = this.state.status;
       this.baseState.projectType = this.state.projectType;
       this.baseState.owner = this.state.owner;
-      this.props.onClose(updatedProject);      // call the parent with the new project
+      this.baseState.flag = this.state.flag;
+      this.props.onClose(updatedProject); // call the parent with the new project
     }).catch(e =>
       this.setState({
         updatingInProgress: false,              // disable loading indicator
@@ -222,8 +227,8 @@ class ProjectForm extends Component {
     const { name, nameValidationFailed, nameEdited, semester,semesterValidationFailed, semesterEdited,module,
     moduleValidationFailed,moduleEdited, shortDescription, shortDescriptionValidationFailed, shortDescriptionEdited,
     externalPartnerlist, externalPartnerlistValidationFailed, externalPartnerlistEdited, capacity,
-    capacityValidationFailed, capacityEdited, BDAP, BDAPValidationFailed, BDAPEdited, BBLP, BBLPValidationFailed,
-    BBLPEdited, BDLP, BDLPValidationFailed, BDLPEdited, PDL, PDLValidationFailed, PDLEdited, language,
+    capacityValidationFailed, capacityEdited, BDEP, BDAPValidationFailed, BDAPEdited, BBLP, BBLPValidationFailed,
+    BBLPEdited, BDLP, BDLPValidationFailed, BDLPEdited, BPDL, PDLValidationFailed, PDLEdited, language,
     languageValidationFailed, languageEdited, room, roomValidationFailed, roomEdited, specialRoom,
     specialRoomValidationFailed, specialRoomEdited, status, statusValidationFailed, statusEdited, projectType,
     projectTypeValidationFailed, projectTypeEdited, owner, ownerValidationFailed, ownerEdited, addingInProgress,
@@ -272,8 +277,8 @@ class ProjectForm extends Component {
               <TextField type='text' required fullWidth margin='normal' id='capacity' label='Capacity:' value={capacity}
                 onChange={this.textFieldValueChange} error={capacityValidationFailed}
                 helperText={capacityValidationFailed ? 'The capacity must contain at least one character' : ' '} />
-              <TextField autoFocus type='text' required fullWidth margin='normal' id='bdap' label='Blockdays during exam period :' value={bdap}
-                onChange={this.textFieldValueChange} error={bdapValidationFailed}
+              <TextField autoFocus type='text' required fullWidth margin='normal' id='bdap' label='Blockdays during exam period :' value={bdep}
+                onChange={this.textFieldValueChange} error={bdepValidationFailed}
                 helperText={bdapValidationFailed ? 'You must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='bblp' label='Blockdays before lecture period:' value={bblp}
                 onChange={this.textFieldValueChange} error={bblpValidationFailed}
@@ -281,8 +286,8 @@ class ProjectForm extends Component {
               <TextField autoFocus type='text' required fullWidth margin='normal' id='bdlp' label='Blockdays during lecture period:' value={bdlp}
                 onChange={this.textFieldValueChange} error={bdlpValidationFailed}
                 helperText={bdlpValidationFailed ? 'You must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='pdl' label='Preferred blockdays during lecture period:' value={pdl}
-                onChange={this.textFieldValueChange} error={pdlValidationFailed}
+              <TextField type='text' required fullWidth margin='normal' id='pdl' label='Preferred blockdays during lecture period:' value={bpdl}
+                onChange={this.textFieldValueChange} error={bpdlValidationFailed}
                 helperText={pdlValidationFailed ? 'You must contain at least one character' : ' '} />
               <TextField autoFocus type='text' required fullWidth margin='normal' id='language' label='Language:' value={language}
                 onChange={this.textFieldValueChange} error={languageValidationFailed}
@@ -323,17 +328,17 @@ class ProjectForm extends Component {
               // If a project is given, show an update button, else an add button
               customer ?
                 <Button disabled={nameValidationFailed || semesterValidationFailed || moduleValidationFailed ||
-                shortDescriptionValidationFailed || externalPartnerlistValidationFailed || capacityValidationFailed ||
-                BDAPValidationFailed || BBLPValidationFailed || BDLPValidationFailed || PDLValidationFailed ||
+                shortDescriptionValidationFailed || externalPartnerListValidationFailed || capacityValidationFailed ||
+                BDEPValidationFailed || BBLPValidationFailed || BDLPValidationFailed || BPDLValidationFailed ||
                 languageValidationFailed || roomValidationFailed || specialRoomValidationFailed || statusValidationFailed ||
-                projectTypeValidationFailed || ownerValidationFailed} variant='contained' onClick={this.updateCustomer} color='primary'>
+                projectTypeValidationFailed || ownerValidationFailed} variant='contained' onClick={this.updateProject} color='primary'>
                   Update
               </Button>
                 : <Button disabled={nameValidationFailed || !nameEdited || semesterValidationFailed || !semesterEdited ||
                 moduleValidationFailed || !moduleEdited || shortDescriptionValidationFailed || !shortDescriptionEdited ||
                 externalPartnerlistValidationFailed || !externalPartnerlistEdited || capacityValidationFailed ||
-                !capacityEdited || BDAPValidationFailed || !BDAPEdited || BBLPValidationFailed || !BBLPEdited ||
-                BDLPValidationFailed || !BDLPEdited || PDLValidationFailed || !PDLEdited || languageValidationFailed ||
+                !capacityEdited || BDEPValidationFailed || !BDEPEdited || BBLPValidationFailed || !BBLPEdited ||
+                BDLPValidationFailed || !BDLPEdited || BPDLValidationFailed || !BPDLEdited || languageValidationFailed ||
                 !languageEdited || roomValidationFailed || !roomEdited || specialRoomValidationFailed || !specialRoomEdited ||
                 statusValidationFailed || !statusEdited || projectTypeValidationFailed || !projectTypeEdited ||
                 ownerValidationFailed || !ownerEdited} variant='contained' onClick={this.addCustomer} color='primary'>

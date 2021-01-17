@@ -11,7 +11,7 @@ class Project(nbo):
         self._project_type = None
         self._semester = None
         self._capacity = ""
-        self._external__partner_list = ""
+        self._external_partner_list = ""
         self._short_description = ""
         self._flag = ""
         self._bd_before_lecture_period = ""

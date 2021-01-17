@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { ManagementAPI, ModuleBO } from '../../api';
+import ManagementAPI from '../../api/ManagementAPI';
+import ModuleBO from '../../api/ModuleBO'
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -20,15 +21,15 @@ import LoadingProgress from './LoadingProgress';
  *
  * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-class CustomerForm extends Component {
+class ModuleForm extends Component {
 
   constructor(props) {
     super(props);
 
     let n = '', enr = '';
-    if (props.customer) {
-      n = props.customer.getName();
-      enr = props.customer.getEdvNr();
+    if (props.module) {
+      n = props.module.getName();
+      enr = props.module.getEdvNr();
     }
 
     // Init the state
@@ -51,7 +52,7 @@ class CustomerForm extends Component {
   /** Adds the module */
   addModule = () => {
     let newModule = new ModuleBO(this.state.name, this.state.edvNr);
-    ProjectAPI.getAPI().addModule(newModule).then(module => {
+    ManagementAPI.getAPI().addModule(newModule).then(module => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty module
       this.setState(this.baseState);
@@ -77,7 +78,7 @@ class CustomerForm extends Component {
     // set the new attributes from our dialog
     updatedModule.setName(this.state.name);
     updatedModule.setEdvNr(this.state.edvNr);
-    ProjectAPI.getAPI().updateModule(updatedModule).then(module => {
+    ManagementAPI.getAPI().updateModule(updatedModule).then(module => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message

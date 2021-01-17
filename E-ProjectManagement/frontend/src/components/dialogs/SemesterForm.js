@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { ManagementAPI, SemesterBO } from '../../api/ManagementAPI';
+import ManagementAPI from '../../api/ManagementAPI';
+import SemesterBO from '../../api/SemesterBO';
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -25,7 +26,7 @@ class SemesterForm extends Component {
   constructor(props) {
     super(props);
 
-    let n = '', st = ''; en= '';
+    let n = '', st = '', en = '';
     if (props.semester) {
       n = props.semester.getName();
       st = props.semester.getStart();
@@ -34,13 +35,13 @@ class SemesterForm extends Component {
 
     // Init the state
     this.state = {
-      name: fn,
+      name: n,
       nameValidationFailed: false,
       nameEdited: false,
       start: st,
       startValidationFailed: false,
       startEdited: false,
-      end: st,
+      end: en,
       endValidationFailed: false,
       endEdited: false,
       addingInProgress: false,
@@ -55,7 +56,7 @@ class SemesterForm extends Component {
   /** Adds the semester */
   addSemester = () => {
     let newSemester = new SemesterBO(this.state.name, this.state.start, this.state.end);
-    ProjectAPI.getAPI().addSemester(newSemester).then(semester => {
+    ManagementAPI.getAPI().addSemester(newSemester).then(semester => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty semester
       this.setState(this.baseState);
@@ -82,7 +83,7 @@ class SemesterForm extends Component {
     updatedSemester.setName(this.state.name);
     updatedSemester.setStart(this.state.start);
     updatedSemester.setEnd(this.state.end);
-    ProjectAPI.getAPI().updateSemester(updatedSemester).then(semester => {
+    ManagementAPI.getAPI().updateSemester(updatedSemester).then(semester => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
