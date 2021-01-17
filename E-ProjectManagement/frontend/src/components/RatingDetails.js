@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Typography, Paper } from '@material-ui/core';
-import { ManagementAPI } from '../api';
-import ContextErrorMessage from './Dialogs/ContextErrorMessage';
-import LoadingProgress from './Dialogs/LoadingProgress';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './dialogs/ContextErrorMessage';
+import LoadingProgress from './dialogs/LoadingProgress';
 
 /**
  * Renders a AccountBO object within a ListEntry and provides a delete button to delete it.
@@ -100,9 +100,8 @@ RatingDetail.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The ratingID to be rendered */
-  ratingID: PropTypes.string.isRequired,
-  /** The ratingID to be rendered */
-  ratingID: PropTypes.string.isRequired,
+  ratingID: PropTypes.string.isRequired
+
 }
 
 export default withStyles(styles)(RatingDetail);

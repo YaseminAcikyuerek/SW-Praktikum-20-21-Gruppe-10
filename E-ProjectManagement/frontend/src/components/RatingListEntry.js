@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import RatingForm from './Dialogs/RatingForm';
-import RatingDeleteDialog from './Dialogs/RatingDeleteDialog';
+import RatingForm from './dialogs/RatingForm';
+import RatingDeleteDialog from './dialogs/RatingDeleteDialog';
 import RatingList from './RatingList';
 
 
@@ -63,7 +63,7 @@ class RatingListEntry extends Component {
         showRatingForm: false
       });
     }
-  }
+  })
 
   /** Handles the onClick event of the delete rating button */
   deleteRatingButtonClicked = (event) => {

@@ -4,10 +4,10 @@ import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typogr
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
 import { withRouter } from 'react-router-dom';
-import { ManagementAPI } from './api/ManagementAPI';
-import ContextErrorMessage from './Dialogs/ContextErrorMessage';
-import LoadingProgress from './Dialogs/LoadingProgress';
-import ProjectForm from './Dialogs/ProjectForm';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './dialogs/ContextErrorMessage';
+import LoadingProgress from './dialogs/LoadingProgress';
+import ProjectForm from './dialogs/ProjectForm';
 import ProjectListEntry from './ProjectListEntry';
 
 /**
@@ -120,7 +120,7 @@ class ProjectList extends Component {
   projectFormClosed = project => {
     // customer is not null and therefore created
     if (project) {
-      const newProjectList = [...this.state.projects, project;
+      const newProjectList = [...this.state.projects,project];
       this.setState({
         projects: newProjectList,
         filteredProjects: [...newProjectList],

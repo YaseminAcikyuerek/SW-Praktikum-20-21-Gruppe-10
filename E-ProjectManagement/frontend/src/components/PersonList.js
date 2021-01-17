@@ -4,7 +4,7 @@ import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typogr
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
 import { withRouter } from 'react-router-dom';
-import { ManagementApi } from '/api/ManagementApi';
+import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from '../dialogs/ContextErrorMessage';
 import LoadingProgress from '../dialogs/LoadingProgress';
 import PersonForm from '../dialogs/PersonForm';
@@ -44,7 +44,7 @@ class PersonList extends Component {
   /** Fetches all PersonBOs from the backend */
   getPersons = () => {
   console.log("vor fetch")
-    ManagementApi.getAPI().getPersons()
+    ManagementAPI.getAPI().getPersons()
 
 
       .then(personBOs =>

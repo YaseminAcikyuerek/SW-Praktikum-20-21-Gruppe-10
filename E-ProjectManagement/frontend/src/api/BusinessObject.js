@@ -1,9 +1,19 @@
 export default class BusinessObject {
-//Text
+
 
 
     constructor() {
         this.id = 0;
+        this.creationTime = aDateTime.now();
+    }
+
+
+    setCreationTime(aDateTime) {
+        this.creationTime = aDateTime.now();
+    }
+
+    getCreationTime() {
+        return this.creationTime;
     }
 
 

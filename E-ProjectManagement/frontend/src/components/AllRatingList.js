@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import { ManagementAPI } from './api/';
-import ContextErrorMessage from './Dialogs/ContextErrorMessage';
-import LoadingProgress from './Dialogs/LoadingProgress';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './dialogs/ContextErrorMessage';
+import LoadingProgress from './dialogs/LoadingProgress';
 /**import Detail from './AccountDetail';
 
 /**
@@ -31,7 +31,7 @@ class AllRatingList extends Component {
 
   /** gets the account list for this account */
   loadAccounts = () => {
-    ManagementAPIAPI.getAPI().getAllRatings().then(ratings =>
+    ManagementAPI.getAPI().getAllRatings().then(ratings =>
       this.setState({
         ratings: ratings,
         loadingInProgress: false, // loading indicator
