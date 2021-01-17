@@ -14,7 +14,7 @@ import ProjectBO from './ProjectBO';
 export default class ManagementAPI {
 
     static #api = null;
-    //Local Python backend
+
   #managementServerBaseURL = '/management';
 
 
@@ -132,10 +132,15 @@ export default class ManagementAPI {
       }
       return res.json();
     }
-    )
+  )
 
 
 
+  /**
+   * Returns a Promise, which resolves to an Array of PersonBOs
+   *
+   * @public
+   */
 
   getPersons() {
     return this.#fetchAdvanced(this.#getPersonsURL()).then((responseJSON) => {
@@ -150,7 +155,7 @@ export default class ManagementAPI {
 
 
   /**
-   * Returns a Promise, which resolves to a CustomerBO
+   * Returns a Promise, which resolves to a PersonBO
    *
    * @param {Number} personID to be retrieved
    * @public
@@ -308,7 +313,6 @@ export default class ManagementAPI {
       })
     })
   }
-
 
 
 
@@ -695,8 +699,6 @@ export default class ManagementAPI {
 
 
 
-
-
    // Semester
 
     /**
@@ -738,11 +740,9 @@ export default class ManagementAPI {
 
 
 
-
-
   /**
-   * Adds a Person and returns a Promise, which resolves to a new PersonBO object with the
-   * firstName and lastName of the parameter personBO object.
+   * Adds a Semester and returns a Promise, which resolves to a new SemesterBO object with the
+   *  of the parameter semesterBO object.
    *
    * @param {SemesterBO} semesterBO to be added. The ID of the new person is set by the backend
    * @public
@@ -848,6 +848,23 @@ export default class ManagementAPI {
    *
    * @public
    */
+  getRatings() {
+    return this.#fetchAdvanced(this.#getRatingsURL()).then((responseJSON) => {
+      let ratingBOs = RatingBO.fromJSON(responseJSON);
+      // console.info(ratingBOs);
+      return new Promise(function (resolve) {
+        resolve(ratingBOs);
+      })
+    })
+  }
+
+
+  /**
+   * Returns a Promise, which resolves to a RatingBO
+   *
+   * @param {Number} ratingID to be retrieved
+   * @public
+   */
 
   getRating(ratingID) {
     return this.#fetchAdvanced(this.#getRatingURL(ratingID)).then((responseJSON) => {
@@ -863,7 +880,7 @@ export default class ManagementAPI {
 
   /**
    * Adds a Rating and returns a Promise, which resolves to a new RatingBO object with the
-   * firstName and lastName of the parameter personBO object.
+   *  of the parameter personBO object.
    *
    * @param {RatingBO} ratingBO to be added. The ID of the new person is set by the backend
    * @public
@@ -913,14 +930,14 @@ export default class ManagementAPI {
     })
   }
 
+
+
   /**
    * Returns a Promise, which resolves to an Array of RatingBOs
    *
    * @param {Number} ratingID to be deleted
    * @public
    */
-
-
 
   deleteRating(ratingID) {
     return this.#fetchAdvanced(this.#deleteRatingURL(ratingID), {
@@ -956,7 +973,14 @@ export default class ManagementAPI {
 
 
 //Role
-     getRoles() {
+
+  /**
+   * Returns a Promise, which resolves to an Array of RolesBOs
+   *
+   * @public
+   */
+
+  getRoles() {
     return this.#fetchAdvanced(this.#getRolesURL()).then((responseJSON) => {
       let roleBOs = RoleBO.fromJSON(responseJSON);
       // console.info(roleBOs);
@@ -966,6 +990,13 @@ export default class ManagementAPI {
     })
   }
 
+
+  /**
+   * Returns a Promise, which resolves to a CustomerBO
+   *
+   * @param {Number} roleID to be retrieved
+   * @public
+   */
 
   getRole(roleID) {
     return this.#fetchAdvanced(this.#getRoleURL(personID)).then((responseJSON) => {
@@ -981,7 +1012,7 @@ export default class ManagementAPI {
 
   /**
    * Adds a Role and returns a Promise, which resolves to a new RoleBO object with the
-   * firstName and lastName of the parameter personBO object.
+   *  of the parameter personBO object.
    *
    * @param {RoleBO} roleBO to be added. The ID of the new role is set by the backend
    * @public
@@ -1038,8 +1069,6 @@ export default class ManagementAPI {
    * @public
    */
 
-
-
   deleteRole(roleID) {
     return this.#fetchAdvanced(this.#deleteRoleURL(roleID), {
       method: 'DELETE'
@@ -1076,7 +1105,14 @@ export default class ManagementAPI {
 
 
 //ProjectType
-   getProjectTypes() {
+
+  /**
+   * Returns a Promise, which resolves to an Array of ProjectTypeBOs
+   *
+   * @public
+   */
+
+  getProjectTypes() {
     return this.#fetchAdvanced(this.#getProjectTypesURL()).then((responseJSON) => {
       let project_typeBOs = ProjectTypeBO.fromJSON(responseJSON);
       // console.info(projectTypeBOs);
@@ -1086,9 +1122,15 @@ export default class ManagementAPI {
     })
   }
 
+/**
+   * Returns a Promise, which resolves to a ProjectTypeBO
+   *
+   * @param {Number} projectTypeID to be retrieved
+   * @public
+   */
 
   getProjectType(projectTypeID) {
-    return this.#fetchAdvanced(this.#getProjectTypeURL(personID)).then((responseJSON) => {
+    return this.#fetchAdvanced(this.#getProjectTypeURL(projectTypeID)).then((responseJSON) => {
       // We always get an array of ProjectTypeBOs.fromJSON, but only need one object
       let responseProjectTypeBO = ProjectTypeBO.fromJSON(responseJSON)[0];
       // console.info(responseProjectTypeBO);
@@ -1100,10 +1142,10 @@ export default class ManagementAPI {
 
 
   /**
-   * Adds a ProjectType and returns a Promise, which resolves to a new PersonBO object with the
-   * firstName and lastName of the parameter projectTypeBO object.
+   * Adds a ProjectType and returns a Promise, which resolves to a new ProjectTypeBO object with the
+   *  of the parameter projectTypeBO object.
    *
-   * @param {PersonBO} personBO to be added. The ID of the new person is set by the backend
+   * @param {ProjectTypeBO} projectTypeBO to be added. The ID of the new person is set by the backend
    * @public
    */
 
@@ -1158,8 +1200,6 @@ export default class ManagementAPI {
    * @public
    */
 
-
-
   deleteProjectType(projectTypeID) {
     return this.#fetchAdvanced(this.#deleteProjectTypeURL(projectTypeID), {
       method: 'DELETE'
@@ -1174,14 +1214,15 @@ export default class ManagementAPI {
   }
 
 
-   /**
+
+  /**
    * Returns a Promise, which resolves to an Array of ProjectTypeBOs
    *
    * @param {Number} projectTypeID to be deleted
    * @public
    */
 
-   searchProjectType(projectTypeName) {
+  searchProjectType(projectTypeName) {
     return this.#fetchAdvanced(this.#searchProjectTypeURL(projectTypeName)).then((responseJSON) => {
       let projectTypeBOs = ProjectTypeBO.fromJSON(responseJSON);
       // console.info(personBOs);
@@ -1194,8 +1235,14 @@ export default class ManagementAPI {
 
 
 
+//Module
 
-  getModules(){
+   /**
+   * Returns a Promise, which resolves to an Array of ModuleBOs
+   *
+   * @public
+   */
+   getModules(){
     return this.#fetchAdvanced(this.#getModulesURL()).then((responseJSON) => {
       let moduleBOs = ModuleBO.fromJSON(responseJSON);
       // console.info(moduleBOs);
@@ -1206,6 +1253,13 @@ export default class ManagementAPI {
 
   }
 
+
+  /**
+   * Returns a Promise, which resolves to a CustomerBO
+   *
+   * @param {Number} moduleID to be retrieved
+   * @public
+   */
 
   getModule(moduleID) {
     return this.#fetchAdvanced(this.#getModuleURL(moduleID)).then((responseJSON) => {
@@ -1273,14 +1327,15 @@ export default class ManagementAPI {
     })
   }
 
+
+
+
   /**
    * Returns a Promise, which resolves to an Array of ModuleBOs
    *
    * @param {Number} ModuleID to be deleted
    * @public
    */
-
-
 
   deleteModule(moduleID) {
     return this.#fetchAdvanced(this.#deleteModuleURL(moduleID), {
@@ -1294,6 +1349,8 @@ export default class ManagementAPI {
       })
     })
   }
+
+
 
 
    /**
@@ -1315,9 +1372,15 @@ export default class ManagementAPI {
    }
 
 
-    //Jetzt kommt Status
+   //Jetzt kommt Status
 
-   getStatuses () {
+  /**
+   * Returns a Promise, which resolves to an Array of StatusBOs
+   *
+   * @public
+   */
+
+  getStatuses () {
     return this.#fetchAdvanced(this.#getStatusesURL()).then((responseJSON) => {
       let statusBOs = StatusBO.fromJSON(responseJSON);
       // console.info(statusBOs);
@@ -1330,8 +1393,12 @@ export default class ManagementAPI {
 
 
 
-
-
+  /**
+   * Returns a Promise, which resolves to a CustomerBO
+   *
+   * @param {Number} statusID to be retrieved
+   * @public
+   */
   getStatus(statusID) {
     return this.#fetchAdvanced(this.#getStatusURL(statusID)).then((responseJSON) => {
       // We always get an array of StatusBOs.fromJSON, but only need one object
@@ -1342,6 +1409,8 @@ export default class ManagementAPI {
       })
     })
   }
+
+
 
 
   /**
@@ -1398,14 +1467,16 @@ export default class ManagementAPI {
     })
   }
 
+
+
+
+
   /**
    * Returns a Promise, which resolves to an Array of StatusBOs
    *
-   * @param {Number} PStatusID to be deleted
+   * @param {Number} statusID to be deleted
    * @public
    */
-
-
 
   deleteStatus(statusID) {
     return this.#fetchAdvanced(this.#deleteStatusURL(statusID), {
