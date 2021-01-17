@@ -23,14 +23,14 @@ class Participation(bo):
     #def __str__(self):
         #return "Participation: {}, {},".format(self.get_id(), self.get_project())
 
-    def to_dict(self):
-        """Umwandeln User() in ein Python dict()"""
+    """def to_dict(self):
+        Umwandeln User() in ein Python dict()
         result = {
             "id": self.get_id(),
             "project": self.get_project(),
             "student": self.get_student(),
         }
-        return result
+        return result"""
 
     @staticmethod
     def from_dict(dictionary=dict()):

@@ -7,9 +7,9 @@ export default class RatingBO extends BusinessObject {
 
 constructor(aProject,aEvaluator,ToBeAssessed,aGrade,aPassed) {
     super();
-    this.project = aProject;
-    this.evaluator = aEvaluator;
-    this.to_be_assessed = aToBeAssessed;
+    this.project = null;
+    this.evaluator = null;
+    this.to_be_assessed = null;
     this.grade = aGrade;
     this.passed = aPassed;
 

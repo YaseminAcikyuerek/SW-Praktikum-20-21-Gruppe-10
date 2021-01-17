@@ -197,7 +197,7 @@ class StudentList extends Component {
           // Show the list of CustomerListEntry components
           // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
           filteredStudent.map(student =>
-            <StudentListEntry key={student.getID()} student{student} expandedState={expandedStudentID === student.getID()}
+            <StudentListEntry key={student.getID()} student={student} expandedState={expandedStudentID === student.getID()}
               onExpandedStateChange={this.onExpandedStateChange}
               onStudentDeleted={this.studentDeleted}
             />)
