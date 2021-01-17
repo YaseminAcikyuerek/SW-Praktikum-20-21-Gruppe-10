@@ -1,13 +1,13 @@
-import ModuleBO from './api/ModuleBO';
-import ParticipationBO from './api/ParticipationBO';
-import ProjectTypeBO from './api/ProjectTypeBO';
-import RatingBO from './api/RatingBO';
-import RoleBO from './api/RoleBO';
-import SemesterBO from './api/SemesterBO';
-import StatusBO from './api/StatusBO';
-import StudentBO from './api/StudentBO';
+import ModuleBO from './ModuleBO';
+import ParticipationBO from './ParticipationBO';
+import ProjectTypeBO from './ProjectTypeBO';
+import RatingBO from './RatingBO';
+import SemesterBO from './SemesterBO';
+import StatusBO from './StatusBO';
+import StudentBO from './StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
+import {Role} from './Role';
 
 
 

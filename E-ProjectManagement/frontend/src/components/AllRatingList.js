@@ -31,7 +31,7 @@ class AllRatingList extends Component {
 
   /** gets the account list for this account */
   loadAccounts = () => {
-    ManagementAPIAPI.getAPI().getAllRatings().then(ratings =>
+    ManagementAPI.getAPI().getAllRatings().then(ratings =>
       this.setState({
         ratings: ratings,
         loadingInProgress: false, // loading indicator

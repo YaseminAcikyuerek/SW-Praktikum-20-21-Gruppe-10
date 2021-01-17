@@ -44,7 +44,7 @@ class PersonList extends Component {
   /** Fetches all PersonBOs from the backend */
   getPersons = () => {
   console.log("vor fetch")
-    ManagementApi.getAPI().getPersons()
+    ManagementAPI.getAPI().getPersons()
 
 
       .then(personBOs =>

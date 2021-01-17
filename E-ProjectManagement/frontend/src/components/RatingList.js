@@ -44,7 +44,7 @@ class RatingList extends Component {
   /** Fetches all RatingBOs from the backend */
   getRatings = () => {
   console.log("vor fetch")
-    ManagementApi.getAPI().getRatings()
+    ManagementAPI.getAPI().getRatings()
 
 
       .then(ratingBOs =>
