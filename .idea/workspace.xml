@@ -26,7 +26,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="ProjectDeleteDialog, ParticipationDeleteDialog erstellt" />
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
+      <change beforePath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllModuleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllModuleList.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,10 +45,8 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>create_perso</find>
-    </findStrings>
+  <component name="Git.Rebase.Settings">
+    <option name="NEW_BASE" value="Enes" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -53,11 +56,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="635" />
-    <option name="width" value="980" />
-    <option name="height" value="1038" />
   </component>
   <component name="ProjectId" id="1l4PfYjfqjVSKfeJBYoOATwkTMU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -205,7 +203,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -364,7 +362,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610390810883</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="ProjectDeleteDialog, ParticipationDeleteDialog erstellt&#10;Die Enes Branch Korrektur">
+      <created>1610833516761</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1610833516761</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -388,7 +393,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/master" />
+                        <option value="origin/Yasemin" />
                       </list>
                     </value>
                   </entry>
@@ -440,7 +445,14 @@
     <MESSAGE value="Berechtigungen bei Person.BO ergänzt" />
     <MESSAGE value="StudentListjs, StudentListEntry.js erstellt" />
     <MESSAGE value="PersonList.js, RatingList.js, ProjectList.js erstellt" />
-    <option name="LAST_COMMIT_MESSAGE" value="PersonList.js, RatingList.js, ProjectList.js erstellt" />
+    <MESSAGE value="ProjectDeleteDialog, ParticipationDeleteDialog erstellt&#10;Die Enes Branch Korrektur" />
+    <option name="LAST_COMMIT_MESSAGE" value="ProjectDeleteDialog, ParticipationDeleteDialog erstellt&#10;Die Enes Branch Korrektur" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="277" y="156" key="Vcs.Push.Dialog.v2" timestamp="1610833524826">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state x="277" y="156" key="Vcs.Push.Dialog.v2/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1610833524826" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
