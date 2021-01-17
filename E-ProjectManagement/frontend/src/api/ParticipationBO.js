@@ -29,6 +29,7 @@ export default class ParticipationBO extends BusinessObject {
 
   getStudent() {
     return this.student;
+  }
 
 
   static fromJSON(participations) {

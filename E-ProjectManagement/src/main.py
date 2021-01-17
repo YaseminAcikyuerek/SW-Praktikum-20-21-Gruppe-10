@@ -21,7 +21,7 @@ from server.bo.Student import Student
 
 
 # Außerdem nutzen wir einen selbstgeschriebenen Decorator, der die Authentifikation übernimmt
-'''from static.SecurityDecorator import secured'''
+"""from SecurityDecorator import secured"""
 
 """
 Instanzieren von Flask. Am Ende dieser Datei erfolgt dann erst der 'Start' von Flask.
@@ -207,6 +207,7 @@ class PersonOperations(Resource):
 class ProjectListOperations(Resource):
     @projectmanagement.marshal_list_with(project)
 
+
     def get(self):
         """Auslesen aller Projekte."""
 
@@ -242,6 +243,7 @@ class ProjectListOperations(Resource):
 @projectmanagement.param('id', 'Die ID des Project-Objekts')
 class ProjectOperations(Resource):
     @projectmanagement.marshal_with(project)
+
 
     def get(self, id):
         """Auslesen eines bestimmten Projekts.

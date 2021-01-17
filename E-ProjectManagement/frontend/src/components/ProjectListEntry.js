@@ -5,7 +5,9 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProjectForm from './dialogs/ProjectForm';
 import ProjectDeleteDialog from './dialogs/ProjectDeleteDialog';
-
+import {ManagementAPI} from './ManagementAPI';
+import {ProjectBO} from './ManagementAPI';
+import ParticipationList from './ParticipationList'
 
 
 /**
