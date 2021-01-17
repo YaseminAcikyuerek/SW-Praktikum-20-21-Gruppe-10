@@ -63,7 +63,7 @@ class RatingListEntry extends Component {
         showRatingForm: false
       });
     }
-  }
+  })
 
   /** Handles the onClick event of the delete rating button */
   deleteRatingButtonClicked = (event) => {

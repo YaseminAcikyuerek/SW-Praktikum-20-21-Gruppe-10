@@ -105,8 +105,7 @@ ProjectDetail.propTypes = {
   classes: PropTypes.object.isRequired,
   /** The projectID to be rendered */
   projectID: PropTypes.string.isRequired,
-  /** The projectID to be rendered */
-  projectID: PropTypes.string.isRequired,
+
 }
 
 export default withStyles(styles)(ProjectDetail);

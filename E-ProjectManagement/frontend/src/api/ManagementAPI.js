@@ -7,7 +7,7 @@ import StatusBO from './StatusBO';
 import StudentBO from './StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
-import Role from './Role';
+
 
 
 
@@ -258,12 +258,12 @@ export default class ManagementAPI {
 
 //Jetzt kommt Project
 
-   getProjects() {
+  getProjects() {
     return this.#fetchAdvanced(this.#getProjectsURL()).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       console.info(projectBOs);
       return new Promise(function (resolve) {
-        resolve(projectBOs);
+        resolve (projectBOs);
       })
     })
 

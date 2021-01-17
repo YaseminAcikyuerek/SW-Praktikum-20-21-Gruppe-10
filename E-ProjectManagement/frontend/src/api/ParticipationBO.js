@@ -32,7 +32,6 @@ export default class ParticipationBO extends BusinessObject {
 
 
   static fromJSON(participations) {
-
     let result = [];
 
     if (Array.isArray(participations)) {
@@ -41,18 +40,22 @@ export default class ParticipationBO extends BusinessObject {
         result.push(p);
       })
     } else {
-      //
+
       let p = participations;
       Object.setPrototypeOf(p, ParticipationBO.prototype);
       result.push(p);
     }
-
     return result;
   }
-
 }
 
-}
+
+
+
+
+
+
+
 
 
 

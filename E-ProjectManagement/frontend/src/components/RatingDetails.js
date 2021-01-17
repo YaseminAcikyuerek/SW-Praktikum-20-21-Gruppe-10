@@ -100,9 +100,8 @@ RatingDetail.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The ratingID to be rendered */
-  ratingID: PropTypes.string.isRequired,
-  /** The ratingID to be rendered */
-  ratingID: PropTypes.string.isRequired,
+  ratingID: PropTypes.string.isRequired
+
 }
 
 export default withStyles(styles)(RatingDetail);
