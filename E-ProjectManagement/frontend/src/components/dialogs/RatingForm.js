@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { ManagementAPI, RatingBO } from '../../api/ManagementAPI';
+import ManagementAPI from '../../api/ManagementAPI';
+import RatingBO from '../../api/RatingBO'
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -25,7 +26,7 @@ class RatingForm extends Component {
   constructor(props) {
     super(props);
 
-    let pr = '', ev = ''; tb; gr= ''; pa= '';
+    let pr = '', ev = '', tb = '', gr= '', pa= '';
     if (props.rating) {
       pr = props.rating.getProject();
       ev = props.rating.getEvaluator();
@@ -63,7 +64,7 @@ class RatingForm extends Component {
   /** Adds the rating */
   addRating = () => {
     let newRating = new RatingBO(this.state.project, this.state.evaluator, this.state.toBeAssessed, this.state.grade, this.state.passed);
-    ProjectAPI.getAPI().addRating(newRating).then(rating => {
+    ManagementAPI.getAPI().addRating(newRating).then(rating => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty projecttype
       this.setState(this.baseState);
@@ -92,7 +93,7 @@ class RatingForm extends Component {
     updatedRating.setToBeAssessed(this.state.toBeAssessed);
     updatedRating.setGrade(this.state.grade);
     updatedRating.setPassed(this.state.passed);
-    ProjectAPI.getAPI().updateProjectType(updatedProjectType).then(rating => {
+    ManagementAPIAPI.getAPI().updateProjectType(updatedProjectType).then(rating => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { ManagementAPI,Role } from '../../api/ManagementAPI';
+import ManagementAPI from "../../api/ManagementAPI";
+import Role from '../../api/Role';
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -25,7 +26,7 @@ class RoleForm extends Component {
   constructor(props) {
     super(props);
 
-    let id = '', n = '';
+    let id = '', n = '',i = '';
     if (props.role) {
       i = props.role.getId();
       n = props.role.getName();

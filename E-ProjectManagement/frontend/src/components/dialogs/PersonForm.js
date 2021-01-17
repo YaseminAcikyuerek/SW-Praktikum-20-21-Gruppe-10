@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ManagementAPI from '../../api/ManagementAPI';
-import PersonBO from from '../../api/PersonBO';
+import PersonBO from  '../../api/PersonBO';
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -52,7 +52,7 @@ class PersonForm extends Component {
   /** Adds the person */
   addPerson = () => {
     let newPerson = new PersonBO(this.state.name, this.state.role);
-    ProjectAPI.getAPI().addPerson(newPerson).then(person => {
+    ManagementAPI.getAPI().addPerson(newPerson).then(person => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty person
       this.setState(this.baseState);
@@ -78,7 +78,7 @@ class PersonForm extends Component {
     // set the new attributes from our dialog
     updatedPerson.setName(this.state.name);
     updatedPerson.setRole(this.state.role);
-    ProjectAPI.getAPI().updatePerson(updatedPerson).then(person => {
+    ManagementAPI.getAPI().updatePerson(updatedPerson).then(person => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
