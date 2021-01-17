@@ -163,7 +163,7 @@ class PersonMapper(Mapper):
 um die grundsätzliche Funktion zu überprüfen.
 
 Anmerkung: Nicht professionell aber hilfreich..."""
-if (__name__ == "__main__"):
+"""if (__name__ == "__main__"):
     with PersonMapper() as mapper:
         result = mapper.find_all()
         for p in result:
@@ -172,7 +172,7 @@ if (__name__ == "__main__"):
 
 
 
-if (__name__ == "__main__"):
+    if (__name__ == "__main__"):
     r = PersonMapper()
     r.set_id(0)
     r.set_name("Harald")
@@ -181,7 +181,7 @@ if (__name__ == "__main__"):
     with PersonMapper() as mapper:
         result = mapper.update(r)
 
-
+"""
 
 
 

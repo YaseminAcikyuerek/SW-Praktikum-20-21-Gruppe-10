@@ -7,7 +7,7 @@ import StatusBO from './StatusBO';
 import StudentBO from './StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
-import {Role} from './Role';
+import Role from './Role';
 
 
 
@@ -18,7 +18,7 @@ export default class ManagementAPI {
   #managementServerBaseURL = '/management';
 
 
-  // Person  related
+  // Person related
   #getPersonsURL = () => `${this.#managementServerBaseURL}/person`;
   #addPersonURL = () => `${this.#managementServerBaseURL}/person`;
   #getPersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
@@ -252,7 +252,7 @@ export default class ManagementAPI {
     })
   }
 
-}
+
 
 
 
@@ -261,11 +261,11 @@ export default class ManagementAPI {
    getProjects() {
     return this.#fetchAdvanced(this.#getProjectsURL()).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
-      // console.info(projectBOs);
+      console.info(projectBOs);
       return new Promise(function (resolve) {
         resolve(projectBOs);
       })
-    }}
+    })
 
   }
 
@@ -743,7 +743,7 @@ export default class ManagementAPI {
     })
   }
 
-}
+
 
 
 //Rating
@@ -853,7 +853,7 @@ export default class ManagementAPI {
     })
   }
 
-}
+
 
 //Role
      getRoles() {
@@ -971,7 +971,7 @@ export default class ManagementAPI {
     })
   }
 
-}
+
 
 
 
@@ -1091,7 +1091,7 @@ export default class ManagementAPI {
     })
   }
 
-}
+
 
 
 
@@ -1215,7 +1215,7 @@ export default class ManagementAPI {
    }
 
 
-    /Jetzt kommt Status
+    //Jetzt kommt Status
 
    getStatuses () {
     return this.#fetchAdvanced(this.#getStatusesURL()).then((responseJSON) => {
@@ -1224,7 +1224,7 @@ export default class ManagementAPI {
       return new Promise(function (resolve) {
         resolve(statusBOs);
       })
-    }}
+    })
 
   }
 
@@ -1336,38 +1336,6 @@ export default class ManagementAPI {
         resolve(statusBOs);
       })
     })
-
    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
