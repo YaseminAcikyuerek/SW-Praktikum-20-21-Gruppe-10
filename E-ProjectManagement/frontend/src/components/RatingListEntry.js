@@ -8,14 +8,7 @@ import RatingDeleteDialog from './dialogs/RatingDeleteDialog';
 import RatingList from './RatingList';
 
 
-/**
- * Renders a CustomerBO object within a expandable/collapsible CustomerListEntry with the customer manipulation
- * functions. If expanded, it renders a AccountList.
- *
- * @see See [RatingList](#accountlist)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
- */
+
 class RatingListEntry extends Component {
 
   constructor(props) {
@@ -34,11 +27,11 @@ class RatingListEntry extends Component {
     this.props.onExpandedStateChange(this.props.rating);
   }
 
-  /** Handles onAccountDelete events from an AccountListEntry
-  deleteAccountHandler = (deletedAccount) => {
-    // console.log(deletedAccount.getID());
+  /** Handles onRatingDelete events from an RatingListEntry
+  deleteRatingHandler = (deletedRating) => {
+    // console.log(deletedRating.getID());
     this.setState({
-      accounts: this.state.accounts.filter(account => account.getID() !== deletedAccount.getID())
+      ratings: this.state.ratings.filter(rating => rating.getID() !== deletedRating.getID())
     })
   }
 
@@ -98,7 +91,7 @@ class RatingListEntry extends Component {
         <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            id={`rating${rating.getID()}accountpanel-header`}
+            id={`rating${rating.getID()}ratingpanel-header`}
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
@@ -117,16 +110,16 @@ class RatingListEntry extends Component {
               </Grid>
               <Grid item xs />
               <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of accounts</Typography>
+                <Typography variant='body2' color={'textSecondary'}>List of ratings</Typography>
               </Grid>
             </Grid>
           </AccordionSummary>
           <AccordionDetails>
-            <AccountList show={expandedState} rating={rating} />
+            <RatingList show={expandedState} rating={rating} />
           </AccordionDetails>
         </Accordion>
         <RatingForm show={showRatingForm} rating={rating} onClose={this.ratingFormClosed} />
-        <RatingDeleteDialog show={showRatingDeleteDialog} rating={crating} onClose={this.deleteRatingDialogClosed} />
+        <RatingDeleteDialog show={showRatingDeleteDialog} rating={rating} onClose={this.deleteRatingDialogClosed} />
       </div>
     );
   }
@@ -145,7 +138,7 @@ RatingListEntry.propTypes = {
   classes: PropTypes.object.isRequired,
   /** The RatingBO to be rendered */
   rating: PropTypes.object.isRequired,
-  /** The state of this RatingListEntry. If true the rating is shown with its accounts */
+  /** The state of this RatingListEntry. If true the rating is shown with its ratings */
   expandedState: PropTypes.bool.isRequired,
   /** The handler responsible for handle expanded state changes (exanding/collapsing) of this RatingListEntry
    *
