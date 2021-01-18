@@ -88,7 +88,7 @@ class ParticipationListEntry extends Component {
         <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            id={`Participation${Participation.getID()}participationpanel-header`}
+            id={`Participation${Participation.getID()}participation's-header`}
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
