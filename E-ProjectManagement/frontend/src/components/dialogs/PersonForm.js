@@ -177,7 +177,7 @@ class PersonForm extends Component {
             </Button>
             {
               // If a person is given, show an update button, else an add button
-              customer ?
+              person ?
                 <Button disabled={nameValidationFailed || roleValidationFailed} variant='contained' onClick={this.updatePerson} color='primary'>
                   Update
               </Button>

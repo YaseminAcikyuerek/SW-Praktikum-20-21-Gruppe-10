@@ -32,7 +32,7 @@ export default class ModuleBO extends NamedBusinessObject {
       })
     } else {
       //
-      let c = modules;
+      let m = modules;
       Object.setPrototypeOf(m, ModuleBO.prototype);
       result.push(m);
     }

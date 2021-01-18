@@ -51,8 +51,8 @@ class RatingListEntry extends Component {
   }
 
   /** Handles the onClose event of the RatingForm */
-  ratingFormClosed = (rating => {
-    // customer is not null and therefor changed
+  ratingFormClosed = (rating) => {
+    // rating is not null and there for changed
     if (rating) {
       this.setState({
         rating: rating,
@@ -63,7 +63,7 @@ class RatingListEntry extends Component {
         showRatingForm: false
       });
     }
-  })
+  }
 
   /** Handles the onClick event of the delete rating button */
   deleteRatingButtonClicked = (event) => {

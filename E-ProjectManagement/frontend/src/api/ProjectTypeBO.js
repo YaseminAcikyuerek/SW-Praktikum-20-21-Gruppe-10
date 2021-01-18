@@ -23,10 +23,10 @@ constructor(aSws,aEcts) {
   }
 
   getEcts() {
-    return this.Ects;
+    return this.ects;
   }
 
-  static fromJSON(ProjectType) {
+  static fromJSON(projectTypes) {
     let result = [];
 
     if (Array.isArray(projectTypes)) {
@@ -36,7 +36,7 @@ constructor(aSws,aEcts) {
       })
     } else {
       //
-      let c = projectTypes;
+      let t = projectTypes;
       Object.setPrototypeOf(t, ProjectTypeBO.prototype);
       result.push(t);
     }

@@ -5,6 +5,7 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PersonForm from './dialogs/PersonForm';
 import PersonDeleteDialog from './dialogs/PersonDeleteDialog';
+import ProjectList from "./ProjectList";
 
 
 
@@ -116,7 +117,7 @@ class PersonListEntry extends Component {
             </Grid>
           </AccordionSummary>
           <AccordionDetails>
-            <AccountList show={expandedState} person={person} />
+            <ProjectList show={expandedState} person={person} />
           </AccordionDetails>
         </Accordion>
         <PersonForm show={showPersonForm} person={person} onClose={this.personFormClosed} />

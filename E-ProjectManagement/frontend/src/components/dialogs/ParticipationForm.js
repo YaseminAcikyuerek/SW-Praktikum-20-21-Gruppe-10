@@ -159,8 +159,8 @@ class ParticipationForm extends Component {
                 onChange={this.textFieldValueChange} error={projectValidationFailed}
                 helperText={projectValidationFailed ? 'The Project must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='student' label='Student:' value={student}
-                onChange={this.textFieldValueChange} error={StudentValidationFailed}
-                helperText={StudentValidationFailed ? 'The student must contain at least one character' : ' '} />
+                onChange={this.textFieldValueChange} error={studentValidationFailed}
+                helperText={studentValidationFailed ? 'The student must contain at least one character' : ' '} />
             </form>
             <LoadingProgress show={addingInProgress || updatingInProgress} />
             {
@@ -177,7 +177,7 @@ class ParticipationForm extends Component {
             </Button>
             {
               // If a participation is given, show an update button, else an add button
-              customer ?
+               project?
                 <Button disabled={projectValidationFailed || studentValidationFailed} variant='contained' onClick={this.updateParticipation} color='primary'>
                   Update
               </Button>
