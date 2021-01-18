@@ -5,7 +5,7 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProjectForm from './dialogs/ProjectForm';
 import ProjectDeleteDialog from './dialogs/ProjectDeleteDialog';
-import ParticipationList from './ParticipationList'
+import ParticipationList from './ParticipationList';
 
 
 /**
@@ -78,7 +78,7 @@ class ProjectListEntry extends Component {
     // if project is not null, delete it
     if (project) {
       this.props.onProjectDeleted(project);
-    };
+    }
 
     // Don´t show the dialog
     this.setState({

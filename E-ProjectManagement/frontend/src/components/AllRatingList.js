@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import {project} from "gcp-metadata";
+import RatingDetails from './dialogs/RatingDeleteDialog';
+
 
 
 
@@ -56,8 +57,8 @@ import {project} from "gcp-metadata";
     return (
       <div className={classes.root}>
           {
-            ratings.map(rating => <RatingDetail key={rating.getID()}
-            ratingID={project.getOwner().toString()} ratingID={project.getID().toString()} />)
+            ratings.map(rating => <RatingDetails key={rating.getID()}
+            ratingID={rating.getProject().toString()} ratingID={rating.getEvaluator().toString()} ratingID={rating.getToBeAssessed().toString()} ratingID={rating.getGrade().toString()} ratingID={rating.getPassed().toString()} ratingID={rating.getId().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
           <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all ratings of the bank could not be loaded.`} onReload={this.loadRatings} />
