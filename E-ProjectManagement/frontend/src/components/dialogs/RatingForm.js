@@ -205,7 +205,7 @@ class RatingForm extends Component {
             </Button>
             {
               // If a rating is given, show an update button, else an add button
-              customer ?
+              student ?
                 <Button disabled={projectValidationFailed || evaluatorValidationFailed || toBeAssessedValidationFailed||
                 gradeValidationFailed || passedValidationFailed} variant='contained' onClick={this.updateRating} color='primary'>
                   Update
@@ -237,7 +237,7 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-Rating.propTypes = {
+RatingForm.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The RatingBO to be edited */

@@ -99,10 +99,10 @@ class StudentList extends Component {
    * @param {customer} CustomerBO of the CustomerListEntry to be deleted
    */
   studentDeleted = student => {
-    const newStudenList = this.state.student.filter(studentFromState => studentFromState.getID() !== student.getID());
+    const newStudentList = this.state.student.filter(studentFromState => studentFromState.getID() !== student.getID());
     this.setState({
-      student: newCustomrList,
-      filteredCustomers: [...newStudenList],
+      student: newStudentList,
+      filteredCustomers: [...newStudentList],
       showStudentForm: false
     });
   }
