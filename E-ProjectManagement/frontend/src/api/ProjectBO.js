@@ -10,7 +10,7 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aStatus,aOwner,aModule,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage,aExternalPartnerList) {
+  constructor(aStatus,aOwner,aModule,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage,aExternalPartnerList,aSemester) {
     super();
     this.status = aStatus;
     this.owner = aOwner;
@@ -28,6 +28,7 @@ export default class ProjectBO extends NamedBusinessObject {
     this.language = aLanguage;
     this.room = aRoom;
     this.external_partner_list = aExternalPartnerList;
+    this.semester = aSemester;
   }
 
   setStatus(aStatus) {
@@ -54,7 +55,7 @@ export default class ProjectBO extends NamedBusinessObject {
     return this.module;
   }
 
-  setPrototype(aProjectType) {
+  setProjectType(aProjectType) {
   this.project_type = aProjectType ;
   }
 
@@ -151,11 +152,19 @@ export default class ProjectBO extends NamedBusinessObject {
   }
 
   setExternalPartnerList(aExternalPartnerList){
-    this.external_partner_list;
+    this.external_partner_list = aExternalPartnerList;
   }
 
   getExternalPartnerList(){
-    return this.external_partner_list
+    return this.external_partner_list;
+  }
+
+  setSemester(aSemester){
+    this.semester = aSemester;
+  }
+
+  getSemester(){
+    return this.semester;
   }
 
 
@@ -171,7 +180,7 @@ export default class ProjectBO extends NamedBusinessObject {
         result.push(j);
       })
     } else {
-      // Ist offenbar ein singuläres Objekt
+
       let j = projects;
       Object.setPrototypeOf(j, ProjectBO.prototype);
       result.push(j);
