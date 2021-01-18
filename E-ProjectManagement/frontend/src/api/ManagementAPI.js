@@ -968,6 +968,7 @@ export default class ManagementAPI {
   }
 
 
+
   /**
    * Returns a Promise, which resolves to a CustomerBO
    *
@@ -1208,7 +1209,6 @@ export default class ManagementAPI {
       })
     })
   }
-
 
 
 

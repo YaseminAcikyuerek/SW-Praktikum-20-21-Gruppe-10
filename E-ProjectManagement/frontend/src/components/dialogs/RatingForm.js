@@ -94,7 +94,7 @@ class RatingForm extends Component {
     updatedRating.setToBeAssessed(this.state.toBeAssessed);
     updatedRating.setGrade(this.state.grade);
     updatedRating.setPassed(this.state.passed);
-    ManagementAPI.getAPI().updateProjectType(updatedProjectType).then(rating => {
+    ManagementAPI.getAPI().updateRating(updatedRating).then(rating => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
@@ -180,7 +180,7 @@ class RatingForm extends Component {
                 helperText={projectValidationFailed ? 'The project must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='evaluator' label='Evaluator:' value={evaluator}
                 onChange={this.textFieldValueChange} error={evaluatorValidationFailed}
-                helperText={swsValidationFailed ? 'The evaluator must contain at least one character' : ' '} />
+                helperText={evaluatorValidationFailed ? 'The evaluator must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='toBeAssessed' label='To be assessed' value={toBeAssessed}
                 onChange={this.textFieldValueChange} error={toBeAssessedValidationFailed}
                 helperText={toBeAssessedValidationFailed ? 'To be assessed must contain at least one character' : ' '} />

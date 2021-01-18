@@ -164,11 +164,11 @@ class StudentForm extends Component {
             <form className={classes.root} noValidate autoComplete='off'>
               <TextField autoFocus type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
                 onChange={this.textFieldValueChange} error={nameValidationFailed}
-                helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='courseAbbr' label='Course Abbr:' value={courseAbbr}
+                helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />*
+              <TextField type='text' required fullWidth margin='normal' id='courseAbbr' label='CourseAbbr:' value={courseAbbr}
                 onChange={this.textFieldValueChange} error={courseAbbrValidationFailed}
                 helperText={courseAbbrValidationFailed ? 'The Course Abbr must contain at least one character' : ' '} />
-               <TextField type='text' required fullWidth margin='normal' id='matriculationNr' label='Matriculation Nr:' value={matriculationNr}
+               <TextField type='text' required fullWidth margin='normal' id='matriculationNr' label='MatriculationNr:' value={matriculationNr}
                 onChange={this.textFieldValueChange} error={matriculationNrValidationFailed}
                 helperText={matriculationNrValidationFailed ? 'The matriculation number must contain at least one character' : ' '} />
             </form>

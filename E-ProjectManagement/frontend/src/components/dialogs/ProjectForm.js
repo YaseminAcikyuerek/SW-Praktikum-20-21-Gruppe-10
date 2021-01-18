@@ -117,7 +117,7 @@ class ProjectForm extends Component {
     let newProject = new ProjectBO(this.state.name, this.state.semester, this.state.module, this.state.shortDescription,
     this.state.externalPartnerList, this.state.capacity, this.state.bdDuringExamPeriod, this.state.bdBeforeLecturePeriod, this.state.bdDuringLecturePeriod,
     this.state.preferredBdDuringLecturePeriod, this.state.language, this.state.room, this.state.specialRoom, this.state.status,
-    this.state.projectType, this.state.owner);
+    this.state.projectType, this.state.owner, this.stat.flag);
     ManagementAPI.getAPI().addProject(newProject).then(project => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty project
@@ -327,7 +327,7 @@ class ProjectForm extends Component {
             </Button>
             {
               // If a project is given, show an update button, else an add button
-              customer ?
+              project ?
                 <Button disabled={nameValidationFailed || semesterValidationFailed || moduleValidationFailed ||
                 shortDescriptionValidationFailed || externalPartnerListValidationFailed || capacityValidationFailed ||
                 bdDuringExamPeriodValidationFailed || bdBeforeLecturePeriodValidationFailed || bdDuringLecturePeriodValidationFailed || preferredBdDuringLecturePeriodValidationFailed ||
