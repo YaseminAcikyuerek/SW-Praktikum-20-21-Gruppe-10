@@ -5,10 +5,10 @@ import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
 import { withRouter } from 'react-router-dom';
 import ManagementAPI from '../api/ManagementAPI';
-import ContextErrorMessage from '../dialogs/ContextErrorMessage';
-import LoadingProgress from '../dialogs/LoadingProgress';
-import RatingForm from '../dialogs/RatingForm';
-import RatingListEntry from './RatingListEntry';
+import ContextErrorMessage from './dialogs/ContextErrorMessage';
+import LoadingProgress from './dialogs/LoadingProgress';
+import RatingForm from './dialogs/RatingForm';
+import RatingListEntry from '../components/RatingListEntry';
 
 /**
  * Controlls a list of RatingListEntrys to create a accordion for each person.

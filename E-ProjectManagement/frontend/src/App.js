@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
-import ManagementAPI from "./api/ManagementAPI";
+import ManagementAPI from './api/ManagementAPI';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from './Firebaseconfig';
@@ -14,13 +14,13 @@ import ContextErrorMessage from './components/dialogs/ContextErrorMessage';
 import AllPersonList from './components/AllPersonList';
 import AllProjectList from './components/AllProjectList';
 import AllRatingList from "./components/AllRatingList";
-import AllModuleList from "./components/AllModuleList";
+
 import AllParticipationList from "./components/AllParticipationList";
 import ProjectList from "./components/ProjectList";
 import PersonList from "./components/PersonList";
 import RatingList from "./components/RatingList";
 import StudentList from "./components/StudentList";
-//import { ModuleList } from "./components/AllModuleList";
+
 //import { ParticipationList } from "./components/ParticipationList";
 
 /**
