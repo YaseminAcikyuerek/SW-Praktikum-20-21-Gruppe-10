@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import RatingDetails form '../components/RatingDetails';
+import RatingDetails from '../components/RatingDetails';
 
 
 class AllRatingList extends Component {
