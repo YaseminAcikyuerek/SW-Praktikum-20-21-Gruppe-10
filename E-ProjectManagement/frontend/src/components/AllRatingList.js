@@ -4,12 +4,9 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import {project} from "gcp-metadata";
 
 
-
-
- class AllRatingList extends Component {
+class AllRatingList extends Component {
 
   constructor(props) {
     super(props);
@@ -24,11 +21,11 @@ import {project} from "gcp-metadata";
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.loadAccounts();
+    this.loadRatings();
   }
 
-  /** gets the account list for this account */
-  loadAccounts = () => {
+  /** gets the rating list for this project */
+  loadRatings = () => {
     ManagementAPI.getAPI().getAllRatings().then(ratings =>
       this.setState({
         ratings: ratings,
@@ -57,10 +54,10 @@ import {project} from "gcp-metadata";
       <div className={classes.root}>
           {
             ratings.map(rating => <RatingDetail key={rating.getID()}
-            ratingID={project.getOwner().toString()} ratingID={project.getID().toString()} />)
+            personID={rating.getOwner().toString()} ratingID={rating.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
-          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all ratings of the bank could not be loaded.`} onReload={this.loadRatings} />
+          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all ratings of the project management system could not be loaded.`} onReload={this.loadRatings} />
       </div>
     );
   }
