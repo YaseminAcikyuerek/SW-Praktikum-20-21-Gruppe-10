@@ -10,7 +10,7 @@ import LoadingProgress from './LoadingProgress';
 
 
 /**
- * Shows a modal form dialog for a CustomerBO in prop customer. If the customer is set, the dialog is configured
+ * Shows a modal form dialog for a RatingBO in prop Rating. If the Rating is set, the dialog is configured
  * as an edit dialog and the text fields of the form are filled from the given CustomerBO object.
  * If the customer is null, the dialog is configured as a new customer dialog and the textfields are empty.
  * In dependency of the edit/new state, the respective backend calls are made to update or create a customer.
@@ -53,6 +53,7 @@ class RatingForm extends Component {
       passed: pa,
       passedValidationFailed: false,
       passedEdited: false,
+
       addingInProgress: false,
       updatingInProgress: false,
       addingError: null,

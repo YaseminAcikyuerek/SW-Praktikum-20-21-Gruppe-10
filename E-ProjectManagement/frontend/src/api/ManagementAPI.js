@@ -8,6 +8,9 @@ import StudentBO from './StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
 import Role from './Role';
+
+
+
 export default class ManagementAPI {
 
   static #api = null;
@@ -969,7 +972,7 @@ export default class ManagementAPI {
 
 
   /**
-   * Returns a Promise, which resolves to a CustomerBO
+   * Returns a Promise, which resolves to a Role
    *
    * @param {Number} roleID to be retrieved
    * @public
