@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
+import RatingDetails form './components/RatingDetails';
 
 
 class AllRatingList extends Component {
@@ -53,7 +54,7 @@ class AllRatingList extends Component {
     return (
       <div className={classes.root}>
           {
-            ratings.map(rating => <RatingDetail key={rating.getID()}
+            ratings.map(rating => <RatingDetails key={rating.getID()}
             personID={rating.getOwner().toString()} ratingID={rating.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
