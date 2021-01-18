@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import ManagementAPI from '../api/ManagementAPI';
-import ContextErrorMessage from './ContextErrorMessage';
+import ManagementAPI from '../../api/ManagementAPI';
+import ContextErrorMessage from '../dialogs/ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
 /**
