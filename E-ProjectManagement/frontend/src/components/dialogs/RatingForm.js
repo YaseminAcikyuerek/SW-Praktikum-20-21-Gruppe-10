@@ -8,6 +8,7 @@ import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
 
+
 /**
  * Shows a modal form dialog for a CustomerBO in prop customer. If the customer is set, the dialog is configured
  * as an edit dialog and the text fields of the form are filled from the given CustomerBO object.
@@ -93,7 +94,7 @@ class RatingForm extends Component {
     updatedRating.setToBeAssessed(this.state.toBeAssessed);
     updatedRating.setGrade(this.state.grade);
     updatedRating.setPassed(this.state.passed);
-    ManagementAPIAPI.getAPI().updateProjectType(updatedProjectType).then(rating => {
+    ManagementAPI.getAPI().updateProjectType(updatedProjectType).then(rating => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
@@ -205,7 +206,7 @@ class RatingForm extends Component {
             </Button>
             {
               // If a rating is given, show an update button, else an add button
-              student ?
+              rating ?
                 <Button disabled={projectValidationFailed || evaluatorValidationFailed || toBeAssessedValidationFailed||
                 gradeValidationFailed || passedValidationFailed} variant='contained' onClick={this.updateRating} color='primary'>
                   Update

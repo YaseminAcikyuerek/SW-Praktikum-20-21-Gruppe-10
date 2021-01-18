@@ -163,8 +163,8 @@ class StudentForm extends Component {
             </DialogContentText>
             <form className={classes.root} noValidate autoComplete='off'>
               <TextField autoFocus type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
-                onChange={this.textFieldValueChange} error={NameValidationFailed}
-                helperText={NameValidationFailed ? 'The name must contain at least one character' : ' '} />
+                onChange={this.textFieldValueChange} error={nameValidationFailed}
+                helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='courseAbbr' label='Course Abbr:' value={courseAbbr}
                 onChange={this.textFieldValueChange} error={courseAbbrValidationFailed}
                 helperText={courseAbbrValidationFailed ? 'The Course Abbr must contain at least one character' : ' '} />

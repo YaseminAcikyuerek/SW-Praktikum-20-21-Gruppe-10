@@ -42,19 +42,16 @@ class ParticipationList extends Component {
 
   /** Fetches all ParticipationBOs from the backend */
   getParticipations = () => {
-  console.log("vor fetch")
     ManagementAPI.getAPI().getParticipations()
-
-
-      .then(ParticipationBOs =>
+        .then(participationBOs =>
         this.setState({               // Set new state when ParticipationBOs have been fetched
-          Participations: ParticipationBOs,
-          filteredParticipations: [...ParticipationBOs], // store a copy
+          participations: participationBOs,
+          filteredParticipations: [...participationBOs], // store a copy
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-            Participations: [],
+            participations: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })

@@ -1,8 +1,6 @@
 import NamedBusinessObject from './NamedBusinessObject';
 
-/**
- * R
- */
+
 export default class ProjectTypeBO extends NamedBusinessObject {
 
 constructor(aSws,aEcts) {

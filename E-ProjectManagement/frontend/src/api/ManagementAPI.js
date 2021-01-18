@@ -7,7 +7,7 @@ import StatusBO from './StatusBO';
 import StudentBO from './StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
-
+import Role from './Role';
 export default class ManagementAPI {
 
   static #api = null;
@@ -960,7 +960,7 @@ export default class ManagementAPI {
   getRoles() {
     return this.#fetchAdvanced(this.#getRolesURL()).then((responseJSON) => {
       let roles = Role.fromJSON(responseJSON);
-      // console.info(roleBOs);
+      // console.info(roles);
       return new Promise(function (resolve) {
         resolve(roles);
       })

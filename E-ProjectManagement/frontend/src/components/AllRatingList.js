@@ -5,14 +5,11 @@ import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import {project} from "gcp-metadata";
-/**import Detail from './AccountDetail';
 
-/**
- * Shows all accounts of the bank.
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
- */
-class AllRatingList extends Component {
+
+
+
+ class AllRatingList extends Component {
 
   constructor(props) {
     super(props);
