@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
+import ModuleDetails from '../components/ModuleDetails';
+
 
 class AllParticipationList extends Component {
 
@@ -52,7 +54,7 @@ class AllParticipationList extends Component {
     return (
       <div className={classes.root}>
           {
-            participations.map(participation => <ModuleDetail key={participation.getID()}
+            participations.map(participation => <ModuleDetails key={participation.getID()}
             personID={participation.getOwner().toString()} participationID={participation.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
