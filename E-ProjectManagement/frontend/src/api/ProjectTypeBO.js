@@ -36,7 +36,7 @@ constructor(aSws,aEcts) {
       })
     } else {
       //
-      let c = projectTypes;
+      let t = projectTypes;
       Object.setPrototypeOf(t, ProjectTypeBO.prototype);
       result.push(t);
     }

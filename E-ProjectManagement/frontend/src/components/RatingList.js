@@ -123,7 +123,7 @@ class RatingList extends Component {
   ratingFormClosed = rating => {
     // rating is not null and therefore created
     if (rating) {
-      const newRatingList = [...this.state.ratings, person];
+      const newRatingList = [...this.state.ratings, rating];
       this.setState({
         ratings: newRatingList,
         filteredRating: [...newRatingList],
@@ -177,7 +177,7 @@ class RatingList extends Component {
               fullWidth
               id='ratingFilter'
               type='text'
-              value={ratingilter}
+              value={ratingFilter}
               onChange={this.filterFieldValueChange}
               InputProps={{
                 endAdornment: <InputAdornment position='end'>
@@ -198,7 +198,7 @@ class RatingList extends Component {
         {
           // Show the list of RatingListEntry components
           // Do not use strict comparison, since expandedRatingID maybe a string if given from the URL parameters
-          filteredRating.map(rating =>
+          filteredRatings.map(rating =>
             <RatingListEntry key={rating.getID()} rating={rating} expandedState={expandedRatingID === rating.getID()}
               onExpandedStateChange={this.onExpandedStateChange}
               onRatingDeleted={this.ratingDeleted}

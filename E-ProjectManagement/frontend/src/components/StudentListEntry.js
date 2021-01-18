@@ -125,7 +125,7 @@ class StudentListEntry extends Component {
             <ProjectList show={expandedState} student={student} />
           </AccordionDetails>
         </Accordion>
-        <StudentForm show={showStudentrForm} student={student} onClose={this.studentFormClosed} />
+        <StudentForm show={showStudentForm} student={student} onClose={this.studentFormClosed} />
         <StudentDeleteDialog show={showStudentDeleteDialog} student={student} onClose={this.deleteStudentDialogClosed} />
       </div>
     );

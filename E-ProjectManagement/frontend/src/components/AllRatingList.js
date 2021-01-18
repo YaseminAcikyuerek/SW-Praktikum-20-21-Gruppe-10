@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-/**import Detail from './AccountDetail';
+import RatingDetails from '../components/RatingDetails';
 
 /**
  * Shows all accounts of the bank.
@@ -53,13 +53,13 @@ class AllRatingList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { accounts, loadingInProgress, loadingError } = this.state;
+    const { ratings, loadingInProgress, loadingError } = this.state;
 
     return (
       <div className={classes.root}>
           {
-            ratings.map(rating => <RatingDetail key={rating.getID()}
-            ratingID={rating.getOwner().toString()} ratingID={account.getID().toString()} />)
+            ratings.map(rating => <RatingDetails key={rating.getID()}
+            ratingID={rating.getOwner().toString()} ratingID={rating.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
           <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all accounts of the bank could not be loaded.`} onReload={this.loadAccounts} />

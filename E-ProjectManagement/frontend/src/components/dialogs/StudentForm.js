@@ -162,7 +162,7 @@ class StudentForm extends Component {
               {header}
             </DialogContentText>
             <form className={classes.root} noValidate autoComplete='off'>
-              <TextField autoFocus type='text' required fullWidth margin='normal' id='name' label='Name:' value={Name}
+              <TextField autoFocus type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
                 onChange={this.textFieldValueChange} error={NameValidationFailed}
                 helperText={NameValidationFailed ? 'The name must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='courseAbbr' label='Course Abbr:' value={courseAbbr}
@@ -175,7 +175,7 @@ class StudentForm extends Component {
             <LoadingProgress show={addingInProgress || updatingInProgress} />
             {
               // Show error message in dependency of customer prop
-              customer ?
+              student ?
                 <ContextErrorMessage error={updatingError} contextErrorMsg={`The student ${student.getID()} could not be updated.`} onReload={this.updateStudent} />
                 :
                 <ContextErrorMessage error={addingError} contextErrorMsg={`The student could not be added.`} onReload={this.addStudent} />
@@ -187,7 +187,7 @@ class StudentForm extends Component {
             </Button>
             {
               // If a student is given, show an update button, else an add button
-              customer ?
+              student ?
                 <Button disabled={nameValidationFailed || courseAbbrValidationFailed || matriculationNrValidationFailed} variant='contained' onClick={this.updateSemester} color='primary'>
                   Update
               </Button>
