@@ -13,7 +13,7 @@ import ProjectBO from './ProjectBO';
 
 export default class ManagementAPI {
 
-    static #api = null;
+  static #api = null;
 
   #managementServerBaseURL = '/management';
 
@@ -71,8 +71,6 @@ export default class ManagementAPI {
   #searchRatingURL = (ratingName) => `${this.#managementServerBaseURL}/rating-by-name/${ratingName}`;
 
 
-
-
   // Role  related
   #getRolesURL = () => `${this.#managementServerBaseURL}/role`;
   #addRoleURL = () => `${this.#managementServerBaseURL}/role`;
@@ -80,7 +78,6 @@ export default class ManagementAPI {
   #updateRoleURL = (id) => `${this.#managementServerBaseURL}/role/${id}`;
   #deleteRoleURL = (id) => `${this.#managementServerBaseURL}/role/${id}`;
   #searchRoleURL = (roleName) => `${this.#managementServerBaseURL}/role-by-name/${roleName}`;
-
 
 
   // ProjectType  related
@@ -101,7 +98,6 @@ export default class ManagementAPI {
   #searchStatusURL = (statusName) => `${this.#managementServerBaseURL}/status-by-name/${statusName}`;
 
 
-
   // Module related
   #getModulesURL = () => `${this.#managementServerBaseURL}/module`;
   #addModuleURL = () => `${this.#managementServerBaseURL}/module`;
@@ -109,10 +105,6 @@ export default class ManagementAPI {
   #updateModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
   #deleteModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
   #searchModuleURL = (ModuleName) => `${this.#managementServerBaseURL}/module-by-name/${ModuleName}`;
-
-
-
-
 
 
   static getAPI() {
@@ -123,17 +115,15 @@ export default class ManagementAPI {
   }
 
 
-
   #fetchAdvanced = (url, init) => fetch(url, init)
-    .then(res => {
-      // The Promise returned from fetch() won’t reject on HTTP error status even if the response is an HTTP 404 or 500.
-      if (!res.ok) {
-        throw Error(`${res.status} ${res.statusText}`);
-      }
-      return res.json();
-    }
-  )
-
+      .then(res => {
+            // The Promise returned from fetch() won’t reject on HTTP error status even if the response is an HTTP 404 or 500.
+            if (!res.ok) {
+              throw Error(`${res.status} ${res.statusText}`);
+            }
+            return res.json();
+          }
+      )
 
 
   /**
@@ -153,7 +143,6 @@ export default class ManagementAPI {
   }
 
 
-
   /**
    * Returns a Promise, which resolves to a PersonBO
    *
@@ -171,8 +160,6 @@ export default class ManagementAPI {
       })
     })
   }
-
-
 
 
   /**
@@ -202,8 +189,6 @@ export default class ManagementAPI {
   }
 
 
-
-
   /**
    * Updates a person and returns a Promise, which resolves to a PersonBO.
    *
@@ -230,7 +215,6 @@ export default class ManagementAPI {
   }
 
 
-
   /**
    * Returns a Promise, which resolves to an Array of PersonBOs
    *
@@ -252,8 +236,6 @@ export default class ManagementAPI {
   }
 
 
-
-
   /**
    * Returns a Promise, which resolves to an Array of PersonBOs
    *
@@ -261,7 +243,7 @@ export default class ManagementAPI {
    * @public
    */
 
-   searchPerson(personName) {
+  searchPerson(personName) {
     return this.#fetchAdvanced(this.#searchPersonURL(personName)).then((responseJSON) => {
       let personBOs = PersonBO.fromJSON(responseJSON);
       // console.info(personBOs);
@@ -270,9 +252,6 @@ export default class ManagementAPI {
       })
     })
   }
-
-
-
 
 
 //Jetzt kommt Project
@@ -288,11 +267,12 @@ export default class ManagementAPI {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       console.info(projectBOs);
       return new Promise(function (resolve) {
-        resolve (projectBOs);
+        resolve(projectBOs);
       })
     })
 
   }
+
 
 
 
@@ -758,7 +738,7 @@ export default class ManagementAPI {
       body: JSON.stringify(semesterBO)
     }).then((responseJSON) => {
       // We always get an array of PersonBOs.fromJSON, but only need one object
-      let responsePersonBO = SemesterBO.fromJSON(responseJSON)[0];
+      let responseSemesterBO = SemesterBO.fromJSON(responseJSON)[0];
       // console.info(projectBOs);
       return new Promise(function (resolve) {
         resolve(responseSemesterBO);
@@ -781,7 +761,7 @@ export default class ManagementAPI {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(personBO)
+      body: JSON.stringify(semesterBO)
     }).then((responseJSON) => {
       // We always get an array of CustomerBOs.fromJSON
       let responseSemesterBO = SemesterBO.fromJSON(responseJSON)[0];
@@ -805,7 +785,7 @@ export default class ManagementAPI {
    */
 
   deleteSemester(semesterID) {
-    return this.#fetchAdvanced(this.#deleteSemesterURL(SemesterID), {
+    return this.#fetchAdvanced(this.#deleteSemesterURL(semesterID), {
       method: 'DELETE'
     }).then((responseJSON) => {
       // We always get an array of SemesterBOs.fromJSON
@@ -829,7 +809,7 @@ export default class ManagementAPI {
    */
 
    searchSemester(semesterName) {
-    return this.#fetchAdvanced(this.#searchSemesterURL(personName)).then((responseJSON) => {
+    return this.#fetchAdvanced(this.#searchSemesterURL(semesterName)).then((responseJSON) => {
       let semesterBOs = SemesterBO.fromJSON(responseJSON);
       // console.info(personBOs);
       return new Promise(function (resolve) {
@@ -961,8 +941,8 @@ export default class ManagementAPI {
    */
 
    searchRating(ratingName) {
-    return this.#fetchAdvanced(this.#searchRatingURL(personName)).then((responseJSON) => {
-      let ratingOs = RatingBO.fromJSON(responseJSON);
+    return this.#fetchAdvanced(this.#searchRatingURL(ratingName)).then((responseJSON) => {
+      let ratingBOs = RatingBO.fromJSON(responseJSON);
       // console.info(ratingBOs);
       return new Promise(function (resolve) {
         resolve(ratingBOs);
@@ -982,10 +962,10 @@ export default class ManagementAPI {
 
   getRoles() {
     return this.#fetchAdvanced(this.#getRolesURL()).then((responseJSON) => {
-      let roleBOs = RoleBO.fromJSON(responseJSON);
+      let roles = Role.fromJSON(responseJSON);
       // console.info(roleBOs);
       return new Promise(function (resolve) {
-        resolve(roleBOs);
+        resolve(roles);
       })
     })
   }
@@ -999,12 +979,12 @@ export default class ManagementAPI {
    */
 
   getRole(roleID) {
-    return this.#fetchAdvanced(this.#getRoleURL(personID)).then((responseJSON) => {
+    return this.#fetchAdvanced(this.#getRoleURL(roleID)).then((responseJSON) => {
       // We always get an array of RoleBOs.fromJSON, but only need one object
-      let responseRoleBO = RoleBO.fromJSON(responseJSON)[0];
+      let responseRole = Role.fromJSON(responseJSON)[0];
       // console.info(responseRoleBO);
       return new Promise(function (resolve) {
-        resolve(responseRoleBO);
+        resolve(responseRole);
       })
     })
   }
@@ -1014,24 +994,24 @@ export default class ManagementAPI {
    * Adds a Role and returns a Promise, which resolves to a new RoleBO object with the
    *  of the parameter personBO object.
    *
-   * @param {RoleBO} roleBO to be added. The ID of the new role is set by the backend
+   * @param {Role} role to be added. The ID of the new role is set by the backend
    * @public
    */
 
-  addRole(roleBO) {
+  addRole(role) {
     return this.#fetchAdvanced(this.#addRoleURL(), {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(roleBO)
+      body: JSON.stringify(role)
     }).then((responseJSON) => {
       // We always get an array of RoleBOs.fromJSON, but only need one object
-      let responseRoleBO = RoleBO.fromJSON(responseJSON)[0];
+      let responseRole = Role.fromJSON(responseJSON)[0];
       // console.info(roleBOs);
       return new Promise(function (resolve) {
-        resolve(responseRoleBO);
+        resolve(responseRole);
       })
     })
   }
@@ -1040,24 +1020,24 @@ export default class ManagementAPI {
   /**
    * Updates a role and returns a Promise, which resolves to a RoleBO.
    *
-   * @param {RoleBO} roleBO to be updated
+   * @param {Role} role to be updated
    * @public
    */
 
-  updateRole(roleBO) {
-    return this.#fetchAdvanced(this.#updateRoleURL(roleBO.getID()), {
+  updateRole(role) {
+    return this.#fetchAdvanced(this.#updateRoleURL(role.getID()), {
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(roleBO)
+      body: JSON.stringify(role)
     }).then((responseJSON) => {
       // We always get an array of RoleBOs.fromJSON
-      let responseRoleBO = RoleBO.fromJSON(responseJSON)[0];
-      // console.info(roleBOs);
+      let responseRole = Role.fromJSON(responseJSON)[0];
+      // console.info(roles);
       return new Promise(function (resolve) {
-        resolve(responseRoleBO);
+        resolve(responseRole);
       })
     })
   }
@@ -1074,10 +1054,10 @@ export default class ManagementAPI {
       method: 'DELETE'
     }).then((responseJSON) => {
       // We always get an array of RoleBOs.fromJSON
-      let responseRoleBO = RoleBO.fromJSON(responseJSON)[0];
+      let responseRole = Role.fromJSON(responseJSON)[0];
       // console.info(roleBOs);
       return new Promise(function (resolve) {
-        resolve(responseRoleBO);
+        resolve(responseRole);
       })
     })
   }
@@ -1092,10 +1072,10 @@ export default class ManagementAPI {
 
    searchRole(roleName) {
     return this.#fetchAdvanced(this.#searchRoleURL(roleName)).then((responseJSON) => {
-      let roleBOs = RoleBO.fromJSON(responseJSON);
-      // console.info(roleBOs);
+      let roles = Role.fromJSON(responseJSON);
+      // console.info(roles);
       return new Promise(function (resolve) {
-        resolve(roleBOs);
+        resolve(roles);
       })
     })
   }
@@ -1205,7 +1185,7 @@ export default class ManagementAPI {
       method: 'DELETE'
     }).then((responseJSON) => {
       // We always get an array of ProjectTypeBOs.fromJSON
-      let responseProjectTypeBO = ProjectTypePersonBO.fromJSON(responseJSON)[0];
+      let responseProjectTypeBO = ProjectTypeBO.fromJSON(responseJSON)[0];
       // console.info(projectTypeBOs);
       return new Promise(function (resolve) {
         resolve(responseProjectTypeBO);
@@ -1483,7 +1463,7 @@ export default class ManagementAPI {
       method: 'DELETE'
     }).then((responseJSON) => {
       // We always get an array of StatusBOs.fromJSON
-      let responseStatusBO = StatusO.fromJSON(responseJSON)[0];
+      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
       // console.info(statusBOs);
       return new Promise(function (resolve) {
         resolve(responseStatusBO);

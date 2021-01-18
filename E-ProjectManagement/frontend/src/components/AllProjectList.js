@@ -5,7 +5,7 @@ import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import ProjectDetails from './ProjectDetails';
-import ProjectForm from './ProjectForm';
+
 
 /**
  * Shows all accounts of the bank.
