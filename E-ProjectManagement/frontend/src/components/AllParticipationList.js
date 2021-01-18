@@ -5,6 +5,10 @@ import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 
+
+/**
+ * @author [Enes Tepeli]
+ */
 class AllParticipationList extends Component {
 
   constructor(props) {

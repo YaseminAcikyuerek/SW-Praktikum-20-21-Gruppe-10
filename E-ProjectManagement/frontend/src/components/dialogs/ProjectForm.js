@@ -9,17 +9,14 @@ import LoadingProgress from './LoadingProgress';
 
 
 /**
- * Shows a modal form dialog for a CustomerBO in prop customer. If the customer is set, the dialog is configured
- * as an edit dialog and the text fields of the form are filled from the given CustomerBO object.
- * If the customer is null, the dialog is configured as a new customer dialog and the textfields are empty.
- * In dependency of the edit/new state, the respective backend calls are made to update or create a customer.
- * After that, the function of the onClose prop is called with the created/update CustomerBO object as parameter.
+ * Shows a modal form dialog for a ProjectBO in prop project. If the project is set, the dialog is configured
+ * as an edit dialog and the text fields of the form are filled from the given ProjectBO object.
+ * If the project is null, the dialog is configured as a new project dialog and the textfields are empty.
+ * In dependency of the edit/new state, the respective backend calls are made to update or create a project.
+ * After that, the function of the onClose prop is called with the created/update ProjectBO object as parameter.
  * When the dialog is canceled, onClose is called with null.
- *
- * @see See Material-UIs [Dialog](https://material-ui.com/components/dialogs)
- * @see See Material-UIs [TextField](https://material-ui.com/components/text-fields//)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+
+ * @author [Enes Tepeli]
  */
 class ProjectForm extends Component {
 
@@ -122,7 +119,7 @@ class ProjectForm extends Component {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty project
       this.setState(this.baseState);
-      this.props.onClose(project); // call the parent with the customer object from backend
+      this.props.onClose(project); // call the parent with the project object from backend
     }).catch(e =>
       this.setState({
         updatingInProgress: false,    // disable loading indicator
@@ -342,7 +339,7 @@ class ProjectForm extends Component {
                bdDuringLecturePeriodValidationFailed || !bdDuringLecturePeriodEdited || preferredBdDuringLecturePeriodValidationFailed || !preferredBdDuringLecturePeriodEdited || languageValidationFailed ||
                 !languageEdited || roomValidationFailed || !roomEdited || specialRoomValidationFailed || !specialRoomEdited ||
                 statusValidationFailed || !statusEdited || projectTypeValidationFailed || !projectTypeEdited ||
-                ownerValidationFailed || !ownerEdited} variant='contained' onClick={this.addCustomer} color='primary'>
+                ownerValidationFailed || !ownerEdited} variant='contained' onClick={this.addProject} color='primary'>
                   Add
              </Button>
             }
@@ -376,7 +373,7 @@ ProjectForm.propTypes = {
   show: PropTypes.bool.isRequired,
   /**
    * Handler function which is called, when the dialog is closed.
-   * Sends the edited or created CustomerBO as parameter or null, if cancel was pressed.
+   * Sends the edited or created ProjectBO as parameter or null, if cancel was pressed.
    *
    * Signature: onClose(ProjectBO project);
    */

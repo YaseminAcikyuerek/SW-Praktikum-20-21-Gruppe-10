@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Typography, Paper } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 
-/**
- * Renders a AccountBO object within a ListEntry and provides a delete button to delete it.
 
- * @author [Enes Tepeli]
- */
-class PersonDetails extends Component {
+class ModuleDetails extends Component {
 
   constructor(props) {
     super(props);
 
     // Init state
     this.state = {
-      Person: null,
+      module: null,
       loadingInProgress: false,
       loadingError: null,
     };
@@ -25,19 +21,19 @@ class PersonDetails extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.getPerson();
+    this.getModule();
   }
 
-  /** gets the balance for this account */
-  getPerson = () => {
-    ManagementAPI.getAPI().getPerson(this.props.personID).then(person =>
+  /** gets the balance for this module */
+  getModule = () => {
+    ManagementAPI.getAPI().getModule(this.props.moduleID).then(module =>
       this.setState({
-        person: person,
+        module: module,
         loadingInProgress: false,
         loadingError: null
       })).catch(e =>
         this.setState({ // Reset state with error from catch
-          person: null,
+          module: null,
           loadingInProgress: false,
           loadingError: e
         })
@@ -52,27 +48,27 @@ class PersonDetails extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, PersonID } = this.props;
-    const { person, loadingInProgress, loadingError } = this.state;
+    const { classes, moduleID } = this.props;
+    const { module, loadingInProgress, loadingError } = this.state;
 
     return (
       <Paper variant='outlined' className={classes.root}>
 
         <Typography variant='h6'>
-          Person
+          Module
         </Typography>
-        <Typography>
-          ID: {person.getID()}
+        <Typography className={classes.moduleEntry}>
+          ID: {moduleID}
         </Typography>
         {
-          person ?
+          module ?
             <Typography>
-              Person: {person.getRole()}
+              module: {module.getName()}, {module.getEdvNr()}
             </Typography>
             : null
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of person id ${person.getID()} could not be loaded.`} onReload={this.getPerson} />
+        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of module id ${moduleID} could not be loaded.`} onReload={this.getModule} />
       </Paper>
     );
   }
@@ -85,7 +81,7 @@ const styles = theme => ({
     padding: theme.spacing(1),
     marginTop: theme.spacing(1)
   },
-  accountEntry: {
+  moduleEntry: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '33.33%',
     flexShrink: 0,
@@ -93,13 +89,13 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-PersonDetails.propTypes = {
+ModuleDetails.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
-  /** The customerID to be rendered */
-  StudentID: PropTypes.string.isRequired,
-  /** The accountID to be rendered */
-  PersonID: PropTypes.string.isRequired,
+  /** The moduleID to be rendered */
+  moduleID: PropTypes.string.isRequired,
+  /** The moduleID to be rendered */
+  moduleID: PropTypes.string.isRequired,
 }
 
-export default withStyles(styles)(PersonDetails);
+export default withStyles(styles)(ModuleDetails);
