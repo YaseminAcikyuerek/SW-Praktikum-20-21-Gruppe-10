@@ -6,6 +6,9 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 
 
+/**
+ * @author [Enes Tepeli]
+ */
 class AllModuleList extends Component {
 
   constructor(props) {
