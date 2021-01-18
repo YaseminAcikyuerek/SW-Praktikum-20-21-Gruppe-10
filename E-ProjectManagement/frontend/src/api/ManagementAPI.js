@@ -8,9 +8,6 @@ import StudentBO from './StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
 
-
-
-
 export default class ManagementAPI {
 
     static #api = null;
