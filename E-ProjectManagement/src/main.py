@@ -1192,6 +1192,24 @@ class StudentByNameOperations(Resource):
         stu = adm.get_student_by_name(name)
         return stu
 
+@projectmanagement.route('/projects')
+@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+class ProjectListOperations(Resource):
+    @projectmanagement.doc('Create a new state of project')
+    @projectmanagement.marshal_with(project, code=201)
+    @projectmanagement.expect(project)
+    def put(self, id):
+        """Update eines bestimmten Projekts.
+        """
+        adm = ProjectAdministration()
+        p = Project.from_dict(api.payload)
+
+        if p is not None:
+            p.set_status(id)
+            adm.save_project(p)
+            return '', 200
+        else:
+            return '', 500
 
 if __name__ == '__main__':
     app.run(debug=True)
