@@ -26,15 +26,15 @@ export default class ModuleBO extends NamedBusinessObject {
     let result = [];
 
     if (Array.isArray(modules)) {
-      modules.forEach((m) => {
-        Object.setPrototypeOf(m, ModuleBO.prototype);
-        result.push(m);
+      modules.forEach((z) => {
+        Object.setPrototypeOf(z, ModuleBO.prototype);
+        result.push(z);
       })
     } else {
       //
-      let m = modules;
-      Object.setPrototypeOf(m, ModuleBO.prototype);
-      result.push(m);
+      let z = modules;
+      Object.setPrototypeOf(z, ModuleBO.prototype);
+      result.push(z);
     }
 
     return result;

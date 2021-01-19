@@ -1,14 +1,11 @@
 import  BusinessObject from './BusinessObject';
 
-/**
- * Zeigt eine Teilnahme  am Project an.
- */
+
+
+
 export default class ParticipationBO extends BusinessObject {
 
-/**
-   *
-   *
-   */
+
   constructor(aProject, aStudent) {
     super();
     this.project = aProject;
@@ -34,19 +31,18 @@ export default class ParticipationBO extends BusinessObject {
 
   static fromJSON(participations) {
     let result = [];
-
-    if (Array.isArray(participations)) {
+   if (Array.isArray(participations)) {
       participations.forEach((p) => {
         Object.setPrototypeOf(p, ParticipationBO.prototype);
         result.push(p);
       })
-    } else {
+   } else {
 
       let p = participations;
       Object.setPrototypeOf(p, ParticipationBO.prototype);
       result.push(p);
-    }
-    return result;
+   }
+   return result;
   }
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
+import {Paper, Typography, withStyles} from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
@@ -94,8 +94,8 @@ ModuleDetails.propTypes = {
   classes: PropTypes.object.isRequired,
   /** The moduleID to be rendered */
   moduleID: PropTypes.string.isRequired,
-  /** The moduleID to be rendered */
-  moduleID: PropTypes.string.isRequired,
+
+
 }
 
 export default withStyles(styles)(ModuleDetails);

@@ -8,6 +8,7 @@ import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
 
+
 /**
  * Shows a modal form dialog for a ParticipationBO in prop customer. If the participation is set, the dialog is configured
  * as an edit dialog and the text fields of the form are filled from the given CustomerBO object.

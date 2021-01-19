@@ -73,9 +73,9 @@ class PersonForm extends Component {
 
   /** Updates the person */
   updatePerson = () => {
-    // clone the original person, in case the backend call fails
+
     let updatedPerson = Object.assign(new PersonBO(), this.props.person);
-    // set the new attributes from our dialog
+
     updatedPerson.setName(this.state.name);
     updatedPerson.setRole(this.state.role);
     ManagementAPI.getAPI().updatePerson(updatedPerson).then(person => {

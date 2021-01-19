@@ -1,8 +1,7 @@
 import PersonBO from './PersonBO';
 
-/**
- * Represents a customer of the bank.
- */
+
+
 export default class StudentBO extends PersonBO {
 
 constructor(aCourseAbbr,aMatriculationNr) {
@@ -41,7 +40,7 @@ constructor(aCourseAbbr,aMatriculationNr) {
         result.push(u);
       })
     } else {
-      // Es handelt sich offenbar um ein singuläres Objekt
+
       let u = students
       Object.setPrototypeOf(u, StudentBO.prototype);
       result.push(u);
