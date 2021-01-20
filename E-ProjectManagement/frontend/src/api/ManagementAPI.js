@@ -344,6 +344,7 @@ export default class ManagementAPI {
       // We always get an array of projectBOs.fromJSON
       let responseProjectBO = ProjectBO.fromJSON(responseJSON)[0];
       // console.info(projectBOs);
+      //console.error(this.props.url, status, err.toString());
       return new Promise(function (resolve) {
         resolve(responseProjectBO);
       })
