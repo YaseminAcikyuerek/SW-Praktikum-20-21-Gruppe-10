@@ -45,8 +45,6 @@ class PersonList extends Component {
   getPersons = () => {
   console.log("vor fetch")
     ManagementAPI.getAPI().getPersons()
-
-
       .then(personBOs =>
         this.setState({               // Set new state when PersonBOs have been fetched
           persons: personBOs,
@@ -142,8 +140,9 @@ class PersonList extends Component {
     this.setState({
       filteredPersons: this.state.persons.filter(person => {
         let nameContainsValue = person.getName().toLowerCase().includes(value);
+        let roleContainsValue = person.getRole().toLowerCase().includes(value);
 
-        return nameContainsValue
+        return nameContainsValue || roleContainsValue;
       }),
       personFilter: value
     });

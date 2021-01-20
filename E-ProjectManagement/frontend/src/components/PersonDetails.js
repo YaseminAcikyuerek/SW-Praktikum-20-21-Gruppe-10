@@ -8,7 +8,6 @@ import LoadingProgress from './dialogs/LoadingProgress';
 /**
  * Renders a AccountBO object within a ListEntry and provides a delete button to delete it.
 
- * @author [Enes Tepeli]
  */
 class PersonDetails extends Component {
 

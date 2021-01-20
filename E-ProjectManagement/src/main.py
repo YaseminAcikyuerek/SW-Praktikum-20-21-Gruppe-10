@@ -44,7 +44,7 @@ Bank-relevanten Operationen unter dem Präfix /management zusammen. Eine alterna
 von Namespace könnte etwa sein, unterschiedliche API-Version voneinander zu trennen, um etwa 
 Abwärtskompatibilität (vgl. Lehrveranstaltungen zu Software Engineering) zu gewährleisten. Dies ließe
 sich z.B. umsetzen durch /management/v1, /management/v2 usw."""
-projectmanagement = api.namespace('management', description='Funktionen des Projekt-Systems')
+management = api.namespace('management', description='Funktionen des Projekt-Systems')
 
 """Nachfolgend werden analog zu unseren BusinessObject-Klassen transferierbare Strukturen angelegt.
 
@@ -129,11 +129,11 @@ student = api.inherit('Student', bo,nbo, {
     'course_abbr': fields.String(attribute='_course_abbr', description='Studiengangskuerzel des Studenten')
 })
 
-@projectmanagement.route('/person')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/persons')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class PersonListOperations(Resource):
 
-    @projectmanagement.marshal_list_with(person)
+    @management.marshal_list_with(person)
     def get(self):
         """Auslesen aller Person-Objekte.
 
@@ -142,8 +142,8 @@ class PersonListOperations(Resource):
         persons = adm.get_all_person()
         return persons
 
-    @projectmanagement.marshal_with(person, code=200)
-    @projectmanagement.expect(person)  # Wir erwarten ein Person-Objekt von Client-Seite.
+    @management.marshal_with(person, code=200)
+    @management.expect(person)  # Wir erwarten ein Person-Objekt von Client-Seite.
     def post(self):
         """Anlegen eines neuen Person-Objekts.
         """
@@ -159,11 +159,11 @@ class PersonListOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/person/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Person-Objekts')
+@management.route('/person/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Person-Objekts')
 class PersonOperations(Resource):
-    @projectmanagement.marshal_with(person)
+    @management.marshal_with(person)
 
     def get(self, id):
         """Auslesen einer bestimmten Person-BO.
@@ -185,8 +185,8 @@ class PersonOperations(Resource):
         adm.delete_person(pers)
         return '', 200
 
-    @projectmanagement.marshal_with(person)
-    @projectmanagement.expect(person, validate=True)
+    @management.marshal_with(person)
+    @management.expect(person, validate=True)
 
     def put(self, id):
         """Update einer bestimmten Person.
@@ -202,10 +202,10 @@ class PersonOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/project')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/projects')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectListOperations(Resource):
-    @projectmanagement.marshal_list_with(project)
+    @management.marshal_list_with(project)
 
 
     def get(self):
@@ -216,8 +216,8 @@ class ProjectListOperations(Resource):
         return proj
 
     """Projektspezifische Methoden"""
-    @projectmanagement.marshal_with(project)
-    @projectmanagement.expect(project)
+    @management.marshal_with(project)
+    @management.expect(project)
     def post(self):
         """Anlegen eines neuen Projekt-Objekts.
                 """
@@ -238,11 +238,11 @@ class ProjectListOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/project/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Project-Objekts')
+@management.route('/project/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Project-Objekts')
 class ProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
+    @management.marshal_with(project)
 
 
     def get(self, id):
@@ -265,8 +265,8 @@ class ProjectOperations(Resource):
         proj.delete_account(proj)
         return '', 200
 
-    @projectmanagement.marshal_with(project)
-    @projectmanagement.expect(project)
+    @management.marshal_with(project)
+    @management.expect(project)
     def put(self, id):
         """Update eines bestimmten Projekts.
         """
@@ -282,11 +282,11 @@ class ProjectOperations(Resource):
 
 
 
-@projectmanagement.route('/person/<int:id>/project')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Person-Objekts')
+@management.route('/person/<int:id>/project')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Person-Objekts')
 class PersonRelatedProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
+    @management.marshal_with(project)
     def get(self, id):
         """Auslesen aller Projekte von einer bestimmten Person.
 
@@ -303,7 +303,7 @@ class PersonRelatedProjectOperations(Resource):
         else:
             return "Person not found", 500
 
-    @projectmanagement.marshal_with(project, code=201)
+    @management.marshal_with(project, code=201)
 
     def post(self, id):
         """Anlegen eines Projekts für eine gegebene Person.
@@ -325,11 +325,11 @@ class PersonRelatedProjectOperations(Resource):
             return "Person unknown", 500
 
 
-@projectmanagement.route('/project/<int:id>/status')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Projekts')
+@management.route('/project/<int:id>/status')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Projekts')
 class ProjectStatusOperations(Resource):
-    @projectmanagement.doc('Read status of given project')
+    @management.doc('Read status of given project')
 
     def get(self, id):
         """Auslesen des Status eines Projekts.
@@ -347,10 +347,10 @@ class ProjectStatusOperations(Resource):
 
 
 """Studentenspezifische Methoden"""
-@projectmanagement.route('/student')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/student')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class StudentListOperations(Resource):
-    @projectmanagement.marshal_list_with(student)
+    @management.marshal_list_with(student)
 
     def get(self):
         """Auslesen aller Student-Objekte.
@@ -359,8 +359,8 @@ class StudentListOperations(Resource):
         stu = adm.get_all_student()
         return stu
 
-    @projectmanagement.marshal_with(student, code=200)
-    @projectmanagement.expect(student)
+    @management.marshal_with(student, code=200)
+    @management.expect(student)
 
     def post(self):
         """Anlegen eines neuen student-Objekts.
@@ -379,11 +379,11 @@ class StudentListOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/student/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Student-Objekts')
+@management.route('/student/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Student-Objekts')
 class StudentOperations(Resource):
-    @projectmanagement.marshal_with(student)
+    @management.marshal_with(student)
 
     def get(self, id):
         """Auslesen eines bestimmten Student-Objekts.
@@ -406,8 +406,8 @@ class StudentOperations(Resource):
         return '', 200
 
 
-    @projectmanagement.marshal_with(student)
-    @projectmanagement.expect(student)
+    @management.marshal_with(student)
+    @management.expect(student)
 
     def put(self, id):
         """Update eines bestimmten Student-Objekts.
@@ -429,11 +429,11 @@ class StudentOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/student/<int:id>/project')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des student-Objekts')
+@management.route('/student/<int:id>/project')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des student-Objekts')
 class StudentRelatedProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
+    @management.marshal_with(project)
 
     def get(self, id):
             """Auslesen aller Projekte von eines bestimmten Studenten.
@@ -451,10 +451,10 @@ class StudentRelatedProjectOperations(Resource):
                 return project_list
 
 
-@projectmanagement.route('/participation')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/participation')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ParticipationListOperations(Resource):
-    @projectmanagement.marshal_list_with(participation)
+    @management.marshal_list_with(participation)
 
     def get(self):
         """Auslesen aller Participation-Objekte.
@@ -463,8 +463,8 @@ class ParticipationListOperations(Resource):
         p = adm.get_all_participation()
         return p
 
-    @projectmanagement.marshal_with(participation, code=200)
-    @projectmanagement.expect(participation)
+    @management.marshal_with(participation, code=200)
+    @management.expect(participation)
 
     def post(self):
         """Anlegen eines neuen Participation-Objekts.
@@ -479,11 +479,11 @@ class ParticipationListOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/participation/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID der Participation-Objekts')
+@management.route('/participation/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID der Participation-Objekts')
 class ParticipationOperations(Resource):
-    @projectmanagement.marshal_with(participation)
+    @management.marshal_with(participation)
 
     def get(self, id):
         """Auslesen eines bestimmten Participation-Objekts.
@@ -505,7 +505,7 @@ class ParticipationOperations(Resource):
         adm.delete_participation(p)
         return '', 200
 
-    @projectmanagement.marshal_with(participation)
+    @management.marshal_with(participation)
 
 
     def put(self, id):
@@ -520,10 +520,10 @@ class ParticipationOperations(Resource):
             return '', 200
         else:
             return '', 500
-@projectmanagement.route('/semester')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/semester')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class SemesterListOperations(Resource):
-    @projectmanagement.marshal_list_with(semester)
+    @management.marshal_list_with(semester)
 
     def get(self):
         """Auslesen aller Semester-Objekte.
@@ -533,8 +533,8 @@ class SemesterListOperations(Resource):
         s = adm.get_all_semester()
         return s
 
-    @projectmanagement.marshal_with(semester, code=200)
-    @projectmanagement.expect(semester)  # Wir erwarten ein rating-Objekt von Client-Seite.
+    @management.marshal_with(semester, code=200)
+    @management.expect(semester)  # Wir erwarten ein rating-Objekt von Client-Seite.
 
     def post(self):
         """Anlegen eines neuen Semester-Objekts.
@@ -561,11 +561,11 @@ class SemesterListOperations(Resource):
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
             return '', 500
 
-@projectmanagement.route('/semester/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Semester-Objekts')
+@management.route('/semester/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Semester-Objekts')
 class SemesterOperations(Resource):
-    @projectmanagement.marshal_with(semester)
+    @management.marshal_with(semester)
 
     def get(self, id):
         """Auslesen eines bestimmten Semester-Objekts.
@@ -587,8 +587,8 @@ class SemesterOperations(Resource):
         adm.delete_semester(semes)
         return '', 200
 
-    @projectmanagement.marshal_with(semester)
-    @projectmanagement.expect(semester)
+    @management.marshal_with(semester)
+    @management.expect(semester)
 
     def put(self, id):
         """Update eines bestimmten Semester-Objekts.
@@ -605,10 +605,10 @@ class SemesterOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/rating')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/rating')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RatingListOperations(Resource):
-    @projectmanagement.marshal_list_with(rating)
+    @management.marshal_list_with(rating)
     def get(self):
         """Auslesen aller rating-Objekte.
 
@@ -617,8 +617,8 @@ class RatingListOperations(Resource):
         r = adm.get_all_rating()
         return r
 
-    @projectmanagement.marshal_with(rating, code=200)
-    @projectmanagement.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
+    @management.marshal_with(rating, code=200)
+    @management.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
     def post(self):
             """Anlegen eines neuen Rating-Objekts.
 
@@ -646,11 +646,11 @@ class RatingListOperations(Resource):
                 return '', 500
 
 
-@projectmanagement.route('/rating/<int:id>/project')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Projekt-Objekts')
+@management.route('/rating/<int:id>/project')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Projekt-Objekts')
 class RatingRelatedProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
+    @management.marshal_with(project)
     def get(self, id):
         """Auslesen aller Bewertungen von eines bestimmten Projekts.
         """
@@ -659,11 +659,11 @@ class RatingRelatedProjectOperations(Resource):
 
         return proj
 
-@projectmanagement.route('/participation/<int:id>/student')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Student-Objekts')
+@management.route('/participation/<int:id>/student')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Student-Objekts')
 class RatingRelatedProjectOperations(Resource):
-    @projectmanagement.marshal_with(project)
+    @management.marshal_with(project)
 
     def get(self, id):
         """Auslesen aller Projekte von einem bestimmten Studenten.
@@ -682,10 +682,10 @@ class RatingRelatedProjectOperations(Resource):
 
 
 
-@projectmanagement.route('/module')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/modules')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ModuleListOperations(Resource):
-    @projectmanagement.marshal_list_with(module)
+    @management.marshal_list_with(module)
 
     def get(self):
         """Auslesen aller Module-Objekte.
@@ -694,8 +694,8 @@ class ModuleListOperations(Resource):
         m = adm.get_all_module()
         return m
 
-    @projectmanagement.marshal_with(module, code=200)
-    @projectmanagement.expect(module)
+    @management.marshal_with(module, code=200)
+    @management.expect(module)
 
     def post(self):
         """Anlegen eines neuen Modul-Objekts.
@@ -709,11 +709,11 @@ class ModuleListOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/module/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Module-Objekts')
+@management.route('/module/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Module-Objekts')
 class ModuleOperations(Resource):
-    @projectmanagement.marshal_with(module)
+    @management.marshal_with(module)
 
     def get(self, id):
         """Auslesen eines bestimmten Module-Objekts anhand der id.
@@ -734,8 +734,8 @@ class ModuleOperations(Resource):
         adm.delete_module(mo)
         return '', 200
 
-    @projectmanagement.marshal_with(module)
-    @projectmanagement.expect(module, validate=True)
+    @management.marshal_with(module)
+    @management.expect(module, validate=True)
 
     def put(self, id):
         """Update eines bestimmten Moduler-Objekts.
@@ -754,11 +754,11 @@ class ModuleOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/student/<int:id>participation')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID der Person-Objekts')
+@management.route('/student/<int:id>participation')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID der Person-Objekts')
 class ParticipationStudentOperations(Resource):
-    @projectmanagement.marshal_with(participation)
+    @management.marshal_with(participation)
 
     def get(self, id):
         """Auslesen aller Participation-Objekte eines bestimmten Studenten .
@@ -776,8 +776,8 @@ class ParticipationStudentOperations(Resource):
             return "Student not found",500
 
 
-    @projectmanagement.marshal_with(participation, code=201)
-    @projectmanagement.expect(participation)
+    @management.marshal_with(participation, code=201)
+    @management.expect(participation)
 
 
     def post(self, id):
@@ -800,11 +800,11 @@ class ParticipationStudentOperations(Resource):
             return "Student unknown", 500
 
 
-@projectmanagement.route('/project/<int:id>/participation')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Projekt-Objekts')
+@management.route('/project/<int:id>/participation')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Projekt-Objekts')
 class ParticipationProjectOperations(Resource):
-    @projectmanagement.marshal_with(participation)
+    @management.marshal_with(participation)
 
     def get(self, id):
         """Auslesen aller Participation-Objekte bzgl. eines bestimmten Projekt-Objekts.
@@ -823,7 +823,7 @@ class ParticipationProjectOperations(Resource):
         else:
             return "Project not found", 500
 
-    @projectmanagement.marshal_with(participation, code=201)
+    @management.marshal_with(participation, code=201)
 
     def post(self, id):
         """Anlegen einer Participation für einen gegebenes Projekt.
@@ -846,10 +846,10 @@ class ParticipationProjectOperations(Resource):
 
 
 
-@projectmanagement.route('/rating')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/rating')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RatingListOperations(Resource):
-    @projectmanagement.marshal_list_with(rating)
+    @management.marshal_list_with(rating)
 
     def get(self):
         """Auslesen aller rating-Objekte.
@@ -859,8 +859,8 @@ class RatingListOperations(Resource):
         r = adm.get_all_rating()
         return r
 
-    @projectmanagement.marshal_with(rating, code=200)
-    @projectmanagement.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
+    @management.marshal_with(rating, code=200)
+    @management.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
 
     def post(self):
         """Anlegen eines neuen Rating-Objekts.
@@ -890,11 +890,11 @@ class RatingListOperations(Resource):
 
 
 
-@projectmanagement.route('/rating/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Rating-Objekts')
+@management.route('/rating/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Rating-Objekts')
 class RatingOperations(Resource):
-    @projectmanagement.marshal_with(rating)
+    @management.marshal_with(rating)
 
     def get(self, id):
         """Auslesen eines bestimmten Rating-Objekts.
@@ -916,8 +916,8 @@ class RatingOperations(Resource):
         adm.delete_rating(ra)
         return '', 200
 
-    @projectmanagement.marshal_with(rating)
-    @projectmanagement.expect(rating)
+    @management.marshal_with(rating)
+    @management.expect(rating)
 
     def put(self, id):
         """Update eines bestimmten Rating-Objekts.
@@ -932,11 +932,11 @@ class RatingOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/student/<int:id>/rating')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des student-Objekts')
+@management.route('/student/<int:id>/rating')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des student-Objekts')
 class StudentRelatedRatingOperations(Resource):
-    @projectmanagement.marshal_with(rating)
+    @management.marshal_with(rating)
 
     def get(self, id):
         """Auslesen aller Bewertungen von einer bestimmten Student.
@@ -952,7 +952,7 @@ class StudentRelatedRatingOperations(Resource):
         else:
             return "Student not found", 500
 
-    @projectmanagement.marshal_with(project, code=201)
+    @management.marshal_with(project, code=201)
 
     def post(self, id):
         """Anlegen einer Bewertung für ein gegebenen Studenten.
@@ -968,11 +968,11 @@ class StudentRelatedRatingOperations(Resource):
         else:
             return "Student unknown", 500
 
-@projectmanagement.route('/project/<int:id>/rating')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Projekt-Objekts')
+@management.route('/project/<int:id>/rating')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Projekt-Objekts')
 class ProjectRelatedRatingOperations(Resource):
-    @projectmanagement.marshal_with(project)
+    @management.marshal_with(project)
 
     def get(self, id):
         """Auslesen aller Bewertungen von einem bestimmten Projekt.
@@ -988,7 +988,7 @@ class ProjectRelatedRatingOperations(Resource):
         else:
             return "Project not found", 500
 
-    @projectmanagement.marshal_with(rating, code=201)
+    @management.marshal_with(rating, code=201)
 
     def post(self, id):
         """Anlegen einer Bewertung für eine gegebenes Projekt.
@@ -1005,10 +1005,10 @@ class ProjectRelatedRatingOperations(Resource):
             return "Project unknown", 500
 
 
-@projectmanagement.route('/role')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/role')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RoleListOperations(Resource):
-    @projectmanagement.marshal_list_with(role)
+    @management.marshal_list_with(role)
 
     def get(self):
         """Auslesen aller Role-Objekte."""
@@ -1016,8 +1016,8 @@ class RoleListOperations(Resource):
         r = adm.get_all_role()
         return r
 
-    @projectmanagement.marshal_with(role, code=200)
-    @projectmanagement.expect(role)
+    @management.marshal_with(role, code=200)
+    @management.expect(role)
 
     def post(self):
         """Anlegen eines neuen Role-Objekts.
@@ -1033,11 +1033,11 @@ class RoleListOperations(Resource):
             return '', 500
 
 
-@projectmanagement.route('/role/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Role-Objekts')
+@management.route('/role/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Role-Objekts')
 class RoleOperations(Resource):
-    @projectmanagement.marshal_with(role)
+    @management.marshal_with(role)
 
     def get(self, id):
         """Auslesen eines bestimmten Role-Objekts.
@@ -1059,8 +1059,8 @@ class RoleOperations(Resource):
         adm.delete_role(ro)
         return '', 200
 
-    @projectmanagement.marshal_with(role)
-    @projectmanagement.expect(role, validate=True)
+    @management.marshal_with(role)
+    @management.expect(role, validate=True)
 
     def put(self, id):
         """Update eines bestimmten role-Objekts.
@@ -1078,10 +1078,10 @@ class RoleOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/project_type')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/project_type')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectTypeListOperations(Resource):
-    @projectmanagement.marshal_list_with(project_type)
+    @management.marshal_list_with(project_type)
 
     def get(self):
         """Auslesen aller Projecttype-Objekte.
@@ -1090,8 +1090,8 @@ class ProjectTypeListOperations(Resource):
         pt = adm.get_all_project_type()
         return pt
 
-    @projectmanagement.marshal_with(project_type)
-    @projectmanagement.expect(project_type)
+    @management.marshal_with(project_type)
+    @management.expect(project_type)
     def post(self):
         """Anlegen eines neuen ProjectTypes-Objekts.
                 """
@@ -1104,11 +1104,11 @@ class ProjectTypeListOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/project_type/<int:id>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('id', 'Die ID des Projecttype-Objekts')
+@management.route('/project_type/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Projecttype-Objekts')
 class ProjectTypeOperations(Resource):
-    @projectmanagement.marshal_with(project_type)
+    @management.marshal_with(project_type)
 
     def get(self, id):
         """Auslesen eines bestimmten Projecttype-Objekts.
@@ -1128,8 +1128,8 @@ class ProjectTypeOperations(Resource):
         adm.delete_project_type(pt)
         return '', 200
 
-    @projectmanagement.marshal_with(project_type)
-    @projectmanagement.expect(project_type, validate=True)
+    @management.marshal_with(project_type)
+    @management.expect(project_type, validate=True)
 
     def put(self, id):
         """Update eines bestimmten Projecttype-Objekts.
@@ -1147,11 +1147,11 @@ class ProjectTypeOperations(Resource):
         else:
             return '', 500
 
-@projectmanagement.route('/person-by-name/<string:name>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('name', 'Der Name der Person')
+@management.route('/person-by-name/<string:name>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('name', 'Der Name der Person')
 class PersonByNameOperations(Resource):
-    @projectmanagement.marshal_with(person)
+    @management.marshal_with(person)
 
     def get(self, name):
         """ Auslesen von Personen-Objekten, die durch den Namen bestimmt werden.
@@ -1162,11 +1162,11 @@ class PersonByNameOperations(Resource):
         per = adm.get_person_by_name(name)
         return per
 
-@projectmanagement.route('/project-by-name/<string:name>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('name', 'Der Name des Projekts')
+@management.route('/project-by-name/<string:name>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('name', 'Der Name des Projekts')
 class ProjectByNameOperations(Resource):
-    @projectmanagement.marshal_with(project)
+    @management.marshal_with(project)
 
     def get(self, name):
         """ Auslesen von Projekt-Objekten, die durch den Namen bestimmt werden.
@@ -1177,11 +1177,11 @@ class ProjectByNameOperations(Resource):
         pro = adm.get_project_by_name(name)
         return pro
 
-@projectmanagement.route('/student-by-name/<string:name>')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@projectmanagement.param('name', 'Der Name des Studenten')
+@management.route('/student-by-name/<string:name>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('name', 'Der Name des Studenten')
 class StudentByNameOperations(Resource):
-    @projectmanagement.marshal_with(student)
+    @management.marshal_with(student)
 
     def get(self, name):
         """ Auslesen von Student-Objekten, die durch den Namen bestimmt werden.
@@ -1192,12 +1192,12 @@ class StudentByNameOperations(Resource):
         stu = adm.get_student_by_name(name)
         return stu
 
-@projectmanagement.route('/projects')
-@projectmanagement.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.route('/projects')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectListOperations(Resource):
-    @projectmanagement.doc('Create a new state of project')
-    @projectmanagement.marshal_with(project, code=201)
-    @projectmanagement.expect(project)
+    @management.doc('Create a new state of project')
+    @management.marshal_with(project, code=201)
+    @management.expect(project)
     def put(self, id):
         """Update eines bestimmten Projekts.
         """

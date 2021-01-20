@@ -42,7 +42,7 @@ class ProjectList extends Component {
   }
 
   /** Fetches all CustomerBOs from the backend */
-  getCustomers = () => {
+  getProjects = () => {
     ManagementAPI.getAPI().getProjects()
       .then(projectBOs =>
         this.setState({               // Set new state when CustomerBOs have been fetched

@@ -1,14 +1,12 @@
 
 
 export default class BusinessObject {
-    dateTime;
-
 
 
 
     constructor() {
         this.id = 0;
-        this.creationTime = this.dateTime.now();
+        this.creationTime = null;
     }
 
 
