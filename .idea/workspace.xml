@@ -26,11 +26,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
-      <change beforePath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="RatingListEntry.js updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllModuleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllModuleList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/PersonListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/PersonListEntry.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +48,19 @@
     <option name="NEW_BASE" value="Enes" />
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -71,20 +83,21 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\SW-P\E-ProjectManagement\frontend\src\components" />
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\static" />
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\saeid\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\my-app\src\components\Dialogs" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Pages" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Layout" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\api" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\static" />
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
     </key>
   </component>
   <component name="RunManager" selected="Python.PersonMapper">
@@ -193,13 +206,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.PersonMapper" />
+      <item itemvalue="Python.RatingMapper" />
+      <item itemvalue="Python.SemesterMapper" />
+      <item itemvalue="Python.StudentMapper" />
+      <item itemvalue="Python.main" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.PersonMapper" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.StudentMapper" />
         <item itemvalue="Python.SemesterMapper" />
         <item itemvalue="Python.RatingMapper" />
-        <item itemvalue="Python.PersonMapper" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -369,7 +389,63 @@
       <option name="project" value="LOCAL" />
       <updated>1610833516761</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="AllModuleList.js updated">
+      <created>1610929517434</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1610929517434</updated>
+    </task>
+    <task id="LOCAL-00024" summary="AllRatingList.js updated">
+      <created>1611001856883</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1611001856884</updated>
+    </task>
+    <task id="LOCAL-00025" summary="ModuleForm.js updated">
+      <created>1611003572086</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1611003572086</updated>
+    </task>
+    <task id="LOCAL-00026" summary="ParticipationDetails.js created">
+      <created>1611005231532</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1611005231532</updated>
+    </task>
+    <task id="LOCAL-00027" summary="ParticipationDetails.js created &amp; ProjectForm.js updated &amp; AllRatingList.js updated">
+      <created>1611005977623</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1611005977623</updated>
+    </task>
+    <task id="LOCAL-00028" summary="AllRatingList.js import korrigiert">
+      <created>1611007264773</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1611007264773</updated>
+    </task>
+    <task id="LOCAL-00029" summary="AllRatingList.js 'from' korrigiert">
+      <created>1611009596691</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1611009596691</updated>
+    </task>
+    <task id="LOCAL-00030" summary="RatingListEntry.js updated">
+      <created>1611009628007</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1611009628007</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -427,8 +503,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Mapper erstellt" />
-    <MESSAGE value="an BusinessObjects gearbeitet" />
     <MESSAGE value="Mapper ParticipationMapper.py geupdated" />
     <MESSAGE value="DEA hinzugefügt" />
     <MESSAGE value="EA hinzugefügt" />
@@ -446,13 +520,49 @@
     <MESSAGE value="StudentListjs, StudentListEntry.js erstellt" />
     <MESSAGE value="PersonList.js, RatingList.js, ProjectList.js erstellt" />
     <MESSAGE value="ProjectDeleteDialog, ParticipationDeleteDialog erstellt&#10;Die Enes Branch Korrektur" />
-    <option name="LAST_COMMIT_MESSAGE" value="ProjectDeleteDialog, ParticipationDeleteDialog erstellt&#10;Die Enes Branch Korrektur" />
+    <MESSAGE value="AllModuleList.js updated" />
+    <MESSAGE value="AllRatingList.js updated" />
+    <MESSAGE value="ModuleForm.js updated" />
+    <MESSAGE value="ParticipationDetails.js created" />
+    <MESSAGE value="ParticipationDetails.js created &amp; ProjectForm.js updated &amp; AllRatingList.js updated" />
+    <MESSAGE value="AllRatingList.js import korrigiert" />
+    <MESSAGE value="AllRatingList.js 'from' korrigiert" />
+    <MESSAGE value="RatingListEntry.js updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="RatingListEntry.js updated" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="277" y="156" key="Vcs.Push.Dialog.v2" timestamp="1610833524826">
+    <state x="131" y="58" key="DiffContextDialog" timestamp="1611007381413">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
-    <state x="277" y="156" key="Vcs.Push.Dialog.v2/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1610833524826" />
+    <state x="131" y="58" key="DiffContextDialog/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611007381413" />
+    <state width="1348" height="227" key="GridCell.Tab.0.bottom" timestamp="1611176213482">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state width="1348" height="227" key="GridCell.Tab.0.bottom/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213482" />
+    <state width="1348" height="227" key="GridCell.Tab.0.center" timestamp="1611176213481">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state width="1348" height="227" key="GridCell.Tab.0.center/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213481" />
+    <state width="1348" height="227" key="GridCell.Tab.0.left" timestamp="1611176213481">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state width="1348" height="227" key="GridCell.Tab.0.left/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213481" />
+    <state width="1348" height="227" key="GridCell.Tab.0.right" timestamp="1611176213482">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state width="1348" height="227" key="GridCell.Tab.0.right/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213482" />
+    <state x="130" y="70" key="MergeDialog" timestamp="1611175435500">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state x="130" y="70" key="MergeDialog/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611175435500" />
+    <state x="277" y="156" key="Vcs.Push.Dialog.v2" timestamp="1611178676226">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state x="277" y="156" key="Vcs.Push.Dialog.v2/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611178676226" />
+    <state x="471" y="149" key="git4idea.branch.GitSmartOperationDialog" timestamp="1611175429849">
+      <screen x="0" y="0" width="1368" height="872" />
+    </state>
+    <state x="471" y="149" key="git4idea.branch.GitSmartOperationDialog/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611175429849" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
