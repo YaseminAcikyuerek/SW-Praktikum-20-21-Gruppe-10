@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
+import ModuleDetails from '../components/ModuleDetails';
 
 
 /**
- * @author [Enes Tepeli]
  */
 class AllModuleList extends Component {
 
@@ -29,7 +29,7 @@ class AllModuleList extends Component {
 
   /** gets the module list for this module */
   loadModules = () => {
-    ManagementAPI.getAPI().getAllModules().then(modules =>
+    ManagementAPI.getAPI().getModules().then(modules =>
       this.setState({
         modules: modules,
         loadingInProgress: false, // loading indicator
@@ -56,7 +56,7 @@ class AllModuleList extends Component {
     return (
       <div className={classes.root}>
           {
-            modules.map(module => <ModuleDetail key={module.getID()}
+            modules.map(module => <ModuleDetails key={module.getID()}
             personID={module.getOwner().toString()} moduleID={module.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />

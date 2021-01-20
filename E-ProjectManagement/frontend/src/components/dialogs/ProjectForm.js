@@ -228,8 +228,8 @@ class ProjectForm extends Component {
     bdBeforeLecturePeriodEdited, bdDuringLecturePeriod, bdDuringLecturePeriodValidationFailed, bdDuringLecturePeriodEdited, preferredBdDuringLecturePeriod, preferredBdDuringLecturePeriodValidationFailed, preferredBdDuringLecturePeriodEdited, language,
     languageValidationFailed, languageEdited, room, roomValidationFailed, roomEdited, specialRoom,
     specialRoomValidationFailed, specialRoomEdited, status, statusValidationFailed, statusEdited, projectType,
-    projectTypeValidationFailed, projectTypeEdited, owner, ownerValidationFailed, ownerEdited, addingInProgress,
-      addingError, updatingInProgress, updatingError } = this.state;
+    projectTypeValidationFailed, projectTypeEdited, owner, ownerValidationFailed, ownerEdited, flag, flagValidationFailed,
+    flagEdited, addingInProgress, addingError, updatingInProgress, updatingError } = this.state;
 
     let title = '';
     let header = '';
@@ -307,6 +307,10 @@ class ProjectForm extends Component {
               <TextField type='text' required fullWidth margin='normal' id='owner' label='Owner:' value={owner}
                 onChange={this.textFieldValueChange} error={ownerValidationFailed}
                 helperText={ownerValidationFailed ? 'The owner must contain at least one character' : ' '} />
+              <TextField type='text' required fullWidth margin='normal' id='flag' label='Flag:' value={flag}
+                onChange={this.textFieldValueChange} error={flagValidationFailed}
+                helperText={flagValidationFailed ? 'The flag must contain at least one character' : ' '}
+                />
 
             </form>
             <LoadingProgress show={addingInProgress || updatingInProgress} />
@@ -329,7 +333,7 @@ class ProjectForm extends Component {
                 shortDescriptionValidationFailed || externalPartnerListValidationFailed || capacityValidationFailed ||
                 bdDuringExamPeriodValidationFailed || bdBeforeLecturePeriodValidationFailed || bdDuringLecturePeriodValidationFailed || preferredBdDuringLecturePeriodValidationFailed ||
                 languageValidationFailed || roomValidationFailed || specialRoomValidationFailed || statusValidationFailed ||
-                projectTypeValidationFailed || ownerValidationFailed} variant='contained' onClick={this.updateProject} color='primary'>
+                projectTypeValidationFailed || ownerValidationFailed || flagValidationFailed} variant='contained' onClick={this.updateProject} color='primary'>
                   Update
               </Button>
                 : <Button disabled={nameValidationFailed || !nameEdited || semesterValidationFailed || !semesterEdited ||
@@ -339,7 +343,7 @@ class ProjectForm extends Component {
                bdDuringLecturePeriodValidationFailed || !bdDuringLecturePeriodEdited || preferredBdDuringLecturePeriodValidationFailed || !preferredBdDuringLecturePeriodEdited || languageValidationFailed ||
                 !languageEdited || roomValidationFailed || !roomEdited || specialRoomValidationFailed || !specialRoomEdited ||
                 statusValidationFailed || !statusEdited || projectTypeValidationFailed || !projectTypeEdited ||
-                ownerValidationFailed || !ownerEdited} variant='contained' onClick={this.addProject} color='primary'>
+                ownerValidationFailed || !ownerEdited || flagValidationFailed || !flagEdited} variant='contained' onClick={this.addProject} color='primary'>
                   Add
              </Button>
             }

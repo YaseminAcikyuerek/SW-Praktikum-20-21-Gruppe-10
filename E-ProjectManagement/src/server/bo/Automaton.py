@@ -6,8 +6,8 @@ class Automaton:
     status_new = Status("Neu")
     status_accepted = Status("Akzeptiert")
     status_declined = Status("Abgelehnt")
-    status_inReview = Status("In Bearbeitung")
-    status_reviewCompleted = Status("Bearbeitung abgeschlossen")
+    status_inProcess = Status("In Bewertung")
+    status_ratingProcessCompleted = Status("Bewertung abgeschlossen")
 
     def __init__(self):
         self.current_state = Automaton.status_new

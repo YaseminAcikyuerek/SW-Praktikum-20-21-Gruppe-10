@@ -30,9 +30,9 @@ class AllProjectList extends Component {
     this.loadProjects();
   }
 
-  /** gets the account list for this account */
+  /** gets the project list */
   loadProjects = () => {
-    ManagementAPI.getAPI().getAllProjects().then(projects =>
+    ManagementAPI.getAPI().getProjects().then(projects =>
       this.setState({
         projects: projects,
         loadingInProgress: false, // loading indicator
@@ -63,7 +63,7 @@ class AllProjectList extends Component {
             projectID={project.getOwner().toString()} ProjectID={project.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
-          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all accounts of the bank could not be loaded.`} onReload={this.loadAccounts} />
+          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all projects could not be loaded.`} onReload={this.loadAccounts} />
       </div>
     );
   }

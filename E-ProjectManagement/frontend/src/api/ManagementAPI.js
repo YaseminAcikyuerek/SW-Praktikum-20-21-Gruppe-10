@@ -19,7 +19,7 @@ export default class ManagementAPI {
 
 
   // Person related
-  #getPersonsURL = () => `${this.#managementServerBaseURL}/person`;
+  #getPersonsURL = () => `${this.#managementServerBaseURL}/persons`;
   #addPersonURL = () => `${this.#managementServerBaseURL}/person`;
   #getPersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
   #updatePersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
@@ -28,7 +28,7 @@ export default class ManagementAPI {
 
 
   //Project related
-  #getProjectsURL = () => `${this.#managementServerBaseURL}/project`;
+  #getProjectsURL = () => `${this.#managementServerBaseURL}/projects`;
   #addProjectURL = () => `${this.#managementServerBaseURL}/project`;
   #getProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #updateProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
@@ -99,7 +99,7 @@ export default class ManagementAPI {
 
 
   // Module related
-  #getModulesURL = () => `${this.#managementServerBaseURL}/module`;
+  #getModulesURL = () => `${this.#managementServerBaseURL}/modules`;
   #addModuleURL = () => `${this.#managementServerBaseURL}/module`;
   #getModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
   #updateModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;

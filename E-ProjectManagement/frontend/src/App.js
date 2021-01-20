@@ -11,17 +11,17 @@ import About from './components/pages/About';
 import SignIn from './components/pages/SignIn';
 import LoadingProgress from './components/dialogs/LoadingProgress';
 import ContextErrorMessage from './components/dialogs/ContextErrorMessage';
-import AllPersonList from './components/AllPersonList';
+//import AllPersonList from './components/AllPersonList';
 import AllProjectList from './components/AllProjectList';
 import AllRatingList from "./components/AllRatingList";
-
+import AllModuleList from "./components/AllModuleList";
 import AllParticipationList from "./components/AllParticipationList";
 import ProjectList from "./components/ProjectList";
 import PersonList from "./components/PersonList";
 import RatingList from "./components/RatingList";
 import StudentList from "./components/StudentList";
+import ModuleDetails from "./components/ModuleDetails";
 
-//import { ParticipationList } from "./components/ParticipationList";
 
 /**
  * The main bank administration app. It uses Googles firebase to log into the bank end. For routing the
@@ -31,42 +31,41 @@ import StudentList from "./components/StudentList";
  * @see See Google [firebase.auth().signInWithRedirect](https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signinwithredirect)
  * @see [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
  *
- *
+ * @author [Christoph Kunz](https://github.com/christophkunz)
  */
-
 class App extends React.Component {
 
+	/** Constructor of the app, which initializes firebase  */
+	constructor(props) {
+		super(props);
 
-    //Constrcutor welcher Firebase initialisiert
-    constructor (props) {
-        super(props)
+		// Init an empty state
+		this.state = {
+			currentUser: null,
+			appError: null,
+			authError: null,
+			authLoading: false
+		};
+	}
 
-
-    //Dann wird ein leeres state initalisiert
-	    this.state = {
-            person: null,
-            appError: null,
-            authError: null,
-            authLoading: false
-        };
-    }
-
-
-
-    static getDerivedStateFromError(error) {   //Status wird aktualisiert
-                                               //so dass beim nächsten Rendern die Fallback UI angezeigt wird
-
+	/**
+	 * Create an error boundary for this app and recieve all errors from below the component tree.
+	 *
+	 * @See See Reacts [Error Boundaries](https://reactjs.org/docs/error-boundaries.html)
+ 	 */
+	static getDerivedStateFromError(error) {
+		// Update state so the next render will show the fallback UI.
 		return { appError: error };
 	}
 
-    	// Firebase Nutzer logt sich ein und der state wechselt den Zustand
-	handleAuthStateChange = person => {
-		if (person) {
+	/** Handles firebase users logged in state changes  */
+	handleAuthStateChange = user => {
+		if (user) {
 			this.setState({
 				authLoading: true
 			});
-			//Person ist eingeloggt
-			person.getIdToken().then(token => {
+			// The user is signed in
+			user.getIdToken().then(token => {
 				// Add the token to the browser's cookies. The server will then be
 				// able to verify the token against the API.
 				// SECURITY NOTE: As cookies can easily be modified, only put the
@@ -74,15 +73,12 @@ class App extends React.Component {
 				// user information.
 				document.cookie = `token=${token};path=/`;
 
-				// setzt den Nutzer auf Not bevor der Token angekommt
+				// Set the user not before the token arrived
 				this.setState({
-					person: person,
+					currentUser: user,
 					authError: null,
 					authLoading: false
 				});
-
-
-
 			}).catch(e => {
 				this.setState({
 					authError: e,
@@ -90,12 +86,12 @@ class App extends React.Component {
 				});
 			});
 		} else {
-			// Person hat sich ausgeloggt, also clear token
+			// User has logged out, so clear the id token
 			document.cookie = 'token=;path=/';
 
-			// setze die ausgeloggte Person auf null
+			// Set the logged out user to null
 			this.setState({
-				person: null,
+				currentUser: null,
 				authLoading: false
 			});
 		}
@@ -110,12 +106,11 @@ class App extends React.Component {
 		this.setState({
 			authLoading: true
 		});
-		const provider = new firebase.auth.GoogleAuthProvider(); //Erstelle eine Instanz des Google-Provider-Objekts
+		const provider = new firebase.auth.GoogleAuthProvider();
 		firebase.auth().signInWithRedirect(provider);
-    }
+	}
 
-
-    /**
+	/**
 	 * Lifecycle method, which is called when the component gets inserted into the browsers DOM.
 	 * Initializes the firebase SDK.
 	 *
@@ -127,11 +122,9 @@ class App extends React.Component {
 		firebase.auth().onAuthStateChanged(this.handleAuthStateChange);
 	}
 
-
-
 	/** Renders the whole app */
-    render() {
-		const { person, appError, authError, authLoading } = this.state;
+	render() {
+		const { currentUser, appError, authError, authLoading } = this.state;
 
 		return (
 			<ThemeProvider theme={Theme}>
@@ -139,19 +132,28 @@ class App extends React.Component {
 				<CssBaseline />
 				<Router basename={process.env.PUBLIC_URL}>
 					<Container maxWidth='md'>
-						<Header user={person} />
+						<Header user={currentUser} />
 						{
 							// Is a user signed in?
-							person ?
+						        currentUser ?
 								<>
-									<Redirect from='/' to='persons' />
-									<Route exact path='/persons'>
-										<AllPersonList />
+									<Redirect from='/' to='person' />
+									<Route exact path='/person'>
+										<PersonList />
 									</Route>
-
+									<Route path='/projects'>
+										<ProjectList/>
+									</Route>
+									<Route path='/modules'>
+										<AllModuleList/>
+									</Route>
+									<Route path='/students'>
+										<StudentList/>
+									</Route>
 									<Route path='/about' component={About} />
 								</>
 								:
+
 								// else show the sign in page
 								<>
 									<Redirect to='/index.html' />
@@ -167,4 +169,5 @@ class App extends React.Component {
 		);
 	}
 }
+
 export default App;
