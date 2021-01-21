@@ -7,13 +7,13 @@ import ContextErrorMessage from '../dialogs/ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
 /**
- * Shows a modal delete/cancle dialog, which asks for deleting a customer. The CustomerBO to be deleted must be given in prop customer.
+ * Shows a modal delete/cancel dialog, which asks for deleting a person. The PersonBO to be deleted must be given in prop person.
  * In dependency of the user interaction (delete/cancel) the respective backendcall is made. After that, the function of the onClose prop
- * is called with the deleted CustomerBO object as parameter. When the dialog is canceled, onClose is called with null.
+ * is called with the deleted PersonBo object as parameter. When the dialog is canceled, onClose is called with null.
  *
  * @see See Material-UIs [Dialog](https://material-ui.com/components/dialogs)
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+ * @author [Tom Schenk](https://github.com/TomSchenk2000)
  */
 class PersonDeleteDialog extends Component {
 
@@ -27,14 +27,14 @@ class PersonDeleteDialog extends Component {
     };
   }
 
-  /** Delete the customer */
+  /** Delete the person */
   deletePerson = () => {
     ManagementAPI.getAPI().deletePerson(this.props.person.getID()).then(person => {
       this.setState({
         deletingInProgress: false,              // disable loading indicator
         deletingError: null                     // no error message
       });
-      this.props.onClose(this.props.person);  // call the parent with the deleted customer
+      this.props.onClose(this.props.person);  // call the parent with the deleted person
     }).catch(e =>
       this.setState({
         deletingInProgress: false,              // disable loading indicator
@@ -70,10 +70,10 @@ class PersonDeleteDialog extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Really delete customer '{person.getRole()}' (ID: {person.getID()})?
+              Really delete person '{person.getRole()}' (ID: {person.getID()})?
             </DialogContentText>
             <LoadingProgress show={deletingInProgress} />
-            <ContextErrorMessage error={deletingError} contextErrorMsg={`The customer '${person.getRole()}' (ID: ${person.getID()}) could not be deleted.`}
+            <ContextErrorMessage error={deletingError} contextErrorMsg={`The person '${person.getRole()}' (ID: ${person.getID()}) could not be deleted.`}
               onReload={this.deletePerson} />
           </DialogContent>
           <DialogActions>
@@ -104,15 +104,15 @@ const styles = theme => ({
 PersonDeleteDialog.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
-  /** The CustomerBO to be deleted */
-  customer: PropTypes.object.isRequired,
+  /** The PersonBO to be deleted */
+  person: PropTypes.object.isRequired,
   /** If true, the dialog is rendered */
   show: PropTypes.bool.isRequired,
   /**
    * Handler function which is called, when the dialog is closed.
-   * Sends the deleted CustomerBO as parameter or null, if cancel was pressed.
+   * Sends the deleted Person as parameter or null, if cancel was pressed.
    *
-   * Signature: onClose(CustomerBO customer);
+   * Signature: onClose(PersonBo person);
    */
   onClose: PropTypes.func.isRequired,
 }
