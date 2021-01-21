@@ -22,7 +22,6 @@ class PersonList extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props);console.log('PROPS LOADED!');
     let expandedID = null;
 //Achtung: hier Änderung von "expandPerson" in person
     if (this.props.location.person) {
