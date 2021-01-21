@@ -100,14 +100,14 @@ class ProjectListEntry extends Component {
         <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            id={`project${project.getID()}accountpanel-header`}
+            id={`project${project.getID()}projectpanel-header`}
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>{project.getName()}, {project.getSemester()},
-                {project.getModule()}, {project.getShortDescription()}, {project.getExternalPartnerlist()},
-                {project.getCapacity()}, {project.getBDAP()}, {project.getBBLP()}, {project.getBDLP()},
-                {project.getPDL()}, {project.getLanguage()}, {project.getRoom()}, {project.getSpecialRoom()},
+                {project.getModule()}, {project.getShortDescription()}, {project.getExternalPartnerList()},
+                {project.getCapacity()}, {project.getBdDuringExamPeriod()}, {project.getBdBeforeLecturePeriod()}, {project.getBdDuringLecturePeriod()},
+                {project.getPreferredBdDuringLecturePeriod()}, {project.getLanguage()}, {project.getRoom()}, {project.getSpecialRoom()},
                 {project.getFlag()}, {project.getStatus()}, {project.getProjectType()}, {project.getOwner()}
                 </Typography>
               </Grid>
