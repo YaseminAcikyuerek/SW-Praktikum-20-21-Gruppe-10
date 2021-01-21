@@ -29,16 +29,16 @@ export default class ParticipationBO extends BusinessObject {
   }
 
 
-  static fromJSON(participations) {
+  static fromJSON(participation) {
     let result = [];
-   if (Array.isArray(participations)) {
-      participations.forEach((p) => {
+   if (Array.isArray(participation)) {
+      participation.forEach((p) => {
         Object.setPrototypeOf(p, ParticipationBO.prototype);
         result.push(p);
       })
    } else {
 
-      let p = participations;
+      let p = participation;
       Object.setPrototypeOf(p, ParticipationBO.prototype);
       result.push(p);
    }
