@@ -14,7 +14,7 @@ class ModuleListEntry extends Component {
 
     // Init the state
     this.state = {
-      Module: props.Module,
+      module: props.module,
       showModuleForm: false,
       showModuleDeleteDialog: false,
     };
@@ -22,7 +22,7 @@ class ModuleListEntry extends Component {
 
   /** Handles onChange events of the underlying ExpansionPanel */
   expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.Module);
+    this.props.onExpandedStateChange(this.props.module);
   }
 
 
