@@ -19,7 +19,7 @@ class ParticipationListEntry extends Component {
 
     // Init the state
     this.state = {
-      Participation: props.Participation,
+      participation: props.participation,
       showParticipationForm: false,
       showParticipationDeleteDialog: false,
     };
@@ -27,7 +27,7 @@ class ParticipationListEntry extends Component {
 
   /** Handles onChange events of the underlying ExpansionPanel */
   expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.Participation);
+    this.props.onExpandedStateChange(this.props.participation);
   }
 
 
@@ -41,11 +41,11 @@ class ParticipationListEntry extends Component {
   }
 
   /** Handles the onClose event of the ParticipationForm */
-  ParticipationFormClosed = (Participation) => {
+  ParticipationFormClosed = (participation) => {
     // Participation is not null and there for changed
-    if (Participation) {
+    if (participation) {
       this.setState({
-        Participation: Participation,
+        participation: participation,
         showParticipationForm: false
       });
     } else {
@@ -80,19 +80,16 @@ class ParticipationListEntry extends Component {
   render() {
     const { classes, expandedState } = this.props;
     // Use the states customer
-    const { Participation, showParticipationForm, showParticipationDeleteDialog } = this.state;
+    const { participation, showParticipationForm, showParticipationDeleteDialog } = this.state;
 
-    // console.log(this.state);
+     console.log(this.state);
     return (
       <div>
         <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            id={`Participation${Participation.getID()}participation's-header`}
-          >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} id={`participation${participation.getID()}participation-header`}>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{Participation.getRole()}
+                <Typography variant='body1' className={classes.heading}>{participation.getRole()}
                 </Typography>
               </Grid>
               <Grid item>
@@ -112,11 +109,11 @@ class ParticipationListEntry extends Component {
             </Grid>
           </AccordionSummary>
           <AccordionDetails>
-            <ParticipationList show={expandedState} Participation={Participation} />
+            <ParticipationList show={expandedState} participation={participation} />
           </AccordionDetails>
         </Accordion>
-        <ParticipationForm show={showParticipationForm} Participation={Participation} onClose={this.ParticipationFormClosed} />
-        <ParticipationDeleteDialog show={showParticipationDeleteDialog} Participation={Participation} onClose={this.deleteParticipationDialogClosed} />
+        <ParticipationForm show={showParticipationForm} participation={participation} onClose={this.participationFormClosed} />
+        <ParticipationDeleteDialog show={showParticipationDeleteDialog} participation={participation} onClose={this.deleteParticipationDialogClosed} />
       </div>
     );
   }

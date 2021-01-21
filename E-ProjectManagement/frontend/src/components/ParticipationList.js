@@ -201,7 +201,7 @@ class ParticipationList extends Component {
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of participations could not be loaded.`} onReload={this.getParticipations} />
+        //<ContextErrorMessage error={error} contextErrorMsg={`The list of participations could not be loaded.`} onReload={this.getParticipations} />
         <ParticipationForm show={showParticipationForm} onClose={this.ParticipationFormClosed} />
       </div>
     );
