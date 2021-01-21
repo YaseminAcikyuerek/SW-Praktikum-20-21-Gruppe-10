@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PersonBO from '../api/PersonBO';
 import PersonForm from './dialogs/PersonForm';
 import PersonDeleteDialog from './dialogs/PersonDeleteDialog';
 import ProjectList from "./ProjectList";
-
+import PersonList from "./PersonList";
 
 
 /**
@@ -24,7 +25,7 @@ class PersonListEntry extends Component {
 
     // Init the state
     this.state = {
-      Person: props.Person,
+      person: props.person,
       showPersonForm: false,
       showPersonDeleteDialog: false,
     };
@@ -91,10 +92,7 @@ class PersonListEntry extends Component {
     return (
       <div>
         <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            id={`person${person.getID()}personpanel-header`}
-          >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} id={`person${person.getID()}personpanel-header`}>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>{person.getRole()}

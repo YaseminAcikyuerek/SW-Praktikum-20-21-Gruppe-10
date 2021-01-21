@@ -22,11 +22,11 @@ class PersonList extends Component {
   constructor(props) {
     super(props);
 
-    // console.log(props);
+    console.log(props);console.log('PROPS LOADED!');
     let expandedID = null;
-
-    if (this.props.location.expandPerson) {
-      expandedID = this.props.location.expandPerson.getID();
+//Achtung: hier Änderung von "expandPerson" in person
+    if (this.props.location.person) {
+      expandedID = this.props.location.person.getID();
     }
 
     // Init an empty state
@@ -44,8 +44,7 @@ class PersonList extends Component {
   /** Fetches all PersonBOs from the backend */
   getPersons = () => {
   console.log("vor fetch")
-    ManagementAPI.getAPI().getPersons()
-      .then(personBOs =>
+    ManagementAPI.getAPI().getPersons().then(personBOs =>
         this.setState({               // Set new state when PersonBOs have been fetched
           persons: personBOs,
           filteredPersons: [...personBOs], // store a copy
@@ -204,7 +203,7 @@ class PersonList extends Component {
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of persons could not be loaded.`} onReload={this.getPersons} />
+
         <PersonForm show={showPersonForm} onClose={this.personFormClosed} />
       </div>
     );

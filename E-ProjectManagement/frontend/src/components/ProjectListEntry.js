@@ -6,6 +6,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProjectForm from './dialogs/ProjectForm';
 import ProjectDeleteDialog from './dialogs/ProjectDeleteDialog';
 import ParticipationList from './ParticipationList';
+import ProjectList from './ProjectList';
 
 
 /**
@@ -24,6 +25,7 @@ class ProjectListEntry extends Component {
     // Init the state
     this.state = {
       project: props.project,
+      participations: props.participations,
       showProjectForm: false,
       showProjectDeleteDialog: false,
     };
