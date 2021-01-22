@@ -118,17 +118,17 @@ class ProjectMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE project SET owner=%s, name=%s, module=%s, status=%s," \
-                  "project_type=%s, semester=%s, capacity=%s,external_partner_list=%s, short_description=%s," \
-                  "flag=%s, bd_before_lecture_period=%s, bd_during_lecture_period=%s," \
-                  "bd_during_exam_period=%s, preferred_bd_during_lecture_period=%s,special_room=%s, room=%s, " \
-                  "language=%s WHERE id=%s"
-        data = (project.get_id(), project.get_creation_time(),project.get_semester(), project.get_module(), project.get_short_description(),
+        command = "UPDATE project SET creation_time=%s,semester=%s,module=%s, short_description=%s, " \
+                  "external_partner_list=%s, capacity=%s, bd_during_exam_period=%s,bd_before_lecture_period=%s," \
+                  "bd_during_lecture_period=%s,preferred_bd_during_lecture_period=%s,language=%s, room=%s," \
+                  "special_room=%s,flag=%s, name=%s, status=%s,project_type=%s,owner=%s  " \
+                  " WHERE id=%s"
+        data = (project.get_creation_time(), project.get_semester(), project.get_module(), project.get_short_description(),
                 project.get_external_partner_list(), project.get_capacity(), project.get_bd_during_exam_period(),
                 project.get_bd_before_lecture_period(), project.get_bd_during_lecture_period(),
                 project.get_preferred_bd_during_lecture_period(), project.get_language(), project.get_room(),
                 project.get_special_room(), project.get_flag(), project.get_name(), project.get_status(),
-                project.get_project_type(), project.get_owner())
+                project.get_project_type(), project.get_owner(), project.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()

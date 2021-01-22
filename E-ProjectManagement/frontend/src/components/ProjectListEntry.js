@@ -5,7 +5,7 @@ import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProjectForm from './dialogs/ProjectForm';
 import ProjectDeleteDialog from './dialogs/ProjectDeleteDialog';
-import ParticipationList from './ParticipationList';
+//import ParticipationList from './ParticipationList';
 import ProjectList from './ProjectList';
 
 
@@ -25,7 +25,7 @@ class ProjectListEntry extends Component {
     // Init the state
     this.state = {
       project: props.project,
-      participations: props.participations,
+      //participations: props.participations,
       showProjectForm: false,
       showProjectDeleteDialog: false,
     };
@@ -37,12 +37,12 @@ class ProjectListEntry extends Component {
   }
 
   /** Handles onParticipationDelete events from an ParticipationListEntry  */
-  deleteParticipationHandler = (deletedParticipation) => {
+  //deleteParticipationHandler = (deletedParticipation) => {
     // console.log(deletedParticipation.getID());
-    this.setState({
-      participations: this.state.participations.filter(participation => participation.getID() !== deletedParticipation.getID())
-    })
-  }
+    //this.setState({
+      //participations: this.state.participations.filter(participation => participation.getID() !== deletedParticipation.getID())
+    //})
+  //}
 
   /** Handles the onClick event of the edit project button */
   editProjectButtonClicked = (event) => {
@@ -127,9 +127,6 @@ class ProjectListEntry extends Component {
               </Grid>
             </Grid>
           </AccordionSummary>
-          <AccordionDetails>
-            <ParticipationList show={expandedState} project={project} />
-          </AccordionDetails>
         </Accordion>
         <ProjectForm show={showProjectForm} project={project} onClose={this.projectFormClosed} />
         <ProjectDeleteDialog show={showProjectDeleteDialog} project={project} onClose={this.deleteProjectDialogClosed} />
