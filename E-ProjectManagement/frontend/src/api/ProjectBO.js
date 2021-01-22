@@ -10,9 +10,8 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aName, aSemester,aModule,aShortDescription,aExternalPartnerList,aCapacity,aBdDuringExamPeriod, aBdBeforeLecturePeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aLanguage, aRoom,aSpecialRoom,aFlag, aStatus,aProjectType,aOwner) {
+  constructor(aSemester,aModule,aShortDescription,aExternalPartnerList,aCapacity,aBdDuringExamPeriod, aBdBeforeLecturePeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aLanguage, aRoom,aSpecialRoom,aFlag, aStatus,aProjectType,aOwner) {
     super();
-    this.name = aName;
     this.semester = aSemester;
     this.module = aModule;
     this.short_description = aShortDescription;
@@ -163,17 +162,17 @@ export default class ProjectBO extends NamedBusinessObject {
 
 
 
-  static fromJSON(project) {
+  static fromJSON(projects) {
     let result = [];
 
-    if (Array.isArray(project)) {
-      project.forEach((j) => {
+    if (Array.isArray(projects)) {
+      projects.forEach((j) => {
         Object.setPrototypeOf(j, ProjectBO.prototype);
         result.push(j);
       })
     } else {
 
-      let j = project;
+      let j = projects;
       Object.setPrototypeOf(j, ProjectBO.prototype);
       result.push(j);
     }

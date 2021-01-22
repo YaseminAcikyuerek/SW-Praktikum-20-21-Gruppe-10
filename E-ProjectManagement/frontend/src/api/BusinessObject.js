@@ -6,16 +6,16 @@ export default class BusinessObject {
 
     constructor() {
         this.id = 0;
-        this.creationTime = null;
+        this.creation_time = null;
     }
 
 
     setCreationTime(aCreationTime) {
-        this.creationTime = aCreationTime;
+        this.creation_time = aCreationTime;
     }
 
     getCreationTime() {
-        return this.creationTime;
+        return this.creation_time;
     }
 
 

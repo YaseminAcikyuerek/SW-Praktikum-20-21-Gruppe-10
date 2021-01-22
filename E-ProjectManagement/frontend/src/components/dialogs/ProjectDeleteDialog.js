@@ -70,10 +70,10 @@ class ProjectDeleteDialog extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Really delete project ' {project.getStatus()} {project.getOwner()} {project.getModule()} {project.getProjectType()} {project.getTime()} {project.getCapacity()} {project.getShortDescription()} {project.getFlag()} {project.getBdBeforeLecturePeriod()} {project.getBdDuringLecturePeriod()} {project.getPreferredBdDuringLecturePeriod()} {project.getSpecialRoom()} {project.getLanguage()} {project.getRoom()}' (ID: {project.getID()})?
+              Really delete project {project.getName()}?
             </DialogContentText>
             <LoadingProgress show={deletingInProgress} />
-            <ContextErrorMessage error={deletingError} contextErrorMsg={`The project '${project.getStatus()} ${project.getOwner()} ${project.getModule()} ${project.getProjectType()} ${project.getTime()} ${project.getCapacity()} ${project.getShortDescription()} ${project.getFlag()} ${project.getBdBeforeLecturePeriod()} ${project.getBdDuringLecturePeriod()} ${project.getPreferredBdDuringLecturePeriod()} ${project.getSpecialRoom()} ${project.getLanguage()} ${project.getRoom()}' (ID: ${project.getID()}) could not be deleted.`}
+            <ContextErrorMessage error={deletingError} contextErrorMsg={`The project   ${project.getName()} ' (ID: ${project.getID()}) could not be deleted.`}
               onReload={this.deleteProject} />
           </DialogContent>
           <DialogActions>

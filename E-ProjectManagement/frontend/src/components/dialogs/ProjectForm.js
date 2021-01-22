@@ -111,7 +111,7 @@ class ProjectForm extends Component {
 
   /** Adds the project */
   addProject = () => {
-    let newProject = new ProjectBO(this.state.id, this.state.creationTime, this.state.semester, this.state.module, this.state.shortDescription,
+    let newProject = new ProjectBO(this.state.semester, this.state.module, this.state.shortDescription,
     this.state.externalPartnerList, this.state.capacity, this.state.bdDuringExamPeriod, this.state.bdBeforeLecturePeriod, this.state.bdDuringLecturePeriod,
     this.state.preferredBdDuringLecturePeriod, this.state.language, this.state.room, this.state.specialRoom, this.state.flag,
     this.state.name, this.state.status,this.state.projectType, this.state.owner);
@@ -139,7 +139,6 @@ class ProjectForm extends Component {
     // clone the original project, in case the backend call fails
     let updatedProject = Object.assign(new ProjectBO(), this.props.project);
     // set the new attributes from our dialog
-    updatedProject.setName(this.state.name);
     updatedProject.setSemester(this.state.semester);
     updatedProject.setModule(this.state.module);
     updatedProject.setShortDescription(this.state.shortDescription);
@@ -152,10 +151,11 @@ class ProjectForm extends Component {
     updatedProject.setLanguage (this.state.language);
     updatedProject.setRoom (this.state.room);
     updatedProject.setSpecialRoom (this.state.specialRoom);
+    updatedProject.setFlag (this.state.flag);
+    updatedProject.setName(this.state.name);
     updatedProject.setStatus (this.state.status);
     updatedProject.setProjectType (this.state.projectType);
     updatedProject.setOwner (this.state.owner);
-    updatedProject.setFlag (this.state.flag);
     ManagementAPI.getAPI().updateProject(updatedProject).then(project => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
