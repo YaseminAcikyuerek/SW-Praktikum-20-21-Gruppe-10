@@ -14,7 +14,7 @@ import ContextErrorMessage from './components/dialogs/ContextErrorMessage';
 //import AllPersonList from './components/AllPersonList';
 import AllProjectList from './components/AllProjectList';
 import AllRatingList from "./components/AllRatingList";
-import AllModuleList from "./components/AllModuleList";
+import ModuleList from "./components/ModuleList";
 import AllParticipationList from "./components/AllParticipationList";
 import ProjectList from "./components/ProjectList";
 import PersonList from "./components/PersonList";
@@ -137,7 +137,7 @@ class App extends React.Component {
 							// Is a user signed in?
 						        currentUser ?
 								<>
-									<Redirect from='/' to='projects' />
+									<Redirect from='/' to='persons' />
 									<Route exact path='/person'>
 										<PersonList />
 									</Route>
@@ -145,7 +145,7 @@ class App extends React.Component {
 										<ProjectList/>
 									</Route>
 									<Route path='/modules'>
-										<AllModuleList/>
+										<ModuleList/>
 									</Route>
 									<Route path='/students'>
 										<StudentList/>

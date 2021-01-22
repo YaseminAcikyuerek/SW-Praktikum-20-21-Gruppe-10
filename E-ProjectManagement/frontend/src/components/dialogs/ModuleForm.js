@@ -46,7 +46,7 @@ class ModuleForm extends Component {
 
   /** Adds the module */
   addModule = () => {
-    let newModule = new ModuleBO(this.state.name, this.state.edvNr);
+    let newModule = new ModuleBO(this.state.edvNr);
     ManagementAPI.getAPI().addModule(newModule).then(module => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty module

@@ -93,8 +93,8 @@ class ModuleMapper(Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE module SET name=%s, edv_nr=%s WHERE id=%s"
-        data = (module.get_name(), module.get_edv_nr(),module.get_id(), module.get_creation_time())
+        command = "UPDATE module SET name=%s,creation_time=%s, edv_nr=%s WHERE id=%s"
+        data = (module.get_name(), module.get_creation_time(),module.get_edv_nr(),  module.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()

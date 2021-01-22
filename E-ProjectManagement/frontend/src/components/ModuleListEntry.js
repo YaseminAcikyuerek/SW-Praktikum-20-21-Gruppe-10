@@ -63,7 +63,7 @@ class ModuleListEntry extends Component {
     // if module is not null, delete it
     if (module) {
       this.props.onModuleDeleted(module);
-    };
+    }
 
     // Don´t show the dialog
     this.setState({
@@ -87,7 +87,7 @@ class ModuleListEntry extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{module.getRole()}
+                <Typography variant='body1' className={classes.heading}>{module.getName()}
                 </Typography>
               </Grid>
               <Grid item>
@@ -102,13 +102,10 @@ class ModuleListEntry extends Component {
               </Grid>
               <Grid item xs />
               <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of project</Typography>
+                <Typography variant='body2' color={'textSecondary'}>List of module</Typography>
               </Grid>
             </Grid>
           </AccordionSummary>
-          <AccordionDetails>
-            <AccountList show={expandedState} module={module} />
-          </AccordionDetails>
         </Accordion>
         <ModuleForm show={showModuleForm} module={module} onClose={this.moduleFormClosed} />
         <ModuleDeleteDialog show={showModuleDeleteDialog} module={module} onClose={this.deleteModuleDialogClosed} />

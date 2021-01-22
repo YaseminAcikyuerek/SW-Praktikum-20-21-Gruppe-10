@@ -57,7 +57,7 @@ class AllModuleList extends Component {
       <div className={classes.root}>
           {
             modules.map(module => <ModuleDetails key={module.getID()}
-            personID={module.getOwner().toString()} moduleID={module.getID().toString()} />)
+            personID={module.getName().toString()} moduleID={module.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
           <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all modules of the project management system could not be loaded.`} onReload={this.loadModules} />

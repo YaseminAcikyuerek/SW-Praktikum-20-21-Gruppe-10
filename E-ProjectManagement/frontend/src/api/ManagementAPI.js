@@ -100,7 +100,7 @@ export default class ManagementAPI {
 
   // Module related
   #getModulesURL = () => `${this.#managementServerBaseURL}/modules`;
-  #addModuleURL = () => `${this.#managementServerBaseURL}/module`;
+  #addModuleURL = () => `${this.#managementServerBaseURL}/modules`;
   #getModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
   #updateModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
   #deleteModuleURL = (id) => `${this.#managementServerBaseURL}/module/${id}`;
