@@ -10,25 +10,25 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aStatus,aOwner,aModule,aProjectType,aTime,aCapacity,aShortDescription,aFlag,aBdBeforeLecturePeriod,aBdDuringExamPeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aRoom,aSpecialRoom,aLanguage,aExternalPartnerList,aSemester) {
+  constructor(aName, aSemester,aModule,aShortDescription,aExternalPartnerList,aCapacity,aBdDuringExamPeriod, aBdBeforeLecturePeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aLanguage, aRoom,aSpecialRoom,aFlag, aStatus,aProjectType,aOwner) {
     super();
-    this.status = aStatus;
-    this.owner = aOwner;
+    this.name = aName;
+    this.semester = aSemester;
     this.module = aModule;
-    this.projectType = aProjectType;
-    this.time = aTime;
-    this.capacity = aCapacity;
     this.short_description = aShortDescription;
-    this.flag = aFlag;
+    this.external_partner_list = aExternalPartnerList;
+    this.capacity = aCapacity;
+    this.bd_during_exam_period  = aBdDuringExamPeriod;
     this.bd_before_lecture_period = aBdBeforeLecturePeriod;
     this.bd_during_lecture_period = aBdDuringLecturePeriod;
-    this.bd_during_exam_period  = aBdDuringExamPeriod ;
     this.preferred_bd_during_lecture_period = aPreferredBdDuringLecturePeriod;
-    this.special_room = aSpecialRoom;
     this.language = aLanguage;
     this.room = aRoom;
-    this.external_partner_list = aExternalPartnerList;
-    this.semester = aSemester;
+    this.special_room = aSpecialRoom;
+    this.flag = aFlag;
+    this.status = aStatus;
+    this.projectType = aProjectType;
+    this.owner = aOwner;
   }
 
   setStatus(aStatus) {
@@ -61,14 +61,6 @@ export default class ProjectBO extends NamedBusinessObject {
 
   getProjectType() {
     return this.project_type;
-  }
-
-  setTime(aTime) {
-  this.time = aTime;
-  }
-
-  getTime() {
-    return this.time;
   }
 
   setCapacity(aCapacity) {
@@ -171,17 +163,17 @@ export default class ProjectBO extends NamedBusinessObject {
 
 
 
-  static fromJSON(projects) {
+  static fromJSON(project) {
     let result = [];
 
-    if (Array.isArray(projects)) {
-      projects.forEach((j) => {
+    if (Array.isArray(project)) {
+      project.forEach((j) => {
         Object.setPrototypeOf(j, ProjectBO.prototype);
         result.push(j);
       })
     } else {
 
-      let j = projects;
+      let j = project;
       Object.setPrototypeOf(j, ProjectBO.prototype);
       result.push(j);
     }

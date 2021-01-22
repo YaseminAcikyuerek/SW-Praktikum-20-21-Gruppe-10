@@ -111,10 +111,10 @@ class ProjectForm extends Component {
 
   /** Adds the project */
   addProject = () => {
-    let newProject = new ProjectBO(this.state.name, this.state.semester, this.state.module, this.state.shortDescription,
+    let newProject = new ProjectBO(this.state.id, this.state.creationTime, this.state.semester, this.state.module, this.state.shortDescription,
     this.state.externalPartnerList, this.state.capacity, this.state.bdDuringExamPeriod, this.state.bdBeforeLecturePeriod, this.state.bdDuringLecturePeriod,
-    this.state.preferredBdDuringLecturePeriod, this.state.language, this.state.room, this.state.specialRoom, this.state.status,
-    this.state.projectType, this.state.owner, this.stat.flag);
+    this.state.preferredBdDuringLecturePeriod, this.state.language, this.state.room, this.state.specialRoom, this.state.flag,
+    this.state.name, this.state.status,this.state.projectType, this.state.owner);
     ManagementAPI.getAPI().addProject(newProject).then(project => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty project

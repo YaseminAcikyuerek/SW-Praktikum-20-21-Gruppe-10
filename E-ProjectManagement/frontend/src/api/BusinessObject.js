@@ -10,8 +10,8 @@ export default class BusinessObject {
     }
 
 
-    setCreationTime(aDateTime) {
-        this.creationTime = aDateTime.now();
+    setCreationTime(aCreationTime) {
+        this.creationTime = aCreationTime;
     }
 
     getCreationTime() {

@@ -326,9 +326,9 @@ export default class ManagementAPI {
 
 
   /**
-   * Updates a person and returns a Promise, which resolves to a ProjectBO.
+   * Updates a project and returns a Promise, which resolves to a ProjectBO.
    *
-   * @param {PersonBO} projectBO to be updated
+   * @param {ProjectBO} projectBO to be updated
    * @public
    */
 

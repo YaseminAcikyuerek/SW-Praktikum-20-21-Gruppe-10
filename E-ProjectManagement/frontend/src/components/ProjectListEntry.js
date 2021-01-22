@@ -104,11 +104,7 @@ class ProjectListEntry extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{project.getName()}, {project.getSemester()},
-                {project.getModule()}, {project.getShortDescription()}, {project.getExternalPartnerList()},
-                {project.getCapacity()}, {project.getBdDuringExamPeriod()}, {project.getBdBeforeLecturePeriod()}, {project.getBdDuringLecturePeriod()},
-                {project.getPreferredBdDuringLecturePeriod()}, {project.getLanguage()}, {project.getRoom()}, {project.getSpecialRoom()},
-                {project.getFlag()}, {project.getStatus()}, {project.getProjectType()}, {project.getOwner()}
+                <Typography variant='body1' className={classes.heading}>{project.getName()}, {project.getOwner()}
                 </Typography>
               </Grid>
               <Grid item>
@@ -123,7 +119,7 @@ class ProjectListEntry extends Component {
               </Grid>
               <Grid item xs />
               <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of accounts</Typography>
+                <Typography variant='body2' color={'textSecondary'}>List of Participations</Typography>
               </Grid>
             </Grid>
           </AccordionSummary>

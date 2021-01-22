@@ -140,7 +140,7 @@ class ProjectList extends Component {
       filteredProjects: this.state.projects.filter(project => {
         let SemesterContainsValue = project.getSemester().toLowerCase().includes(value);
         let ModuleContainsValue = project.getModule().toLowerCase().includes(value);
-        let ShortDescriptionContainsValue = project.getShortDespricption().toLowerCase().includes(value);
+        let ShortDescriptionContainsValue = project.getShortDescription().toLowerCase().includes(value);
         let ExternalPartnerListContainsValue = project.getExternalPartnerList().toLowerCase().includes(value);
         let CapacityContainsValue = project.getCapacity().toLowerCase().includes(value);
         let BdDuringExamPeriodContainsValue = project.getBdDuringExamPeriod().toLowerCase().includes(value);
@@ -153,6 +153,7 @@ class ProjectList extends Component {
         let StatusContainsValue = project.getStatus().toLowerCase().includes(value);
         let ProjectTypeContainsValue = project.getProjectType().toLowerCase().includes(value);
         let OwnerContainsValue = project.getOwner().toLowerCase().includes(value);
+
         return SemesterContainsValue || ModuleContainsValue || ShortDescriptionContainsValue ||ExternalPartnerListContainsValue ||
         CapacityContainsValue || BdDuringExamPeriodContainsValue || BdBeforeLecturePeriod || BdDuringLecturePeriod ||
         PreferredBdDuringLecturePeriod || LanguageContainsValue || RoomContainsValue || FlagContainsValue ||
