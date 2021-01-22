@@ -33,11 +33,11 @@ class ProjectList extends Component {
     this.state = {
       projects: [],
       filteredProjects: [],
-      customerFilter: '',
+      ProjectFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedCustomerID: expandedID,
-      showCustomerForm: false
+      expandedProjectID: expandedID,
+      showProjectForm: false
     };
   }
 
@@ -137,12 +137,28 @@ class ProjectList extends Component {
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
-      filteredProjects: this.state.projects.filter(customer => {
-        let firstNameContainsValue = customer.getFirstName().toLowerCase().includes(value);
-        let lastNameContainsValue = customer.getLastName().toLowerCase().includes(value);
-        return firstNameContainsValue || lastNameContainsValue;
+      filteredProjects: this.state.projects.filter(project => {
+        let SemesterContainsValue = project.getSemester().toLowerCase().includes(value);
+        let ModuleContainsValue = project.getModule().toLowerCase().includes(value);
+        let ShortDescriptionContainsValue = project.getShortDespricption().toLowerCase().includes(value);
+        let ExternalPartnerListContainsValue = project.getExternalPartnerList().toLowerCase().includes(value);
+        let CapacityContainsValue = project.getCapacity().toLowerCase().includes(value);
+        let BdDuringExamPeriodContainsValue = project.getBdDuringExamPeriod().toLowerCase().includes(value);
+        let BdBeforeLecturePeriod = project.getBdBeforeLecturePeriod().toLowerCase().includes(value);
+        let BdDuringLecturePeriod = project.getBdDuringLecturePeriod().toLowerCase().includes(value);
+        let PreferredBdDuringLecturePeriod = project.getPreferredBdDuringLecturePeriod.toLowerCase().includes(value);
+        let LanguageContainsValue = project.getLanguage().toLowerCase().includes(value);
+        let RoomContainsValue = project.getRoom().toLowerCase().includes(value);
+        let FlagContainsValue = project.getFlag().toLowerCase().includes(value);
+        let StatusContainsValue = project.getStatus().toLowerCase().includes(value);
+        let ProjectTypeContainsValue = project.getProjectType().toLowerCase().includes(value);
+        let OwnerContainsValue = project.getOwner().toLowerCase().includes(value);
+        return SemesterContainsValue || ModuleContainsValue || ShortDescriptionContainsValue ||ExternalPartnerListContainsValue ||
+        CapacityContainsValue || BdDuringExamPeriodContainsValue || BdBeforeLecturePeriod || BdDuringLecturePeriod ||
+        PreferredBdDuringLecturePeriod || LanguageContainsValue || RoomContainsValue || FlagContainsValue ||
+        StatusContainsValue || ProjectTypeContainsValue || OwnerContainsValue
       }),
-      customerFilter: value
+      projectFilter: value
     });
   }
 
@@ -188,7 +204,7 @@ class ProjectList extends Component {
           <Grid item xs />
           <Grid item>
             <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addProjectButtonClicked}>
-              Add Customer
+              Add Project
           </Button>
           </Grid>
         </Grid>
@@ -214,7 +230,7 @@ const styles = theme => ({
   root: {
     width: '100%',
   },
-  customerFilter: {
+  ProjectFilter: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
   }
