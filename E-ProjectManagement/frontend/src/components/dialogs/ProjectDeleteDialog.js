@@ -7,9 +7,9 @@ import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
 /**
- * Shows a modal delete/cancle dialog, which asks for deleting a customer. The CustomerBO to be deleted must be given in prop customer.
+ * Shows a modal delete/cancle dialog, which asks for deleting a project. The projectBO to be deleted must be given in prop project.
  * In dependency of the user interaction (delete/cancel) the respective backendcall is made. After that, the function of the onClose prop
- * is called with the deleted CustomerBO object as parameter. When the dialog is canceled, onClose is called with null.
+ * is called with the deleted projectBO object as parameter. When the dialog is canceled, onClose is called with null.
  *
  * @see See Material-UIs [Dialog](https://material-ui.com/components/dialogs)
  *
@@ -34,7 +34,7 @@ class ProjectDeleteDialog extends Component {
         deletingInProgress: false,              // disable loading indicator
         deletingError: null                     // no error message
       });
-      this.props.onClose(this.props.project);  // call the parent with the deleted customer
+      this.props.onClose(this.props.project);  // call the parent with the deleted project
     }).catch(e =>
       this.setState({
         deletingInProgress: false,              // disable loading indicator
@@ -105,7 +105,7 @@ ProjectDeleteDialog.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The ProjectBO to be deleted */
-  customer: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
   /** If true, the dialog is rendered */
   show: PropTypes.bool.isRequired,
   /**
