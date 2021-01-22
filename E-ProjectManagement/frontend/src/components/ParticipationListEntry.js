@@ -131,7 +131,7 @@ ParticipationListEntry.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The ParticipationBO to be rendered */
-  Participation: PropTypes.object.isRequired,
+  participation: PropTypes.object.isRequired,
   /** The state of this ParticipationListEntry. If true the Participation is shown with its Participation */
   expandedState: PropTypes.bool.isRequired,
   /** The handler responsible for handle expanded state changes (exanding/collapsing) of this ParticipationListEntry
