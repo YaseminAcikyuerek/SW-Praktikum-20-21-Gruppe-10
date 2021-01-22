@@ -76,15 +76,15 @@ class ParticipationList extends Component {
    *
    * @param {Participation} ParticipationBO of the ParticipationListEntry to be toggeled
    */
-  onExpandedStateChange = Participation => {
+  onExpandedStateChange = participation => {
     // console.log(ParticipationID);
     // Set expandend Participation entry to null by default
     let newID = null;
 
     // If same Participation entry is clicked, collapse it else expand a new one
-    if (Participation.getID() !== this.state.expandedParticipationID) {
+    if (participation.getID() !== this.state.expandedParticipationID) {
       // Expand the Participation entry with ParticipationID
-      newID = Participation.getID();
+      newID = participation.getID();
     }
     // console.log(newID);
     this.setState({
