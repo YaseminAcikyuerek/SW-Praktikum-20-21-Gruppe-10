@@ -1,4 +1,4 @@
-# Unser Service basiert auf Flask
+ # Unser Service basiert auf Flask
 from flask import Flask
 # Auf Flask aufbauend nutzen wir RestX
 from flask_restx import Api, Resource, fields
