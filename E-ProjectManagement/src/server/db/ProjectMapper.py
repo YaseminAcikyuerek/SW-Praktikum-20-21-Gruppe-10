@@ -138,7 +138,7 @@ class ProjectMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM project WHERE id={}".format(project.get_id())
+        command = "DELETE FROM project WHERE id={}".format(project)
         cursor.execute(command)
 
         self._cnx.commit()

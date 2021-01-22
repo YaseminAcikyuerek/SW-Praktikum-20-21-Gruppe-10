@@ -59,11 +59,11 @@ class Project(nbo, Automaton):
     def get_capacity(self):
         return self._capacity
 
-    def set_external_partner_list(self ,value):
-        self._external__partner_list = value
+    def set_external_partner_list(self, value):
+        self._external_partner_list = value
 
     def get_external_partner_list(self):
-        return self._external__partner_list
+        return self._external_partner_list
 
     def set_short_description(self, value):
         self._short_description = value

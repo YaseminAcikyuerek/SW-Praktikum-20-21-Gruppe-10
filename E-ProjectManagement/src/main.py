@@ -262,7 +262,7 @@ class ProjectOperations(Resource):
         """
         adm = ProjectAdministration()
         proj = adm.get_project_by_id(id)
-        proj.delete_account(proj)
+        adm.delete_project(id)
         return '', 200
 
     @management.marshal_with(project)
