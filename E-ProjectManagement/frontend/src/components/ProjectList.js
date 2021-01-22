@@ -202,7 +202,7 @@ class ProjectList extends Component {
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.getCustomers} />
+        <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.getProjects} />
         <ProjectForm show={showProjectForm} onClose={this.projectFormClosed} />
       </div>
     );

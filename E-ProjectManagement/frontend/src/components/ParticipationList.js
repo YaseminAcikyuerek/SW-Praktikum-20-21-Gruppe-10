@@ -21,16 +21,16 @@ class ParticipationList extends Component {
   constructor(props) {
     super(props);
 
-    // console.log(props);
+     console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandParticipation) {
-      expandedID = this.props.location.expandParticipation.getID();
+    if (this.props.location.participation) {
+      expandedID = this.props.location.participation.getID();
     }
 
     // Init an empty state
     this.state = {
-      Participations: [],
+      participation: [],
       filteredParticipations: [],
       ParticipationFilter: '',
       error: null,
@@ -41,17 +41,18 @@ class ParticipationList extends Component {
   }
 
   /** Fetches all ParticipationBOs from the backend */
+
   getParticipations = () => {
     ManagementAPI.getAPI().getParticipations()
         .then(participationBOs =>
         this.setState({               // Set new state when ParticipationBOs have been fetched
-          participations: participationBOs,
+          participation: participationBOs,
           filteredParticipations: [...participationBOs], // store a copy
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-            participations: [],
+            participation: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
@@ -97,7 +98,7 @@ class ParticipationList extends Component {
    * @param {Participation} ParticipationBO of the ParticipationListEntry to be deleted
    */
   ParticipationDeleted = Participation => {
-    const newParticipationList = this.state.Participations.filter(ParticipationFromState => ParticipationFromState.getID() !== Participation.getID());
+    const newParticipationList = this.state.participation.filter(ParticipationFromState => ParticipationFromState.getID() !== Participation.getID());
     this.setState({
       Participations: newParticipationList,
       filteredParticipations: [...newParticipationList],
@@ -201,7 +202,7 @@ class ParticipationList extends Component {
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        //<ContextErrorMessage error={error} contextErrorMsg={`The list of participations could not be loaded.`} onReload={this.getParticipations} />
+        //<ContextErrorMessage error={error} contextErrorMsg={`The list of participation could not be loaded.`} onReload={this.getParticipations} />
         <ParticipationForm show={showParticipationForm} onClose={this.ParticipationFormClosed} />
       </div>
     );

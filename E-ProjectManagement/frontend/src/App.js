@@ -137,7 +137,7 @@ class App extends React.Component {
 							// Is a user signed in?
 						        currentUser ?
 								<>
-									<Redirect from='/' to='person' />
+									<Redirect from='/' to='projects' />
 									<Route exact path='/person'>
 										<PersonList />
 									</Route>

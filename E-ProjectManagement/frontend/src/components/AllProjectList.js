@@ -63,7 +63,7 @@ class AllProjectList extends Component {
             projectID={project.getOwner().toString()} ProjectID={project.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
-          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all projects could not be loaded.`} onReload={this.loadAccounts} />
+          <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all projects could not be loaded.`} onReload={this.loadProjects} />
       </div>
     );
   }
