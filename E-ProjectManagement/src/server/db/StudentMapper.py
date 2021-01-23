@@ -76,8 +76,8 @@ class StudentMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE student SET  name=%s, matriculation_nr=%s, course_abbr=%s  WHERE id=%s"
-        data = (student.get_name(), student.get_matriculation_nr(), student.get_course_abbr(), student.get_id(), student.get_creation_time())
+        command = "UPDATE student SET creation_time=%s, name=%s, matriculation_nr=%s, course_abbr=%s  WHERE id=%s"
+        data = (student.get_creation_time(),student.get_name(), student.get_matriculation_nr(), student.get_course_abbr(), student.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()

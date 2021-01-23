@@ -41,7 +41,7 @@ class StudentList extends Component {
     };
   }
 
-  /** Fetches all CustomerBOs from the backend */
+  /** Fetches all StudentBOs from the backend */
   getStudent = () => {
     ManagementAPI.getAPI().getStudents()
 
@@ -75,16 +75,16 @@ class StudentList extends Component {
    * Handles onExpandedStateChange events from the CustomerListEntry component. Toggels the expanded state of
    * the CustomerListEntry of the given CustomerBO.
    *
-   * @param {customer} CustomerBO of the CustomerListEntry to be toggeled
+   * @param {customer} StudentBO of the CustomerListEntry to be toggeled
    */
   onExpandedStateChange = student => {
-    // console.log(customerID);
+    // console.log(studentID);
     // Set expandend customer entry to null by default
     let newID = null;
 
-    // If same customer entry is clicked, collapse it else expand a new one
+    // If same student entry is clicked, collapse it else expand a new one
     if (student.getID() !== this.state.expandedStudentID) {
-      // Expand the customer entry with customerID
+      // Expand the student entry with customerID
       newID = student.getID();
     }
     // console.log(newID);
@@ -96,7 +96,7 @@ class StudentList extends Component {
   /**
    * Handles onCustomerDeleted events from the CustomerListEntry component
    *
-   * @param {customer} CustomerBO of the CustomerListEntry to be deleted
+   * @param {customer} StudentBO of the CustomerListEntry to be deleted
    */
   studentDeleted = student => {
     const newStudentList = this.state.student.filter(studentFromState => studentFromState.getID() !== student.getID());
@@ -111,7 +111,7 @@ class StudentList extends Component {
   addStudentButtonClicked = event => {
     // Do not toggle the expanded state
     event.stopPropagation();
-    //Show the CustmerForm
+    //Show the StudentForm
     this.setState({
       showStudentForm: true
     });
@@ -121,10 +121,10 @@ class StudentList extends Component {
   studentFormClosed = student => {
     // customer is not null and therefore created
     if (student) {
-      const newStudenList = [...this.state.student, student];
+      const newStudentList = [...this.state.student, student];
       this.setState({
-        student: newStudenList,
-        filteredStudent: [...newStudenList],
+        student: newStudentList,
+        filteredStudent: [...newStudentList],
         showStudentForm: false
       });
     } else {
@@ -151,7 +151,7 @@ class StudentList extends Component {
   clearFilterFieldButtonClicked = () => {
     // Reset the filter
     this.setState({
-      filtereStudent: [...this.state.student],
+      filterStudent: [...this.state.student],
       studentFilter: ''
     });
   }
@@ -188,8 +188,8 @@ class StudentList extends Component {
           </Grid>
           <Grid item xs />
           <Grid item>
-            <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addCustomerButtonClicked}>
-              Add Customer
+            <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addStudentButtonClicked}>
+              Add Student
           </Button>
           </Grid>
         </Grid>

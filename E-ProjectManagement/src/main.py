@@ -347,7 +347,7 @@ class ProjectStatusOperations(Resource):
 
 
 """Studentenspezifische Methoden"""
-@management.route('/student')
+@management.route('/students')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class StudentListOperations(Resource):
     @management.marshal_list_with(student)
@@ -375,6 +375,7 @@ class StudentListOperations(Resource):
             wird auch dem Client zurückgegeben. 
             """
             s = adm.create_student (std.get_creation_time(),std.get_name(),std.get_matriculation_nr(),std.get_course_abbr())
+            return s, 200
         else:
             return '', 500
 
@@ -1192,7 +1193,7 @@ class StudentByNameOperations(Resource):
         stu = adm.get_student_by_name(name)
         return stu
 
-@management.route('/projects')
+@management.route('/project')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectListOperations(Resource):
     @management.doc('Create a new state of project')

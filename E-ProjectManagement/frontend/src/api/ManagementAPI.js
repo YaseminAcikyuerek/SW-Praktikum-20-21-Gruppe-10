@@ -29,15 +29,15 @@ export default class ManagementAPI {
 
   //Project related
   #getProjectsURL = () => `${this.#managementServerBaseURL}/projects`;
-  #addProjectURL = () => `${this.#managementServerBaseURL}/project`;
+  #addProjectURL = () => `${this.#managementServerBaseURL}/projects`;
   #getProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #updateProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #searchProjectURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
 
   //Student related
-  #getStudentsURL = () => `${this.#managementServerBaseURL}/student`;
-  #addStudentURL = () => `${this.#managementServerBaseURL}/student`;
+  #getStudentsURL = () => `${this.#managementServerBaseURL}/students`;
+  #addStudentURL = () => `${this.#managementServerBaseURL}/students`;
   #getStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
   #updateStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
   #deleteStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
@@ -154,7 +154,7 @@ export default class ManagementAPI {
     return this.#fetchAdvanced(this.#getPersonURL(personID)).then((responseJSON) => {
       // We always get an array of PersonBOs.fromJSON, but only need one object
       let responsePersonBO = PersonBO.fromJSON(responseJSON)[0];
-      // console.info(responsePersonBO);
+       console.info(responsePersonBO);
       return new Promise(function (resolve) {
         resolve(responsePersonBO);
       })
