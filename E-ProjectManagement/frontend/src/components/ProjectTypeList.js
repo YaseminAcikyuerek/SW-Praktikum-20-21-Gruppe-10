@@ -131,12 +131,12 @@ class ProjectTypeList extends Component {
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
-      filteredProjectTypes: this.state.projecttypes.filter(projectType => {
+      filteredProjectTypes: this.state.projectTypes.filter(projectType => {
         let NameContainsValue = projectType.getName().toLowerCase().includes(value);
         let SwsContainsValue = projectType.getSws().toLowerCase().includes(value);
         let EctsContainsValue = projectType.getEcts().toLowerCase().includes(value);
 
-        return SwsContainsValue || EctsContainsValue
+        return SwsContainsValue || EctsContainsValue || NameContainsValue
       }),
       projectTypeFilter: value
     });
@@ -183,8 +183,8 @@ class ProjectTypeList extends Component {
           </Grid>
           <Grid item xs />
           <Grid item>
-            <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addModuleButtonClicked}>
-              Add Module
+            <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addProjectTypeButtonClicked}>
+              Add Project Type
           </Button>
           </Grid>
         </Grid>

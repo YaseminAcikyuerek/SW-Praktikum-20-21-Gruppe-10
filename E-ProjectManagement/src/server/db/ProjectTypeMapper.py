@@ -77,8 +77,9 @@ class ProjectTypeMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE project_type SET sws=%s, ects=%s, name=%s WHERE id=%s"
-        data = (project_type.get_name(),project_type.get_sws(), project_type.get_ects(),  project_type.get_id(), project_type.get_creation_time())
+        command = "UPDATE project_type SET  creation_time=%s, name=%s, sws=%s, ects=%s WHERE id=%s"
+        data = (project_type.get_name(),project_type.get_sws(), project_type.get_ects(),project_type.get_creation_time(),
+                project_type.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()

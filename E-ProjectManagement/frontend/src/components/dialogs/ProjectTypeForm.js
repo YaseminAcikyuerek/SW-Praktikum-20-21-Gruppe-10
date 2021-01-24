@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import ManagementAPI from '../../api/ManagementAPI';
-import ProjectTypeBO from '../../api/ProjectBO'
+import ProjectTypeBO from '../../api/ProjectTypeBO';
 import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
@@ -27,10 +27,10 @@ class ProjectTypeForm extends Component {
     super(props);
 
     let n = '', sw = '', ec;
-    if (props.projecttype) {
-      n = props.projecttype.getName();
-      sw = props.projecttype.getSws();
-      ec = props.projecttype.getEcts();
+    if (props.projectType) {
+      n = props.projectType.getName();
+      sw = props.projectType.getSws();
+      ec = props.projectType.getEcts();
     }
 
     // Init the state
@@ -39,8 +39,8 @@ class ProjectTypeForm extends Component {
       nameValidationFailed: false,
       nameEdited: false,
       sws: sw,
-      swValidationFailed: false,
-      swEdited: false,
+      swsValidationFailed: false,
+      swsEdited: false,
       ects: ec,
       ectsValidationFailed: false,
       ectsEdited: false,
@@ -56,11 +56,11 @@ class ProjectTypeForm extends Component {
   /** Adds the projecttype */
   addProjectType = () => {
     let newProjectType = new ProjectTypeBO(this.state.name, this.state.sws, this.state.ects);
-    ManagementAPI.getAPI().addProjectType(newProjectType).then(projecttype => {
+    ManagementAPI.getAPI().addProjectType(newProjectType).then(projectType => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty projecttype
       this.setState(this.baseState);
-      this.props.onClose(projecttype); // call the parent with the projecttype object from backend
+      this.props.onClose(projectType); // call the parent with the projecttype object from backend
     }).catch(e =>
       this.setState({
         updatingInProgress: false,    // disable loading indicator
@@ -78,12 +78,12 @@ class ProjectTypeForm extends Component {
   /** Updates the projecttype */
   updateProjectType = () => {
     // clone the original projecttype, in case the backend call fails
-    let updatedProjectType = Object.assign(new ProjectTypeBO(), this.props.projecttype);
+    let updatedProjectType = Object.assign(new ProjectTypeBO(), this.props.projectType);
     // set the new attributes from our dialog
     updatedProjectType.setName(this.state.name);
     updatedProjectType.setSws(this.state.sws);
     updatedProjectType.setEcts(this.state.ects);
-    ManagementAPI.getAPI().updateProjectType(updatedProjectType).then(projecttype => {
+    ManagementAPI.getAPI().updateProjectType(updatedProjectType).then(projectType => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
@@ -132,17 +132,17 @@ class ProjectTypeForm extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, projecttype, show } = this.props;
+    const { classes, projectType, show } = this.props;
     const { name, nameValidationFailed, nameEdited, sws, swsValidationFailed, swsEdited, ects, ectsValidationFailed,
     ectsEdited, addingInProgress, addingError, updatingInProgress, updatingError } = this.state;
 
     let title = '';
     let header = '';
 
-    if (projecttype) {
+    if (projectType) {
       // customer defindet, so ist an edit dialog
       title = 'Update a projecttype';
-      header = `ProjectType ID: ${projecttype.getID()}`;
+      header = `ProjectType ID: ${projectType.getID()}`;
     } else {
       title = 'Create a new projecttype';
       header = 'Enter projecttype data';
@@ -174,8 +174,8 @@ class ProjectTypeForm extends Component {
             <LoadingProgress show={addingInProgress || updatingInProgress} />
             {
               // Show error message in dependency of projecttype prop
-              projecttype ?
-                <ContextErrorMessage error={updatingError} contextErrorMsg={`The projecttype ${projecttype.getID()} could not be updated.`} onReload={this.updateProjectType} />
+              projectType ?
+                <ContextErrorMessage error={updatingError} contextErrorMsg={`The projecttype ${projectType.getID()} could not be updated.`} onReload={this.updateProjectType} />
                 :
                 <ContextErrorMessage error={addingError} contextErrorMsg={`The projecttype could not be added.`} onReload={this.addProjectType} />
             }
@@ -186,7 +186,7 @@ class ProjectTypeForm extends Component {
             </Button>
             {
               // If a projecttype is given, show an update button, else an add button
-              projecttype ?
+              projectType ?
                 <Button disabled={nameValidationFailed || swsValidationFailed || ectsValidationFailed} variant='contained' onClick={this.updateProjectType} color='primary'>
                   Update
               </Button>
@@ -219,7 +219,7 @@ ProjectTypeForm.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The ProjectTypeBO to be edited */
-  projecttype: PropTypes.object,
+  projectType: PropTypes.object,
   /** If true, the form is rendered */
   show: PropTypes.bool.isRequired,
   /**
