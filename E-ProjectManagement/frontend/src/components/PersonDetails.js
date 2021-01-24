@@ -51,7 +51,7 @@ class PersonDetails extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, PersonID } = this.props;
+    const { classes, personID } = this.props;
     const { person, loadingInProgress, loadingError } = this.state;
 
     return (
@@ -60,18 +60,18 @@ class PersonDetails extends Component {
         <Typography variant='h6'>
           Person
         </Typography>
-        <Typography>
-          ID: {person.getID()}
+        <Typography> className={classes.personEntry}>
+          ID: {personID}
         </Typography>
         {
           person ?
             <Typography>
-              Person: {person.getRole()}
+              Person: {person.getName()}, {person.getRole()}
             </Typography>
             : null
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of person id ${person.getID()} could not be loaded.`} onReload={this.getPerson} />
+        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of person id ${personID} could not be loaded.`} onReload={this.getPerson} />
       </Paper>
     );
   }

@@ -97,7 +97,7 @@ ParticipationDetails.propTypes = {
   /** The participationID to be rendered */
   participationID: PropTypes.string.isRequired,
   /** The participationID to be rendered */
-  participationID: PropTypes.string.isRequired,
+
 }
 
 export default withStyles(styles)(ParticipationDetails);

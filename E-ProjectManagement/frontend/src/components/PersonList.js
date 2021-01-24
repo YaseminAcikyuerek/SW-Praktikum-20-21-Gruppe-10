@@ -25,14 +25,14 @@ class PersonList extends Component {
     let expandedID = null;
 //Achtung: hier Änderung von "expandPerson" in person
     if (this.props.location.person) {
-      expandedID = this.props.location.person.getID();
+      expandedID = this.props.location.expandPerson.getID();
     }
 
     // Init an empty state
     this.state = {
       persons: [],
       filteredPersons: [],
-      personFilter: '',
+      PersonFilter: '',
       error: null,
       loadingInProgress: false,
       expandedPersonID: expandedID,

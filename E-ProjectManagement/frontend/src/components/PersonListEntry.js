@@ -8,6 +8,7 @@ import PersonDeleteDialog from './dialogs/PersonDeleteDialog';
 import ProjectList from "./ProjectList";
 
 
+
 /**
  * Renders a PersonBO object within a expandable/collapsible PersonListEntry with the person manipulation
  * functions. If expanded, it renders a PersonList.
@@ -31,7 +32,7 @@ class PersonListEntry extends Component {
 
   /** Handles onChange events of the underlying ExpansionPanel */
   expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.Person);
+    this.props.onExpandedStateChange(this.props.person);
   }
 
 
