@@ -186,7 +186,7 @@ class SemesterForm extends Component {
             </Button>
             {
               // If a semester is given, show an update button, else an add button
-              customer ?
+              semester ?
                 <Button disabled={nameValidationFailed || startValidationFailed || endValidationFailed} variant='contained' onClick={this.updateSemester} color='primary'>
                   Update
               </Button>

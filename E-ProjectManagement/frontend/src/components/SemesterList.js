@@ -97,7 +97,7 @@ class SemesterList extends Component {
    *
    * @param {semester} SemesterBO of the SemesterListEntry to be deleted
    */
-  moduleDeleted = semester => {
+  semesterDeleted = semester => {
     const newSemesterList = this.state.semesters.filter(semesterFromState => semesterFromState.getID() !==semester.getID());
     this.setState({
       semesters: newSemesterList,
@@ -107,7 +107,7 @@ class SemesterList extends Component {
   }
 
   /** Handles the onClick event of the add module button */
-  addModuleButtonClicked = event => {
+  addSemesterButtonClicked = event => {
     // Do not toggle the expanded state
     event.stopPropagation();
     //Show the SemesterForm
@@ -117,7 +117,7 @@ class SemesterList extends Component {
   }
 
   /** Handles the onClose event of the ModuleForm */
-  semsterFormClosed = semester => {
+  semesterFormClosed = semester => {
     // semester is not null and therefore created
     if (semester) {
       const newSemesterList = [...this.state.semesters,semester];
@@ -160,7 +160,7 @@ class SemesterList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredSemester, semesterFilter, expandedSemesterID, loadingInProgress, error, showSemesterForm } = this.state;
+    const { filteredSemesters, semesterFilter, expandedSemesterID, loadingInProgress, error, showSemesterForm } = this.state;
 
     return (
       <div className={classes.root}>

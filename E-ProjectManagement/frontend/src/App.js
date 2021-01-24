@@ -11,16 +11,11 @@ import About from './components/pages/About';
 import SignIn from './components/pages/SignIn';
 import LoadingProgress from './components/dialogs/LoadingProgress';
 import ContextErrorMessage from './components/dialogs/ContextErrorMessage';
-//import AllPersonList from './components/AllPersonList';
-import AllProjectList from './components/AllProjectList';
-import AllRatingList from "./components/AllRatingList";
 import ModuleList from "./components/ModuleList";
-import AllParticipationList from "./components/AllParticipationList";
 import ProjectList from "./components/ProjectList";
 import PersonList from "./components/PersonList";
-import RatingList from "./components/RatingList";
+import SemesterList from "./components/SemesterList";
 import StudentList from "./components/StudentList";
-import ModuleDetails from "./components/ModuleDetails";
 import ProjectTypeList from './components/ProjectTypeList';
 
 
@@ -156,6 +151,9 @@ class App extends React.Component {
 										<ProjectTypeList/>
 									</Route>
 
+									<Route path='/semester'>
+										<SemesterList/>
+									</Route>
 									<Route path='/about' component={About} />
 								</>
 								:
