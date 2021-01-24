@@ -21,6 +21,7 @@ import PersonList from "./components/PersonList";
 import RatingList from "./components/RatingList";
 import StudentList from "./components/StudentList";
 import ModuleDetails from "./components/ModuleDetails";
+import ProjectTypeList from './components/ProjectTypeList';
 
 
 /**
@@ -150,6 +151,11 @@ class App extends React.Component {
 									<Route path='/students'>
 										<StudentList/>
 									</Route>
+
+									<Route path='/projectTypes'>
+										<ProjectTypeList/>
+									</Route>
+
 									<Route path='/about' component={About} />
 								</>
 								:

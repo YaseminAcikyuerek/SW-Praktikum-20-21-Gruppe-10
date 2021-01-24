@@ -186,7 +186,7 @@ class ProjectTypeForm extends Component {
             </Button>
             {
               // If a projecttype is given, show an update button, else an add button
-              customer ?
+              projecttype ?
                 <Button disabled={nameValidationFailed || swsValidationFailed || ectsValidationFailed} variant='contained' onClick={this.updateProjectType} color='primary'>
                   Update
               </Button>
