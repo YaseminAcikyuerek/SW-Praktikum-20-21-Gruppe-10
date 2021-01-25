@@ -5,8 +5,8 @@ class Semester(nbo):
 
     def __init__(self):
         super().__init__()
-        self._start =""
-        self._end =""
+        self._start =None
+        self._end =None
 
     def set_start(self,value):
         self._start = value

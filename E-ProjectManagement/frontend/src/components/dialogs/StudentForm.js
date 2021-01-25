@@ -136,7 +136,7 @@ class StudentForm extends Component {
     const { name, nameValidationFailed, nameEdited, courseAbbr, courseAbbrValidationFailed, courseAbbrEdited,
     matriculationNr, matriculationNrValidationFailed, matriculationNrEdited,
     addingInProgress, addingError, updatingInProgress, updatingError } = this.state;
-
+    console.log(this.state)
     let title = '';
     let header = '';
 

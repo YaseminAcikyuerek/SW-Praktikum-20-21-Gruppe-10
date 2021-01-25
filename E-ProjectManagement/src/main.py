@@ -115,8 +115,8 @@ role = api.inherit('Role', {
 })
 
 semester = api.inherit('Semester', bo, nbo, {
-    'start': fields.Date(attribute='_start', description='Start des Semesters'),
-    'end': fields.Date(attribute='_end', description='Ende des Semesters')
+    'start': fields.DateTime(attribute='_start', description='Start des Semesters'),
+    'end': fields.DateTime(attribute='_end', description='Ende des Semesters')
 })
 
 status = api.inherit('Status', {

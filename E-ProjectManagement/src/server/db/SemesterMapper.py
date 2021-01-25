@@ -76,9 +76,9 @@ class SemesterMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE semester SET creation_time=%s, name=%, start=%s, end=%s,  WHERE id=%s"
+        command = "UPDATE semester SET creation_time=%s, name=%s, start=%s, end=%s  WHERE id=%s"
         data = (semester.get_creation_time(),semester.get_name(),semester.get_start(), semester.get_end(),semester.get_id())
-        cursor.execute(command, data)
+        cursor.execute(command,data)
 
         self._cnx.commit()
         cursor.close()
@@ -108,9 +108,10 @@ if (__name__ == "__main__"):
 if (__name__ == "__main__"):
     s = Semester()
     s.set_id(2023)
+    s.set_creation_time(2023-12-10)
     s.set_name("SSSasfsfaf")
-    s.set_start(2023-12-10)
-    s.set_end(2023-13-12)
+    s.set_start(2023-10-10)
+    s.set_end(2023-10-10)
 
     with SemesterMapper() as mapper:
         result = mapper.update(s)

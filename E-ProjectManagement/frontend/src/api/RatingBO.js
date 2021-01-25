@@ -32,7 +32,7 @@ constructor(aProject,aEvaluator,aToBeAssessed,aGrade,aPassed) {
   }
 
   setToBeAssessed(aToBeAssessed) {
-  this.to_be_assessed = aToBeAssessed ;
+  this.to_be_assessed = aToBeAssessed;
   }
 
   getToBeAssessed() {
