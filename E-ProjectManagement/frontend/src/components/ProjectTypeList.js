@@ -94,7 +94,7 @@ class ProjectTypeList extends Component {
   projectTypeDeleted = projectType => {
     const newProjectTypeList = this.state.projectTypes.filter(projectTypeFromState => projectTypeFromState.getID() !==projectType.getID());
     this.setState({
-      projectType: newProjectTypeList,
+      projectTypes: newProjectTypeList,
       filteredProjectTypes: [...newProjectTypeList],
       showProjectTypeForm: false
     });

@@ -134,7 +134,7 @@ class App extends React.Component {
 						        currentUser ?
 								<>
 									<Redirect from='/' to='persons' />
-									<Route exact path='/person'>
+									<Route exact path='/persons'>
 										<PersonList />
 									</Route>
 									<Route path='/projects'>
