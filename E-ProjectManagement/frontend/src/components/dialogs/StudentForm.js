@@ -188,7 +188,7 @@ class StudentForm extends Component {
             {
               // If a student is given, show an update button, else an add button
               student ?
-                <Button disabled={nameValidationFailed || courseAbbrValidationFailed || matriculationNrValidationFailed} variant='contained' onClick={this.updateSemester} color='primary'>
+                <Button disabled={nameValidationFailed || courseAbbrValidationFailed || matriculationNrValidationFailed} variant='contained' onClick={this.updateStudent} color='primary'>
                   Update
               </Button>
                 : <Button disabled={nameValidationFailed || !nameEdited || courseAbbrValidationFailed || !courseAbbrEdited || matriculationNrValidationFailed || !matriculationNrEdited} variant='contained' onClick={this.addStudent} color='primary'>

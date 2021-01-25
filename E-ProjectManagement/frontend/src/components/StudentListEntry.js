@@ -102,7 +102,7 @@ class StudentListEntry extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{student.getCourseAbbr()}, {student.getMatriculationNr()}
+                <Typography variant='body1' className={classes.heading}>{student.getName()},{student.getCourseAbbr()}, {student.getMatriculationNr()}
                 </Typography>
               </Grid>
               <Grid item>
