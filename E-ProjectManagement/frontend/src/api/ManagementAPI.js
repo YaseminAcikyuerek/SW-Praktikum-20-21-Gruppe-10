@@ -756,7 +756,7 @@ export default class ManagementAPI {
    */
 
   updateSemester(semesterBO) {
-    return this.#fetchAdvanced(this.#updatePersonURL(semesterBO.getID()), {
+    return this.#fetchAdvanced(this.#updateSemesterURL(semesterBO.getID()), {
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain',
