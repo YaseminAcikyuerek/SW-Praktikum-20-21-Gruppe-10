@@ -45,11 +45,11 @@ export default class ManagementAPI {
 
 
   //Participation related
-  #getParticipationsURL = () => `${this.#managementServerBaseURL}/participation`;
-  #addParticipationURL = () => `${this.#managementServerBaseURL}/participation`;
-  #getParticipationURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
+  #getAllParticipationsURL = () => `${this.#managementServerBaseURL}/participation`;
+  #getParticipationsForStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
+  #addParticipationsForStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
   #updateParticipationURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
-  #deleteParticipationURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
+  #deleteParticipationIdURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
   #searchParticipationURL = (participationStudent) => `${this.#managementServerBaseURL}/participation-by-student/${participationStudent}`;
 
 
@@ -543,8 +543,8 @@ export default class ManagementAPI {
    * @public
    */
 
-  getParticipations(){
-    return this.#fetchAdvanced(this.#getParticipationsURL()).then((responseJSON) => {
+  getAllParticipations(){
+    return this.#fetchAdvanced(this.#getAllParticipationsURL()).then((responseJSON) => {
       let participationBOs = ParticipationBO.fromJSON(responseJSON);
       //console.info(participationBOs);
       return new Promise(function (resolve) {
@@ -559,17 +559,17 @@ export default class ManagementAPI {
   /**
    * Returns a Promise, which resolves to a ParticipationBO
    *
-   * @param {Number} participationID to be retrieved
+   * @param {Number} studentID to be retrieved
    * @public
    */
 
-  getParticipation(participationID) {
-    return this.#fetchAdvanced(this.#getParticipationURL(participationID)).then((responseJSON) => {
+  getParticipationsForStudent(studentID) {
+    return this.#fetchAdvanced(this.#getParticipationsForStudentURL(studentID)).then((responseJSON) => {
       // We always get an array of ParticipationBOs.fromJSON, but only need one object
-      let responseParticipationBO = ParticipationBO.fromJSON(responseJSON)[0];
+      let participationBOs = ParticipationBO.fromJSON(responseJSON);
       // console.info(responseParticipationBO);
       return new Promise(function (resolve) {
-        resolve(responseParticipationBO);
+        resolve(participationBOs);
       })
     })
   }
@@ -581,26 +581,22 @@ export default class ManagementAPI {
    * Adds a Participation and returns a Promise, which resolves to a new ParticipationBO object with all
    *  the parameter of participationBO object.
    *
-   * @param {ParticipationBO} participationBO to be added. The ID of the new project is set by the backend
+   * @param {Number} studentID to be added. The ID of the new project is set by the backend
    * @public
    */
 
-  addParticipation(participationBO) {
-    return this.#fetchAdvanced(this.#addParticipationURL(), {
+  addParticipationsForStudent(studentID) {
+    return this.#fetchAdvanced(this.#addParticipationsForStudentURL(studentID), {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain',
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(participationBO)
-    }).then((responseJSON) => {
-      // We always get an array of ParticipationBOs.fromJSON, but only need one object
-      let responseParticipationBO = ParticipationBO.fromJSON(responseJSON)[0];
-      // console.info(participationBOs);
-      return new Promise(function (resolve) {
-        resolve(responseParticipationBO);
-      })
     })
+      .then((responseJSON) => {
+       // We always get an array of ParticipationBOs.fromJSON, but only need one object
+         let participationBO = ParticipationBO.fromJSON(responseJSON)[0];
+       // console.info(participationBOs);
+        return new Promise(function (resolve) {
+           resolve(participationBO);
+        })
+      })
   }
 
 
@@ -642,14 +638,15 @@ export default class ManagementAPI {
    */
 
   deleteParticipation(participationID) {
-    return this.#fetchAdvanced(this.#deleteParticipationURL(participationID), {
+    return this.#fetchAdvanced(this.#deleteParticipationIdURL(participationID), {
       method: 'DELETE'
-    }).then((responseJSON) => {
+    })
+        .then((responseJSON) => {
       // We always get an array of ParticipationBOs.fromJSON
-      let responseParticipationBO = ParticipationBO.fromJSON(responseJSON)[0];
+      let participationBOs = ParticipationBO.fromJSON(responseJSON)[0];
       // console.info(participationBOs);
       return new Promise(function (resolve) {
-        resolve(responseParticipationBO);
+        resolve(participationBOs);
       })
     })
   }

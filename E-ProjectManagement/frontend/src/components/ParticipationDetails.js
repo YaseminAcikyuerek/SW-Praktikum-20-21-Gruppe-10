@@ -15,7 +15,7 @@ class ParticipationDetails extends Component {
 
     // Init state
     this.state = {
-      participation: null,
+      student: null,
       loadingInProgress: false,
       loadingError: null,
     };
@@ -23,19 +23,19 @@ class ParticipationDetails extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
-    this.getParticipation();
+    this.getStudent();
   }
 
   /** gets the participationID for this participation*/
-  getParticipation = () => {
-    ManagementAPI.getAPI().getParticipation(this.props.participationID).then(participation =>
+  getStudent = () => {
+    ManagementAPI.getAPI().getStudent(this.props.studentID).then(student =>
       this.setState({
-        participation: participation,
+        student: student,
         loadingInProgress: false,
         loadingError: null
       })).catch(e =>
         this.setState({ // Reset state with error from catch
-          participation: null,
+          student: null,
           loadingInProgress: false,
           loadingError: e
         })
@@ -50,8 +50,8 @@ class ParticipationDetails extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, participationID } = this.props;
-    const { participation, loadingInProgress, loadingError } = this.state;
+    const { classes, studentID, participationID } = this.props;
+    const { student, loadingInProgress, loadingError } = this.state;
 
     return (
       <Paper variant='outlined' className={classes.root}>
@@ -63,14 +63,14 @@ class ParticipationDetails extends Component {
           ID: {participationID}
         </Typography>
         {
-          participation ?
+          student ?
             <Typography>
-              Participation: {participation.getProject()}, {participation.getStudent()}
+              Student: {student.getCourseAbbr()}, {student.getMatriculationNr()}
             </Typography>
             : null
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of participation id ${participationID} could not be loaded.`} onReload={this.getParticipation} />
+        <ContextErrorMessage error={loadingError} contextErrorMsg={`The data of student id ${studentID} could not be loaded.`} onReload={this.getStudent} />
       </Paper>
     );
   }
@@ -95,9 +95,9 @@ ParticipationDetails.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The participationID to be rendered */
-  participationID: PropTypes.string.isRequired,
+  studentID: PropTypes.string.isRequired,
   /** The participationID to be rendered */
-
+  participationID: PropTypes.string.isRequired,
 }
 
 export default withStyles(styles)(ParticipationDetails);
