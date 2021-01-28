@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import ModuleDetails from '../components/ModuleDetails';
+import ParticipationDetails from '../components/ParticipationDetails';
 
 
 
@@ -58,8 +58,8 @@ class AllParticipationList extends Component {
     return (
       <div className={classes.root}>
           {
-            participations.map(participation => <ModuleDetails key={participation.getID()}
-            personID={participation.getOwner().toString()} participationID={participation.getID().toString()} />)
+            participations.map(participation => <ParticipationDetails key={participation.getID()}
+            studentID={participation.getOwner().toString()} participationID={participation.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
           <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all participations of the project management system could not be loaded.`} onReload={this.loadParticipations} />

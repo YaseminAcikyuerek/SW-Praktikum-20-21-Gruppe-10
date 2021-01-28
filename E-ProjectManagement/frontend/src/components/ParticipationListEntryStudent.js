@@ -3,22 +3,26 @@ import PropTypes from 'prop-types';
 import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ParticipationList from './ParticipationList';
+import ParticipationListStudent from './ParticipationListStudent';
 import ParticipationForm from './dialogs/ParticipationForm';
 import ParticipationDeleteDialog from './dialogs/ParticipationDeleteDialog';
 
 /**
- * Renders a ParticipationBO object within a expandable/collapsible ParticipationListEntry with the Participation manipulation
+ * Renders a ParticipationBO object within a expandable/collapsible ParticipationListEntryStudent with the Participation manipulation
  * functions. If expanded, it renders a ParticipationList.
  *
  */
-class ParticipationListEntry extends Component {
+class ParticipationListEntryStudent extends Component {
 
   constructor(props) {
     super(props);
 
     // Init the state
     this.state = {
+      loadingInProgress: false,
+      deletingInProgress: false,
+      loadingError: null,
+      deletingError: null,
       participation: props.participation,
       showParticipationForm: false,
       showParticipationDeleteDialog: false,
@@ -109,7 +113,7 @@ class ParticipationListEntry extends Component {
             </Grid>
           </AccordionSummary>
           <AccordionDetails>
-            <ParticipationList show={expandedState} participation={participation} />
+            <ParticipationListStudent show={expandedState} participation={participation} />
           </AccordionDetails>
         </Accordion>
         <ParticipationForm show={showParticipationForm} participation={participation} onClose={this.participationFormClosed} />
@@ -127,14 +131,14 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-ParticipationListEntry.propTypes = {
+ParticipationListEntryStudent.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The ParticipationBO to be rendered */
   participation: PropTypes.object.isRequired,
-  /** The state of this ParticipationListEntry. If true the Participation is shown with its Participation */
+  /** The state of this ParticipationListEntryStudent. If true the Participation is shown with its Participation */
   expandedState: PropTypes.bool.isRequired,
-  /** The handler responsible for handle expanded state changes (exanding/collapsing) of this ParticipationListEntry
+  /** The handler responsible for handle expanded state changes (exanding/collapsing) of this ParticipationListEntryStudent
    *
    * Signature: onExpandedStateChange(ParticipationBO Participation)
    */
@@ -147,4 +151,4 @@ ParticipationListEntry.propTypes = {
   onParticipationDeleted: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(ParticipationListEntry);
+export default withStyles(styles)(ParticipationListEntryStudent);
