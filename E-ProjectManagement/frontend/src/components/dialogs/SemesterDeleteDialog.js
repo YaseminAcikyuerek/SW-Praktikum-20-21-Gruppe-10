@@ -70,10 +70,10 @@ class SemesterDeleteDialog extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Really delete semester {semester.getName()}?
+              Really delete semester {semester.getName()}? {semester.getStart()}? {semester.getEnd()}? (ID: {semester.getID()})?
             </DialogContentText>
             <LoadingProgress show={deletingInProgress} />
-            <ContextErrorMessage error={deletingError} contextErrorMsg={`The semester   ${semester.getName()} ' (ID: ${semester.getID()}) could not be deleted.`}
+            <ContextErrorMessage error={deletingError} contextErrorMsg={`The semester '${semester.getName()} ${semester.getStart()} ${semester.getEnd()}' (ID: ${semester.getID()}) could not be deleted.`}
               onReload={this.deleteSemester} />
           </DialogContent>
           <DialogActions>

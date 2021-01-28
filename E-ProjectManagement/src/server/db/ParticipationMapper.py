@@ -91,20 +91,21 @@ class ParticipationMapper(Mapper):
 
     def find_participation_of_student(self, student):
 
-        result = []
+        result = None
 
         cursor = self._cnx.cursor()
         command = "SELECT * FROM participation WHERE student".format(student)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id,creation_time, project, student) in tuples:
+        if tuples[0] is not None:
+            (id, creation_time, project, student) = tuples[0]
             participation = Participation()
             participation.set_id(id)
             participation.set_creation_time(creation_time)
             participation.set_project(project)
             participation.set_student(student)
-            result.append(participation)
+            result= participation
 
         self._cnx.commit()
         cursor.close()
@@ -113,22 +114,24 @@ class ParticipationMapper(Mapper):
 
 
 
-    def find_participation_by_project(self, project):
+    def find_participation_of_project(self, project):
 
-        result = []
+        result = None
 
         cursor = self._cnx.cursor()
         command = "SELECT * FROM participation WHERE project".format(project)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id,creation_time, project, student) in tuples:
+        if tuples[0] is not None:
+            (id,creation_time, project, student) = tuples[0]
+
             participation = Participation()
             participation.set_id(id)
             participation.set_creation_time(creation_time)
             participation.set_project(project)
             participation.set_student(student)
-            result.append(participation)
+            result = participation
 
         self._cnx.commit()
         cursor.close()

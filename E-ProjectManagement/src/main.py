@@ -660,26 +660,6 @@ class RatingRelatedProjectOperations(Resource):
 
         return proj
 
-@management.route('/participation/<int:id>/student')
-@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('id', 'Die ID des Student-Objekts')
-class RatingRelatedProjectOperations(Resource):
-    @management.marshal_with(project)
-
-    def get(self, id):
-        """Auslesen aller Projekte von einem bestimmten Studenten.
-
-        Das Student-Objekt dessen Projekte wir lesen möchten, wird durch id bestimmt.
-        """
-        adm = ProjectAdministration()
-        sem = adm.get_student_by_id(id)
-
-        if sem is not None:
-            project_list = adm.get_projects_of_student(sem)
-            return project_list
-        else:
-            return "Student not found", 500
-
 
 
 
@@ -814,12 +794,12 @@ class ParticipationProjectOperations(Resource):
         """
         adm = ProjectAdministration()
         # Zunächst benötigen wir die Projekt durch eine eine gegebene Id.
-        pro = adm.get_project_by_id(id)
+        pro = adm.get_participation_for_project(id)
 
         # Haben wir eine brauchbare Referenz auf ein Participation-Objekt bekommen?
         if pro is not None:
             # Jetzt erst lesen wir die die Teilnahmeliste anhand der Module aus.
-            participation_list = adm.get_participation_by_project(pro)
+            participation_list = adm.get_participation_for_project(pro)
             return participation_list
         else:
             return "Project not found", 500
@@ -836,11 +816,11 @@ class ParticipationProjectOperations(Resource):
         """Stelle fest, ob es unter der id einen Customer gibt. 
         Dies ist aus Gründen der referentiellen Integrität sinnvoll!
         """
-        mod1 = adm.get_all_participation_by_id(id)
+        pro = adm.get_all_participation_by_id(id)
 
-        if mod1 is not None:
+        if pro  is not None:
             # Jetzt erst macht es Sinn, für den Customer ein neues Konto anzulegen und dieses zurückzugeben.
-            result = adm.create_participation_for_project(mod1)
+            result = adm.create_participation_for_project(pro)
             return result
         else:
             return "Module unknown", 500

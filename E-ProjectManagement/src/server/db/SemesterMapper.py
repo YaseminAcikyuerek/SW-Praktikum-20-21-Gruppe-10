@@ -46,9 +46,7 @@ class SemesterMapper(Mapper):
             semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
-
-
-        result = semester
+            result = semester
 
         self._cnx.commit()
         cursor.close()
@@ -101,7 +99,7 @@ um die grundsätzliche Funktion zu überprüfen.
 Anmerkung: Nicht professionell aber hilfreich..."""
 if (__name__ == "__main__"):
     with SemesterMapper() as mapper:
-        result = mapper.find_all()
+        result = mapper.delete(2020)
         for p in result:
             print(p)
 

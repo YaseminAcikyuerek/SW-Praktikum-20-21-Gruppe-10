@@ -478,9 +478,14 @@ class ProjectAdministration(object):
             mapper.insert(project_type)
 
 
-    def create_participation_for_student(self, stu):
+    def create_participation_for_student(self,creation_time,project,student):
+        participation = Participation()
+        participation.set_creation_time(creation_time)
+        participation.set_project(project)
+        participation.set_student(student)
+        participation.set_id(1)
         with ParticipationMapper() as mapper:
-            mapper.find_participation_of_student(stu)
+            mapper.find_participation_of_student(student)
 
 
     def create_participation_for_project(self,creation_time, project, student):
@@ -489,16 +494,19 @@ class ProjectAdministration(object):
         participation.set_project(project)
         participation.set_student(student)
         participation.set_id(1)
-
         with ParticipationMapper() as mapper:
-            return mapper.insert(participation)
+            mapper.find_participation_of_project(project)
 
-    def get_participation_by_project(self, pro):
+    def get_participation_for_project(self, pro):
         with ParticipationMapper() as mapper:
-            return mapper.find_participation_by_project(pro)
+            return mapper.find_participation_of_project(pro)
 
-    def get_rating_of_student(self, sftu):
-        pass
+
+
+
+
+
+
 
 
 

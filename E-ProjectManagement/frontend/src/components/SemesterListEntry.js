@@ -83,7 +83,7 @@ class SemesterListEntry extends Component {
         <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            id={`semester${semester.getID()}accountpanel-header`}
+            id={`semester${semester.getID()}semesterpanel-header`}
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
