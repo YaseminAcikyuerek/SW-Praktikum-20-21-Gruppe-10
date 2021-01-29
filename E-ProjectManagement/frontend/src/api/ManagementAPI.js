@@ -63,8 +63,8 @@ export default class ManagementAPI {
 
 
   //Rating related
-  #getRatingsURL = () => `${this.#managementServerBaseURL}/rating`;
-  #addRatingURL = () => `${this.#managementServerBaseURL}/rating`;
+  #getRatingsURL = () => `${this.#managementServerBaseURL}/ratings`;
+  #addRatingURL = () => `${this.#managementServerBaseURL}/ratings`;
   #getRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
   #updateRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
   #deleteRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;

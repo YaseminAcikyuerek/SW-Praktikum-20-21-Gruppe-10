@@ -162,8 +162,6 @@ class App extends React.Component {
 										<RatingList/>
 									</Route>
 
-
-
 									<Route path='/about' component={About} />
 								</>
 								:
