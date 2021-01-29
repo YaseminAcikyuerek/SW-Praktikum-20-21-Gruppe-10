@@ -26,7 +26,7 @@ class ProjectTypeForm extends Component {
   constructor(props) {
     super(props);
 
-    let n = '', sw = '', ec;
+    let n = '', sw = 0, ec = 0;
     if (props.projectType) {
       n = props.projectType.getName();
       sw = props.projectType.getSws();
@@ -164,10 +164,10 @@ class ProjectTypeForm extends Component {
               <TextField autoFocus type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
                 onChange={this.textFieldValueChange} error={nameValidationFailed}
                 helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='sws' label='SWS:' value={sws}
+              <TextField type='number' required fullWidth margin='normal' id='sws' label='SWS:' value={sws}
                 onChange={this.textFieldValueChange} error={swsValidationFailed}
                 helperText={swsValidationFailed ? 'SWS must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='ects' label='ECTS:' value={ects}
+              <TextField type='number' required fullWidth margin='normal' id='ects' label='ECTS:' value={ects}
                 onChange={this.textFieldValueChange} error={ectsValidationFailed}
                 helperText={ectsValidationFailed ? 'ECTS must contain at least one character' : ' '} />
             </form>
