@@ -26,10 +26,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="RatingListEntry.js updated">
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="mySQL-Dump.sql updated">
+      <change beforePath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/PersonListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/PersonListEntry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +85,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/E-ProjectManagement/src/main.py" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -93,27 +95,27 @@
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\public" />
       <recent name="C:\Users\saeid\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\my-app\src\components\Dialogs" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Pages" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Layout" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\api" />
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.PersonMapper">
-    <configuration name="PersonMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="SW-Praktikum-Gruppe-10" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="SDK_HOME" value="C:\Python39\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -122,106 +124,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="RatingMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="SW-Praktikum-Gruppe-10" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="SemesterMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="SW-Praktikum-Gruppe-10" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="StudentMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="SW-Praktikum-Gruppe-10" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="SW-Praktikum-Gruppe-10" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/static" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/static/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.PersonMapper" />
-      <item itemvalue="Python.RatingMapper" />
-      <item itemvalue="Python.SemesterMapper" />
-      <item itemvalue="Python.StudentMapper" />
-      <item itemvalue="Python.main" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.PersonMapper" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.StudentMapper" />
-        <item itemvalue="Python.SemesterMapper" />
-        <item itemvalue="Python.RatingMapper" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -445,7 +347,35 @@
       <option name="project" value="LOCAL" />
       <updated>1611009628007</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="ProjectForm.js ProjectType Fehlerkorrektur">
+      <created>1611885618908</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1611885618908</updated>
+    </task>
+    <task id="LOCAL-00032" summary="REACT Theme angepasst">
+      <created>1611889495061</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1611889495061</updated>
+    </task>
+    <task id="LOCAL-00033" summary="REACT Theme root div erweitert">
+      <created>1611889513358</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1611889513358</updated>
+    </task>
+    <task id="LOCAL-00034" summary="mySQL-Dump.sql updated">
+      <created>1611889986501</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1611889986501</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -503,10 +433,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Mapper ParticipationMapper.py geupdated" />
-    <MESSAGE value="DEA hinzugefügt" />
-    <MESSAGE value="EA hinzugefügt" />
-    <MESSAGE value="EA und DEA modifiziert" />
     <MESSAGE value="Mapper modifiziert" />
     <MESSAGE value="lokale Datenbank angebunden" />
     <MESSAGE value="Mapper korrigiert" />
@@ -528,49 +454,15 @@
     <MESSAGE value="AllRatingList.js import korrigiert" />
     <MESSAGE value="AllRatingList.js 'from' korrigiert" />
     <MESSAGE value="RatingListEntry.js updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="RatingListEntry.js updated" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="131" y="58" key="DiffContextDialog" timestamp="1611007381413">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state x="131" y="58" key="DiffContextDialog/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611007381413" />
-    <state width="1348" height="227" key="GridCell.Tab.0.bottom" timestamp="1611176213482">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state width="1348" height="227" key="GridCell.Tab.0.bottom/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213482" />
-    <state width="1348" height="227" key="GridCell.Tab.0.center" timestamp="1611176213481">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state width="1348" height="227" key="GridCell.Tab.0.center/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213481" />
-    <state width="1348" height="227" key="GridCell.Tab.0.left" timestamp="1611176213481">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state width="1348" height="227" key="GridCell.Tab.0.left/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213481" />
-    <state width="1348" height="227" key="GridCell.Tab.0.right" timestamp="1611176213482">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state width="1348" height="227" key="GridCell.Tab.0.right/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611176213482" />
-    <state x="130" y="70" key="MergeDialog" timestamp="1611175435500">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state x="130" y="70" key="MergeDialog/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611175435500" />
-    <state x="277" y="156" key="Vcs.Push.Dialog.v2" timestamp="1611178676226">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state x="277" y="156" key="Vcs.Push.Dialog.v2/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611178676226" />
-    <state x="471" y="149" key="git4idea.branch.GitSmartOperationDialog" timestamp="1611175429849">
-      <screen x="0" y="0" width="1368" height="872" />
-    </state>
-    <state x="471" y="149" key="git4idea.branch.GitSmartOperationDialog/0.0.1368.872/-1920.0.1920.1040@0.0.1368.872" timestamp="1611175429849" />
+    <MESSAGE value="ProjectForm.js ProjectType Fehlerkorrektur" />
+    <MESSAGE value="REACT Theme angepasst" />
+    <MESSAGE value="REACT Theme root div erweitert" />
+    <MESSAGE value="mySQL-Dump.sql updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="mySQL-Dump.sql updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py</url>
           <line>93</line>
@@ -598,7 +490,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py</url>
-          <line>107</line>
+          <line>105</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
