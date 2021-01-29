@@ -140,9 +140,9 @@ class SemesterForm extends Component {
     let header = '';
 
     if (semester) {
-      // semester defindet, so ist an edit dialog
+      // semester is da, so ist an edit dialog
       title = 'Update a semester';
-      header = `Semester ID: ${semester.getID()}`;
+      header = `Semester ID: ${semester.getID()} / Start: ${semester.getStart()} / End: ${semester.getEnd()}`;
     } else {
       title = 'Create a new semester';
       header = 'Enter semester data';
@@ -164,10 +164,10 @@ class SemesterForm extends Component {
               <TextField autoFocus type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
                 onChange={this.textFieldValueChange} error={nameValidationFailed}
                 helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='start' label='Start:' value={start}
+              <TextField type='datetime-local' required fullWidth margin='normal' id='start' label='Start:' value={start}
                 onChange={this.textFieldValueChange} error={startValidationFailed}
                 helperText={startValidationFailed ? 'The start must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='end' label='End:' value={end}
+              <TextField type='datetime-local' required fullWidth margin='normal' id='end' label='End:' value={end}
                 onChange={this.textFieldValueChange} error={endValidationFailed}
                 helperText={endValidationFailed ? 'The End must contain at least one character' : ' '} />
             </form>
@@ -226,6 +226,7 @@ SemesterForm.propTypes = {
   /**
    * Handler function which is called, when the dialog is closed.
    * Sends the edited or created SemesterBO as parameter or null, if cancel was pressed.
+   *
    *
    * Signature: onClose(SemesterBO semester);
    */
