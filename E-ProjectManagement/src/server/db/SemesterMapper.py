@@ -11,17 +11,16 @@ class SemesterMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from semester")
+        cursor.execute("SELECT * FROM semester")
         tuples = cursor.fetchall()
 
-        for (id,creation_time, name ,start, end) in tuples:
+        for (id, creation_time, start, end, name) in tuples:
             semester = Semester()
             semester.set_id(id)
             semester.set_creation_time(creation_time)
             semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
-
             result.append(semester)
 
         self._cnx.commit()
@@ -34,7 +33,7 @@ class SemesterMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT *  FROM semester WHERE id={}".format(id)
+        command = "SELECT id, creation_time, name, start, end  FROM semester WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -46,6 +45,7 @@ class SemesterMapper(Mapper):
             semester.set_name(name)
             semester.set_start(start)
             semester.set_end(end)
+
             result = semester
 
         self._cnx.commit()
@@ -63,7 +63,7 @@ class SemesterMapper(Mapper):
             semester.set_id(maxid[0] + 1)
 
         command = "INSERT INTO semester (id,creation_time,name,start,end) VALUES (%s,%s,%s,%s,%s)"
-        data = (semester.get_id(),semester.get_creation_time(), semester.get_name(), semester.get_start(), semester.get_end())
+        data = (semester.get_id(), semester.get_creation_time(), semester.get_name(), semester.get_start(), semester.get_end())
         cursor.execute(command, data)
 
         self._cnx.commit()
