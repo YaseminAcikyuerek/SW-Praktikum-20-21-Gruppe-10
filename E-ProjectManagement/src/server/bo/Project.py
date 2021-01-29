@@ -144,7 +144,7 @@ class Project(nbo, Automaton):
         obj.set_flag(dictionary["flag"])
         obj.set_name(dictionary["name"])
         obj.set_status(dictionary["status"])
-        obj.set_project_type(dictionary["projectType"])
+        obj.set_project_type(dictionary["project_type"])
         obj.set_owner(dictionary["owner"])
         print(dictionary)
         return obj
