@@ -827,7 +827,7 @@ class ParticipationProjectOperations(Resource):
 
 
 
-@management.route('/rating')
+@management.route('/ratings')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RatingListOperations(Resource):
     @management.marshal_list_with(rating)
