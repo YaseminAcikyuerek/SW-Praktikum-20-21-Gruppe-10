@@ -26,12 +26,13 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="mySQL-Dump.sql updated">
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="debuggen">
       <change beforePath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +91,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components" />
       <recent name="C:\SW-P\E-ProjectManagement\frontend\src\components" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\static" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
@@ -110,11 +112,12 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Python39\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -507,5 +510,9 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main.coverage" NAME="main Coverage Results" MODIFIED="1611935927337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
+    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1611920001210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
   </component>
 </project>

@@ -274,8 +274,6 @@ export default class ManagementAPI {
   }
 
 
-
-
   /**
    * Returns a Promise, which resolves to a ProjectBO
    *
@@ -380,7 +378,7 @@ export default class ManagementAPI {
   /**
    * Returns a Promise, which resolves to an Array of ProjectBOs
    *
-   * @param {Number} projectId to be deleted
+   * @param {Number} projectOwner to be deleted
    * @public
    */
 

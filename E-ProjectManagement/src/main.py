@@ -280,7 +280,21 @@ class ProjectOperations(Resource):
         else:
             return '', 500
 
+@management.route('/project/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('id', 'Die ID des Project-Objekts')
+class ProjectOperations(Resource):
+    @management.marshal_with(project)
 
+
+    def get(self, id):
+        """Auslesen eines bestimmten Projekts.
+
+        Auszulesende Projekt wird durch id bestimmt.
+        """
+        adm = ProjectAdministration()
+        proj = adm.get_project_by_id(id)
+        return proj
 
 @management.route('/person/<int:id>/project')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
@@ -1143,19 +1157,18 @@ class PersonByNameOperations(Resource):
         per = adm.get_person_by_name(name)
         return per
 
-@management.route('/project-by-name/<string:name>')
+@management.route('/project-by-owner/<int:owner>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('name', 'Der Name des Projekts')
-class ProjectByNameOperations(Resource):
+@management.param('owner', 'Die ID des Projektinhabers')
+class ProjectByOwnerOperations(Resource):
     @management.marshal_with(project)
 
-    def get(self, name):
-        """ Auslesen von Projekt-Objekten, die durch den Namen bestimmt werden.
+    def get(self, owner):
+        """ Auslesen von Projekt-Objekten, die durch den Eigentümer bestimmt werden.
 
-        Die auszulesenden Objekte werden durch ```lastname``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        pro = adm.get_project_by_name(name)
+        pro = adm.get_project_by_owner(owner)
         return pro
 
 @management.route('/student-by-name/<string:name>')

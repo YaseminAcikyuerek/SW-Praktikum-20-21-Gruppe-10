@@ -197,15 +197,14 @@ class ProjectMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE owner".format(owner)
+        command = "SELECT * FROM project WHERE owner={}".format(owner)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        try:
-            (id, creation_time, semester, module, short_description, external_partner_list, capacity,
+        for (id, creation_time, semester, module, short_description, external_partner_list, capacity,
              bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
              preferred_bd_during_lecture_period, language, room, special_room, flag, name,
-             status, project_type, owner) = tuples[0]
+             status, project_type, owner) in tuples:
 
             project = Project()
             project.set_id(id)
@@ -229,15 +228,8 @@ class ProjectMapper(Mapper):
             project.set_owner(owner)
             result.append(project)
 
-
-        except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
-            result = None
-
         self._cnx.commit()
         cursor.close()
-
         return result
 
     def find_project_by_module(self, module):
