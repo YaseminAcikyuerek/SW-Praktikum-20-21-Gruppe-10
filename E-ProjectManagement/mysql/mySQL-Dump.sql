@@ -3,19 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 23. Jan 2021 um 15:23
+-- Erstellungszeit: 29. Jan 2021 um 04:12
 -- Server-Version: 10.4.17-MariaDB
 -- PHP-Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Datenbank: `sw-project`
@@ -28,11 +22,13 @@ USE `sw-project`;
 --
 -- Tabellenstruktur für Tabelle `module`
 --
+-- Erstellt am: 16. Jan 2021 um 22:44
+--
 
 DROP TABLE IF EXISTS `module`;
 CREATE TABLE `module` (
   `id` int(50) NOT NULL,
-  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `name` varchar(50) NOT NULL,
   `edv_nr` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -42,15 +38,17 @@ CREATE TABLE `module` (
 --
 
 INSERT INTO `module` (`id`, `creation_time`, `name`, `edv_nr`) VALUES
-(300, '2021-01-15 21:07:29', 'IT-Projekt', '5000'),
-(500, '2021-01-15 21:07:29', 'stdsfg', 'string'),
-(501, '2021-01-15 21:07:29', 'MM', 'DDSR'),
-(502, '2021-01-16 12:14:10', 'strdfg', 'stgfrng');
+(300, '2021-01-15 20:07:29', 'IT-Projekt', '5000'),
+(500, '2021-01-15 20:07:29', 'stdsfg', 'string'),
+(501, '2021-01-15 20:07:29', 'MM', 'DDSR'),
+(502, '2021-01-16 11:14:10', 'strdfg', 'stgfrng');
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `participation`
+--
+-- Erstellt am: 16. Jan 2021 um 22:44
 --
 
 DROP TABLE IF EXISTS `participation`;
@@ -85,33 +83,41 @@ INSERT INTO `participation` (`id`, `creation_time`, `project`, `student`) VALUES
 --
 -- Tabellenstruktur für Tabelle `person`
 --
+-- Erstellt am: 29. Jan 2021 um 03:10
+-- Zuletzt aktualisiert: 29. Jan 2021 um 03:10
+--
 
 DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person` (
   `id` int(11) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'neu',
   `name` varchar(45) NOT NULL,
-  `role` int(11) NOT NULL
+  `role` int(11) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `google_user_id` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Daten für Tabelle `person`
 --
 
-INSERT INTO `person` (`id`, `creation_time`, `name`, `role`) VALUES
-(0, '0000-00-00 00:00:00', 'Chefe', 2),
-(63, '0000-00-00 00:00:00', 'alex', 1),
-(123, '0000-00-00 00:00:00', 'ghg', 2),
-(143, '0000-00-00 00:00:00', 'ali', 3),
-(145, '0000-00-00 00:00:00', 'Yasemin', 1),
-(146, '0000-00-00 00:00:00', 'strtg', 2),
-(147, '0000-00-00 00:00:00', 'Christoph', 2),
-(148, '2021-01-20 21:29:59', 'Christoph', 2);
+INSERT INTO `person` (`id`, `creation_time`, `name`, `role`, `email`, `google_user_id`) VALUES
+(0, '0000-00-00 00:00:00', 'Chef', 3, '', ''),
+(63, '0000-00-00 00:00:00', 'alex', 1, '', ''),
+(123, '0000-00-00 00:00:00', 'ghg', 2, '', ''),
+(143, '0000-00-00 00:00:00', 'ali', 3, '', ''),
+(145, '0000-00-00 00:00:00', 'Yasemin', 1, '', ''),
+(146, '0000-00-00 00:00:00', 'strtg', 2, '', ''),
+(147, '0000-00-00 00:00:00', 'Christoph', 2, '', ''),
+(148, '2021-01-20 21:29:59', 'Christoph', 2, '', '');
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `project`
+--
+-- Erstellt am: 23. Jan 2021 um 21:24
+-- Zuletzt aktualisiert: 29. Jan 2021 um 02:31
 --
 
 DROP TABLE IF EXISTS `project`;
@@ -130,7 +136,7 @@ CREATE TABLE `project` (
   `language` varchar(45) NOT NULL,
   `room` varchar(45) NOT NULL,
   `special_room` tinyint(5) NOT NULL,
-  `flag` tinyint(5) NOT NULL,
+  `flag` tinyint(1) NOT NULL,
   `name` varchar(45) NOT NULL,
   `status` varchar(45) NOT NULL,
   `project_type` int(10) NOT NULL,
@@ -142,22 +148,24 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id`, `creation_time`, `semester`, `module`, `short_description`, `external_partner_list`, `capacity`, `bd_during_exam_period`, `bd_before_lecture_period`, `bd_during_lecture_period`, `preferred_bd_during_lecture_period`, `language`, `room`, `special_room`, `flag`, `name`, `status`, `project_type`, `owner`) VALUES
-(4001, '0000-00-00 00:00:00', 71, 500, 'fkldglerk', 'Klotz', 45, 2, 4, 1, 3, 'Englisch', 'I007', 0, 0, '', 'Projekt2', 2, 0),
-(4002, '0000-00-00 00:00:00', 5, 5, 'sttting', 'reer', 4, 6, 6, 4, 6, 'stri44ng', 'st34ring', 1, 1, 's54ng', 'str33ing', 5, 3),
-(4003, '0000-00-00 00:00:00', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'Test', 'string', 0, 4),
-(4004, '0000-00-00 00:00:00', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'Test', 'string', 0, 4),
-(4005, '2021-01-16 19:08:50', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'Test2', 'string', 0, 4);
+(4002, '2021-01-29 02:14:37', 5, 5, 'sttting', 'reer', 4, 6, 6, 4, 6, 'stri44ng', 'st34ring', 1, 1, 'BAS', 'str33ing', 5, 3),
+(4004, '2021-01-29 02:31:11', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 0, 'Test', 'string', 0, 4),
+(4005, '2021-01-16 19:08:50', 0, 0, 'stfng', 'string', 0, 0, 0, 0, 0, 'string', 'string', 1, 1, 'Test2', 'string', 0, 4),
+(4006, '2021-01-28 23:03:07', 1, 2, '3', '4', 5, 6, 9, 8, 7, '4', '5', 1, 1, 'SW-Projekt', 'SW-Projekt', 8, 5);
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `project_type`
 --
+-- Erstellt am: 16. Jan 2021 um 22:44
+-- Zuletzt aktualisiert: 29. Jan 2021 um 02:47
+--
 
 DROP TABLE IF EXISTS `project_type`;
 CREATE TABLE `project_type` (
   `id` int(11) NOT NULL,
-  `creation_time` int(11) NOT NULL DEFAULT current_timestamp(),
+  `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `name` varchar(45) NOT NULL,
   `sws` int(11) NOT NULL,
   `ects` int(11) NOT NULL
@@ -168,19 +176,22 @@ CREATE TABLE `project_type` (
 --
 
 INSERT INTO `project_type` (`id`, `creation_time`, `name`, `sws`, `ects`) VALUES
-(1, 2147483647, '6', 0, 5),
-(2, 2147483647, 'Test', 0, 0);
+(1, '2021-01-05 02:46:01', 'Fachspezifisches Projekt', 3, 5),
+(2, '2021-01-29 02:46:08', 'Transdisziplinäres Projekt', 2, 3),
+(3, '2021-01-29 02:46:46', 'Interdisziplinäres Projekt', 4, 5);
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `rating`
 --
+-- Erstellt am: 16. Jan 2021 um 22:44
+--
 
 DROP TABLE IF EXISTS `rating`;
 CREATE TABLE `rating` (
   `id` int(11) NOT NULL,
-  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `project` int(11) NOT NULL,
   `passed` tinyint(4) DEFAULT NULL,
   `grade` double DEFAULT NULL,
@@ -195,12 +206,14 @@ CREATE TABLE `rating` (
 INSERT INTO `rating` (`id`, `creation_time`, `project`, `passed`, `grade`, `evaluator`, `to_be_assessed`) VALUES
 (1414, '0000-00-00 00:00:00', 0, 1, 2, 123, 1),
 (1415, '0000-00-00 00:00:00', 4000, 1, 0, 0, 0),
-(1416, '2021-01-16 20:40:30', 4600, 1, 0, 0, 0);
+(1416, '2021-01-16 19:40:30', 4600, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `role`
+--
+-- Erstellt am: 16. Jan 2021 um 22:44
 --
 
 DROP TABLE IF EXISTS `role`;
@@ -223,6 +236,8 @@ INSERT INTO `role` (`id`, `name`) VALUES
 
 --
 -- Tabellenstruktur für Tabelle `semester`
+--
+-- Erstellt am: 16. Jan 2021 um 22:44
 --
 
 DROP TABLE IF EXISTS `semester`;
@@ -250,11 +265,14 @@ INSERT INTO `semester` (`id`, `creation_time`, `start`, `end`, `name`) VALUES
 --
 -- Tabellenstruktur für Tabelle `student`
 --
+-- Erstellt am: 16. Jan 2021 um 22:44
+-- Zuletzt aktualisiert: 29. Jan 2021 um 03:11
+--
 
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `id` int(11) NOT NULL,
-  `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
+  `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `name` varchar(10) NOT NULL,
   `matriculation_nr` int(10) NOT NULL,
   `course_abbr` varchar(10) NOT NULL
@@ -265,24 +283,9 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `creation_time`, `name`, `matriculation_nr`, `course_abbr`) VALUES
-(1, '0000-00-00 00:00:00', 'Hallo', 6565, 'WI'),
-(43, '2021-01-16 21:20:13', 'Alex', 2342, 'WI'),
-(44, '2021-01-16 21:20:13', 'Testg', 0, 'string');
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `users`
---
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `username` varchar(16) NOT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `password` varchar(32) NOT NULL,
-  `create_time` timestamp NULL DEFAULT current_timestamp(),
-  `usertype` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(1, '0000-00-00 00:00:00', 'Sebbi', 6565, 'WI'),
+(43, '2021-01-16 20:20:13', 'Alex', 2342, 'WI'),
+(44, '2021-01-16 20:20:13', 'Wilbert', 12345, 'OMM');
 
 --
 -- Indizes der exportierten Tabellen
@@ -356,13 +359,13 @@ ALTER TABLE `person`
 -- AUTO_INCREMENT für Tabelle `project`
 --
 ALTER TABLE `project`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4006;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4007;
 
 --
 -- AUTO_INCREMENT für Tabelle `project_type`
 --
 ALTER TABLE `project_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `rating`
@@ -382,7 +385,3 @@ ALTER TABLE `role`
 ALTER TABLE `semester`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2025;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
