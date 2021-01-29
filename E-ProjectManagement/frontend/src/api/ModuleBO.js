@@ -9,8 +9,8 @@ export default class ModuleBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aEdv_nr) {
-    super();
+  constructor(aName,aEdv_nr) {
+    super(aName);
     this.edv_nr = aEdv_nr;
   }
 
