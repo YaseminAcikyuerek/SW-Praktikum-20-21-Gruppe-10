@@ -92,7 +92,7 @@ class ProjectForm extends Component {
       status: st,
       statusValidationFailed: false,
       statusEdited: false,
-      projectType: pt,
+      project_type: pt,
       projectTypeValidationFailed: false,
       projectTypeEdited: false,
       owner: ow,
@@ -114,7 +114,7 @@ class ProjectForm extends Component {
     let newProject = new ProjectBO(this.state.name, this.state.semester, this.state.module, this.state.shortDescription,
     this.state.externalPartnerList, this.state.capacity, this.state.bdDuringExamPeriod, this.state.bdBeforeLecturePeriod, this.state.bdDuringLecturePeriod,
     this.state.preferredBdDuringLecturePeriod, this.state.language, this.state.room, this.state.specialRoom, this.state.flag,
-    this.state.name, this.state.status,this.state.projectType, this.state.owner);
+    this.state.name, this.state.status, this.state.project_type, this.state.owner);
     ManagementAPI.getAPI().addProject(newProject).then(project => {
       // Backend call sucessfull
       // reinit the dialogs state for a new empty project
@@ -154,7 +154,7 @@ class ProjectForm extends Component {
     updatedProject.setFlag (this.state.flag);
     updatedProject.setName(this.state.name);
     updatedProject.setStatus (this.state.status);
-    updatedProject.setProjectType (this.state.projectType);
+    updatedProject.setProjectType (this.state.project_type);
     updatedProject.setOwner (this.state.owner);
     ManagementAPI.getAPI().updateProject(updatedProject).then(project => {
       this.setState({
@@ -177,7 +177,7 @@ class ProjectForm extends Component {
       this.baseState.room = this.state.room;
       this.baseState.specialRoom = this.state.specialRoom;
       this.baseState.status = this.state.status;
-      this.baseState.projectType = this.state.projectType;
+      this.baseState.project_type = this.state.project_type;
       this.baseState.owner = this.state.owner;
       this.baseState.flag = this.state.flag;
       this.props.onClose(updatedProject); // call the parent with the new project
@@ -227,7 +227,7 @@ class ProjectForm extends Component {
     capacityValidationFailed, capacityEdited, bdDuringExamPeriod, bdDuringExamPeriodValidationFailed, bdDuringExamPeriodEdited, bdBeforeLecturePeriod, bdBeforeLecturePeriodValidationFailed,
     bdBeforeLecturePeriodEdited, bdDuringLecturePeriod, bdDuringLecturePeriodValidationFailed, bdDuringLecturePeriodEdited, preferredBdDuringLecturePeriod, preferredBdDuringLecturePeriodValidationFailed, preferredBdDuringLecturePeriodEdited, language,
     languageValidationFailed, languageEdited, room, roomValidationFailed, roomEdited, specialRoom,
-    specialRoomValidationFailed, specialRoomEdited, status, statusValidationFailed, statusEdited, projectType,
+    specialRoomValidationFailed, specialRoomEdited, status, statusValidationFailed, statusEdited, project_type,
     projectTypeValidationFailed, projectTypeEdited, owner, ownerValidationFailed, ownerEdited, flag, flagValidationFailed,
     flagEdited, addingInProgress, addingError, updatingInProgress, updatingError } = this.state;
 
@@ -301,7 +301,7 @@ class ProjectForm extends Component {
               <TextField type='text' required fullWidth margin='normal' id='status' label='Status:' value={status}
                 onChange={this.textFieldValueChange} error={statusValidationFailed}
                 helperText={statusValidationFailed ? 'The status must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='projectType' label='Project Type:' value={projectType}
+              <TextField type='text' required fullWidth margin='normal' id='project_type' label='Project Type:' value={project_type}
                 onChange={this.textFieldValueChange} error={projectTypeValidationFailed}
                 helperText={projectTypeValidationFailed ? 'The project type must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='owner' label='Owner:' value={owner}
