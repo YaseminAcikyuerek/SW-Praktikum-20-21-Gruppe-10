@@ -11,16 +11,19 @@ class PersonMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from person")
+        cursor.execute("SELECT id, creation_time, name, role, email, google_user_id FROM person")
         tuples = cursor.fetchall()
 
-        for (id, creation_time, name, role) in tuples:
+        for (id, creation_time, name, role, email, google_user_id) in tuples:
             person = Person()
             person.set_id(id)
             person.set_creation_time(creation_time)
             person.set_name(name)
             person.set_role(role)
+            person.set_email(email)
+            person.set_google_user_id(google_user_id)
             result.append(person)
+
 
         self._cnx.commit()
         cursor.close()
@@ -40,7 +43,7 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command= "SELECT * FROM person WHERE id={}".format(id)
+        command= "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -51,6 +54,8 @@ class PersonMapper(Mapper):
             person.set_creation_time(creation_time)
             person.set_name(name)
             person.set_role(role)
+            person.set_email(email)
+            person.set_google_user_id(google_user_id )
 
         result = person
 
