@@ -23,6 +23,9 @@ export default class PersonBO extends NamedBusinessObject {
   getName() {
     return super.getName();
   }
+  setName(aName) {
+    super.setName(aName);
+  }
 
 
   static fromJSON(persons) {

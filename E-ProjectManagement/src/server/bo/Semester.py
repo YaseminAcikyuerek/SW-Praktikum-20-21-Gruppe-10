@@ -25,6 +25,7 @@ class Semester(nbo):
     def from_dict(dictionary=dict()):
         """Umwandeln eines Python dict() in ein Semester()."""
         obj = Semester()
+        print(dictionary)
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
         obj.set_creation_time(dictionary["creation_time"])
         obj.set_name(dictionary["name"])

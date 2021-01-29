@@ -62,8 +62,8 @@ class SemesterMapper(Mapper):
         for (maxid) in tuples:
             semester.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO semester (id,creation_time,name,start,end) VALUES (%s,%s,%s,%s,%s)"
-        data = (semester.get_id(), semester.get_creation_time(), semester.get_name(), semester.get_start(), semester.get_end())
+        command = "INSERT INTO semester (id,name,start,end) VALUES (%s,%s,%s,%s)"
+        data = (semester.get_id(), semester.get_name(), semester.get_start(), semester.get_end())
         cursor.execute(command, data)
 
         self._cnx.commit()
