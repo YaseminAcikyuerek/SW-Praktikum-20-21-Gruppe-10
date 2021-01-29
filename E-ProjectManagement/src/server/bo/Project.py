@@ -14,7 +14,7 @@ class Project(nbo, Automaton):
         self._capacity = ""
         self._external_partner_list = ""
         self._short_description = ""
-        self._flag = ""
+        self._flag = 0
         self._bd_before_lecture_period = ""
         self._bd_during_lecture_period = ""
         self._bd_during_exam_period = ""
@@ -146,4 +146,5 @@ class Project(nbo, Automaton):
         obj.set_status(dictionary["status"])
         obj.set_project_type(dictionary["project_type"])
         obj.set_owner(dictionary["owner"])
+        print(dictionary)
         return obj

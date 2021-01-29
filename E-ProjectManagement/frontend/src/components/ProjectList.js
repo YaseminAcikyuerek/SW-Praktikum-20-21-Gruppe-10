@@ -11,11 +11,12 @@ import ProjectForm from './dialogs/ProjectForm';
 import ProjectListEntry from './ProjectListEntry';
 
 /**
- * Controlls a list of CustomerListEntrys to create a accordion for each customer.
+ * Controlls a list of ProjectListEntrys to create a accordion for each project.
  *
- * @see See [CustomerListEntry](#customerlistentry)
+ * @see See [ProjectListEntry](#projectlistentry)
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+ * @author [Tom Schenk]
+ * adapted from Christoph Kunz(https://github.com/christophkunz)
  */
 class ProjectList extends Component {
 
@@ -41,11 +42,11 @@ class ProjectList extends Component {
     };
   }
 
-  /** Fetches all CustomerBOs from the backend */
+  /** Fetches all ProjectBOs from the backend */
   getProjects = () => {
     ManagementAPI.getAPI().getProjects()
       .then(projectBOs =>
-        this.setState({               // Set new state when CustomerBOs have been fetched
+        this.setState({               // Set new state when ProjectBOs have been fetched
           projects: projectBOs,
           filteredProjects: [...projectBOs], // store a copy
           loadingInProgress: false,   // disable loading indicator
@@ -71,19 +72,19 @@ class ProjectList extends Component {
   }
 
   /**
-   * Handles onExpandedStateChange events from the CustomerListEntry component. Toggels the expanded state of
-   * the CustomerListEntry of the given CustomerBO.
+   * Handles onExpandedStateChange events from the ProjectListEntry component. Toggels the expanded state of
+   * the ProjectListEntry of the given ProjectBO.
    *
-   * @param {customer} CustomerBO of the CustomerListEntry to be toggeled
+   * @param {project} ProjectBO of the ProjectListEntry to be toggeled
    */
   onExpandedStateChange = project => {
-    // console.log(customerID);
-    // Set expandend customer entry to null by default
+    // console.log(projectID);
+    // Set expandend project entry to null by default
     let newID = null;
 
-    // If same customer entry is clicked, collapse it else expand a new one
+    // If same project entry is clicked, collapse it else expand a new one
     if (project.getID() !== this.state.expandedProjectID) {
-      // Expand the customer entry with customerID
+      // Expand the project entry with projectID
       newID = project.getID();
     }
     // console.log(newID);
@@ -93,9 +94,9 @@ class ProjectList extends Component {
   }
 
   /**
-   * Handles onCustomerDeleted events from the CustomerListEntry component
+   * Handles onProjectDeleted events from the ProjectListEntry component
    *
-   * @param {customer} CustomerBO of the CustomerListEntry to be deleted
+   * @param {project} ProjectBO of the ProjectListEntry to be deleted
    */
   projectDeleted = project => {
     const newProjectList = this.state.projects.filter(projectFromState => projectFromState.getID() !==project.getID());
@@ -118,7 +119,7 @@ class ProjectList extends Component {
 
   /** Handles the onClose event of the ProjectForm */
   projectFormClosed = project => {
-    // customer is not null and therefore created
+    // project is not null and therefore created
     if (project) {
       const newProjectList = [...this.state.projects,project];
       this.setState({
@@ -133,7 +134,7 @@ class ProjectList extends Component {
     }
   }
 
-  /** Handels onChange events of the customer filter text field */
+  /** Handels onChange events of the project filter text field */
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
@@ -210,8 +211,8 @@ class ProjectList extends Component {
           </Grid>
         </Grid>
         {
-          // Show the list of CustomerListEntry components
-          // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
+          // Show the list of ProjectListEntry components
+          // Do not use strict comparison, since expandedProjectID maybe a string if given from the URL parameters
           filteredProjects.map(project =>
             <ProjectListEntry key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
               onExpandedStateChange={this.onExpandedStateChange}
