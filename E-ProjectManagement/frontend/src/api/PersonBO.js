@@ -6,7 +6,7 @@ import  NamedBusinessObject from './NamedBusinessObject';
 export default class PersonBO extends NamedBusinessObject {
 
 
-  constructor(aRole) {
+  constructor(aRole, aEmail, aGoogle_user_id) {
     super();
     this.role = aRole;
     this.email = aEmail
