@@ -1156,6 +1156,7 @@ export default class ManagementAPI {
 
   updateProjectType(projectTypeBO) {
     return this.#fetchAdvanced(this.#updateProjectTypeURL(projectTypeBO.getID()), {
+
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain',
@@ -1165,7 +1166,7 @@ export default class ManagementAPI {
     }).then((responseJSON) => {
       // We always get an array of ProjectTypeBOs.fromJSON
       let responseProjectTypeBO = ProjectTypeBO.fromJSON(responseJSON)[0];
-      // console.info(projectTypeBOs);
+      // console.info(projectTypeBO);
       return new Promise(function (resolve) {
         resolve(responseProjectTypeBO);
       })
