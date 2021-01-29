@@ -14,7 +14,7 @@ class ProjectTypeMapper(Mapper):
         cursor.execute("SELECT * from project_type")
         tuples = cursor.fetchall()
 
-        for (id, creation_time, name,sws, ects) in tuples:
+        for (id, creation_time, name, sws, ects) in tuples:
             project_type = ProjectType()
             project_type.set_id(id)
             project_type.set_creation_time(creation_time)
@@ -39,7 +39,7 @@ class ProjectTypeMapper(Mapper):
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, creation_time, name, sws,ects) = tuples[0]
+            (id, creation_time, name, sws, ects) = tuples[0]
             project_type = ProjectType()
             project_type.set_id(id)
             project_type.set_creation_time(creation_time)
@@ -77,9 +77,8 @@ class ProjectTypeMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE project_type SET  name=%s, sws=%s, ects=%s, creation_time=%s WHERE id=%s"
-        data = (project_type.get_name(),project_type.get_sws(), project_type.get_ects(),project_type.get_creation_time(),
-                project_type.get_id())
+        command = "UPDATE project_type SET name=%s, sws=%s, ects=%s WHERE id=%s"
+        data = (project_type.get_name(), project_type.get_sws(), project_type.get_ects(), project_type.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
