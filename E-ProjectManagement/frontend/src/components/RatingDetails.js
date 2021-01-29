@@ -6,12 +6,12 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 
 /**
- * Renders a AccountBO object within a ListEntry and provides a delete button to delete it.
+ * Renders a RatingBO object within a ListEntry and provides a delete button to delete it.
  *
  * @see See Material-UIs [Lists](https://material-ui.com/components/lists/)
  * @see See Material-UIs [ListItem](https://material-ui.com/api/list-item/)
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+
  */
 class RatingDetail extends Component {
 
@@ -70,7 +70,7 @@ class RatingDetail extends Component {
         {
           rating?
             <Typography>
-              Rating: {rating.getProject()}, {rating.getEvaluator()},{rating.getToBeAssessed()},{rating.getGrade()},{rating.getPassed()}
+              rating: {rating.getProject()}, {rating.getEvaluator()},{rating.getToBeAssessed()},{rating.getGrade()},{rating.getPassed()}
             </Typography>
             : null
         }
