@@ -10,24 +10,15 @@ constructor(aStart, aEnd) {
     this.start = aStart;
     this.end = aEnd;
   }
-
-
   setStart(aStart) {
     this.start = aStart;
   }
-
-
   getStart() {
     return this.start;
   }
-
-
-
   setEnd(aEnd) {
     this.end = aEnd;
   }
-
-
   getEnd() {
     return this.end;
   }

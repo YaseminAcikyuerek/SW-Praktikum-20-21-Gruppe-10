@@ -417,7 +417,7 @@ class ProjectAdministration(object):
 
     """Semesterspezifische"""
 
-    def create_semester(self,creation_time,name, start, end):
+    def create_semester(self, creation_time, name, start, end):
         """Ein Semester anlegen"""
         semester = Semester()
         semester.set_creation_time(creation_time)

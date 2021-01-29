@@ -1,20 +1,20 @@
 from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
-
+import datetime
 
 class Semester(nbo):
 
     def __init__(self):
         super().__init__()
-        self._start =None
-        self._end =None
+        self._start = None
+        self._end = None
 
-    def set_start(self,value):
+    def set_start(self, value):
         self._start = value
 
     def get_start(self):
         return self._start
 
-    def set_end(self,value):
+    def set_end(self, value):
         self._end = value
 
     def get_end(self):
@@ -30,6 +30,4 @@ class Semester(nbo):
         obj.set_name(dictionary["name"])
         obj.set_start(dictionary["start"])
         obj.set_end(dictionary["end"])
-
-
         return obj
