@@ -749,26 +749,22 @@ class ModuleOperations(Resource):
             return '', 500
 
 
-@management.route('/student/<int:id>participation')
+@management.route('/participation-by-student/<int:student>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('id', 'Die ID der Person-Objekts')
+@management.param('student', 'Die ID der Person-Objekts')
 class ParticipationStudentOperations(Resource):
     @management.marshal_with(participation)
 
-    def get(self, id):
+    def get(self, student):
         """Auslesen aller Participation-Objekte eines bestimmten Studenten .
 
         Das auszulesende Objekt wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
          # Suche nach Student mit vorgegebener id
-        stu = adm.get_participation_of_student(id)
-        if stu is not None:
-            participation_list = adm.get_participation_of_student(stu)
-            return participation_list
+        stu = adm.get_participation_of_student(student)
+        return stu
 
-        else:
-            return "Student not found",500
 
 
     @management.marshal_with(participation, code=201)
@@ -795,28 +791,23 @@ class ParticipationStudentOperations(Resource):
             return "Student unknown", 500
 
 
-@management.route('/project/<int:id>/participation')
+@management.route('/particiation-by-project/<int:project>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('id', 'Die ID des Projekt-Objekts')
+@management.param('project', 'Die ID des Projekt-Objekts')
 class ParticipationProjectOperations(Resource):
     @management.marshal_with(participation)
 
-    def get(self, id):
+    def get(self, project):
         """Auslesen aller Participation-Objekte bzgl. eines bestimmten Projekt-Objekts.
 
         Das Projekt-Objekt dessen Participation wir lesen möchten, wird durch die ```id``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
         # Zunächst benötigen wir die Projekt durch eine eine gegebene Id.
-        pro = adm.get_participation_for_project(id)
+        pro = adm.get_participation_for_project(project)
 
         # Haben wir eine brauchbare Referenz auf ein Participation-Objekt bekommen?
-        if pro is not None:
-            # Jetzt erst lesen wir die die Teilnahmeliste anhand der Module aus.
-            participation_list = adm.get_participation_for_project(pro)
-            return participation_list
-        else:
-            return "Project not found", 500
+        return pro
 
     @management.marshal_with(participation, code=201)
 

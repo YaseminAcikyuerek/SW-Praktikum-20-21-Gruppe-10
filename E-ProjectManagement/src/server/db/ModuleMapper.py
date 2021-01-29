@@ -78,8 +78,8 @@ class ModuleMapper(Mapper):
         for (maxid) in tuples:
             module.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO module (id, creation_time, name, edv_nr) VALUES (%s,%s,%s,%s)"
-        data = (module.get_id(), module.get_creation_time(), module.get_name(), module.get_edv_nr())
+        command = "INSERT INTO module (id, name, edv_nr) VALUES (%s,%s,%s)"
+        data = (module.get_id(), module.get_name(), module.get_edv_nr())
         cursor.execute(command, data)
 
         self._cnx.commit()
