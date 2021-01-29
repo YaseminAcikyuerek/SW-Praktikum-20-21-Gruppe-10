@@ -11,7 +11,7 @@ class PersonMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from person")
+        cursor.execute("SELECT id, creation_time, name, role from person")
         tuples = cursor.fetchall()
 
         for (id, creation_time, name, role) in tuples:

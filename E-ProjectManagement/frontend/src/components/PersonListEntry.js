@@ -94,7 +94,7 @@ class PersonListEntry extends Component {
           <AccordionSummary expandIcon={<ExpandMoreIcon />} id={`person${person.getID()}personpanel-header`}>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{person.getRole()}
+                <Typography variant='body1' className={classes.heading}> {person.getName()}
                 </Typography>
               </Grid>
               <Grid item>
