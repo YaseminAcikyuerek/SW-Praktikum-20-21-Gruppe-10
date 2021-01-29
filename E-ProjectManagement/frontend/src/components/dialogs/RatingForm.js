@@ -20,7 +20,7 @@ import LoadingProgress from './LoadingProgress';
  * @see See Material-UIs [Dialog](https://material-ui.com/components/dialogs)
  * @see See Material-UIs [TextField](https://material-ui.com/components/text-fields//)
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+
  */
 class RatingForm extends Component {
 
@@ -96,6 +96,7 @@ class RatingForm extends Component {
     updatedRating.setGrade(this.state.grade);
     updatedRating.setPassed(this.state.passed);
     ManagementAPI.getAPI().updateRating(updatedRating).then(rating => {
+
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
@@ -214,7 +215,7 @@ class RatingForm extends Component {
               </Button>
                 : <Button disabled={projectValidationFailed || !projectEdited || evaluatorValidationFailed || !evaluatorEdited ||
                 toBeAssessedValidationFailed || !toBeAssessedEdited || gradeValidationFailed || !gradeEdited ||
-                passedValidationFailed || !passedEdited} variant='contained' onClick={this.addProjectType} color='primary'>
+                passedValidationFailed || !passedEdited} variant='contained' onClick={this.addRating} color='primary'>
                   Add
              </Button>
             }

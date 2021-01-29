@@ -8,14 +8,14 @@ import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import RatingForm from './dialogs/RatingForm';
-import RatingListEntry from '../components/RatingListEntry';
+import RatingListEntry from './RatingListEntry';
 
 /**
  * Controlls a list of RatingListEntrys to create a accordion for each person.
  *
  * @see See [RatingListEntry](#ratinglistentry)
  *
- * @author [Christoph Kunz](https://github.com/christophkunz)
+
  */
 class RatingList extends Component {
 
@@ -33,7 +33,7 @@ class RatingList extends Component {
     this.state = {
       ratings: [],
       filteredRatings: [],
-      ratingFilter: '',
+      RatingFilter: '',
       error: null,
       loadingInProgress: false,
       expandedRatingID: expandedID,
@@ -45,8 +45,6 @@ class RatingList extends Component {
   getRatings = () => {
   console.log("vor fetch")
     ManagementAPI.getAPI().getRatings()
-
-
       .then(ratingBOs =>
         this.setState({               // Set new state when RatingBOs have been fetched
           ratings: ratingBOs,
@@ -142,8 +140,14 @@ class RatingList extends Component {
     this.setState({
       filteredRatings: this.state.ratings.filter(rating => {
         let nameContainsValue = rating.getName().toLowerCase().includes(value);
+        let projectContainsValue = rating.getProject().toLowerCase().includes(value);
+        let evaluatorContainsValue = rating.getEvaluator().toLowerCase().includes(value);
+        let toBeAssessedContainsValue = rating.getToBeAssessed().toLowerCase().includes(value);
+        let gradeContainsValue = rating.getGrade().toLowerCase().includes(value);
+        let passedContainsValue = rating.getPassed().toLowerCase().includes(value);
 
-        return nameContainsValue
+        return nameContainsValue || projectContainsValue || evaluatorContainsValue || toBeAssessedContainsValue
+               || gradeContainsValue || passedContainsValue
       }),
       ratingFilter: value
     });
@@ -153,7 +157,7 @@ class RatingList extends Component {
   clearFilterFieldButtonClicked = () => {
     // Reset the filter
     this.setState({
-      filteredPersons: [...this.state.ratings],
+      filteredRatings: [...this.state.ratings],
       ratingFilter: ''
     });
   }
@@ -217,7 +221,7 @@ const styles = theme => ({
   root: {
     width: '100%',
   },
-  ratingFilter: {
+  RatingFilter: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(1),
   }

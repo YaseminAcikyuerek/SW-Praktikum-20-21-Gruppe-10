@@ -71,7 +71,7 @@ class RatingListEntry extends Component {
     // if rating is not null, delete it
     if (rating) {
       this.props.onRatingDeleted(rating);
-    };
+    }
 
     // Don´t show the dialog
     this.setState({
