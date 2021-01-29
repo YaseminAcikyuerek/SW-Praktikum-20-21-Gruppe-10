@@ -32,7 +32,7 @@ class PersonList extends Component {
     this.state = {
       persons: [],
       filteredPersons: [],
-      PersonFilter: '',
+      personFilter: '',
       error: null,
       loadingInProgress: false,
       expandedPersonID: expandedID,
@@ -109,7 +109,7 @@ class PersonList extends Component {
   addPersonButtonClicked = event => {
     // Do not toggle the expanded state
     event.stopPropagation();
-    //Show the CustmerForm
+    //Show the PersonForm
     this.setState({
       showPersonForm: true
     });
@@ -202,7 +202,7 @@ class PersonList extends Component {
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-
+        <ContextErrorMessage error={error} contextErrorMsg={`The list of persons could not be loaded.`} onReload={this.getPersons} />
         <PersonForm show={showPersonForm} onClose={this.personFormClosed} />
       </div>
     );
