@@ -3,8 +3,8 @@ import NamedBusinessObject from './NamedBusinessObject';
 
 export default class ProjectTypeBO extends NamedBusinessObject {
 
-constructor(aSws,aEcts) {
-    super();
+constructor(aName, aSws, aEcts) {
+    super(aName);
     this.sws = aSws;
     this.ects = aEcts;
   }
