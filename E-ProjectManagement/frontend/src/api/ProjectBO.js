@@ -10,8 +10,8 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aSemester,aModule,aShortDescription,aExternalPartnerList,aCapacity,aBdDuringExamPeriod, aBdBeforeLecturePeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aLanguage, aRoom,aSpecialRoom,aFlag, aStatus,aProjectType,aOwner) {
-    super();
+  constructor(aName,aSemester,aModule,aShortDescription,aExternalPartnerList,aCapacity,aBdDuringExamPeriod, aBdBeforeLecturePeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aLanguage, aRoom,aSpecialRoom,aFlag, aStatus,aProjectType,aOwner) {
+    super(aName);
     this.semester = aSemester;
     this.module = aModule;
     this.short_description = aShortDescription;
