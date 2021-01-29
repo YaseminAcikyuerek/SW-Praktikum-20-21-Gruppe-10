@@ -4,8 +4,8 @@ import PersonBO from './PersonBO';
 
 export default class StudentBO extends PersonBO {
 
-constructor(aCourseAbbr,aMatriculationNr) {
-    super();
+constructor(aName, aCourseAbbr, aMatriculationNr) {
+    super(aName);
     this.course_abbr = aCourseAbbr;
     this.matriculation_nr = aMatriculationNr;
 
