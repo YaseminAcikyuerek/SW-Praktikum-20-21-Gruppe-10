@@ -27,7 +27,7 @@ function About() {
         <Typography variant='h6'>
           Python Projectmanagementsystem Project
         </Typography>
-        <br />
+        <img width="300" alt="logo" src="projectonomy.jpg" /><br />
         <Typography>
           React Frontend written by Gruppe 10
         </Typography>
