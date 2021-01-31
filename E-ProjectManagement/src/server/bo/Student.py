@@ -25,6 +25,7 @@ class Student(pbo):
     def from_dict(dictionary=dict()):
         """Umwandeln eines Python dict() in ein Student()."""
         obj = Student()
+
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
         obj.set_creation_time(dictionary["creation_time"])
         obj.set_name(dictionary["name"])

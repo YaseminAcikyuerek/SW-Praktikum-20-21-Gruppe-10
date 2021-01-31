@@ -26,13 +26,15 @@ class ProjectAdministration(object):
 
     """person-spezifische Methoden"""
 
-    def create_person(self,creation_time, name, role):
+    def create_person(self,creation_time, name, role,email, google_user_id):
         """Eine Person anlegen"""
         p = Person()
         p.set_id(1)
         p.set_creation_time(creation_time)
         p.set_name(name)
         p.set_role(role)
+        p.set_email(email)
+        p.set_google_user_id(google_user_id)
 
         with PersonMapper() as mapper:
             return mapper.insert(p)

@@ -75,6 +75,8 @@ participation = api.inherit('Participation', bo, {
 
 person = api.inherit('Person', bo, nbo, {
     'role': fields.Integer(attribute='_role', description='unique ID des Rollennamens'),
+    'email': fields.String(attribute='_email', description='unique email des Rollennamens'),
+    'google_user_id': fields.String(attribute='_google_user_id', description='google_user_id  des Rollennamens')
 })
 
 project = api.inherit('Project', bo, nbo, {
@@ -139,8 +141,8 @@ class PersonListOperations(Resource):
 
         Sollten keine Customer-Objekte verfügbar sein, so wird eine leere Sequenz zurückgegeben."""
         adm = ProjectAdministration()
-        persons = adm.get_all_person()
-        return persons
+        pers = adm.get_all_person()
+        return pers
 
     @management.marshal_with(person, code=200)
     @management.expect(person)  # Wir erwarten ein Person-Objekt von Client-Seite.
@@ -152,8 +154,8 @@ class PersonListOperations(Resource):
         proposal = Person.from_dict(api.payload)
 
         if proposal is not None:
-            per = adm.create_person(proposal.get_creation_time(),proposal.get_name(), proposal.get_role())
-            return per, 200
+            pers = adm.create_person(proposal.get_creation_time(),proposal.get_name(), proposal.get_role(), proposal.get_email(), proposal.get_google_user_id())
+            return pers, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
             return '', 500

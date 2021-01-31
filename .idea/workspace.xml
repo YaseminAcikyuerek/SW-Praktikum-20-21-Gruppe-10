@@ -26,13 +26,18 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="debuggen">
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
       <change beforePath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW-Praktikum-Gruppe-10.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/StudentBO.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/StudentBO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/SemesterForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/SemesterForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/StudentForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/StudentForm.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/ProjectMapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Student.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Student.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,13 +90,13 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ignore_missing_gitignore" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/E-ProjectManagement/src/main.py" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components" />
       <recent name="C:\SW-P\E-ProjectManagement\frontend\src\components" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\static" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
@@ -112,9 +117,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -139,6 +144,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1606409236603</updated>
+      <workItem from="1612101185266" duration="6058000" />
     </task>
     <task id="LOCAL-00001" summary="Mapper erstellt">
       <created>1606595269536</created>
@@ -381,6 +387,9 @@
     <option name="localTasksCounter" value="35" />
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
       <list>
@@ -467,6 +476,10 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py</url>
           <line>93</line>
           <option name="timeStamp" value="5" />
@@ -492,11 +505,6 @@
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py</url>
-          <line>105</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py</url>
           <line>169</line>
           <option name="timeStamp" value="31" />
@@ -512,7 +520,9 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main.coverage" NAME="main Coverage Results" MODIFIED="1611935927337" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
-    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1611920001210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
+    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$PersonMapper.coverage" NAME="PersonMapper Coverage Results" MODIFIED="1610909936770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
+    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1611936258964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
+    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main.coverage" NAME="main Coverage Results" MODIFIED="1612106427396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
+    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$SemesterMapper.coverage" NAME="SemesterMapper Coverage Results" MODIFIED="1611618815915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
   </component>
 </project>
