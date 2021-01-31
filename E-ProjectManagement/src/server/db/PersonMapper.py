@@ -43,12 +43,12 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command= "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE id={}".format(id)
+        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, creation_time, name, role) = tuples[0]
+            (id, creation_time, name, role, email, google_user_id) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_creation_time(creation_time)
