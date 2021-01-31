@@ -9,8 +9,8 @@ export default class PersonBO extends NamedBusinessObject {
   constructor(aName,aRole, aEmail, aGoogleUserId) {
     super(aName);
     this.role = aRole;
-    this.email = aEmail
-    this.google_user_id = aGoogleUserId
+    this.email = aEmail;
+    this.google_user_id = aGoogleUserId;
   }
 
   getName() {
@@ -29,7 +29,7 @@ export default class PersonBO extends NamedBusinessObject {
   }
 
   setEmail(aEmail) {
-  this.role= aEmail;
+  this.email= aEmail;
   }
 
   getEmail() {

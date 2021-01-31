@@ -47,7 +47,7 @@ class PersonForm extends Component {
 
   /** Adds the person */
   addPerson = () => {
-    let newPerson = new PersonBO(this.state.name, this.state.role);
+    let newPerson = new PersonBO(this.state.name, this.state.role, this.state.email, this.state.google_user_id);
     ManagementAPI.getAPI().addPerson(newPerson).then(person => {
     console.log(newPerson)
       // Backend call sucessfull
