@@ -117,13 +117,14 @@ class PersonMapper(Mapper):
         tuples = cursor.fetchall()
 
         try:
-            (id, creation_time, name, role) = tuples[0]
+            (id, creation_time, name, role, email, google_user_id) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_creation_time(creation_time)
             person.set_name(name)
             person.set_role(role)
-
+            person.set_email(email)
+            person.set_google_user_id(google_user_id)
             result = person
 
         except IndexError:
