@@ -10,24 +10,26 @@ export default class ProjectBO extends NamedBusinessObject {
    *
    *
    */
-  constructor(aName,aSemester,aModule,aShortDescription,aExternalPartnerList,aCapacity,aBdDuringExamPeriod, aBdBeforeLecturePeriod,aBdDuringLecturePeriod,aPreferredBdDuringLecturePeriod,aLanguage, aRoom,aSpecialRoom,aFlag, aStatus,aProjectType,aOwner) {
-    super(aName);
-    this.semester = aSemester;
-    this.module = aModule;
-    this.short_description = aShortDescription;
-    this.external_partner_list = aExternalPartnerList;
-    this.capacity = aCapacity;
-    this.bd_during_exam_period  = aBdDuringExamPeriod;
-    this.bd_before_lecture_period = aBdBeforeLecturePeriod;
-    this.bd_during_lecture_period = aBdDuringLecturePeriod;
-    this.preferred_bd_during_lecture_period = aPreferredBdDuringLecturePeriod;
-    this.language = aLanguage;
-    this.room = aRoom;
-    this.special_room = aSpecialRoom;
-    this.flag = aFlag;
-    this.status = aStatus;
-    this.projectType = aProjectType;
-    this.owner = aOwner;
+  constructor() {
+    super();
+    this.status = '';
+    this.owner = '';
+    this.module = null;
+    this.projectType = null;
+    this.semester = null;
+    this.capacity = '';
+    this.external_partner_list = '';
+    this.short_description = '';
+    this.flag = 0;
+    this.bd_before_lecture_period = '';
+    this.bd_during_lecture_period = '';
+    this.bd_during_exam_period  = '';
+    this.preferred_bd_during_lecture_period = '';
+    this.special_room = '';
+    this.language = '';
+    this.room = '';
+
+
   }
 
   setStatus(aStatus) {

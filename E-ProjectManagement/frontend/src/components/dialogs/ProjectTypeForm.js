@@ -55,8 +55,12 @@ class ProjectTypeForm extends Component {
 
   /** Adds the projecttype */
   addProjectType = () => {
-    let newProjectType = new ProjectTypeBO(this.state.name, this.state.sws, this.state.ects);
+    let newProjectType = new ProjectTypeBO();
+    newProjectType.setName(this.state.name)
+    newProjectType.setSws(this.state.sws)
+    newProjectType.setEcts(this.state.ects)
     ManagementAPI.getAPI().addProjectType(newProjectType).then(projectType => {
+      console.log(newProjectType);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty projecttype
       this.setState(this.baseState);

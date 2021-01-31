@@ -5,10 +5,10 @@ import NamedBusinessObject from './NamedBusinessObject';
  */
 export default class SemesterBO extends NamedBusinessObject {
 
-constructor(aName, aStart, aEnd) {
-    super(aName);
-    this.start = aStart;
-    this.end = aEnd;
+constructor() {
+    super();
+    this.start = null;
+    this.end = null;
   }
   setStart(aStart) {
     this.start = aStart;

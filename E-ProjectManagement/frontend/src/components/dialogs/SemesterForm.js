@@ -55,8 +55,13 @@ class SemesterForm extends Component {
 
   /** Adds the semester */
   addSemester = () => {
-    let newSemester = new SemesterBO(this.state.name, this.state.start, this.state.end);
+    let newSemester = new SemesterBO();
+    newSemester.setName(this.state.name)
+    newSemester.setStart(this.state.start)
+    newSemester.setEnd(this.state.end)
+
     ManagementAPI.getAPI().addSemester(newSemester).then(semester => {
+      console.log(newSemester);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty semester
       this.setState(this.baseState);

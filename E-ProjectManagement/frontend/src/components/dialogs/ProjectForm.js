@@ -8,16 +8,7 @@ import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
 
-/**
- * Shows a modal form dialog for a ProjectBO in prop project. If the project is set, the dialog is configured
- * as an edit dialog and the text fields of the form are filled from the given ProjectBO object.
- * If the project is null, the dialog is configured as a new project dialog and the textfields are empty.
- * In dependency of the edit/new state, the respective backend calls are made to update or create a project.
- * After that, the function of the onClose prop is called with the created/update ProjectBO object as parameter.
- * When the dialog is canceled, onClose is called with null.
 
- * @author [Enes Tepeli]
- */
 class ProjectForm extends Component {
 
   constructor(props) {
@@ -111,11 +102,26 @@ class ProjectForm extends Component {
 
   /** Adds the project */
   addProject = () => {
-    let newProject = new ProjectBO(this.state.name, this.state.semester, this.state.module, this.state.shortDescription,
-    this.state.externalPartnerList, this.state.capacity, this.state.bdDuringExamPeriod, this.state.bdBeforeLecturePeriod, this.state.bdDuringLecturePeriod,
-    this.state.preferredBdDuringLecturePeriod, this.state.language, this.state.room, this.state.specialRoom, this.state.flag,
-    this.state.name, this.state.status, this.state.project_type, this.state.owner);
+    let newProject = new ProjectBO();
+    newProject.setName(this.state.name)
+    newProject.setStatus(this.state.status)
+    newProject.setOwner(this.state.owner)
+    newProject.setModule(this.state.module)
+    newProject.setProjectType(this.state.projectType)
+    newProject.setSemester(this.state.semester)
+    newProject.setCapacity(this.state.capacity)
+    newProject.setExternalPartnerList(this.state.externalPartnerList)
+    newProject.setShortDescription(this.state.shortDescription)
+    newProject.setFlag(this.state.flag)
+    newProject.setBdBeforeLecturePeriod(this.state.bdBeforeLecturePeriod)
+    newProject.setBdDuringLecturePeriod(this.state.bdDuringLecturePeriod)
+    newProject.setBdDuringExamPeriod(this.state.bdDuringExamPeriod)
+    newProject.setPreferredBdDuringLecturePeriod(this.state.preferredBdDuringLecturePeriod)
+    newProject.setSpecialRoom(this.state.specialRoom)
+    newProject.setLanguage(this.state.language)
+    newProject.setRoom(this.state.room)
     ManagementAPI.getAPI().addProject(newProject).then(project => {
+      console.log(newProject);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty project
       this.setState(this.baseState);

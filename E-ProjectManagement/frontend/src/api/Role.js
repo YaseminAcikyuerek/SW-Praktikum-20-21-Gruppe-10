@@ -1,15 +1,9 @@
-import NamedBusinessObject from './NamedBusinessObject';
 
-/**
- * Represents a customer of the bank.
- */
-export default class Role extends NamedBusinessObject {
+export default class Role {
 
-
-constructor(aRoleName, aId) {
-    super();
-    this.role_name = aRoleName;
-    this.id = aId;
+  constructor() {
+    this.role_name = '';
+    this.id = '';
   }
 
 
@@ -27,9 +21,7 @@ constructor(aRoleName, aId) {
     this.id = aId;
   }
 
-  /**
-   * Gets the lastname.
-   */
+
   getId() {
     return this.id;
   }
@@ -44,7 +36,7 @@ constructor(aRoleName, aId) {
         result.push(s);
       })
     } else {
-      // Es handelt sich offenbar um ein singuläres Objekt
+
       let s = roles;
       Object.setPrototypeOf(s, Role.prototype);
       result.push(s);
@@ -52,4 +44,5 @@ constructor(aRoleName, aId) {
 
     return result;
   }
+
 }

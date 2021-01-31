@@ -9,9 +9,9 @@ export default class NamedBusinessObjectBO extends BusinessObject {
    *
    *
    */
-  constructor(aName) {
+  constructor() {
     super();
-    this.name = aName;
+    this.name = '';
 
   }
 

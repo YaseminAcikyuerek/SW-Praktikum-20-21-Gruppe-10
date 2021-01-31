@@ -3,7 +3,7 @@ import ParticipationBO from './ParticipationBO';
 import ProjectTypeBO from './ProjectTypeBO';
 import RatingBO from './RatingBO';
 import SemesterBO from './SemesterBO';
-import StatusBO from './StatusBO';
+import Status from './Status';
 import StudentBO from './StudentBO';
 import PersonBO from './PersonBO';
 import ProjectBO from './ProjectBO';
@@ -1359,7 +1359,7 @@ export default class ManagementAPI {
 
   getStatuses () {
     return this.#fetchAdvanced(this.#getStatusesURL()).then((responseJSON) => {
-      let statusBOs = StatusBO.fromJSON(responseJSON);
+      let statusBOs = Status.fromJSON(responseJSON);
       // console.info(statusBOs);
       return new Promise(function (resolve) {
         resolve(statusBOs);
@@ -1379,7 +1379,7 @@ export default class ManagementAPI {
   getStatus(statusID) {
     return this.#fetchAdvanced(this.#getStatusURL(statusID)).then((responseJSON) => {
       // We always get an array of StatusBOs.fromJSON, but only need one object
-      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
+      let responseStatusBO = Status.fromJSON(responseJSON)[0];
       // console.info(responseStatusBO);
       return new Promise(function (resolve) {
         resolve(responseStatusBO);
@@ -1391,10 +1391,10 @@ export default class ManagementAPI {
 
 
   /**
-   * Adds a Status and returns a Promise, which resolves to a new StatusBO object with all
+   * Adds a Status and returns a Promise, which resolves to a new Status object with all
    *  the parameter of statusBO object.
    *
-   * @param {StatusBO} statusBO to be added. The ID of the new status is set by the backend
+   * @param {Status} statusBO to be added. The ID of the new status is set by the backend
    * @public
    */
 
@@ -1408,7 +1408,7 @@ export default class ManagementAPI {
       body: JSON.stringify(statusBO)
     }).then((responseJSON) => {
       // We always get an array of StatusBOs.fromJSON, but only need one object
-      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
+      let responseStatusBO = Status.fromJSON(responseJSON)[0];
       // console.info(statusBOs);
       return new Promise(function (resolve) {
         resolve(responseStatusBO);
@@ -1420,9 +1420,9 @@ export default class ManagementAPI {
 
 
   /**
-   * Updates a status and returns a Promise, which resolves to a StatusBO.
+   * Updates a status and returns a Promise, which resolves to a Status.
    *
-   * @param {StatusBO} statusBO to be updated
+   * @param {Status} statusBO to be updated
    * @public
    */
 
@@ -1436,7 +1436,7 @@ export default class ManagementAPI {
       body: JSON.stringify(statusBO)
     }).then((responseJSON) => {
       // We always get an array of statusBOs.fromJSON
-      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
+      let responseStatusBO = Status.fromJSON(responseJSON)[0];
       // console.info(statusBOs);
       return new Promise(function (resolve) {
         resolve(responseStatusBO);
@@ -1460,7 +1460,7 @@ export default class ManagementAPI {
       method: 'DELETE'
     }).then((responseJSON) => {
       // We always get an array of StatusBOs.fromJSON
-      let responseStatusBO = StatusBO.fromJSON(responseJSON)[0];
+      let responseStatusBO = Status.fromJSON(responseJSON)[0];
       // console.info(statusBOs);
       return new Promise(function (resolve) {
         resolve(responseStatusBO);
@@ -1478,7 +1478,7 @@ export default class ManagementAPI {
 
    searchStatus(statusOwner) {
      return this.#fetchAdvanced(this.#searchStatusURL(statusOwner)).then((responseJSON) => {
-      let statusBOs = StatusBO.fromJSON(responseJSON);
+      let statusBOs = Status.fromJSON(responseJSON);
       // console.info(statusBOs);
       return new Promise(function (resolve) {
         resolve(statusBOs);

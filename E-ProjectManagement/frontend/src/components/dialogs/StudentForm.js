@@ -55,8 +55,12 @@ class StudentForm extends Component {
 
   /** Adds the student */
   addStudent = () => {
-    let newStudent = new StudentBO(this.state.name, this.state.courseAbbr, this.state.matriculationNr);
+    let newStudent = new StudentBO();
+    newStudent.setName(this.state.name)
+    newStudent.setMatriculationNr(this.state.matriculationNr)
+    newStudent.setCourseAbbr(this.state.courseAbbr)
     ManagementAPI.getAPI().addStudent(newStudent).then(student => {
+      console.log(newStudent);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty student
       this.setState(this.baseState);
@@ -148,7 +152,6 @@ class StudentForm extends Component {
       title = 'Create a new student';
       header = 'Enter student data';
     }
-
     return (
       show ?
         <Dialog open={show} onClose={this.handleClose} maxWidth='xs'>
@@ -164,7 +167,7 @@ class StudentForm extends Component {
             <form className={classes.root} noValidate autoComplete='off'>
               <TextField autoFocus type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
                 onChange={this.textFieldValueChange} error={nameValidationFailed}
-                helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />*
+                helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />
               <TextField type='text' required fullWidth margin='normal' id='courseAbbr' label='CourseAbbr:' value={courseAbbr}
                 onChange={this.textFieldValueChange} error={courseAbbrValidationFailed}
                 helperText={courseAbbrValidationFailed ? 'The Course Abbr must contain at least one character' : ' '} />

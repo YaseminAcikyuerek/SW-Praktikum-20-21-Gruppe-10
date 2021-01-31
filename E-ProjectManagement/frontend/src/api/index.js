@@ -8,5 +8,5 @@ export {default as ProjectTypeBO} from './ProjectTypeBO';
 export {default as RatingBO} from './RatingBO';
 export {default as Role} from './Role';
 export {default as SemesterBO} from './SemesterBO';
-export {default as StatusBO} from './StatusBO';
+export {default as Status} from './Status';
 export {default as StudentBO} from './StudentBO';

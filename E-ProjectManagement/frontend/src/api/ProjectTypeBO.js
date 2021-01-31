@@ -3,10 +3,10 @@ import NamedBusinessObject from './NamedBusinessObject';
 
 export default class ProjectTypeBO extends NamedBusinessObject {
 
-constructor(aName, aSws, aEcts) {
-    super(aName);
-    this.sws = aSws;
-    this.ects = aEcts;
+constructor() {
+    super();
+    this.sws = '';
+    this.ects = '';
   }
 
   setSws(aSws) {
