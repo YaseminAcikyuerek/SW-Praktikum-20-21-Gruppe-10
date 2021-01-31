@@ -6,11 +6,11 @@ import  NamedBusinessObject from './NamedBusinessObject';
 export default class PersonBO extends NamedBusinessObject {
 
 
-  constructor(aName,aRole, aEmail, aGoogleUserId) {
-    super(aName);
-    this.role = aRole;
-    this.email = aEmail;
-    this.google_user_id = aGoogleUserId;
+  constructor() {
+    super();
+    this.role = null;
+    this.email = '';
+    this.google_user_id = '';
   }
 
   getName() {

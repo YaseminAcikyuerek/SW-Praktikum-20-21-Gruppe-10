@@ -59,7 +59,6 @@ class SemesterForm extends Component {
     newSemester.setName(this.state.name)
     newSemester.setStart(this.state.start)
     newSemester.setEnd(this.state.end)
-
     ManagementAPI.getAPI().addSemester(newSemester).then(semester => {
       console.log(newSemester);
       // Backend call sucessfull
