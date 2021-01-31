@@ -26,10 +26,10 @@ class RoleForm extends Component {
   constructor(props) {
     super(props);
 
-    let id = '', n = '',i = '';
+    let  rn = '',i = '';
     if (props.role) {
       i = props.role.getId();
-      n = props.role.getName();
+      rn = props.role.getRoleName();
     }
 
     // Init the state
@@ -37,9 +37,9 @@ class RoleForm extends Component {
       id: i,
       idValidationFailed: false,
       idNameEdited: false,
-      name: n,
-      nameValidationFailed: false,
-      nameEdited: false,
+      roleName: rn,
+      roleNameValidationFailed: false,
+      roleNameEdited: false,
       addingInProgress: false,
       updatingInProgress: false,
       addingError: null,
@@ -51,8 +51,11 @@ class RoleForm extends Component {
 
   /** Adds the role */
   addRole = () => {
-    let newRole = new RoleBO(this.state.id, this.state.name);
-    ProjectAPI.getAPI().addRole(newRole).then(role => {
+    let newRole = new Role();
+    newRole.setRoleName(this.state.roleName)
+    newRole.setId(this.state.id)
+    ManagementAPI.getAPI().addRole(newRole).then(role => {
+      console.log(newRole);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty role
       this.setState(this.baseState);
@@ -74,18 +77,18 @@ class RoleForm extends Component {
   /** Updates the role */
   updateRole = () => {
     // clone the original role, in case the backend call fails
-    let updatedRole = Object.assign(new RoleBO(), this.props.role);
+    let updatedRole = Object.assign(new Role(), this.props.role);
     // set the new attributes from our dialog
     updatedRole.setId(this.state.id);
-    updatedRole.setName(this.state.name);
-    ProjectAPI.getAPI().updateRole(updatedRole).then(role => {
+    updatedRole.setRoleName(this.state.roleName);
+   ManagementAPI.getAPI().updateRole(updatedRole).then(role => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message
       });
       // keep the new state as base state
       this.baseState.id = this.state.id;
-      this.baseState.name = this.state.name;
+      this.baseState.roleName = this.state.roleName;
       this.props.onClose(updatedRole);      // call the parent with the new role
     }).catch(e =>
       this.setState({
@@ -127,7 +130,7 @@ class RoleForm extends Component {
   /** Renders the component */
   render() {
     const { classes, role, show } = this.props;
-    const { id, idValidationFailed, idNameEdited, name, nameValidationFailed, nameEdited, addingInProgress,
+    const { id, idValidationFailed, idEdited, roleName, roleNameValidationFailed, roleNameEdited, addingInProgress,
       addingError, updatingInProgress, updatingError } = this.state;
 
     let title = '';
@@ -158,14 +161,14 @@ class RoleForm extends Component {
               <TextField autoFocus type='text' required fullWidth margin='normal' id='id' label='ID:' value={id}
                 onChange={this.textFieldValueChange} error={idValidationFailed}
                 helperText={idValidationFailed ? 'The ID must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
-                onChange={this.textFieldValueChange} error={nameValidationFailed}
-                helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />
+              <TextField type='text' required fullWidth margin='normal' id='roleName' label='RoleName:' value={roleName}
+                onChange={this.textFieldValueChange} error={roleNameValidationFailed}
+                helperText={roleNameValidationFailed ? 'The roleName must contain at least one character' : ' '} />
             </form>
             <LoadingProgress show={addingInProgress || updatingInProgress} />
             {
               // Show error message in dependency of customer prop
-              customer ?
+              role ?
                 <ContextErrorMessage error={updatingError} contextErrorMsg={`The role ${role.getID()} could not be updated.`} onReload={this.updateRole} />
                 :
                 <ContextErrorMessage error={addingError} contextErrorMsg={`The role could not be added.`} onReload={this.addRole} />
@@ -177,11 +180,11 @@ class RoleForm extends Component {
             </Button>
             {
               // If a customer is given, show an update button, else an add button
-              customer ?
-                <Button disabled={idValidationFailed || nameValidationFailed} variant='contained' onClick={this.updateRole} color='primary'>
+              role ?
+                <Button disabled={idValidationFailed || roleNameValidationFailed} variant='contained' onClick={this.updateRole} color='primary'>
                   Update
               </Button>
-                : <Button disabled={idValidationFailed || !idEdited || nameValidationFailed || !nameEdited} variant='contained' onClick={this.addRole} color='primary'>
+                : <Button disabled={idValidationFailed || !idEdited || roleNameValidationFailed || !roleNameEdited} variant='contained' onClick={this.addRole} color='primary'>
                   Add
              </Button>
             }
@@ -209,7 +212,7 @@ const styles = theme => ({
 RoleForm.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
-  /** The RoleBO to be edited */
+  /** The Role to be edited */
   role: PropTypes.object,
   /** If true, the form is rendered */
   show: PropTypes.bool.isRequired,

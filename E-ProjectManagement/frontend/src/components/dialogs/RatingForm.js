@@ -65,8 +65,14 @@ class RatingForm extends Component {
 
   /** Adds the rating */
   addRating = () => {
-    let newRating = new RatingBO(this.state.project, this.state.evaluator, this.state.toBeAssessed, this.state.grade, this.state.passed);
+    let newRating = new RatingBO();
+    newRating.setProject(this.state.project)
+    newRating.setEvaluator(this.state.evaluator)
+    newRating.setToBeAssessed(this.state.toBeAssessed)
+    newRating.setGrade(this.state.grade)
+    newRating.setPassed(this.state.passed)
     ManagementAPI.getAPI().addRating(newRating).then(rating => {
+      console.log(newRating);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty projecttype
       this.setState(this.baseState);

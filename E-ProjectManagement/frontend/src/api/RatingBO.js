@@ -5,13 +5,13 @@ import BusinessObject from './BusinessObject';
  */
 export default class RatingBO extends BusinessObject {
 
-constructor(aProject,aEvaluator,aToBeAssessed,aGrade,aPassed) {
+constructor() {
     super();
-    this.project = aProject;
-    this.evaluator = aEvaluator;
-    this.to_be_assessed = aToBeAssessed;
-    this.grade = aGrade;
-    this.passed = aPassed;
+    this.project = null;
+    this.evaluator = null;
+    this.to_be_assessed = null;
+    this.grade = 0.0;
+    this.passed = null;
 
   }
 

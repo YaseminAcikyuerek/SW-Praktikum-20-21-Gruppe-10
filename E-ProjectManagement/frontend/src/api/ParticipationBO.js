@@ -6,10 +6,10 @@ import  BusinessObject from './BusinessObject';
 export default class ParticipationBO extends BusinessObject {
 
 
-  constructor(aProject, aStudent) {
+  constructor() {
     super();
-    this.project = aProject;
-    this.student = aStudent;
+    this.project = '';
+    this.student = '';
   }
 
   setProject(aProject) {

@@ -4,9 +4,9 @@ from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
 class ProjectType(nbo):
     def __init__(self):
         super().__init__()
-
         self._sws = ""
         self._ects = ""
+
     def set_sws(self, value):
         self._sws = value
 

@@ -47,8 +47,13 @@ class PersonForm extends Component {
 
   /** Adds the person */
   addPerson = () => {
-    let newPerson = new PersonBO(this.state.name, this.state.role);
+    let newPerson = new PersonBO();
+    newPerson.setName(this.state.name)
+    newPerson.setRole(this.state.role)
+    newPerson.setEmail(this.state.email)
+    newPerson.setGoogleUserId(this.state.googleUserId)
     ManagementAPI.getAPI().addPerson(newPerson).then(person => {
+      console.log(newPerson);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty person
       this.setState(this.baseState);
