@@ -40,7 +40,7 @@ class Header extends Component {
 
         </Typography>
         <Typography variant='h4' component='h2' align='center'>
-          Home
+          PROJECTONOMY HOME
         </Typography>
         {
           user ?
