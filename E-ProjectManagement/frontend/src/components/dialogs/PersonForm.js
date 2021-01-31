@@ -33,9 +33,9 @@ class PersonForm extends Component {
       email: em,
       emailValidationFailed: false,
       emailEdited: false,
-      googleUserId: gui,
-      googleUserIdValidationFailed: false,
-      googleUserIdEdited: false,
+      google_user_id: gui,
+      google_user_idValidationFailed: false,
+      google_user_idEdited: false,
       addingInProgress: false,
       updatingInProgress: false,
       addingError: null,
@@ -49,6 +49,7 @@ class PersonForm extends Component {
   addPerson = () => {
     let newPerson = new PersonBO(this.state.name, this.state.role);
     ManagementAPI.getAPI().addPerson(newPerson).then(person => {
+    console.log(newPerson)
       // Backend call sucessfull
       // reinit the dialogs state for a new empty person
       this.setState(this.baseState);
@@ -75,7 +76,7 @@ class PersonForm extends Component {
     updatedPerson.setName(this.state.name);
     updatedPerson.setRole(this.state.role);
     updatedPerson.setEmail(this.state.email);
-    updatedPerson.setGoogleUserId(this.state.googleUserId);
+    updatedPerson.setGoogleUserId(this.state.google_user_id);
 
     ManagementAPI.getAPI().updatePerson(updatedPerson).then(person => {
       this.setState({
@@ -86,7 +87,7 @@ class PersonForm extends Component {
       this.baseState.name = this.state.name;
       this.baseState.role = this.state.role;
       this.baseState.email = this.state.email;
-      this.baseState.googleUserId = this.state.googleUserId;
+      this.baseState.google_user_id = this.state.google_user_id;
       this.props.onClose(updatedPerson);      // call the parent with the new person
     }).catch(e =>
       this.setState({
@@ -128,7 +129,7 @@ class PersonForm extends Component {
   /** Renders the component */
   render() {
     const { classes, person, show } = this.props;
-    const { name, nameValidationFailed, nameEdited, role, roleValidationFailed, roleEdited, email, emailValidationFailed, emailEdited, googleUserId, googleUserIdValidationFailed, googleUserIdEdited,
+    const { name, nameValidationFailed, nameEdited, role, roleValidationFailed, roleEdited, email, emailValidationFailed, emailEdited, google_user_id, google_user_idValidationFailed, google_user_idEdited,
       addingInProgress,
       addingError, updatingInProgress, updatingError } = this.state;
 
@@ -166,9 +167,9 @@ class PersonForm extends Component {
               <TextField type='text' required fullWidth margin='normal' id='email' label='Email:' value={email}
                 onChange={this.textFieldValueChange} error={emailValidationFailed}
                 helperText={emailValidationFailed ? 'The email must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='googleUserId' label='GoogleUserId:' value={googleUserId}
-                onChange={this.textFieldValueChange} error={googleUserIdValidationFailed}
-                helperText={googleUserIdValidationFailed ? 'The googleUserId must contain at least one character' : ' '} />
+              <TextField type='text' required fullWidth margin='normal' id='google_user_id' label='GoogleUserId:' value={google_user_id}
+                onChange={this.textFieldValueChange} error={google_user_idValidationFailed}
+                helperText={google_user_idValidationFailed ? 'The google_user_id must contain at least one character' : ' '} />
 
             </form>
             <LoadingProgress show={addingInProgress || updatingInProgress} />
@@ -187,10 +188,10 @@ class PersonForm extends Component {
             {
               // If a person is given, show an update button, else an add button
               person ?
-                <Button disabled={nameValidationFailed || roleValidationFailed || emailValidationFailed || googleUserIdValidationFailed} variant='contained' onClick={this.updatePerson} color='primary'>
+                <Button disabled={nameValidationFailed || roleValidationFailed || emailValidationFailed || google_user_idValidationFailed} variant='contained' onClick={this.updatePerson} color='primary'>
                   Update
               </Button>
-                : <Button disabled={nameValidationFailed || !nameEdited || roleValidationFailed || !roleEdited || emailValidationFailed || !emailEdited || googleUserIdValidationFailed || !googleUserIdEdited} variant='contained' onClick={this.addPerson} color='primary'>
+                : <Button disabled={nameValidationFailed || !nameEdited || roleValidationFailed || !roleEdited || emailValidationFailed || !emailEdited || google_user_idValidationFailed || !google_user_idEdited} variant='contained' onClick={this.addPerson} color='primary'>
                   Add
              </Button>
             }
