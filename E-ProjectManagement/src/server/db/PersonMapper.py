@@ -73,7 +73,7 @@ class PersonMapper(Mapper):
         for (maxid) in tuples:
             person.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO person (id,creation_time, name, role,email) VALUES (%s,%s,%s,%s,%s)"
+        command = "INSERT INTO person (id, creation_time, name, role, email) VALUES (%s,%s,%s,%s,%s)"
         data = (person.get_id(), person.get_creation_time(), person.get_name(), person.get_role(), person.get_email())
         cursor.execute(command, data)
 
@@ -86,8 +86,8 @@ class PersonMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE person SET creation_time=%s, name=%s,role=%s, email=%s, google_user_id=%s WHERE id=%s"
-        data = (person.get_creation_time(), person.get_name(), person.get_role(), person.get_email(), person.get_google_user_id(), person.get_id())
+        command = "UPDATE person SET name=%s, role=%s, email=%s, google_user_id=%s WHERE id=%s"
+        data = (person.get_name(), person.get_role(), person.get_email(), person.get_google_user_id(), person.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
