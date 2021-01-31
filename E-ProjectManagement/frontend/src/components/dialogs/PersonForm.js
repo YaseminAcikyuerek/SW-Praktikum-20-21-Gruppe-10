@@ -8,28 +8,18 @@ import ContextErrorMessage from './ContextErrorMessage';
 import LoadingProgress from './LoadingProgress';
 
 
-/**
- * Shows a modal form dialog for a CustomerBO in prop customer. If the customer is set, the dialog is configured
- * as an edit dialog and the text fields of the form are filled from the given CustomerBO object.
- * If the customer is null, the dialog is configured as a new customer dialog and the textfields are empty.
- * In dependency of the edit/new state, the respective backend calls are made to update or create a customer.
- * After that, the function of the onClose prop is called with the created/update CustomerBO object as parameter.
- * When the dialog is canceled, onClose is called with null.
- *
- * @see See Material-UIs [Dialog](https://material-ui.com/components/dialogs)
- * @see See Material-UIs [TextField](https://material-ui.com/components/text-fields//)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
- */
+
 class PersonForm extends Component {
 
   constructor(props) {
     super(props);
 
-    let na = '', ro = '';
+    let na = '', ro = '',em = '',gui = '';
     if (props.person) {
       na = props.person.getName();
       ro = props.person.getRole();
+      em = props.person.getEmail();
+      gui = props.person.getGoogleUserId();
     }
 
     // Init the state
@@ -40,6 +30,12 @@ class PersonForm extends Component {
       role: ro,
       roleValidationFailed: false,
       roleEdited: false,
+      email: em,
+      emailValidationFailed: false,
+      emailEdited: false,
+      googleUserId: gui,
+      googleUserIdValidationFailed: false,
+      googleUserIdEdited: false,
       addingInProgress: false,
       updatingInProgress: false,
       addingError: null,
@@ -78,6 +74,9 @@ class PersonForm extends Component {
 
     updatedPerson.setName(this.state.name);
     updatedPerson.setRole(this.state.role);
+    updatedPerson.setEmail(this.state.email);
+    updatedPerson.setGoogleUserId(this.state.googleUserId);
+
     ManagementAPI.getAPI().updatePerson(updatedPerson).then(person => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
@@ -86,6 +85,8 @@ class PersonForm extends Component {
       // keep the new state as base state
       this.baseState.name = this.state.name;
       this.baseState.role = this.state.role;
+      this.baseState.email = this.state.email;
+      this.baseState.googleUserId = this.state.googleUserId;
       this.props.onClose(updatedPerson);      // call the parent with the new person
     }).catch(e =>
       this.setState({
@@ -127,7 +128,8 @@ class PersonForm extends Component {
   /** Renders the component */
   render() {
     const { classes, person, show } = this.props;
-    const { name, nameValidationFailed, nameEdited, role, roleValidationFailed, roleEdited, addingInProgress,
+    const { name, nameValidationFailed, nameEdited, role, roleValidationFailed, roleEdited, email, emailValidationFailed, emailEdited, googleUserId, googleUserIdValidationFailed, googleUserIdEdited,
+      addingInProgress,
       addingError, updatingInProgress, updatingError } = this.state;
 
     let title = '';
@@ -161,6 +163,13 @@ class PersonForm extends Component {
               <TextField type='text' required fullWidth margin='normal' id='role' label='Role:' value={role}
                 onChange={this.textFieldValueChange} error={roleValidationFailed}
                 helperText={roleValidationFailed ? 'The role must contain at least one character' : ' '} />
+              <TextField type='text' required fullWidth margin='normal' id='email' label='Email:' value={email}
+                onChange={this.textFieldValueChange} error={emailValidationFailed}
+                helperText={emailValidationFailed ? 'The email must contain at least one character' : ' '} />
+              <TextField type='text' required fullWidth margin='normal' id='googleUserId' label='GoogleUserId:' value={googleUserId}
+                onChange={this.textFieldValueChange} error={googleUserIdValidationFailed}
+                helperText={googleUserIdValidationFailed ? 'The googleUserId must contain at least one character' : ' '} />
+
             </form>
             <LoadingProgress show={addingInProgress || updatingInProgress} />
             {
@@ -178,10 +187,10 @@ class PersonForm extends Component {
             {
               // If a person is given, show an update button, else an add button
               person ?
-                <Button disabled={nameValidationFailed || roleValidationFailed} variant='contained' onClick={this.updatePerson} color='primary'>
+                <Button disabled={nameValidationFailed || roleValidationFailed || emailValidationFailed || googleUserIdValidationFailed} variant='contained' onClick={this.updatePerson} color='primary'>
                   Update
               </Button>
-                : <Button disabled={nameValidationFailed || !nameEdited || roleValidationFailed || !roleEdited} variant='contained' onClick={this.addPerson} color='primary'>
+                : <Button disabled={nameValidationFailed || !nameEdited || roleValidationFailed || !roleEdited || emailValidationFailed || !emailEdited || googleUserIdValidationFailed || !googleUserIdEdited} variant='contained' onClick={this.addPerson} color='primary'>
                   Add
              </Button>
             }

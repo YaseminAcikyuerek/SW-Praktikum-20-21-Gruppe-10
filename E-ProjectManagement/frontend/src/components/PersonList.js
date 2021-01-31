@@ -139,8 +139,11 @@ class PersonList extends Component {
       filteredPersons: this.state.persons.filter(person => {
         let nameContainsValue = person.getName().toLowerCase().includes(value);
         let roleContainsValue = person.getRole().toLowerCase().includes(value);
+        let emailContainsValue = person.getEmail().toLowerCase().includes(value);
+        let googleUserIdContainsValue = person.getGoogleUserId().toLowerCase().includes(value);
 
-        return nameContainsValue || roleContainsValue;
+
+        return nameContainsValue || roleContainsValue || emailContainsValue || googleUserIdContainsValue ;
       }),
       personFilter: value
     });

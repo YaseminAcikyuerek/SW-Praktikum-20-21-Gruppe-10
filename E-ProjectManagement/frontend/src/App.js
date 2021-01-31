@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
-import ManagementAPI from './api/ManagementAPI';
+//import ManagementAPI from './api/ManagementAPI';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from './Firebaseconfig';

@@ -20,7 +20,7 @@ export default class ManagementAPI {
 
   // Person related
   #getPersonsURL = () => `${this.#managementServerBaseURL}/persons`;
-  #addPersonURL = () => `${this.#managementServerBaseURL}/person`;
+  #addPersonURL = () => `${this.#managementServerBaseURL}/persons`;
   #getPersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
   #updatePersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
   #deletePersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
