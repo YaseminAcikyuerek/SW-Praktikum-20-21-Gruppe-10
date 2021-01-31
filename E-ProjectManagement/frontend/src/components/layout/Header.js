@@ -40,7 +40,7 @@ class Header extends Component {
 
         </Typography>
         <Typography variant='h4' component='h2' align='center'>
-          PROJECTONOMY HOME
+          <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
         {
           user ?
