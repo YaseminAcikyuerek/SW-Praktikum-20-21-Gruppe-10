@@ -66,7 +66,7 @@ class PersonDetails extends Component {
         {
           person ?
             <Typography>
-              Person: {person.getName()}, {person.getRole()}
+              Person: {person.getName()}, {person.getRole()}, {person.getEmail()}, {person.getGoogleUserId()}
             </Typography>
             : null
         }
