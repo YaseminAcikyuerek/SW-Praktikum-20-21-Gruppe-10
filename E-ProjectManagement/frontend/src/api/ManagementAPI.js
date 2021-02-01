@@ -34,11 +34,14 @@ export default class ManagementAPI {
   #updateProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #searchProjectURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
+  #getProjectsByStudent = (student) => `${this.#managementServerBaseURL}/project-by-student/${student}`;
+  #searchProject = (projectStatus) => `${this.#managementServerBaseURL}/project-by-status/${projectStatus}`;
 
   //Student related
   #getStudentsURL = () => `${this.#managementServerBaseURL}/students`;
   #addStudentURL = () => `${this.#managementServerBaseURL}/students`;
   #getStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
+  #getStudentByMailURL = (eMail) => `${this.#managementServerBaseURL}/student${eMail}\``;
   #updateStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
   #deleteStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
   #searchStudentURL = (studentName) => `${this.#managementServerBaseURL}/student-by-name/${studentName}`;
@@ -46,8 +49,8 @@ export default class ManagementAPI {
 
   //Participation related
   #getAllParticipationsURL = () => `${this.#managementServerBaseURL}/participation`;
-  #getParticipationsForStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
-  #addParticipationsForStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
+  #getParticipationURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
+  #addParticipationURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
   #updateParticipationURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
   #deleteParticipationIdURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
   #searchParticipationURL = (participationStudent) => `${this.#managementServerBaseURL}/participation-by-student/${participationStudent}`;
@@ -393,6 +396,16 @@ export default class ManagementAPI {
 
    }
 
+   searchProject(projectStatus) {
+     return this.#fetchAdvanced(this.#searchProjectURL(projectStatus)).then((responseJSON) => {
+      let projectBOs = ProjectBO.fromJSON(responseJSON);
+      // console.info(projectBOs);
+      return new Promise(function (resolve) {
+        resolve(projectBOs);
+      })
+    })
+
+   }
 
 
 
@@ -435,7 +448,16 @@ export default class ManagementAPI {
     })
   }
 
-
+  getStudentByMail(eMail) {
+    return this.#fetchAdvanced(this.#getStudentByMailURL(eMail)).then((responseJSON) => {
+      // We always get an array of StudentBOs.fromJSON, but only need one object
+      let responseStudentBO = StudentBO.fromJSON(responseJSON)[0];
+      // console.info(responseStudentBO);
+      return new Promise(function (resolve) {
+        resolve(responseStudentBO);
+      })
+    })
+  }
   /**
    * Adds a Student and returns a Promise, which resolves to a new StudentBO object with all
    *  the parameter of studentBO object.
@@ -561,11 +583,9 @@ export default class ManagementAPI {
    * @public
    */
 
-  getParticipationsForStudent(studentID) {
-    return this.#fetchAdvanced(this.#getParticipationsForStudentURL(studentID)).then((responseJSON) => {
-      // We always get an array of ParticipationBOs.fromJSON, but only need one object
+  getParticipation(studentID) {
+    return this.#fetchAdvanced(this.#getParticipationURL(studentID)).then((responseJSON) => {
       let participationBOs = ParticipationBO.fromJSON(responseJSON);
-      // console.info(responseParticipationBO);
       return new Promise(function (resolve) {
         resolve(participationBOs);
       })
@@ -583,8 +603,8 @@ export default class ManagementAPI {
    * @public
    */
 
-  addParticipationsForStudent(studentID) {
-    return this.#fetchAdvanced(this.#addParticipationsForStudentURL(studentID), {
+  addParticipation(studentID) {
+    return this.#fetchAdvanced(this.#addParticipationURL(studentID), {
       method: 'POST',
     })
       .then((responseJSON) => {
