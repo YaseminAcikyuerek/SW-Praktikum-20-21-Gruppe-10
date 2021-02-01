@@ -298,9 +298,7 @@ class ProjectForm extends Component {
               <TextField type='text' required fullWidth margin='normal' id='room' label='Room:' value={room}
                 onChange={this.textFieldValueChange} error={roomValidationFailed}
                 helperText={roomValidationFailed ? 'The room must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='room' label='Room:' value={room}
-                onChange={this.textFieldValueChange} error={roomValidationFailed}
-                helperText={roomValidationFailed ? 'The room must contain at least one character' : ' '} />
+
               <TextField type='text' required fullWidth margin='normal' id='specialRoom' label='Special room:' value={specialRoom}
                 onChange={this.textFieldValueChange} error={specialRoomValidationFailed}
                 helperText={specialRoomValidationFailed ? 'The special room must contain at least one character' : ' '} />
