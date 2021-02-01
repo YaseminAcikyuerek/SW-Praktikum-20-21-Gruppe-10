@@ -140,10 +140,10 @@ class PersonList extends Component {
         let nameContainsValue = person.getName().toLowerCase().includes(value);
         let roleContainsValue = person.getRole().toLowerCase().includes(value);
         let emailContainsValue = person.getEmail().toLowerCase().includes(value);
-        let google_user_idContainsValueser_idContainsValue = person.getGoogleUserId().toLowerCase().includes(value);
+        let googleUserIdContainsValue = person.getGoogleUserId().toLowerCase().includes(value);
 
 
-        return nameContainsValue || roleContainsValue || emailContainsValue || google_user_idContainsValue ;
+        return nameContainsValue || roleContainsValue || emailContainsValue || googleUserIdContainsValue ;
       }),
       personFilter: value
     });
