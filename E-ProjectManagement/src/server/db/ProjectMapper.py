@@ -232,12 +232,12 @@ class ProjectMapper(Mapper):
         cursor.close()
         return result
 
-    def find_project_by_module(self, module):
+    def find_project_by_status(self, status):
 
         result = []
 
         cursor = self._cnx.cursor()
-        command = " SELECT * FROM project WHERE module={}".format(module)
+        command = " SELECT * FROM project WHERE status='{}'".format(status)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -271,6 +271,46 @@ class ProjectMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
+        return result
+
+    def find_project_by_student(self, student):
+
+        result = []
+
+        cursor = self._cnx.cursor()
+        command = "SELECT * FROM project WHERE owner={}".format(student)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, creation_time, semester, module, short_description, external_partner_list, capacity,
+             bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
+             preferred_bd_during_lecture_period, language, room, special_room, flag, name,
+             status, project_type, owner) in tuples:
+
+            project = Project()
+            project.set_id(id)
+            project.set_creation_time(creation_time)
+            project.set_semester(semester)
+            project.set_module(module)
+            project.set_short_description(short_description)
+            project.set_external_partner_list(external_partner_list)
+            project.set_capacity(capacity)
+            project.set_bd_during_exam_period(bd_during_exam_period)
+            project.set_bd_before_lecture_period(bd_before_lecture_period)
+            project.set_bd_during_lecture_period(bd_during_lecture_period)
+            project.set_preferred_bd_during_lecture_period(preferred_bd_during_lecture_period)
+            project.set_language(language)
+            project.set_room(room)
+            project.set_special_room(special_room)
+            project.set_flag(flag)
+            project.set_name(name)
+            project.set_status(status)
+            project.set_project_type(project_type)
+            project.set_owner(owner)
+            result.append(project)
+
+        self._cnx.commit()
+        cursor.close()
         return result
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 

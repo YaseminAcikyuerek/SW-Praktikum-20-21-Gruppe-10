@@ -1164,19 +1164,33 @@ class ProjectByOwnerOperations(Resource):
         pro = adm.get_project_by_owner(owner)
         return pro
 
-@management.route('/student-by-name/<string:name>')
+@management.route('/project-by-status/<string:status>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('name', 'Der Name des Studenten')
-class StudentByNameOperations(Resource):
-    @management.marshal_with(student)
+@management.param('status', 'Der Status des Projekts')
+class ProjectByStateOperations(Resource):
+    @management.marshal_with(project)
 
-    def get(self, name):
-        """ Auslesen von Student-Objekten, die durch den Namen bestimmt werden.
+    def get(self, status):
+        """ Auslesen von Projekt-Objekten, die durch den Eigentümer bestimmt werden.
 
-        Die auszulesenden Objekte werden durch ```name``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        stu = adm.get_student_by_name(name)
+        pro = adm.get_project_by_status(status)
+        return pro
+
+@management.route('/student-by-mail/<string:email>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('email', 'Die Email des Studenten')
+class StudentByMailOperations(Resource):
+    @management.marshal_with(student)
+
+    def get(self, email):
+        """ Auslesen von Student-Objekten, die durch die Mail bestimmt werden.
+
+        Die auszulesenden Objekte werden durch ```email``` in dem URI bestimmt.
+        """
+        adm = ProjectAdministration()
+        stu = adm.get_student_by_email(email)
         return stu
 
 @management.route('/project')
@@ -1197,6 +1211,21 @@ class ProjectListOperations(Resource):
             return '', 200
         else:
             return '', 500
+
+@management.route('/project-by-student/<int:id>')
+@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
+@management.param('student', 'Die ID des Studenten-Objekts')
+class StudentRelatedProjectOperations(Resource):
+    @management.marshal_with(student)
+    def get(self, student):
+
+        adm = ProjectAdministration()
+        par = adm.get_participation_of_student(student)
+        if par is not None:
+            project_list = adm.get_projects_of_student(par)
+            return project_list
+        else:
+            return "Participation not found", 500
 
 if __name__ == '__main__':
     app.run(debug=True)

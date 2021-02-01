@@ -1,0 +1,146 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear'
+import { withRouter } from 'react-router-dom';
+import ManagementAPI from '../api/ManagementAPI';
+import ContextErrorMessage from './dialogs/ContextErrorMessage';
+import LoadingProgress from './dialogs/LoadingProgress';
+import ProjectForm from './dialogs/ProjectForm';
+import ProjectListEntry from './ProjectListEntry';
+import ProjectListEntryStudent from './ProjectListEntryStudent';
+
+/**
+ *
+ * adapted from Christoph Kunz(https://github.com/christophkunz)
+ */
+class ProjectListStudent extends Component {
+
+  constructor(props) {
+    super(props);
+
+    // console.log(props);
+    let expandedID = null;
+
+    if (this.props.location.expandProject) {
+      expandedID = this.props.location.expandProject.getID();
+    }
+
+    // Init an empty state
+    this.state = {
+      acceptedProjects: [],
+      signedProjects: [],
+      error: null,
+      loadingInProgress: false,
+      expandedProjectID: expandedID,
+    };
+  }
+
+  /** Fetches all ProjectBOs with state accepted from the backend */
+  searchProjectAcceptedURL = () => {
+    ManagementAPI.getAPI().searchProject()
+      .then(projectBOs =>
+        this.setState({               // Set new state when ProjectBOs have been fetched
+          acceptedProjects: projectBOs,
+          loadingInProgress: false,   // disable loading indicator
+          error: null
+        })).catch(e =>
+          this.setState({             // Reset state with error from catch
+           acceptedProjects: [],
+            loadingInProgress: false, // disable loading indicator
+            error: e
+          })
+        );
+
+    // set loading to true
+    this.setState({
+      loadingInProgress: true,
+      error: null
+    });
+  }
+getProjects= async () =>{
+    let student = await this.ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
+    this.ManagementAPI.getAPI().getProjectsByStudent(student)
+  }
+
+  getProjectsStudent = (studentBO) => {
+    ManagementAPI.getAPI().getProjectsByStudent(studentBO.getID())
+      .then(projectBOs =>
+        this.setState({               // Set new state when ProjectBOs have been fetched
+          studentProjects: projectBOs,
+          loadingInProgress: false,   // disable loading indicator
+          error: null
+        })).catch(e =>
+          this.setState({             // Reset state with error from catch
+           studentProjects: [],
+            loadingInProgress: false, // disable loading indicator
+            error: e
+          })
+        );
+
+    // set loading to true
+    this.setState({
+      loadingInProgress: true,
+      error: null
+    });
+  }
+  }
+  /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
+  componentDidMount ()
+{
+    this.searchProjectAcceptedURL();
+    this.getProjectsByStudentURL();
+  }
+
+  /** Renders the component */
+  render()
+{
+    const { classes } = this.props;
+    const { expandedProjectID, loadingInProgress, error, acceptedProjects , signedProjects} = this.state;
+
+    return (
+      <div className={classes.root}>
+        <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
+          <Grid item>
+          <h1>Auswahl Projekte</h1>
+            <Paper className={classes.paper}> {
+            acceptedProjects.map(project =>
+            <ProjectListEntryStudent key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
+              onExpandedStateChange={this.onExpandedStateChange} student = {student}
+              onProjectDeleted={this.projectDeleted}
+            />)
+        }
+        <LoadingProgress show={loadingInProgress} />
+        <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectAccepted()} />
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+              <h1>Meine Projekte</h1>
+              <Paper className={classes.paper}>{
+               <div>
+            {signedProjects.map(p => <ListItem>{p.name}</ListItem >)}
+            </div>
+              }
+           </Paper>
+          </Grid>
+    );
+  }
+
+
+/** Component specific styles */
+const styles = theme => ({
+  root: {
+    width: '100%',
+  },
+});
+
+/** PropTypes */
+ProjectListStudent.propTypes = {
+  /** @ignore */
+  classes: PropTypes.object.isRequired,
+  /** @ignore */
+  location: PropTypes.object.isRequired,
+}
+
+export default withRouter(withStyles(styles)(ProjectListStudent));

@@ -289,10 +289,10 @@ class ProjectAdministration(object):
         with StudentMapper() as mapper:
             return mapper.insert(student)
 
-    def get_student_by_name(self, name):
+    def get_student_by_mail(self, email):
         """Alle Studenten mit Namen name auslesen."""
         with StudentMapper() as mapper:
-            return mapper.find_by_name(name)
+            return mapper.find_by_mail(email)
 
     def get_student_by_matriculation_nr(self, matriculation_nr):
         """Den Studenten mit der gegebenen matriculaton_nr auslesen."""
@@ -502,6 +502,10 @@ class ProjectAdministration(object):
     def get_participation_for_project(self, pro):
         with ParticipationMapper() as mapper:
             return mapper.find_participation_of_project(pro)
+
+    def get_projects_of_student(self,student):
+        with ProjectMapper() as mapper:
+            return mapper.find_projects_of_student(student)
 
 
 
