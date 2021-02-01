@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
+import { withStyles, Button, TextField, Accordion, AccordionSummary, IconButton, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
 import { withRouter } from 'react-router-dom';
@@ -8,7 +8,12 @@ import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import ProjectForm from './dialogs/ProjectForm';
-import ProjectListEntry from './ProjectListEntry';
+import ProjectListEntryStudent from './ProjectListEntryStudent';
+import ParticipationBO from '../api/ParticipationBO';
+import Paper from '@material-ui/core/Paper';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
+import CheckIcon from '@material-ui/icons/Check';
 
 
 /**
