@@ -13,12 +13,6 @@ export default class PersonBO extends NamedBusinessObject {
     this.google_user_id = '';
   }
 
-  getName() {
-    return super.getName();
-  }
-  setName(aName) {
-    super.setName(aName);
-  }
 
   setRole(aRole) {
   this.role= aRole;

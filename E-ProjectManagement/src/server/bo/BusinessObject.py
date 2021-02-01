@@ -11,7 +11,7 @@ class BusinessObject(ABC):
     """
 
     def __init__(self):
-        self._id = 0  # Die eindeutige ID
+        self._id = 0
         self._creation_time = datetime.now()
 
     def get_id(self):

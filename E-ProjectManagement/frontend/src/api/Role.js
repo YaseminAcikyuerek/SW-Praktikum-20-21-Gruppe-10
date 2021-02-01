@@ -2,18 +2,18 @@
 export default class Role {
 
   constructor() {
-    this.role_name = '';
+    this.name = '';
     this.id = '';
   }
 
 
-  setRoleName(aRoleName) {
-    this.role_name = aRoleName;
+  setRoleName(aName) {
+    this.name = aName;
   }
 
 
   getRoleName() {
-    return this.role_name;
+    return this.name;
   }
 
 

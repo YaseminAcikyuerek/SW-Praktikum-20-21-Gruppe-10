@@ -2,18 +2,16 @@
 export default class Status {
 
     constructor() {
-    this.status = '';
+    this.name = '';
 
   }
 
-
-  setStatus(aStatus) {
-    this.status = aStatus;
+  setStatus(aName) {
+    this.name = aName;
   }
-
 
   getStatus() {
-    return this.status;
+    return this.name;
   }
 
  static fromJSON(statuses) {

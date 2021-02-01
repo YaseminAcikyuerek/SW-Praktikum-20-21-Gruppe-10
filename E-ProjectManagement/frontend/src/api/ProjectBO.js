@@ -64,12 +64,28 @@ export default class ProjectBO extends NamedBusinessObject {
     return this.project_type;
   }
 
+ setSemester(aSemester){
+    this.semester = aSemester;
+  }
+
+  getSemester(){
+    return this.semester;
+  }
+
   setCapacity(aCapacity) {
   this.capacity = aCapacity ;
   }
 
   getCapacity() {
     return this.capacity;
+  }
+
+  setExternalPartnerList(aExternalPartnerList){
+    this.external_partner_list = aExternalPartnerList;
+  }
+
+  getExternalPartnerList(){
+    return this.external_partner_list;
   }
 
   setShortDescription(aShortDescription) {
@@ -143,24 +159,6 @@ export default class ProjectBO extends NamedBusinessObject {
   getRoom() {
   return this.room;
   }
-
-  setExternalPartnerList(aExternalPartnerList){
-    this.external_partner_list = aExternalPartnerList;
-  }
-
-  getExternalPartnerList(){
-    return this.external_partner_list;
-  }
-
-  setSemester(aSemester){
-    this.semester = aSemester;
-  }
-
-  getSemester(){
-    return this.semester;
-  }
-
-
 
 
 
