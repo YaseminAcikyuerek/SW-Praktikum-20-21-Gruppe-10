@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
+import { withStyles, Button, TextField, Accordion, AccordionSummary, AccordionDetails, InputAdornment, IconButton, Grid, Typography, ListItem } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear'
 import { withRouter } from 'react-router-dom';
@@ -8,8 +8,9 @@ import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import ProjectForm from './dialogs/ProjectForm';
-import ProjectListEntry from './ProjectListEntry';
 import ProjectListEntryStudent from './ProjectListEntryStudent';
+import ParticipationBO from '../api/ParticipationBO';
+import Paper from '@material-ui/core/Paper';
 
 /**
  *
@@ -59,7 +60,7 @@ class ProjectListStudent extends Component {
       error: null
     });
   }
-getProjects= async () =>{
+getProjects = async () =>{
     let student = await this.ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
     this.ManagementAPI.getAPI().getProjectsByStudent(student)
   }
@@ -85,7 +86,31 @@ getProjects= async () =>{
       error: null
     });
   }
+
+  /**
+   * Handles onExpandedStateChange events from the ProjectListStudent component. Toggels the expanded state of
+   * the ProjectListStudentEntry of the given PersonBO.
+   *
+   * DRINGEND ÜBERARBEITEN!!!
+   *
+   * @param {person} PersonBO of the PersonListEntry to be toggeled
+   */
+  onExpandedStateChange = student => {
+    // console.log(personID);
+    // Set expandend person entry to null by default
+    let newID = null;
+
+    // If same person entry is clicked, collapse it else expand a new one
+    if (student.getID() !== this.state.expandedStudentID) {
+      // Expand the person entry with personID
+      newID = student.getID();
+    }
+    // console.log(newID);
+    this.setState({
+      expandedStudentID: newID,
+    });
   }
+
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount ()
 {
@@ -94,45 +119,46 @@ getProjects= async () =>{
   }
 
   /** Renders the component */
-  render()
-{
+  render() {
+
     const { classes } = this.props;
     const { expandedProjectID, loadingInProgress, error, acceptedProjects , signedProjects} = this.state;
 
     return (
+
       <div className={classes.root}>
         <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
           <Grid item>
-          <h1>Auswahl Projekte</h1>
+            <h1>Auswahl Projekte</h1>
             <Paper className={classes.paper}> {
             acceptedProjects.map(project =>
             <ProjectListEntryStudent key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
               onExpandedStateChange={this.onExpandedStateChange} student = {student}
               onProjectDeleted={this.projectDeleted}
             />)
-        }
-        <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectAccepted()} />
+            }
+            <LoadingProgress show={loadingInProgress} />
+            <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectAccepted()} />
             </Paper>
           </Grid>
           <Grid item xs={4}>
               <h1>Meine Projekte</h1>
               <Paper className={classes.paper}>{
                <div>
-            {signedProjects.map(p => <ListItem>{p.name}</ListItem >)}
-            </div>
-              }
-           </Paper>
+                {signedProjects.map(p => <ListItem>{p.name}</ListItem>)}
+               </div>
+              }</Paper>
           </Grid>
+      
     );
   }
-
+}
 
 /** Component specific styles */
 const styles = theme => ({
   root: {
     width: '100%',
-  },
+  }
 });
 
 /** PropTypes */
