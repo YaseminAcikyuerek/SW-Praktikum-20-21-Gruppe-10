@@ -869,7 +869,7 @@ class RatingListOperations(Resource):
             eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
             wird auch dem Client zurückgegeben. 
             """
-            r = adm.create_rating(rat.get_creation_time(),rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(),rat.get_grade(),rat.get_passed())
+            r = adm.create_rating(rat.get_creation_time(), rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(), rat.get_grade(), rat.get_passed())
             return r, 200
         else:
             # Wenn irgendetwas schiefgeht, dann geben wir nichts zurück und werfen einen Server-Fehler.
