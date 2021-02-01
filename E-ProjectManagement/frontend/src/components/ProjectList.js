@@ -139,26 +139,31 @@ class ProjectList extends Component {
     const value = event.target.value.toLowerCase();
     this.setState({
       filteredProjects: this.state.projects.filter(project => {
-        let SemesterContainsValue = project.getSemester().toLowerCase().includes(value);
+        let StatusContainsValue = project.getStatus().toLowerCase().includes(value);
+        let OwnerContainsValue = project.getOwner().toLowerCase().includes(value);
         let ModuleContainsValue = project.getModule().toLowerCase().includes(value);
-        let ShortDescriptionContainsValue = project.getShortDescription().toLowerCase().includes(value);
-        let ExternalPartnerListContainsValue = project.getExternalPartnerList().toLowerCase().includes(value);
+        let ProjectTypeContainsValue = project.getProjectType().toLowerCase().includes(value);
+        let SemesterContainsValue = project.getSemester().toLowerCase().includes(value);
         let CapacityContainsValue = project.getCapacity().toLowerCase().includes(value);
-        let BdDuringExamPeriodContainsValue = project.getBdDuringExamPeriod().toLowerCase().includes(value);
+        let ExternalPartnerListContainsValue = project.getExternalPartnerList().toLowerCase().includes(value);
+        let ShortDescriptionContainsValue = project.getShortDescription().toLowerCase().includes(value);
+        let FlagContainsValue = project.getFlag().toLowerCase().includes(value);
         let BdBeforeLecturePeriod = project.getBdBeforeLecturePeriod().toLowerCase().includes(value);
         let BdDuringLecturePeriod = project.getBdDuringLecturePeriod().toLowerCase().includes(value);
+        let BdDuringExamPeriodContainsValue = project.getBdDuringExamPeriod().toLowerCase().includes(value);
         let PreferredBdDuringLecturePeriod = project.getPreferredBdDuringLecturePeriod.toLowerCase().includes(value);
+        let SpecialRoomContainsValue = project.getSpecialRoom().toLowerCase().includes(value);
         let LanguageContainsValue = project.getLanguage().toLowerCase().includes(value);
         let RoomContainsValue = project.getRoom().toLowerCase().includes(value);
-        let FlagContainsValue = project.getFlag().toLowerCase().includes(value);
-        let StatusContainsValue = project.getStatus().toLowerCase().includes(value);
-        let ProjectTypeContainsValue = project.getProjectType().toLowerCase().includes(value);
-        let OwnerContainsValue = project.getOwner().toLowerCase().includes(value);
 
-        return SemesterContainsValue || ModuleContainsValue || ShortDescriptionContainsValue ||ExternalPartnerListContainsValue ||
-        CapacityContainsValue || BdDuringExamPeriodContainsValue || BdBeforeLecturePeriod || BdDuringLecturePeriod ||
-        PreferredBdDuringLecturePeriod || LanguageContainsValue || RoomContainsValue || FlagContainsValue ||
-        StatusContainsValue || ProjectTypeContainsValue || OwnerContainsValue
+
+
+
+        return StatusContainsValue || OwnerContainsValue || ModuleContainsValue|| ProjectTypeContainsValue || SemesterContainsValue ||  CapacityContainsValue
+             ||ExternalPartnerListContainsValue ||ShortDescriptionContainsValue || FlagContainsValue
+            || BdBeforeLecturePeriod || BdDuringLecturePeriod ||BdDuringExamPeriodContainsValue ||
+            PreferredBdDuringLecturePeriod ||SpecialRoomContainsValue ||  LanguageContainsValue || RoomContainsValue
+
       }),
       projectFilter: value
     });
