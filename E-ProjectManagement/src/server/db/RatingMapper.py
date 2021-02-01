@@ -11,7 +11,7 @@ class RatingMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT *  from rating")
+        cursor.execute("SELECT id, creation_time, project, evaluator, to_be_assessed, grade, passed  from rating")
         tuples = cursor.fetchall()
 
         for (id, creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
@@ -39,11 +39,11 @@ class RatingMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM rating WHERE to_be_assessed={} ORDER BY id".format(student)
+        command = "SELECT id, creation_time, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE to_be_assessed={} ORDER BY id".format(student)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
+        for (id, creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
             rating.set_creation_time(creation_time)
@@ -68,11 +68,11 @@ class RatingMapper(Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM rating WHERE project={} ORDER BY id".format(project)
+        command = "SELECT id, creation_time, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE project={} ORDER BY id".format(project)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id,creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
+        for (id, creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
             rating = Rating()
             rating.set_id(id)
             rating.set_creation_time(creation_time)
@@ -99,12 +99,12 @@ class RatingMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE id={}".format(id)
+        command = "SELECT id,creation_time, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         if tuples[0] is not None:
-            (id, project, evaluator, to_be_assessed, grade, passed) = tuples[0]
+            (id,creation_time, project, evaluator, to_be_assessed, grade, passed) = tuples[0]
             rating = Rating()
             rating.set_id(id)
             rating.set_creation_time(creation_time)

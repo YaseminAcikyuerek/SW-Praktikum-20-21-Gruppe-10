@@ -146,6 +146,7 @@ class ProjectForm extends Component {
   updateProject = () => {
     // clone the original project, in case the backend call fails
     let updatedProject = Object.assign(new ProjectBO(), this.props.project);
+
     // set the new attributes from our dialog
     updatedProject.setName(this.state.name);
     updatedProject.setStatus (this.state.status);

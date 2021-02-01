@@ -13,7 +13,7 @@ import LoadingProgress from './dialogs/LoadingProgress';
  *
 
  */
-class RatingDetail extends Component {
+class RatingDetails extends Component {
 
   constructor(props) {
     super(props);
@@ -96,7 +96,7 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-RatingDetail.propTypes = {
+RatingDetails.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The ratingID to be rendered */
@@ -104,4 +104,4 @@ RatingDetail.propTypes = {
 
 }
 
-export default withStyles(styles)(RatingDetail);
+export default withStyles(styles)(RatingDetails);

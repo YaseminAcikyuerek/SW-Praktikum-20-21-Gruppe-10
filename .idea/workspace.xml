@@ -26,13 +26,20 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/PersonBO.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/PersonBO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/PersonForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/PersonForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/StudentForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/StudentForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/RatingBO.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/RatingBO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllParticipationList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllParticipationList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllRatingList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllRatingList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/RatingDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/RatingDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/SemesterList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/SemesterList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/ProjectForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/ProjectForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/mysql/mySQL-Dump.sql" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/mysql/mySQL-Dump.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Rating.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Rating.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +78,14 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1l4PfYjfqjVSKfeJBYoOATwkTMU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -140,6 +155,9 @@
       <option name="presentableId" value="Default" />
       <updated>1606409236603</updated>
       <workItem from="1612101185266" duration="6058000" />
+      <workItem from="1612129488770" duration="9704000" />
+      <workItem from="1612176015580" duration="13912000" />
+      <workItem from="1612209752681" duration="5471000" />
     </task>
     <task id="LOCAL-00001" summary="Mapper erstellt">
       <created>1606595269536</created>
@@ -379,7 +397,21 @@
       <option name="project" value="LOCAL" />
       <updated>1611889986501</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="In PersonForm.js this.state.email, this.state.google_user_id ergänzt">
+      <created>1612121771404</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1612121771404</updated>
+    </task>
+    <task id="LOCAL-00036" summary="In ProjectForm.js, ProjectList.js Reihenfolge der Attribute berichtigt">
+      <created>1612193797437</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1612193797437</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -440,7 +472,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="lokale Datenbank angebunden" />
     <MESSAGE value="Mapper korrigiert" />
     <MESSAGE value="Mapper und BO korrigiert" />
     <MESSAGE value="ProjectAdministration.py bearbeitet" />
@@ -465,15 +496,12 @@
     <MESSAGE value="REACT Theme root div erweitert" />
     <MESSAGE value="mySQL-Dump.sql updated" />
     <MESSAGE value="email, google_user-id in PersonMapper.py, main &amp; Projektadministration ergänzt" />
-    <option name="LAST_COMMIT_MESSAGE" value="email, google_user-id in PersonMapper.py, main &amp; Projektadministration ergänzt" />
+    <MESSAGE value="In ProjectForm.js, ProjectList.js Reihenfolge der Attribute berichtigt" />
+    <option name="LAST_COMMIT_MESSAGE" value="In ProjectForm.js, ProjectList.js Reihenfolge der Attribute berichtigt" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/ProjectAdministration.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RoleMapper.py</url>
           <line>93</line>
@@ -499,11 +527,6 @@
           <line>1188</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py</url>
-          <line>169</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -517,7 +540,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$PersonMapper.coverage" NAME="PersonMapper Coverage Results" MODIFIED="1610909936770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
     <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1611936258964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
-    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main.coverage" NAME="main Coverage Results" MODIFIED="1612112923617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
+    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main.coverage" NAME="main Coverage Results" MODIFIED="1612218347234" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
     <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$SemesterMapper.coverage" NAME="SemesterMapper Coverage Results" MODIFIED="1611618815915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
   </component>
 </project>

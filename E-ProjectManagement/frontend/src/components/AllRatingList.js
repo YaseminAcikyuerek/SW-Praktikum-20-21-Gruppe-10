@@ -27,7 +27,7 @@ class AllRatingList extends Component {
 
   /** gets the rating list for this project */
   loadRatings = () => {
-    ManagementAPI.getAPI().getAllRatings().then(ratings =>
+    ManagementAPI.getAPI().getRatings().then(ratings =>
       this.setState({
         ratings: ratings,
         loadingInProgress: false, // loading indicator
@@ -55,7 +55,7 @@ class AllRatingList extends Component {
       <div className={classes.root}>
           {
             ratings.map(rating => <RatingDetails key={rating.getID()}
-            personID={rating.getOwner().toString()} ratingID={rating.getID().toString()} />)
+            personID={rating.getEvaluator().toString()} ratingID={rating.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
           <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all ratings of the project management system could not be loaded.`} onReload={this.loadRatings} />

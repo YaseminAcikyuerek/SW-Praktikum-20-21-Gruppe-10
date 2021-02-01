@@ -8,7 +8,7 @@ class Rating(bo):
         self._evaluator = None
         self._to_be_assessed = None
         self._grade = 0.0
-        self._passed = 1
+        self._passed = True
 
     def set_project(self, project):
         self._project = project

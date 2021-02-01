@@ -31,7 +31,7 @@ class AllParticipationList extends Component {
 
   /** gets the participation list for this participation */
   loadParticipations = () => {
-    ManagementAPI.getAPI().getAllParticipations().then(participations =>
+    ManagementAPI.getAPI().getParticipations().then(participations =>
       this.setState({
         participations: participations,
         loadingInProgress: false, // loading indicator

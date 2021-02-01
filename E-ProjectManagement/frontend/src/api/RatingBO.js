@@ -10,8 +10,8 @@ constructor() {
     this.project = null;
     this.evaluator = null;
     this.to_be_assessed = null;
-    this.grade = 0.0;
-    this.passed = null;
+    this.grade = 0;
+    this.passed = true;
 
   }
 

@@ -847,7 +847,7 @@ export default class ManagementAPI {
   getRatings() {
     return this.#fetchAdvanced(this.#getRatingsURL()).then((responseJSON) => {
       let ratingBOs = RatingBO.fromJSON(responseJSON);
-      // console.info(ratingBOs);
+      console.info(ratingBOs);
       return new Promise(function (resolve) {
         resolve(ratingBOs);
       })

@@ -52,7 +52,7 @@ class SemesterList extends Component {
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           semesters: [],
+            semesters: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
