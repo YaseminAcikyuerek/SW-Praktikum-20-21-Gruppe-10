@@ -29,17 +29,17 @@ class Project(nbo, Automaton):
     def get_status(self):
         return self._status
 
+    def set_owner(self, owner):
+        self._owner = owner
+
+    def get_owner(self):
+        return self._owner
+
     def set_module(self, module):
         self._module = module
 
     def get_module(self):
         return self._module
-
-    def set_owner(self, person):
-        self._owner = person
-
-    def get_owner(self):
-        return self._owner
 
     def set_project_type(self, project_type):
         self._project_type = project_type

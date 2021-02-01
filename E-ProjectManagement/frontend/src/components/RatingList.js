@@ -25,8 +25,8 @@ class RatingList extends Component {
     // console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandPerson) {
-      expandedID = this.props.location.expandPerson.getID();
+    if (this.props.location.expandRating) {
+      expandedID = this.props.location.expandRating.getID();
     }
 
     // Init an empty state

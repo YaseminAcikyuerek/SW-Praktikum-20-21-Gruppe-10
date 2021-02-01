@@ -102,7 +102,6 @@ class RatingForm extends Component {
     updatedRating.setGrade(this.state.grade);
     updatedRating.setPassed(this.state.passed);
     ManagementAPI.getAPI().updateRating(updatedRating).then(rating => {
-
       this.setState({
         updatingInProgress: false,              // disable loading indicator
         updatingError: null                     // no error message

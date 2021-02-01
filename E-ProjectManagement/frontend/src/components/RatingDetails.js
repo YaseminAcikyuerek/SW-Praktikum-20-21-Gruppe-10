@@ -70,7 +70,7 @@ class RatingDetail extends Component {
         {
           rating?
             <Typography>
-              rating: {rating.getProject()}, {rating.getEvaluator()},{rating.getToBeAssessed()},{rating.getGrade()},{rating.getPassed()}
+              rating: {rating.getName()},{rating.getProject()}, {rating.getEvaluator()},{rating.getToBeAssessed()},{rating.getGrade()},{rating.getPassed()}
             </Typography>
             : null
         }

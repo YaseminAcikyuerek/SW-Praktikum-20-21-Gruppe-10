@@ -26,20 +26,20 @@ class RoleForm extends Component {
   constructor(props) {
     super(props);
 
-    let  rn = '',i = '';
+    let  i = '',n = '';
     if (props.role) {
       i = props.role.getId();
-      rn = props.role.getRoleName();
+      n = props.role.getName();
     }
 
     // Init the state
     this.state = {
       id: i,
       idValidationFailed: false,
-      idNameEdited: false,
-      roleName: rn,
-      roleNameValidationFailed: false,
-      roleNameEdited: false,
+      idEdited: false,
+      name: n,
+      nameValidationFailed: false,
+      nameEdited: false,
       addingInProgress: false,
       updatingInProgress: false,
       addingError: null,
@@ -52,8 +52,8 @@ class RoleForm extends Component {
   /** Adds the role */
   addRole = () => {
     let newRole = new Role();
-    newRole.setRoleName(this.state.roleName)
     newRole.setId(this.state.id)
+    newRole.setName(this.state.name)
     ManagementAPI.getAPI().addRole(newRole).then(role => {
       console.log(newRole);
       // Backend call sucessfull
@@ -80,7 +80,7 @@ class RoleForm extends Component {
     let updatedRole = Object.assign(new Role(), this.props.role);
     // set the new attributes from our dialog
     updatedRole.setId(this.state.id);
-    updatedRole.setRoleName(this.state.roleName);
+    updatedRole.setName(this.state.name);
    ManagementAPI.getAPI().updateRole(updatedRole).then(role => {
       this.setState({
         updatingInProgress: false,              // disable loading indicator
@@ -88,7 +88,7 @@ class RoleForm extends Component {
       });
       // keep the new state as base state
       this.baseState.id = this.state.id;
-      this.baseState.roleName = this.state.roleName;
+      this.baseState.name = this.state.name;
       this.props.onClose(updatedRole);      // call the parent with the new role
     }).catch(e =>
       this.setState({
@@ -130,7 +130,7 @@ class RoleForm extends Component {
   /** Renders the component */
   render() {
     const { classes, role, show } = this.props;
-    const { id, idValidationFailed, idEdited, roleName, roleNameValidationFailed, roleNameEdited, addingInProgress,
+    const { id, idValidationFailed, idEdited, name, nameValidationFailed, nameEdited, addingInProgress,
       addingError, updatingInProgress, updatingError } = this.state;
 
     let title = '';
@@ -161,9 +161,9 @@ class RoleForm extends Component {
               <TextField autoFocus type='text' required fullWidth margin='normal' id='id' label='ID:' value={id}
                 onChange={this.textFieldValueChange} error={idValidationFailed}
                 helperText={idValidationFailed ? 'The ID must contain at least one character' : ' '} />
-              <TextField type='text' required fullWidth margin='normal' id='roleName' label='RoleName:' value={roleName}
-                onChange={this.textFieldValueChange} error={roleNameValidationFailed}
-                helperText={roleNameValidationFailed ? 'The roleName must contain at least one character' : ' '} />
+              <TextField type='text' required fullWidth margin='normal' id='name' label='Name:' value={name}
+                onChange={this.textFieldValueChange} error={nameValidationFailed}
+                helperText={nameValidationFailed ? 'The name must contain at least one character' : ' '} />
             </form>
             <LoadingProgress show={addingInProgress || updatingInProgress} />
             {
@@ -181,10 +181,10 @@ class RoleForm extends Component {
             {
               // If a customer is given, show an update button, else an add button
               role ?
-                <Button disabled={idValidationFailed || roleNameValidationFailed} variant='contained' onClick={this.updateRole} color='primary'>
+                <Button disabled={idValidationFailed || nameValidationFailed} variant='contained' onClick={this.updateRole} color='primary'>
                   Update
               </Button>
-                : <Button disabled={idValidationFailed || !idEdited || roleNameValidationFailed || !roleNameEdited} variant='contained' onClick={this.addRole} color='primary'>
+                : <Button disabled={idValidationFailed || !idEdited || nameValidationFailed || !nameEdited} variant='contained' onClick={this.addRole} color='primary'>
                   Add
              </Button>
             }

@@ -2,8 +2,9 @@
 class Role():
 
     def __init__(self):
-        self._name = ""
         self._id = ""
+        self._name = ""
+
 
     def set_id(self, value):
         self._id = value
@@ -11,11 +12,16 @@ class Role():
     def get_id(self):
         return self._id
 
+
     def set_name(self, value):
         self._name = value
 
     def get_name(self):
         return self._name
+
+
+
+
 
     @staticmethod
     def from_dict(dictionary=dict()):
