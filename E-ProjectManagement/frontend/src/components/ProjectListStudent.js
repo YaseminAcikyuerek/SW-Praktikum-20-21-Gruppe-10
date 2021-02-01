@@ -149,7 +149,8 @@ getProjects = async () =>{
                </div>
               }</Paper>
           </Grid>
-      
+         </Grid>
+      </div>
     );
   }
 }
