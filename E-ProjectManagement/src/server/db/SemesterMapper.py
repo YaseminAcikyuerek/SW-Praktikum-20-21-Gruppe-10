@@ -11,7 +11,7 @@ class SemesterMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * FROM semester")
+        cursor.execute("SELECT id, creation_time, start, end, name FROM semester")
         tuples = cursor.fetchall()
 
         for (id, creation_time, start, end, name) in tuples:
