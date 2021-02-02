@@ -25,7 +25,7 @@ class RatingList extends Component {
     // console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandRating) {
+    if (this.props.location.expandRating) { //TODO: DRINGEND ÄNDERN
       expandedID = this.props.location.expandRating.getID();
     }
 
@@ -77,7 +77,7 @@ class RatingList extends Component {
    *
    * @param {person} PersonBO of the PersonListEntry to be toggeled
    */
-  onExpandedStateChange = rating => {
+  onExpandedStateChange = rating => {   //TODO: EVTL FEHLER, bei Übergabe von Daten weil nicht Init
     // console.log(personID);
     // Set expandend person entry to null by default
     let newID = null;
@@ -85,7 +85,7 @@ class RatingList extends Component {
     // If same person entry is clicked, collapse it else expand a new one
     if (rating.getID() !== this.state.expandedRatingID) {
       // Expand the person entry with personID
-      newID =rating.getID();
+      newID = rating.getID();
     }
     // console.log(newID);
     this.setState({
@@ -96,7 +96,7 @@ class RatingList extends Component {
   /**
    * Handles onPersonDeleted events from the PersonListEntry component
    *
-   * @param {person} PersonBO of the PersonListEntry to be deleted
+   * @param {rating} RatingBO of the RAtingListEntry to be deleted
    */
   ratingDeleted = rating => {
     const newRatingList = this.state.ratings.filter(ratingFromState => ratingFromState.getID() !== rating.getID());
@@ -108,10 +108,10 @@ class RatingList extends Component {
   }
 
   /** Handles the onClick event of the add person button */
-  addRatingButtonClicked = event => {
+  addRatingButtonClicked = event => {     //TODO: ANPASSEN FÜR KORREKTE ÜBERGABE DER DATEN
     // Do not toggle the expanded state
     event.stopPropagation();
-    //Show the CustmerForm
+    //Show the RatingForm
     this.setState({
       showRatingForm: true
     });
@@ -209,7 +209,7 @@ class RatingList extends Component {
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of ratings could not be loaded.`} onReload={this.getRatings} />
+        <ContextErrorMessage error={error} contextErrorMsg={`The list of ratings could not be loaded.`} onReload={this.getRatings} /> //TODO: ÜBERPRÜFEN OB INITIALISIERT
         <RatingForm show={showRatingForm} onClose={this.ratingFormClosed} />
       </div>
     );
