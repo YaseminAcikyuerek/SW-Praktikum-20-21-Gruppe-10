@@ -112,7 +112,7 @@ class PersonMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM person WHERE role={}".format(role)
+        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE role={}".format(role)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -142,7 +142,7 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM person WHERE name LIKE '%{}%'".format(name)
+        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE name LIKE '%{}%'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
