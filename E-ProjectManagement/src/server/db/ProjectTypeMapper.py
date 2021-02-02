@@ -11,7 +11,7 @@ class ProjectTypeMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from project_type")
+        cursor.execute("SELECT id, creation_time, name, sws, ects FROM project_type")
         tuples = cursor.fetchall()
 
         for (id, creation_time, name, sws, ects) in tuples:
@@ -34,7 +34,7 @@ class ProjectTypeMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project_type WHERE id={}".format(id)
+        command = "SELECT id, creation_time, name, sws, ects FROM project_type WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
