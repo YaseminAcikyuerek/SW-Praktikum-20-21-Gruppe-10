@@ -10,7 +10,7 @@ import ProfileDropDown from '../dialogs/ProfileDropDown';
  * @see See Material-UIs [Tabs](https://material-ui.com/components/tabs/)
  * @see See Material-UIs [Paper](https://material-ui.com/components/paper/)
  */
-class Header extends Component {
+class HeaderAdmin extends Component {
 
   constructor(props) {
     super(props);
@@ -42,22 +42,25 @@ class Header extends Component {
         <Typography variant='h4' component='h2' align='center'>
           <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
-        {
-          user ?
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
+              <Tab label=' Persons' component={RouterLink} to={`/persons`} />
+              <Tab label='Students' component={RouterLink} to={`/students`} />
+              <Tab label='Projects' component={RouterLink} to={`/projects`} />
+              <Tab label='Modules' component={RouterLink} to={`/modules`} />
+              <Tab label='Project Types' component={RouterLink} to={`/projectTypes`} />
+              <Tab label='Semesters' component={RouterLink} to={`/semester`} />
+              <Tab label='Ratings' component={RouterLink} to={`/ratings`} />
               <Tab label='About' component={RouterLink} to={`/about`} />
             </Tabs>
-            : null
-        }
       </Paper>
     )
   }
 }
 
 /** PropTypes */
-Header.propTypes = {
+HeaderAdmin.propTypes = {
   /** The logged in firesbase user */
   user: PropTypes.object,
 }
 
-export default Header;
+export default HeaderAdmin;
