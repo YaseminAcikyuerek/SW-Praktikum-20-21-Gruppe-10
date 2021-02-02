@@ -11,10 +11,10 @@ class ParticipationMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from participation")
+        cursor.execute("SELECT id, creation_time, project, student FROM participation")
         tuples = cursor.fetchall()
 
-        for (id, creation_time, project,student) in tuples:
+        for (id, creation_time, project, student) in tuples:
             participation = Participation()
             participation.set_id(id)
             participation.set_creation_time(creation_time)
@@ -33,7 +33,7 @@ class ParticipationMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM participation WHERE id={}".format(id)
+        command = "SELECT id, creation_time, project, student FROM participation WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -61,7 +61,7 @@ class ParticipationMapper(Mapper):
             participation.set_id(maxid[0] + 1)
 
         command = "INSERT INTO participation (id, creation_time, project,student) VALUES (%s,%s,%s,%s)"
-        data = (participation.get_id(), participation.get_creation_time() , participation.get_project(), participation.get_student())
+        data = (participation.get_id(), participation.get_creation_time(), participation.get_project(), participation.get_student())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -94,11 +94,11 @@ class ParticipationMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM participation WHERE student={}".format(student)
+        command = "SELECT id, creation_time, project, student FROM participation WHERE student={}".format(student)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, creation_time, project,student) in tuples:
+        for (id, creation_time, project, student) in tuples:
             participation = Participation()
             participation.set_id(id)
             participation.set_creation_time(creation_time)
@@ -118,11 +118,11 @@ class ParticipationMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM participation WHERE project={}".format(project)
+        command = "SELECT id, creation_time, project,student FROM participation WHERE project={}".format(project)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, creation_time, project,student) in tuples:
+        for (id, creation_time, project, student) in tuples:
             participation = Participation()
             participation.set_id(id)
             participation.set_creation_time(creation_time)
