@@ -10,7 +10,7 @@ import ProfileDropDown from '../dialogs/ProfileDropDown';
  * @see See Material-UIs [Tabs](https://material-ui.com/components/tabs/)
  * @see See Material-UIs [Paper](https://material-ui.com/components/paper/)
  */
-class Header extends Component {
+class HeaderStudent extends Component {
 
   constructor(props) {
     super(props);
@@ -37,27 +37,24 @@ class Header extends Component {
       <Paper variant='outlined' >
         <ProfileDropDown user={user} />
         <Typography variant='h3' component='h1' align='center'>
-
         </Typography>
         <Typography variant='h4' component='h2' align='center'>
           <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
-        {
-          user ?
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
+              <Tab label='Projects' component={RouterLink} to={`/projects`} />
+              <Tab label='Ratings' component={RouterLink} to={`/ratings`} />
               <Tab label='About' component={RouterLink} to={`/about`} />
             </Tabs>
-            : null
-        }
       </Paper>
     )
   }
 }
 
 /** PropTypes */
-Header.propTypes = {
+HeaderStudent.propTypes = {
   /** The logged in firesbase user */
   user: PropTypes.object,
 }
 
-export default Header;
+export default HeaderStudent;

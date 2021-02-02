@@ -7,6 +7,8 @@ import 'firebase/auth';
 import firebaseConfig from './Firebaseconfig';
 import Theme from './Theme';
 import Header from './components/layout/Header';
+import HeaderDozent from "./components/layout/HeaderDozent";
+import HeaderAdmin from "./components/layout/HeaderAdmin";
 import About from './components/pages/About';
 import SignIn from './components/pages/SignIn';
 import LoadingProgress from './components/dialogs/LoadingProgress';
@@ -19,6 +21,8 @@ import StudentList from "./components/StudentList";
 import ProjectTypeList from './components/ProjectTypeList';
 import RatingList from "./components/RatingList";
 //import ProjectListStudent from "./components/ProjectListStudent";
+import Start from "./components/pages/Start";
+import HeaderStudent from "./components/layout/HeaderStudent";
 
 
 
@@ -132,38 +136,39 @@ class App extends React.Component {
 				<CssBaseline />
 				<Router basename={process.env.PUBLIC_URL}>
 					<Container maxWidth='lg'>
-						<Header user={currentUser} />
 						{
 							// Is a user signed in?
 						        currentUser ?
 								<>
-									<Redirect from='/' to='persons' />
-									<Route exact path='/persons'>
-										<PersonList />
+									<Redirect from='/' to='start' />
+									<Route exact path='/start'>
+										<Start />
 									</Route>
-									<Route path='/projects'>
-										<ProjectList/>
+									<Route path='/admin'>
+										<HeaderAdmin/>
 									</Route>
-									<Route path='/modules'>
-										<ModuleList/>
+									<Route path='/student'>
+										<HeaderStudent/>
+									</Route>
+									<Route path='/dozent'>
+										<HeaderDozent/>
 									</Route>
 									<Route path='/students'>
 										<StudentList/>
 									</Route>
-
 									<Route path='/projectTypes'>
 										<ProjectTypeList/>
 									</Route>
-
 									<Route path='/semester'>
 										<SemesterList/>
 									</Route>
-
 									<Route path='/ratings'>
 										<RatingList/>
 									</Route>
-
 									<Route path='/about' component={About} />
+									<Route path='/projects'>
+										<ProjectList/>
+									</Route>
 								</>
 								:
 
