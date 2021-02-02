@@ -11,7 +11,7 @@ class ProjectMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from project")
+        cursor.execute("SELECT id, creation_time, semester, module, short_description, external_partner_list, capacity, bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period, preferred_bd_during_lecture_period, language, room, special_room, flag, name, status, project_type, owner FROM project")
         tuples = cursor.fetchall()
 
         for (id, creation_time, semester, module, short_description, external_partner_list, capacity,
@@ -51,7 +51,7 @@ class ProjectMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE id={}".format(id)
+        command = "SELECT id, creation_time, semester, module, short_description, external_partner_list, capacity, bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period, preferred_bd_during_lecture_period, language, room, special_room, flag, name, status, project_type, owner FROM project WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -149,7 +149,7 @@ class ProjectMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM project WHERE name LIKE '%{}%'".format(name)
+        command = "SELECT id, creation_time, semester, module, short_description, external_partner_list, capacity, bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period, preferred_bd_during_lecture_period, language, room, special_room, flag, name, status, project_type, owner FROM project WHERE name LIKE '%{}%'".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -237,7 +237,10 @@ class ProjectMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = " SELECT * FROM project WHERE status='{}'".format(status)
+        command = " SELECT id, creation_time, semester, module, short_description, external_partner_list, capacity, " \
+             "bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period, " \
+             "preferred_bd_during_lecture_period, language, room, special_room, flag, name, " \
+             "status, project_type, owner FROM project WHERE status = '{}'".format(status)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
