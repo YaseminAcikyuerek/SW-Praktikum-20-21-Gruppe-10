@@ -11,10 +11,10 @@ class StudentMapper (Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from student")
+        cursor.execute("SELECT id, creation_time, name, matriculation_nr, course_abbr FROM student")
         tuples = cursor.fetchall()
 
-        for (id,creation_time, name, matriculation_nr, course_abbr) in tuples:
+        for (id, creation_time, name, matriculation_nr, course_abbr) in tuples:
             student = Student()
             student.set_id(id)
             student.set_creation_time(creation_time)
@@ -33,7 +33,7 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM student WHERE id={}".format(id)
+        command = "SELECT id, creation_time, name, matriculation_nr, course_abbr FROM student WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -103,7 +103,7 @@ class StudentMapper (Mapper):
         tuples = cursor.fetchall()
 
         try:
-            (id,creation_time, name, matriculation_nr, course_abbr, google_mail) = tuples[0]
+            (id, creation_time, name, matriculation_nr, course_abbr, google_mail) = tuples[0]
             student = Student()
             student.set_id(id)
             student.set_creation_time(creation_time)
@@ -127,12 +127,12 @@ class StudentMapper (Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM student WHERE matriculation_nr={}".format(matriculation_nr)
+        command = "SELECT id, creation_time, name, matriculation_nr, course_abbr FROM student WHERE matriculation_nr={}".format(matriculation_nr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id,creation_time, name, matriculation_nr, course_abbr) = tuples[0]
+            (id, creation_time, name, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
             student.set_creation_time(creation_time)
@@ -155,12 +155,12 @@ class StudentMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM student WHERE course_abbr={}".format(course_abbr)
+        command = "SELECT id, creation_time, name, matriculation_nr, course_abbr FROM student WHERE course_abbr={}".format(course_abbr)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id,creation_time, name, matriculation_nr, course_abbr) = tuples[0]
+            (id, creation_time, name, matriculation_nr, course_abbr) = tuples[0]
             student = Student()
             student.set_id(id)
             student.set_creation_time(creation_time)
