@@ -7,11 +7,6 @@ import LoadingProgress from './dialogs/LoadingProgress';
 
 /**
  * Renders a AccountBO object within a ListEntry and provides a delete button to delete it.
- *
- * @see See Material-UIs [Lists](https://material-ui.com/components/lists/)
- * @see See Material-UIs [ListItem](https://material-ui.com/api/list-item/)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class ProjectDetail extends Component {
 
