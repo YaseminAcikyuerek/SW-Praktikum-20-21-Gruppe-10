@@ -12,10 +12,6 @@ import ProjectList from './ProjectList';
 /**
  * Renders a ProjectBO object within a expandable/collapsible ProjectListEntry with the project manipulation
  * functions. If expanded, it renders a ParticipationList.
- *
- * @see See [AccountList](#participationlist)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class ProjectListEntry extends Component {
 
