@@ -12,10 +12,6 @@ import PersonListEntry from './PersonListEntry';
 
 /**
  * Controlls a list of PersonListEntrys to create a accordion for each person.
- *
- * @see See [PersonListEntry](#personlistentry)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class PersonList extends Component {
 
