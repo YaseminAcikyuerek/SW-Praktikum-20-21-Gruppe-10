@@ -10,10 +10,6 @@ import LoadingProgress from './LoadingProgress';
  * Shows a modal delete/cancle dialog, which asks for deleting a customer. The CustomerBO to be deleted must be given in prop customer.
  * In dependency of the user interaction (delete/cancel) the respective backendcall is made. After that, the function of the onClose prop
  * is called with the deleted CustomerBO object as parameter. When the dialog is canceled, onClose is called with null.
- *
- * @see See Material-UIs [Dialog](https://material-ui.com/components/dialogs)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class ParticipationDeleteDialog extends Component {
 
