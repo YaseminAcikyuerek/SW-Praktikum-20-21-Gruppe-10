@@ -12,10 +12,6 @@ import ModuleListEntry from './ModuleListEntry';
 
 /**
  * Controlls a list of ModuleListEntrys to create a accordion for each customer.
- *
- * @see See [ModuleListEntry](#modulelistentry)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class ModuleList extends Component {
 
