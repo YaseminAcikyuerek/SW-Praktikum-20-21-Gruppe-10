@@ -15,11 +15,6 @@ import LoadingProgress from './LoadingProgress';
  * In dependency of the edit/new state, the respective backend calls are made to update or create a customer.
  * After that, the function of the onClose prop is called with the created/update CustomerBO object as parameter.
  * When the dialog is canceled, onClose is called with null.
- *
- * @see See Material-UIs [Dialog](https://material-ui.com/components/dialogs)
- * @see See Material-UIs [TextField](https://material-ui.com/components/text-fields//)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class ProjectTypeForm extends Component {
 
