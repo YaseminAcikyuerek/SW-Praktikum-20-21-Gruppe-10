@@ -98,7 +98,7 @@ class ParticipationListStudent extends Component {
   render() {
     const { classes, student } = this.props;
     // Use the states student
-    const { participations, loadingInProgress, loadingParticipationError, addingParticipationError } = this.state;
+    const {participations, loadingInProgress, loadingParticipationError, addingParticipationError } = this.state;
 
     // console.log(this.props);
     return (

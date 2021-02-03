@@ -20,6 +20,7 @@ import SemesterList from "./components/SemesterList";
 import StudentList from "./components/StudentList";
 import ProjectTypeList from './components/ProjectTypeList';
 import RatingList from "./components/RatingList";
+import ParticipationList from "./components/ParticipationList";
 //import ProjectListStudent from "./components/ProjectListStudent";
 import Start from "./components/pages/Start";
 import HeaderStudent from "./components/layout/HeaderStudent";
@@ -164,6 +165,9 @@ class App extends React.Component {
 									</Route>
 									<Route path='/ratings'>
 										<RatingList/>
+									</Route>
+									<Route path='/participations'>
+										<ParticipationList/>
 									</Route>
 									<Route path='/about' component={About} />
 									<Route path='/projects'>
