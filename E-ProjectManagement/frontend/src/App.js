@@ -34,8 +34,6 @@ import HeaderStudent from "./components/layout/HeaderStudent";
  * @see See Google [firebase.auth()](https://firebase.google.com/docs/reference/js/firebase.auth.Auth)
  * @see See Google [firebase.auth().signInWithRedirect](https://firebase.google.com/docs/reference/js/firebase.auth.Auth#signinwithredirect)
  * @see [react-router-dom](https://reacttraining.com/react-router/web/guides/quick-start)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class App extends React.Component {
 
