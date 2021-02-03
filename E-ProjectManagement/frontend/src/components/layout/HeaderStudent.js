@@ -42,7 +42,7 @@ class HeaderStudent extends Component {
           <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
-              <Tab label='Projects' component={RouterLink} to={`/projects`} />
+              <Tab label='Projects' component={RouterLink} to={`/project`} />
               <Tab label='Ratings' component={RouterLink} to={`/ratings`} />
               <Tab label='About' component={RouterLink} to={`/about`} />
             </Tabs>

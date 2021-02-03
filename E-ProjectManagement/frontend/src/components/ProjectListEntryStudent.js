@@ -8,7 +8,6 @@ import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import ProjectForm from './dialogs/ProjectForm';
-import ProjectListEntryStudent from './ProjectListEntryStudent';
 import ParticipationBO from '../api/ParticipationBO';
 import Paper from '@material-ui/core/Paper';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
@@ -22,7 +21,7 @@ import CheckIcon from '@material-ui/icons/Check';
  *
  *
  */
-class ProjectListEntryNew extends Component {
+class ProjectListEntryStudent extends Component {
 
   constructor(props) {
     super(props);
@@ -218,4 +217,4 @@ ProjectListEntryStudent.propTypes = {
   onProjectDeleted: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(ProjectListEntryNew);
+export default withStyles(styles)(ProjectListEntryStudent);

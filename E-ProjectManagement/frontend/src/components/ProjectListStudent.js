@@ -32,6 +32,7 @@ class ProjectListStudent extends Component {
       error: null,
       loadingInProgress: false,
       expandedProjectID: expandedID,
+        student: null,
     };
   }
 
@@ -58,8 +59,9 @@ class ProjectListStudent extends Component {
     });
   }
 getProjects = async () =>{
-    let student = await this.ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
-    this.ManagementAPI.getAPI().getProjectsByStudent(student)
+    let student = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
+    ManagementAPI.getAPI().getProjectsByStudent(student)
+    this.setState({student: student})
   }
 
   getProjectsStudent = (studentBO) => {
@@ -119,7 +121,7 @@ getProjects = async () =>{
   render() {
 
     const { classes } = this.props;
-    const { expandedProjectID, loadingInProgress, error, acceptedProjects , signedProjects} = this.state;
+    const { expandedProjectID, loadingInProgress, error, acceptedProjects ,student, signedProjects} = this.state;
 
     return (
 
@@ -135,7 +137,7 @@ getProjects = async () =>{
             />)
             }
             <LoadingProgress show={loadingInProgress} />
-            <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectAccepted()} />
+            <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectAcceptedURL} />
             </Paper>
           </Grid>
           <Grid item xs={4}>
