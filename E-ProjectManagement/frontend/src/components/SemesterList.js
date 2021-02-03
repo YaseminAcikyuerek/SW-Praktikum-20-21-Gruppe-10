@@ -12,10 +12,6 @@ import SemesterListEntry from './SemesterListEntry';
 
 /**
  * Controlls a list of SemesterListEntrys to create a accordion for each semester.
- *
- * @see See [SemesterListEntry](#semesterlistentry)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class SemesterList extends Component {
 
