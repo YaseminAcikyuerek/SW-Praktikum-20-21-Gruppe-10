@@ -12,10 +12,6 @@ import StudentListEntry from './StudentListEntry';
 
 /**
  * Controlls a list of CustomerListEntrys to create a accordion for each customer.
- *
- * @see See [CustomerListEntry](#customerlistentry)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class StudentList extends Component {
 
