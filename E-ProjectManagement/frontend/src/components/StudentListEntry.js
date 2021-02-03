@@ -13,8 +13,6 @@ import ProjectList from './ProjectList';
  * functions. If expanded, it renders a AccountList.
  *
  * @see See [AccountList](#accountlist)
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class StudentListEntry extends Component {
 

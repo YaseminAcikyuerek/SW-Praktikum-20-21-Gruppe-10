@@ -14,8 +14,6 @@ import ProjectListEntry from './ProjectListEntry';
  * Controlls a list of ProjectListEntrys to create a accordion for each project.
  *
  * @see See [ProjectListEntry](#projectlistentry)
- *
- * adapted from Christoph Kunz(https://github.com/christophkunz)
  */
 class ProjectListDozent extends Component {
 

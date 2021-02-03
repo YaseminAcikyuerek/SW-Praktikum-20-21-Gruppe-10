@@ -9,8 +9,6 @@ import ProjectDetails from './ProjectDetails';
 
 /**
  * Shows all accounts of the bank.
- *
- * @author [Christoph Kunz](https://github.com/christophkunz)
  */
 class AllProjectList extends Component {
 

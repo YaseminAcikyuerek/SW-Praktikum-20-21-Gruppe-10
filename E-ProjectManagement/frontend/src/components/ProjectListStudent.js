@@ -12,10 +12,7 @@ import ProjectListEntryStudent from './ProjectListEntryStudent';
 import ParticipationBO from '../api/ParticipationBO';
 import Paper from '@material-ui/core/Paper';
 
-/**
- *
- * adapted from Christoph Kunz(https://github.com/christophkunz)
- */
+
 class ProjectListStudent extends Component {
 
   constructor(props) {
