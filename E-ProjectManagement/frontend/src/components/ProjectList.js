@@ -16,7 +16,6 @@ import ProjectListEntry from './ProjectListEntry';
  * @see See [ProjectListEntry](#projectlistentry)
  *
  * @author [Tom Schenk]
- * adapted from Christoph Kunz(https://github.com/christophkunz)
  */
 class ProjectList extends Component {
 
