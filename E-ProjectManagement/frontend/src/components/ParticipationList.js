@@ -88,7 +88,7 @@ class ParticipationList extends Component {
   }
 
   participationDeleted = participation => {
-    const newParticipationList = this.state.participation.filter(participationFromState => participationFromState.getID() !== participation.getID());
+    const newParticipationList = this.state.participations.filter(participationFromState => participationFromState.getID() !== participation.getID());
     this.setState({
       participations: newParticipationList,
       filteredParticipations: [...newParticipationList],
@@ -126,7 +126,7 @@ class ParticipationList extends Component {
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
-      filteredParticipations: this.state.participation.filter(participation => {
+      filteredParticipations: this.state.participations.filter(participation => {
         let projectContainsValue = participation.getProject().toLowerCase().includes(value);
         let studentContainsValue = participation.getStudent().toLowerCase().includes(value);
 
@@ -141,7 +141,7 @@ class ParticipationList extends Component {
   clearFilterFieldButtonClicked = () => {
     // Reset the filter
     this.setState({
-      filteredParticipations: [...this.state.participation],
+      filteredParticipations: [...this.state.participations],
       participationFilter: ''
     });
   }
@@ -184,8 +184,6 @@ class ParticipationList extends Component {
           </Grid>
         </Grid>
         {
-          // Show the list of PersonListEntry components
-          // Do not use strict comparison, since expandedPersonID maybe a string if given from the URL parameters
           filteredParticipations.map(participation =>
             <ParticipationListEntry key={participation.getID()} participation={participation} expandedState={expandedParticipationID === participation.getID()}
               onExpandedStateChange={this.onExpandedStateChange}

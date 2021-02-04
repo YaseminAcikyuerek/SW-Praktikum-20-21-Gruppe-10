@@ -73,7 +73,7 @@ class ParticipationListEntry extends Component {
     // if participation is not null, delete it
     if (participation) {
       this.props.onParticipationDeleted(participation);
-    };
+    }
 
     // Don´t show the dialog
     this.setState({
