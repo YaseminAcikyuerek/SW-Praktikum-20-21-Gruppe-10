@@ -26,9 +26,12 @@ class ParticipationList extends Component {
     // Init the state
     this.state = {
       participations: [],
+      filteredParticipations:[],
+      participationFilter:'',
+      error: null,
       loadingInProgress: false,
       loadingParticipationError: null,
-      addingParticipationError: null,
+      showParticipationError: null,
     };
   }
 
@@ -37,20 +40,21 @@ class ParticipationList extends Component {
     ManagementAPI.getAPI().getParticipations().then(participationBOs =>
       this.setState({  // Set new state when ParticipationBOs have been fetched
         participations: participationBOs,
+        filteredParticipations:[...participationBOs],
         loadingInProgress: false, // loading indicator
-        loadingParticipationError: null
+        error: null
       })).catch(e =>
         this.setState({ // Reset state with error from catch
           participations: [],
           loadingInProgress: false,
-          loadingParticipationError: e
+          error: e
         })
       );
 
     // set loading to true
     this.setState({
       loadingInProgress: true,
-      loadingParticipationError: null
+      error: null
     });
   }
 
@@ -59,40 +63,87 @@ class ParticipationList extends Component {
     this.getParticipations();
   }
 
-  /** Lifecycle method, which is called when the component was updated */
-  componentDidUpdate() {
-    this.getParticipations();
-  }
 
-  addParticipation = () => {
-    ManagementAPI.getAPI().addParticipation().then(participationBO => {
-      // console.log(participationBO)
-      this.setState({  // Set new state when AccountBOs have been fetched
-        participations: [...this.state.participations, participationBO],
-        loadingInProgress: false, // loading indicator
-        addingParticipationError: null
-      })
-    }).catch(e =>
-      this.setState({ // Reset state with error from catch
-        participations: [],
-        loadingInProgress: false,
-        addingParticipationError: e
-      })
-    );
 
-    // set loading to true
+  /**
+   * Handles onExpandedStateChange events from the PersonListEntry component. Toggels the expanded state of
+   * the PersonListEntry of the given PersonBO.
+   *
+   * @param {person} ParticipationBO of the PersonListEntry to be toggeled
+   */
+  onExpandedStateChange = participation => {
+    // console.log(personID);
+    // Set expandend person entry to null by default
+    let newID = null;
+
+    // If same person entry is clicked, collapse it else expand a new one
+    if (participation.getID() !== this.state.expandedParticipationID) {
+      // Expand the person entry with personID
+      newID = participation.getID();
+    }
+    // console.log(newID);
     this.setState({
-      loadingInProgress: true,
-      addingParticipationError: null
+      expandedParticipationID: newID,
     });
   }
 
-  /** Handles onAccountDelete events from an AccountListEntry  */
-  deleteParticipationHandler = (deletedParticipation) => {
-    // console.log(deletedParticipation.getID());
+  participationDeleted = participation => {
+    const newParticipationList = this.state.participation.filter(participationFromState => participationFromState.getID() !== participation.getID());
     this.setState({
-      participations: this.state.participations.filter(participation => participation.getID() !== deletedParticipation.getID())
-    })
+      participations: newParticipationList,
+      filteredParticipations: [...newParticipationList],
+      showParticipationForm: false
+    });
+  }
+
+   /** Handles the onClick event of the add person button */
+  addParticipationButtonClicked = event => {
+    // Do not toggle the expanded state
+    event.stopPropagation();
+    //Show the PersonForm
+    this.setState({
+      showParticipationForm: true
+    });
+  }
+
+  /** Handles the onClose event of the PersonForm */
+  participationFormClosed = participation => {
+    // person is not null and therefore created
+    if (participation) {
+      const newParticipationList = [...this.state.participations, participation];
+      this.setState({
+        persons: newParticipationList,
+        filteredParticipations: [...newParticipationList],
+        showParticipationForm: false
+      });
+    } else {
+      this.setState({
+        showParticipationForm: false
+      });
+    }
+  }
+  /** Handels onChange events of the person filter text field */
+  filterFieldValueChange = event => {
+    const value = event.target.value.toLowerCase();
+    this.setState({
+      filteredParticipations: this.state.participation.filter(participation => {
+        let projectContainsValue = participation.getProject().toLowerCase().includes(value);
+        let studentContainsValue = participation.getStudent().toLowerCase().includes(value);
+
+
+        return projectContainsValue || studentContainsValue ;
+      }),
+      participationFilter: value
+    });
+  }
+
+  /** Handles the onClose event of the clear filter button */
+  clearFilterFieldButtonClicked = () => {
+    // Reset the filter
+    this.setState({
+      filteredParticipations: [...this.state.participation],
+      participationFilter: ''
+    });
   }
 
   /** Renders the component */

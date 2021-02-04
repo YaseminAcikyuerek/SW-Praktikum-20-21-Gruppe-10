@@ -48,7 +48,7 @@ export default class ManagementAPI {
 
 
   //Participation related
-  #getAllParticipationsURL = () => `${this.#managementServerBaseURL}/participation`;
+  #getParticipationsURL = () => `${this.#managementServerBaseURL}/participation`;
   #getParticipationURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
   #addParticipationURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
   #updateParticipationURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
@@ -577,8 +577,8 @@ export default class ManagementAPI {
    * @public
    */
 
-  getAllParticipations(){
-    return this.#fetchAdvanced(this.#getAllParticipationsURL()).then((responseJSON) => {
+  getParticipations(){
+    return this.#fetchAdvanced(this.#getParticipationsURL()).then((responseJSON) => {
       let participationBOs = ParticipationBO.fromJSON(responseJSON);
       //console.info(participationBOs);
       return new Promise(function (resolve) {
