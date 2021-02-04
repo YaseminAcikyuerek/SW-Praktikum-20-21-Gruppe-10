@@ -9,8 +9,8 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import ProjectForm from './dialogs/ProjectForm';
 import ProjectListEntryStudent from './ProjectListEntryStudent';
-import ParticipationBO from '../api/ParticipationBO';
 import Paper from '@material-ui/core/Paper';
+
 
 
 class ProjectListStudent extends Component {
@@ -58,17 +58,18 @@ class ProjectListStudent extends Component {
       error: null
     });
   }
-getProjects = async () =>{
+
+  getProjects = async () =>{
     let student = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
     ManagementAPI.getAPI().getProjectsByStudent(student)
     this.setState({student: student})
   }
 
-  getProjectsStudent = (studentBO) => {
+  getProjectsByStudentURL = (studentBO) => {
     ManagementAPI.getAPI().getProjectsByStudent(studentBO.getID())
-      .then(projectBOs =>
+      .then(responseProjectBO =>
         this.setState({               // Set new state when ProjectBOs have been fetched
-          studentProjects: projectBOs,
+          studentProjects: responseProjectBO,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
@@ -77,7 +78,7 @@ getProjects = async () =>{
             loadingInProgress: false, // disable loading indicator
             error: e
           })
-        );
+          );
 
     // set loading to true
     this.setState({
@@ -85,6 +86,7 @@ getProjects = async () =>{
       error: null
     });
   }
+
 
   /**
    * Handles onExpandedStateChange events from the ProjectListStudent component. Toggels the expanded state of
@@ -111,8 +113,7 @@ getProjects = async () =>{
   }
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
-  componentDidMount ()
-{
+  componentDidMount () {
     this.searchProjectAcceptedURL();
     this.getProjectsByStudentURL();
   }
@@ -152,6 +153,10 @@ getProjects = async () =>{
       </div>
     );
   }
+
+
+
+
 }
 
 /** Component specific styles */

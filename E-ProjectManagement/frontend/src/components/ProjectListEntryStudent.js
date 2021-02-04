@@ -33,7 +33,7 @@ class ProjectListEntryStudent extends Component {
       showProjectDeleteDialog: false,
       participation: null,
       participations: [],
-      participatonsCounter: 0,
+      participationsCounter: 0,
     };
   }
 

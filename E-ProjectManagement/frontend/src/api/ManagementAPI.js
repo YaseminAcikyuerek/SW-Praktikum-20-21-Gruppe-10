@@ -33,9 +33,9 @@ export default class ManagementAPI {
   #getProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #updateProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
-  #searchProjectURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
-  #getProjectsByStudent = (student) => `${this.#managementServerBaseURL}/project-by-student/${student}`;
-  #searchProject = (projectStatus) => `${this.#managementServerBaseURL}/project-by-status/${projectStatus}`;
+  #searchProjectByProjectOwnerURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
+  #getProjectsByStudentURL = (student) => `${this.#managementServerBaseURL}/project-by-student/${student}`;
+  #searchProjectByProjectStatusURL = (projectStatus) => `${this.#managementServerBaseURL}/project-by-status/${projectStatus}`;
 
   //Student related
   #getStudentsURL = () => `${this.#managementServerBaseURL}/students`;
@@ -385,8 +385,8 @@ export default class ManagementAPI {
    * @public
    */
 
-   searchProject(projectOwner) {
-     return this.#fetchAdvanced(this.#searchProjectURL(projectOwner)).then((responseJSON) => {
+   searchProjectByProjectOwner(projectOwner) {
+     return this.#fetchAdvanced(this.#searchProjectByProjectOwnerURL(projectOwner)).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       // console.info(projectBOs);
       return new Promise(function (resolve) {
@@ -396,8 +396,22 @@ export default class ManagementAPI {
 
    }
 
-   searchProject(projectStatus) {
-     return this.#fetchAdvanced(this.#searchProjectURL(projectStatus)).then((responseJSON) => {
+   getProjectsByStudent(student) {
+    return this.#fetchAdvanced(this.#getProjectsByStudentURL(student)).then((responseJSON) => {
+      // We always get an array of StudentBOs.fromJSON, but only need one object
+      let responseProjectBO = ProjectBO.fromJSON(responseJSON)[0];
+      // console.info(responseStudentBO);
+      return new Promise(function (resolve) {
+        resolve(responseProjectBO);
+      })
+    })
+  }
+
+
+
+
+  searchProject(projectStatus) {
+     return this.#fetchAdvanced(this.#searchProjectByProjectStatusURL(projectStatus)).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       // console.info(projectBOs);
       return new Promise(function (resolve) {
