@@ -523,4 +523,5 @@ class ProjectAdministration(object):
         p.set_name(name)
         p.set_email(email)
         p.set_google_user_id(google_user_id)
-
+        with PersonMapper() as mapper:
+            return mapper.insert_google_user(p)

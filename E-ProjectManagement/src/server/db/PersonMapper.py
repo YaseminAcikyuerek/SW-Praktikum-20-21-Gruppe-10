@@ -24,12 +24,10 @@ class PersonMapper(Mapper):
             person.set_google_user_id(google_user_id)
             result.append(person)
 
-
         self._cnx.commit()
         cursor.close()
 
         return result
-
 
     def find_by_id(self, id):
 
@@ -55,7 +53,7 @@ class PersonMapper(Mapper):
             person.set_name(name)
             person.set_role(role)
             person.set_email(email)
-            person.set_google_user_id(google_user_id )
+            person.set_google_user_id(google_user_id)
 
         result = person
 
@@ -106,7 +104,6 @@ class PersonMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
-
     def find_person_by_role(self, role):
 
         result = []
@@ -142,7 +139,8 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE name LIKE '%{}%'".format(name)
+        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE name LIKE '%{}%'".format(
+            name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -171,7 +169,8 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE email LIKE '%{}%'".format(email)
+        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE email LIKE '%{}%'".format(
+            email)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -204,9 +203,9 @@ class PersonMapper(Mapper):
         for (maxid) in tuples:
             person.set_id(maxid[0] + 1)
 
-        command = "INSERT INTO person (id, name , role, email) VALUES (%s,%s,%s,%s)"
+        command = "INSERT INTO person (id, name , role, email, google_user_id) VALUES (%s,%s,%s,%s,%s)"
         print(command)
-        data = (person.get_id(), person.get_name(), person.get_role(), person.get_email())
+        data = (person.get_id(), person.get_name(), person.get_role(), person.get_email(), person.get_google_user_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -229,13 +228,14 @@ class PersonMapper(Mapper):
 
         result = None
 
+
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, role, email, google_user_id FROM person WHERE google_user_id  = '{}'".format(google_user_id)
+        command = "SELECT id, name, role, email, google_user_id FROM person WHERE google_user_id  = '{}'".format(
+            google_user_id)
+
         cursor.execute(command)
-
         tuples = cursor.fetchall()
-
-        if tuples[0] is not None:
+        try:
             (id, name, role, email, google_user_id) = tuples[0]
             person = Person()
             person.set_id(id)
@@ -243,13 +243,15 @@ class PersonMapper(Mapper):
             person.set_role(role)
             person.set_email(email)
             person.set_google_user_id(google_user_id)
-
-        result = person
+            result = person
+        except IndexError:
+            result = None
 
         self._cnx.commit()
         cursor.close()
-
         return result
+
+
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
 um die grundsätzliche Funktion zu überprüfen.
 
@@ -273,6 +275,3 @@ Anmerkung: Nicht professionell aber hilfreich..."""
         result = mapper.update(r)
 
 """
-
-
-
