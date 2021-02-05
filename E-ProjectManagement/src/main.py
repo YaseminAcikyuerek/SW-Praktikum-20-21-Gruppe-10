@@ -75,7 +75,7 @@ participation = api.inherit('Participation', bo, {
 
 person = api.inherit('Person', bo, nbo, {
     'role': fields.Integer(attribute='_role', description='unique ID des Rollennamens'),
-    'google_mail': fields.String(attribute='_google_mail', description='unique email des der Person'),
+    'email': fields.String(attribute='_email', description='unique email des der Person'),
     'google_user_id': fields.String(attribute='_google_user_id', description='google_user_id  des Rollennamens')
 })
 
@@ -204,19 +204,19 @@ class PersonOperations(Resource):
         else:
             return '', 500
 
-@management.route('/person/<string:google_mail>')
+@management.route('/person/<string:email>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('google_mail', 'Die Mail des Person-Objekts')
+@management.param('email', 'Die Mail des Person-Objekts')
 class PersonOperations(Resource):
     @management.marshal_with(person)
 
-    def get(self, google_mail):
+    def get(self, email):
         """Auslesen einer bestimmten Person-BO.
 
         Objekt wird durch die id in bestimmt.
         """
         adm = ProjectAdministration()
-        pers = adm.get_person_by_google_mail(google_mail)
+        pers = adm.get_person_by_email(email)
         return pers
 
 @management.route('/projects')
@@ -1123,19 +1123,19 @@ class ProjectByStateOperations(Resource):
         pro = adm.get_project_by_accepted()
         return pro
 
-@management.route('/student-by-mail/<string:google_mail>')
+@management.route('/student-by-mail/<string:email>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('google_mail', 'Die Email des Studenten')
+@management.param('email', 'Die Email des Studenten')
 class StudentByMailOperations(Resource):
     @management.marshal_with(student)
     @secured
-    def get(self, google_mail):
+    def get(self, email):
         """ Auslesen von Student-Objekten, die durch die Mail bestimmt werden.
 
         Die auszulesenden Objekte werden durch ```email``` in dem URI bestimmt.
         """
         adm = ProjectAdministration()
-        stu = adm.get_student_by_email(google_mail)
+        stu = adm.get_student_by_email(email)
         return stu
 
 @management.route('/project')

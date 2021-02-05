@@ -166,23 +166,23 @@ class PersonMapper(Mapper):
 
         return result
 
-    def find_by_google_mail(self, google_mail):
+    def find_by_email(self, email):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, creation_time, name, role, google_mail, google_user_id FROM person WHERE google_mail LIKE '%{}%'".format(google_mail)
+        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE email LIKE '%{}%'".format(email)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, creation_time, name, role, google_mail, google_user_id) = tuples[0]
+            (id, creation_time, name, role, email, google_user_id) = tuples[0]
             person = Person()
             person.set_id(id)
             person.set_creation_time(creation_time)
             person.set_name(name)
             person.set_role(role)
-            person.set_google_mail(google_mail)
+            person.set_email(email)
             person.set_google_user_id(google_user_id)
             result = person
 
