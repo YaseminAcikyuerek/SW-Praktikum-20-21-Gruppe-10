@@ -40,7 +40,11 @@ class RatingListEntryStudent extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}> {rating.getProject()}, {rating.getEvaluator()},{rating.getToBeAssessed()},{rating.getGrade()},{rating.getPassed()}
+                <Typography variant='body1' className={classes.heading}>
+                  Projekt:  {rating.getProject()},<br></br>
+                  Prüfer:   {rating.getEvaluator()},<br></br>
+                  Note:     {rating.getGrade()},<br></br>
+                  Bestanden:{rating.getPassed()}<br></br>
                 </Typography>
               </Grid>
               <Grid item xs />

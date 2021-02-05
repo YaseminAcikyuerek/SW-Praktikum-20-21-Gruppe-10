@@ -100,7 +100,15 @@ class ProjectListEntry extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{project.getName()}, {project.getOwner()}
+                <Typography variant='body1' className={classes.heading}>
+                  Projet-ID:      {project.getID()}, <br></br>
+                  Projektname:    {project.getName()}, <br></br>
+                  Modul:          {project.getOwner()}<br></br>
+                  Projekt-Typ:    {project.getProjectType()}<br></br>
+                  Semester:       {project.getSemester()}<br></br>
+                  Projektinhaber: {project.getOwner()}<br></br>
+                  Partner:        {project.getExternalPartnerList()}<br></br>
+                  Status:         {project.getOwner()}<br></br>
                 </Typography>
               </Grid>
               <Grid item>

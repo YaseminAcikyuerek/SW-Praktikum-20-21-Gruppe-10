@@ -87,7 +87,10 @@ class SemesterListEntry extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{semester.getName()}
+                <Typography variant='body1' className={classes.heading}>
+                  Semestername:   {semester.getName()},<br></br>
+                  Beginn:         {semester.getStart()},<br></br>
+                  Ende:           {semester.getEnd()},<br></br>
                 </Typography>
               </Grid>
               <Grid item>

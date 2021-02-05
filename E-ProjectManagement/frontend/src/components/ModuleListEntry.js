@@ -87,7 +87,9 @@ class ModuleListEntry extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{module.getName()}
+                <Typography variant='body1' className={classes.heading}>
+                  Modulname:  {module.getName()},<br></br>
+                  EdV-Nr:     {module.getEdvNr()},<br></br>
                 </Typography>
               </Grid>
               <Grid item>

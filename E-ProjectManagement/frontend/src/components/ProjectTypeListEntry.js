@@ -87,7 +87,10 @@ class ProjectTypeListEntry extends Component {
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}>{projectType.getName()}
+                <Typography variant='body1' className={classes.heading}>
+                  Projektart:   {projectType.getName()}<br></br>
+                  SWS:          {projectType.getSws()},<br></br>
+                  ECTS:         {projectType.getEcts()},<br></br>
                 </Typography>
               </Grid>
               <Grid item>

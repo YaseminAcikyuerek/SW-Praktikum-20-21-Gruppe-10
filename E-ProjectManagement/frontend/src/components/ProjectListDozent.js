@@ -204,7 +204,7 @@ class ProjectListDozent extends Component {
           <Grid item xs />
           <Grid item>
             <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addProjectButtonClicked}>
-              Add Project
+              Neues Projekt beantragen
           </Button>
           </Grid>
         </Grid>

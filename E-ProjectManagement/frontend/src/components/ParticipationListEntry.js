@@ -94,7 +94,9 @@ class ParticipationListEntry extends Component {
           <AccordionSummary expandIcon={<ExpandMoreIcon />} id={`participation${participation.getID()}participationpanel-header`}>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
-                <Typography variant='body1' className={classes.heading}> {participation.getProject()}
+                <Typography variant='body1' className={classes.heading}>
+                  Projekt:  {participation.getProject()},<br></br>
+                  Student:  {participation.getStudent()},<br></br>
                 </Typography>
               </Grid>
               <Grid item>
