@@ -25,7 +25,7 @@ class RatingList extends Component {
     // console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandRating) { //TODO: DRINGEND ÄNDERN
+    if (this.props.location.expandSemester) { //TODO: DRINGEND ÄNDERN
       expandedID = this.props.location.expandRating.getID();
     }
 
@@ -43,7 +43,6 @@ class RatingList extends Component {
 
   /** Fetches all RatingBOs from the backend */
   getRatings = () => {
-  console.log("vor fetch")
     ManagementAPI.getAPI().getRatings()
       .then(ratingBOs =>
         this.setState({               // Set new state when RatingBOs have been fetched
@@ -195,7 +194,7 @@ class RatingList extends Component {
           <Grid item xs />
           <Grid item>
             <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addRatingButtonClicked}>
-              Add Rating
+              Add Ratings
           </Button>
           </Grid>
         </Grid>

@@ -37,6 +37,7 @@ class ParticipationList extends Component {
 
   /** Fetches AccountBOs for the current customer */
   getParticipations = () => {
+    console.log("vor fetch")
     ManagementAPI.getAPI().getParticipations().then(participationBOs =>
       this.setState({  // Set new state when ParticipationBOs have been fetched
         participations: participationBOs,

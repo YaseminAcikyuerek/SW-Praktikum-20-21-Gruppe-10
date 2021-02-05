@@ -126,7 +126,7 @@ SemesterListEntry.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The SemesterBO to be rendered */
-  module: PropTypes.object.isRequired,
+  semester: PropTypes.object.isRequired,
   /** The state of this SemesterListEntry.
   expandedState: PropTypes.bool.isRequired,
   /** The handler responsible for handle expanded state changes (exanding/collapsing) of this SemesterListEntry
@@ -139,7 +139,7 @@ SemesterListEntry.propTypes = {
    *
    * Signature: onSemesterDelete(SemesterBO semester)
    */
-  onModuleDeleted: PropTypes.func.isRequired
+  onSemesterDeleted: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(SemesterListEntry);

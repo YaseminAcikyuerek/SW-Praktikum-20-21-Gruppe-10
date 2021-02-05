@@ -66,7 +66,7 @@ class RatingDeleteDialog extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Really delete rating '{rating.getProject()} {rating.getEvaluator()} {rating.getToBeAssessed()} {rating.getGrade()} {rating.getPassed()}' (ID: {rating.getID()})?
+              Really delete rating {rating.getProject()} {rating.getEvaluator()} {rating.getToBeAssessed()} {rating.getGrade()} {rating.getPassed()} (ID: {rating.getID()})?
             </DialogContentText>
             <LoadingProgress show={deletingInProgress} />
             <ContextErrorMessage error={deletingError} contextErrorMsg={`The rating '${rating.getProject()} ${rating.getEvaluator() }${rating.getToBeAssessed() }${rating.getGrade() }${rating.getPassed() }' (ID: ${rating.getID()}) could not be deleted.`}
@@ -101,7 +101,7 @@ RatingDeleteDialog.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The CustomerBO to be deleted */
-  customer: PropTypes.object.isRequired,
+  rating: PropTypes.object.isRequired,
   /** If true, the dialog is rendered */
   show: PropTypes.bool.isRequired,
   /**

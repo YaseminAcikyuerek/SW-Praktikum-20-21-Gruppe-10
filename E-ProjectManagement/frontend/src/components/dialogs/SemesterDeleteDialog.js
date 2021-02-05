@@ -30,7 +30,7 @@ class SemesterDeleteDialog extends Component {
         deletingInProgress: false,              // disable loading indicator
         deletingError: null                     // no error message
       });
-      this.props.onClose(this.props.module);  // call the parent with the deleted semester
+      this.props.onClose(this.props.semester);  // call the parent with the deleted semester
     }).catch(e =>
       this.setState({
         deletingInProgress: false,              // disable loading indicator
@@ -101,7 +101,7 @@ SemesterDeleteDialog.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The SemesterBO to be deleted */
-  module: PropTypes.object.isRequired,
+  semester: PropTypes.object.isRequired,
   /** If true, the dialog is rendered */
   show: PropTypes.bool.isRequired,
   /**

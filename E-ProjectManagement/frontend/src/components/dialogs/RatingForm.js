@@ -95,6 +95,7 @@ class RatingForm extends Component {
   updateRating = () => {
     // clone the original rating, in case the backend call fails
     let updatedRating = Object.assign(new RatingBO(), this.props.rating);
+
     // set the new attributes from our dialog
     updatedRating.setProject(this.state.project);
     updatedRating.setEvaluator(this.state.evaluator);
