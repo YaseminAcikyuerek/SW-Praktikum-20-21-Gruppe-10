@@ -22,6 +22,7 @@ export default class ManagementAPI {
   #getPersonsURL = () => `${this.#managementServerBaseURL}/persons`;
   #addPersonURL = () => `${this.#managementServerBaseURL}/persons`;
   #getPersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
+  #getPersonByMail = (email) => `${this.#managementServerBaseURL}/person/${email}`;
   #updatePersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
   #deletePersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
   #searchPersonURL = (personName) => `${this.#managementServerBaseURL}/person-by-name/${personName}`;
@@ -33,7 +34,7 @@ export default class ManagementAPI {
   #getProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #updateProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
-  #searchProjectByProjectOwnerURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
+  #searchProjectsByOwnerURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
   #getProjectsByStudentURL = (student) => `${this.#managementServerBaseURL}/project-by-student/${student}`;
   #searchProjectByAcceptedURL = (projectStatus) => `${this.#managementServerBaseURL}/project-by-status/${projectStatus}`;
 
@@ -145,7 +146,15 @@ export default class ManagementAPI {
     })
   }
 
-
+  getPersonByMail(person) {
+    return this.#fetchAdvanced(this.#getPersonsURL(person)).then((responseJSON) => {
+      let personBOs = PersonBO.fromJSON(responseJSON);
+      // console.info(personBOs);
+      return new Promise(function (resolve) {
+        resolve(personBOs);
+      })
+    })
+  }
   /**
    * Returns a Promise, which resolves to a PersonBO
    *
@@ -385,8 +394,8 @@ export default class ManagementAPI {
    * @public
    */
 
-   searchProjectByProjectOwner(projectOwner) {
-     return this.#fetchAdvanced(this.#searchProjectByProjectOwnerURL(projectOwner)).then((responseJSON) => {
+   searchProjectsByOwner(projectOwner) {
+     return this.#fetchAdvanced(this.#searchProjectsByOwnerURL(projectOwner)).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       // console.info(projectBOs);
       return new Promise(function (resolve) {
@@ -720,7 +729,6 @@ export default class ManagementAPI {
   getSemesters() {
     return this.#fetchAdvanced(this.#getSemestersURL()).then((responseJSON) => {
       let semesterBOs = SemesterBO.fromJSON(responseJSON);
-      // console.info(personBOs);
       return new Promise(function (resolve) {
         resolve(semesterBOs);
       })

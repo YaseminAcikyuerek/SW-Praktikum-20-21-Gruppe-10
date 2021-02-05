@@ -29,7 +29,7 @@ class ProjectListDozent extends Component {
 
     // Init an empty state
     this.state = {
-      projects: [],
+      personProjects: [],
       filteredProjects: [],
       ProjectFilter: '',
       error: null,
@@ -39,18 +39,22 @@ class ProjectListDozent extends Component {
     };
   }
 
-  /** Fetches all ProjectBOs from the backend */
-  searchProjectURL = (projectOwner) => {
-    ManagementAPI.getAPI().searchProject(projectOwner)
+  getProjects = async () =>{
+    let person = await ManagementAPI.getAPI().getPersonByMail(this.props.currentUserMail) //personBO
+    ManagementAPI.getAPI().getProjectsByOwner(person)
+    this.setState({person: person})
+  }
+  /** Fetches all ProjectBOs from person from the backend */
+  getProjectsByOwner= (id) => {
+    ManagementAPI.getAPI().getProjectsByOwner(id)
       .then(projectBOs =>
         this.setState({               // Set new state when ProjectBOs have been fetched
-          projects: projectBOs,
-          filteredProjects: [...projectBOs], // store a copy
+          personProjects: projectBOs,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           projects: [],
+           personProjects: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
@@ -62,21 +66,13 @@ class ProjectListDozent extends Component {
       error: null
     });
   }
-
-  /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
-  componentDidMount() {
-    this.searchProjectURL();
-  }
-
-  /**
+   /**
    * Handles onExpandedStateChange events from the ProjectListEntry component. Toggels the expanded state of
    * the ProjectListEntry of the given ProjectBO.
    *
    * @param {project} ProjectBO of the ProjectListEntry to be toggeled
    */
   onExpandedStateChange = project => {
-    // console.log(projectID);
-    // Set expandend project entry to null by default
     let newID = null;
 
     // If same project entry is clicked, collapse it else expand a new one
@@ -88,6 +84,11 @@ class ProjectListDozent extends Component {
     this.setState({
       expandedProjectID: newID,
     });
+  }
+
+  /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
+  componentDidMount() {
+    this.searchProjectsByOwner();
   }
 
   /**

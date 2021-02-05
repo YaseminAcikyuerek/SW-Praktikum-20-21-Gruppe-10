@@ -59,6 +59,11 @@ class ProjectAdministration(object):
         with PersonMapper() as mapper:
             return mapper.find_by_google_user_id(google_id)
 
+    def get_person_by_google_mail(self, google_mail):
+        """Die Person mit der gegebenen Google ID auslesen."""
+        with PersonMapper() as mapper:
+            return mapper.find_by_google_mail(google_mail)
+
     def get_all_person(self):
         """Alle Personen auslesen."""
         with PersonMapper() as mapper:

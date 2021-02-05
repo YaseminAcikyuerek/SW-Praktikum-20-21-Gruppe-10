@@ -6,7 +6,7 @@ class Person(nbo):
     def __init__(self):
         super().__init__()
         self._role = None
-        self._email = ""
+        self._google_mail = ""
         self._google_user_id = ""
 
     def set_role(self, role):
@@ -15,11 +15,11 @@ class Person(nbo):
     def get_role(self):
         return self._role
 
-    def set_email(self, email):
-        self._email = email
+    def set_google_mail(self, google_mail):
+        self._google_mail = google_mail
 
-    def get_email(self):
-        return self._email
+    def get_google_mail(self):
+        return self._google_mail
 
     def set_google_user_id(self, google_user_id):
         self._google_user_id = google_user_id
@@ -36,6 +36,6 @@ class Person(nbo):
         obj.set_creation_time(dictionary["creation_time"])
         obj.set_name(dictionary["name"])
         obj.set_role(dictionary["role"])
-        obj.set_email(dictionary["email"])
+        obj.set_google_mail(dictionary["google_mail"])
         obj.set_google_user_id(dictionary["google_user_id"])
         return obj
