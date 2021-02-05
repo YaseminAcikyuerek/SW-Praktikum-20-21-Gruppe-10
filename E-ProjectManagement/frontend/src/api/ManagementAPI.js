@@ -22,7 +22,7 @@ export default class ManagementAPI {
   #getPersonsURL = () => `${this.#managementServerBaseURL}/persons`;
   #addPersonURL = () => `${this.#managementServerBaseURL}/persons`;
   #getPersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
-  #getPersonByMail = (email) => `${this.#managementServerBaseURL}/person/${email}`;
+  #getPersonByMailURL = (googleMail) => `${this.#managementServerBaseURL}/person/${googleMail}`;
   #updatePersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
   #deletePersonURL = (id) => `${this.#managementServerBaseURL}/person/${id}`;
   #searchPersonURL = (personName) => `${this.#managementServerBaseURL}/person-by-name/${personName}`;
@@ -147,7 +147,7 @@ export default class ManagementAPI {
   }
 
   getPersonByMail(person) {
-    return this.#fetchAdvanced(this.#getPersonsURL(person)).then((responseJSON) => {
+    return this.#fetchAdvanced(this.#getPersonByMailURL(person)).then((responseJSON) => {
       let personBOs = PersonBO.fromJSON(responseJSON);
       // console.info(personBOs);
       return new Promise(function (resolve) {

@@ -317,7 +317,7 @@ class ProjectOperations(Resource):
 @management.param('id', 'Die ID des Person-Objekts')
 class PersonRelatedProjectOperations(Resource):
     @management.marshal_with(project)
-    @secured
+
     def get(self, id):
         """Auslesen aller Projekte von einer bestimmten Person.
 
@@ -1101,7 +1101,7 @@ class PersonByNameOperations(Resource):
 @management.param('owner', 'Die ID des Projektinhabers')
 class ProjectByOwnerOperations(Resource):
     @management.marshal_with(project)
-    @secured
+
     def get(self, owner):
         """ Auslesen von Projekt-Objekten, die durch den Eigentümer bestimmt werden.
 
