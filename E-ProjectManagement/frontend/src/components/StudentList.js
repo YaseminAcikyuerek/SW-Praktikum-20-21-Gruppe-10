@@ -40,7 +40,6 @@ class StudentList extends Component {
   /** Fetches all StudentBOs from the backend */
   getStudent = () => {
     ManagementAPI.getAPI().getStudents()
-
       .then(studentBOs =>
         this.setState({               // Set new state when CustomerBOs have been fetched
          student: studentBOs,
@@ -98,7 +97,7 @@ class StudentList extends Component {
     const newStudentList = this.state.student.filter(studentFromState => studentFromState.getID() !== student.getID());
     this.setState({
       student: newStudentList,
-      filteredCustomers: [...newStudentList],
+      filteredStudents: [...newStudentList],
       showStudentForm: false
     });
   }

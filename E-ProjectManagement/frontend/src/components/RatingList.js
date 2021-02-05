@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import RatingForm from './dialogs/RatingForm';
+import RatingForm from './dialogs/RatingForm1';
 import RatingListEntry from './RatingListEntry';
 
 /**
@@ -31,8 +31,8 @@ class RatingList extends Component {
 
     // Init an empty state
     this.state = {
-      ratings: [],
-      filteredRatings: [],
+      rating: [],
+      filteredRating: [],
       RatingFilter: '',
       error: null,
       loadingInProgress: false,
@@ -46,13 +46,13 @@ class RatingList extends Component {
     ManagementAPI.getAPI().getRatings()
       .then(ratingBOs =>
         this.setState({               // Set new state when RatingBOs have been fetched
-          ratings: ratingBOs,
-          filteredRatings: [...ratingBOs], // store a copy
+          rating: ratingBOs,
+          filteredRating: [...ratingBOs], // store a copy
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-            ratings: [],
+            rating: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
@@ -98,10 +98,10 @@ class RatingList extends Component {
    * @param {rating} RatingBO of the RAtingListEntry to be deleted
    */
   ratingDeleted = rating => {
-    const newRatingList = this.state.ratings.filter(ratingFromState => ratingFromState.getID() !== rating.getID());
+    const newRatingList = this.state.rating.filter(ratingFromState => ratingFromState.getID() !== rating.getID());
     this.setState({
-      ratings: newRatingList,
-      filteredRatings: [...newRatingList],
+      rating: newRatingList,
+      filteredRating: [...newRatingList],
       showPersonForm: false
     });
   }
@@ -120,9 +120,9 @@ class RatingList extends Component {
   ratingFormClosed = rating => {
     // rating is not null and therefore created
     if (rating) {
-      const newRatingList = [...this.state.ratings, rating];
+      const newRatingList = [...this.state.rating, rating];
       this.setState({
-        ratings: newRatingList,
+        rating: newRatingList,
         filteredRating: [...newRatingList],
         showRatingForm: false
       });
@@ -137,7 +137,7 @@ class RatingList extends Component {
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
-      filteredRatings: this.state.ratings.filter(rating => {
+      filteredRating: this.state.rating.filter(rating => {
         let nameContainsValue = rating.getName().toLowerCase().includes(value);
         let projectContainsValue = rating.getProject().toLowerCase().includes(value);
         let evaluatorContainsValue = rating.getEvaluator().toLowerCase().includes(value);
@@ -156,7 +156,7 @@ class RatingList extends Component {
   clearFilterFieldButtonClicked = () => {
     // Reset the filter
     this.setState({
-      filteredRatings: [...this.state.ratings],
+      filteredRating: [...this.state.rating],
       ratingFilter: ''
     });
   }
@@ -164,7 +164,7 @@ class RatingList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredRatings,ratingFilter, expandedRatingID, loadingInProgress, error, showRatingForm } = this.state;
+    const { filteredRating,ratingFilter, expandedRatingID, loadingInProgress, error, showRatingForm } = this.state;
 
     return (
       <div className={classes.root}>
@@ -201,7 +201,7 @@ class RatingList extends Component {
         {
           // Show the list of RatingListEntry components
           // Do not use strict comparison, since expandedRatingID maybe a string if given from the URL parameters
-          filteredRatings.map(rating =>
+          filteredRating.map(rating =>
             <RatingListEntry key={rating.getID()} rating={rating} expandedState={expandedRatingID === rating.getID()}
               onExpandedStateChange={this.onExpandedStateChange}
               onRatingDeleted={this.ratingDeleted}

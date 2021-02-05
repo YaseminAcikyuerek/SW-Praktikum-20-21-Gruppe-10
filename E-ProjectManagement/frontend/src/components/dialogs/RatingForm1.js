@@ -72,7 +72,6 @@ class RatingForm extends Component {
     newRating.setGrade(this.state.grade)
     newRating.setPassed(this.state.passed)
     ManagementAPI.getAPI().addRating(newRating).then(rating => {
-      console.log(newRating);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty projecttype
       this.setState(this.baseState);

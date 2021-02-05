@@ -232,7 +232,7 @@ class ProjectMapper(Mapper):
         cursor.close()
         return result
 
-    def find_project_by_status(self, status):
+    def find_project_by_accepted(self):
 
         result = []
 
@@ -240,7 +240,7 @@ class ProjectMapper(Mapper):
         command = " SELECT id, creation_time, semester, module, short_description, external_partner_list, capacity, " \
              "bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period, " \
              "preferred_bd_during_lecture_period, language, room, special_room, flag, name, " \
-             "status, project_type, owner FROM project WHERE status = '{}'".format(status)
+             "status, project_type, owner FROM project WHERE status = 'accepted'"
         cursor.execute(command)
         tuples = cursor.fetchall()
 

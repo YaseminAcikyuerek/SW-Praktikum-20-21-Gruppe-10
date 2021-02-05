@@ -38,7 +38,6 @@ class PersonList extends Component {
 
   /** Fetches all PersonBOs from the backend */
   getPersons = () => {
-  console.log("vor fetch")
     ManagementAPI.getAPI().getPersons().then(personBOs =>
         this.setState({               // Set new state when PersonBOs have been fetched
           persons: personBOs,

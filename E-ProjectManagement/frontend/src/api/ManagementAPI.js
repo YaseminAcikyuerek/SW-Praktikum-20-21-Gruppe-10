@@ -35,7 +35,7 @@ export default class ManagementAPI {
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #searchProjectByProjectOwnerURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
   #getProjectsByStudentURL = (student) => `${this.#managementServerBaseURL}/project-by-student/${student}`;
-  #searchProjectByProjectStatusURL = (projectStatus) => `${this.#managementServerBaseURL}/project-by-status/${projectStatus}`;
+  #searchProjectByAcceptedURL = (projectStatus) => `${this.#managementServerBaseURL}/project-by-status/${projectStatus}`;
 
   //Student related
   #getStudentsURL = () => `${this.#managementServerBaseURL}/students`;
@@ -71,7 +71,7 @@ export default class ManagementAPI {
   #getRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
   #updateRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
   #deleteRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
-  #searchRatingURL = (ratingName) => `${this.#managementServerBaseURL}/rating-by-name/${ratingName}`;
+  #getRatingsByStudentURL = (toBeAssessed) => `${this.#managementServerBaseURL}/rating-student/${toBeAssessed}`;
 
 
   // Role  related
@@ -410,8 +410,8 @@ export default class ManagementAPI {
 
 
 
-  searchProject(projectStatus) {
-     return this.#fetchAdvanced(this.#searchProjectByProjectStatusURL(projectStatus)).then((responseJSON) => {
+  searchProjectByAccepted(projectStatus) {
+     return this.#fetchAdvanced(this.#searchProjectByAcceptedURL(projectStatus)).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       // console.info(projectBOs);
       return new Promise(function (resolve) {
@@ -874,6 +874,7 @@ export default class ManagementAPI {
    *
    * @param {Number} ratingID to be retrieved
    * @public
+   * @public
    */
 
   getRating(ratingID) {
@@ -970,8 +971,9 @@ export default class ManagementAPI {
    * @public
    */
 
-   searchRating(ratingName) {
-    return this.#fetchAdvanced(this.#searchRatingURL(ratingName)).then((responseJSON) => {
+
+  getRatingsByStudent(toBeAssessed) {
+    return this.#fetchAdvanced(this.#getRatingsByStudentURL(toBeAssessed)).then((responseJSON) => {
       let ratingBOs = RatingBO.fromJSON(responseJSON);
       // console.info(ratingBOs);
       return new Promise(function (resolve) {

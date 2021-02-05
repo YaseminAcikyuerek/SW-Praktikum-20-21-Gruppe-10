@@ -21,7 +21,7 @@ from server.bo.Student import Student
 
 
 # Außerdem nutzen wir einen selbstgeschriebenen Decorator, der die Authentifikation übernimmt
-"""from SecurityDecorator import secured"""
+from SecurityDecorator import secured
 
 """
 Instanzieren von Flask. Am Ende dieser Datei erfolgt dann erst der 'Start' von Flask.
@@ -134,7 +134,7 @@ student = api.inherit('Student', bo,nbo, {
 @management.route('/persons')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class PersonListOperations(Resource):
-
+    @secured
     @management.marshal_list_with(person)
     def get(self):
         """Auslesen aller Person-Objekte.
@@ -146,6 +146,7 @@ class PersonListOperations(Resource):
 
     @management.marshal_with(person, code=200)
     @management.expect(person)  # Wir erwarten ein Person-Objekt von Client-Seite.
+    @secured
     def post(self):
         """Anlegen eines neuen Person-Objekts.
         """
@@ -166,7 +167,7 @@ class PersonListOperations(Resource):
 @management.param('id', 'Die ID des Person-Objekts')
 class PersonOperations(Resource):
     @management.marshal_with(person)
-
+    @secured
     def get(self, id):
         """Auslesen einer bestimmten Person-BO.
 
@@ -176,7 +177,7 @@ class PersonOperations(Resource):
         pers = adm.get_person_by_id(id)
         return pers
 
-
+    @secured
     def delete(self, id):
         """Löschen einer bestimmten Person-BO.
 
@@ -189,7 +190,7 @@ class PersonOperations(Resource):
 
     @management.marshal_with(person)
     @management.expect(person, validate=True)
-
+    @secured
     def put(self, id):
         """Update einer bestimmten Person.
         """
@@ -208,8 +209,7 @@ class PersonOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectListOperations(Resource):
     @management.marshal_list_with(project)
-
-
+    @secured
     def get(self):
         """Auslesen aller Projekte."""
 
@@ -220,6 +220,7 @@ class ProjectListOperations(Resource):
     """Projektspezifische Methoden"""
     @management.marshal_with(project)
     @management.expect(project)
+    @secured
     def post(self):
         """Anlegen eines neuen Projekt-Objekts.
                 """
@@ -245,8 +246,7 @@ class ProjectListOperations(Resource):
 @management.param('id', 'Die ID des Project-Objekts')
 class ProjectOperations(Resource):
     @management.marshal_with(project)
-
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Projekts.
 
@@ -256,7 +256,7 @@ class ProjectOperations(Resource):
         proj = adm.get_project_by_id(id)
         return proj
 
-
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten Projekts.
 
@@ -269,6 +269,7 @@ class ProjectOperations(Resource):
 
     @management.marshal_with(project)
     @management.expect(project)
+    @secured
     def put(self, id):
         """Update eines bestimmten Projekts.
         """
@@ -287,8 +288,7 @@ class ProjectOperations(Resource):
 @management.param('id', 'Die ID des Project-Objekts')
 class ProjectOperations(Resource):
     @management.marshal_with(project)
-
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Projekts.
 
@@ -303,6 +303,7 @@ class ProjectOperations(Resource):
 @management.param('id', 'Die ID des Person-Objekts')
 class PersonRelatedProjectOperations(Resource):
     @management.marshal_with(project)
+    @secured
     def get(self, id):
         """Auslesen aller Projekte von einer bestimmten Person.
 
@@ -320,7 +321,7 @@ class PersonRelatedProjectOperations(Resource):
             return "Person not found", 500
 
     @management.marshal_with(project, code=201)
-
+    @secured
     def post(self, id):
         """Anlegen eines Projekts für eine gegebene Person.
 
@@ -346,7 +347,7 @@ class PersonRelatedProjectOperations(Resource):
 @management.param('id', 'Die ID des Projekts')
 class ProjectStatusOperations(Resource):
     @management.doc('Read status of given project')
-
+    @secured
     def get(self, id):
         """Auslesen des Status eines Projekts.
 
@@ -367,7 +368,7 @@ class ProjectStatusOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class StudentListOperations(Resource):
     @management.marshal_list_with(student)
-
+    @secured
     def get(self):
         """Auslesen aller Student-Objekte.
         """
@@ -377,7 +378,7 @@ class StudentListOperations(Resource):
 
     @management.marshal_with(student, code=200)
     @management.expect(student)
-
+    @secured
     def post(self):
         """Anlegen eines neuen student-Objekts.
         """
@@ -401,7 +402,7 @@ class StudentListOperations(Resource):
 @management.param('id', 'Die ID des Student-Objekts')
 class StudentOperations(Resource):
     @management.marshal_with(student)
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Student-Objekts.
 
@@ -411,7 +412,7 @@ class StudentOperations(Resource):
         stu = adm.get_student_by_id(id)
         return stu
 
-
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten student-Objekts.
 
@@ -425,7 +426,7 @@ class StudentOperations(Resource):
 
     @management.marshal_with(student)
     @management.expect(student)
-
+    @secured
     def put(self, id):
         """Update eines bestimmten Student-Objekts.
 
@@ -451,7 +452,7 @@ class StudentOperations(Resource):
 @management.param('id', 'Die ID des student-Objekts')
 class StudentRelatedProjectOperations(Resource):
     @management.marshal_with(project)
-
+    @secured
     def get(self, id):
             """Auslesen aller Projekte von eines bestimmten Studenten.
 
@@ -472,7 +473,7 @@ class StudentRelatedProjectOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ParticipationListOperations(Resource):
     @management.marshal_list_with(participation)
-
+    @secured
     def get(self):
         """Auslesen aller Participation-Objekte.
         """
@@ -482,7 +483,7 @@ class ParticipationListOperations(Resource):
 
     @management.marshal_with(participation, code=200)
     @management.expect(participation)
-
+    @secured
     def post(self):
         """Anlegen eines neuen Participation-Objekts.
         """
@@ -501,7 +502,7 @@ class ParticipationListOperations(Resource):
 @management.param('id', 'Die ID der Participation-Objekts')
 class ParticipationOperations(Resource):
     @management.marshal_with(participation)
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Participation-Objekts.
 
@@ -511,7 +512,7 @@ class ParticipationOperations(Resource):
         p = adm.get_participation_by_id(id)
         return p
 
-
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten Participation-Objekts.
 
@@ -523,8 +524,7 @@ class ParticipationOperations(Resource):
         return '', 200
 
     @management.marshal_with(participation)
-
-
+    @secured
     def put(self, id):
         """Update eines bestimmten Participation-Objekts.
         """
@@ -541,7 +541,7 @@ class ParticipationOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class SemesterListOperations(Resource):
     @management.marshal_list_with(semester)
-
+    @secured
     def get(self):
         """Auslesen aller Semester-Objekte.
 
@@ -552,7 +552,7 @@ class SemesterListOperations(Resource):
 
     @management.marshal_with(semester, code=200)
     @management.expect(semester)  # Wir erwarten ein rating-Objekt von Client-Seite.
-
+    @secured
     def post(self):
         """Anlegen eines neuen Semester-Objekts.
 
@@ -583,7 +583,7 @@ class SemesterListOperations(Resource):
 @management.param('id', 'Die ID des Semester-Objekts')
 class SemesterOperations(Resource):
     @management.marshal_with(semester)
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Semester-Objekts.
 
@@ -593,7 +593,7 @@ class SemesterOperations(Resource):
         sem = adm.get_semester_by_id(id)
         return sem
 
-
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten Semester-Objekts.
 
@@ -606,7 +606,7 @@ class SemesterOperations(Resource):
 
     @management.marshal_with(semester)
     @management.expect(semester)
-
+    @secured
     def put(self, id):
         """Update eines bestimmten Semester-Objekts.
 
@@ -626,6 +626,7 @@ class SemesterOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RatingListOperations(Resource):
     @management.marshal_list_with(rating)
+    @secured
     def get(self):
         """Auslesen aller rating-Objekte.
 
@@ -636,6 +637,7 @@ class RatingListOperations(Resource):
 
     @management.marshal_with(rating, code=200)
     @management.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
+    @secured
     def post(self):
             """Anlegen eines neuen Rating-Objekts.
 
@@ -668,6 +670,7 @@ class RatingListOperations(Resource):
 @management.param('id', 'Die ID des Projekt-Objekts')
 class RatingRelatedProjectOperations(Resource):
     @management.marshal_with(project)
+    @secured
     def get(self, id):
         """Auslesen aller Bewertungen von eines bestimmten Projekts.
         """
@@ -683,7 +686,7 @@ class RatingRelatedProjectOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ModuleListOperations(Resource):
     @management.marshal_list_with(module)
-
+    @secured
     def get(self):
         """Auslesen aller Module-Objekte.
         """
@@ -693,7 +696,7 @@ class ModuleListOperations(Resource):
 
     @management.marshal_with(module, code=200)
     @management.expect(module)
-
+    @secured
     def post(self):
         """Anlegen eines neuen Modul-Objekts.
         """
@@ -711,7 +714,7 @@ class ModuleListOperations(Resource):
 @management.param('id', 'Die ID des Module-Objekts')
 class ModuleOperations(Resource):
     @management.marshal_with(module)
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Module-Objekts anhand der id.
 
@@ -721,6 +724,7 @@ class ModuleOperations(Resource):
         mo = adm.get_module_by_id(id)
         return mo
 
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten Module-Objekts.
 
@@ -733,7 +737,7 @@ class ModuleOperations(Resource):
 
     @management.marshal_with(module)
     @management.expect(module, validate=True)
-
+    @secured
     def put(self, id):
         """Update eines bestimmten Moduler-Objekts.
         """
@@ -756,7 +760,7 @@ class ModuleOperations(Resource):
 @management.param('student', 'Die ID der Person-Objekts')
 class ParticipationStudentOperations(Resource):
     @management.marshal_with(participation)
-
+    @secured
     def get(self, student):
         """Auslesen aller Participation-Objekte eines bestimmten Studenten .
 
@@ -771,8 +775,7 @@ class ParticipationStudentOperations(Resource):
 
     @management.marshal_with(participation, code=201)
     @management.expect(participation)
-
-
+    @secured
     def post(self, id):
         """Anlegen einer Participation für einen gegebenen Studenten.
 
@@ -798,7 +801,7 @@ class ParticipationStudentOperations(Resource):
 @management.param('project', 'Die ID des Projekt-Objekts')
 class ParticipationProjectOperations(Resource):
     @management.marshal_with(participation)
-
+    @secured
     def get(self, project):
         """Auslesen aller Participation-Objekte bzgl. eines bestimmten Projekt-Objekts.
 
@@ -812,7 +815,7 @@ class ParticipationProjectOperations(Resource):
         return pro
 
     @management.marshal_with(participation, code=201)
-
+    @secured
     def post(self, id):
         """Anlegen einer Participation für einen gegebenes Projekt.
 
@@ -849,7 +852,7 @@ class RatingListOperations(Resource):
 
     @management.marshal_with(rating, code=200)
     @management.expect(rating)  # Wir erwarten ein rating-Objekt von Client-Seite.
-
+    @secured
     def post(self):
         """Anlegen eines neuen Rating-Objekts.
 
@@ -883,7 +886,7 @@ class RatingListOperations(Resource):
 @management.param('id', 'Die ID des Rating-Objekts')
 class RatingOperations(Resource):
     @management.marshal_with(rating)
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Rating-Objekts.
 
@@ -893,7 +896,7 @@ class RatingOperations(Resource):
         ra = adm.get_rating_by_id(id)
         return ra
 
-
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten Rating-Objekts.
 
@@ -906,7 +909,7 @@ class RatingOperations(Resource):
 
     @management.marshal_with(rating)
     @management.expect(rating)
-
+    @secured
     def put(self, id):
         """Update eines bestimmten Rating-Objekts.
         """
@@ -920,28 +923,19 @@ class RatingOperations(Resource):
         else:
             return '', 500
 
-@management.route('/student/<int:id>/rating')
+@management.route('/rating-student/<int:to_be_assessed>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('id', 'Die ID des student-Objekts')
+@management.param('to_be_assessed', 'Die ID des student-Objekts')
 class StudentRelatedRatingOperations(Resource):
     @management.marshal_with(rating)
 
-    def get(self, id):
-        """Auslesen aller Bewertungen von einer bestimmten Student.
-
-        Das Student-Objekt dessen Bewertungen wir lesen möchten, wird durch id bestimmt.
-        """
+    def get(self, to_be_assessed):
         adm = ProjectAdministration()
-        stu = adm.get_student_by_id(id)
-
-        if stu is not None:
-            rating_list = adm.get_rating_of_student(stu)
-            return rating_list
-        else:
-            return "Student not found", 500
+        ra = adm.get_rating_by_to_be_assessed(to_be_assessed)
+        return ra
 
     @management.marshal_with(project, code=201)
-
+    @secured
     def post(self, id):
         """Anlegen einer Bewertung für ein gegebenen Studenten.
 
@@ -961,7 +955,7 @@ class StudentRelatedRatingOperations(Resource):
 @management.param('id', 'Die ID des Projekt-Objekts')
 class ProjectRelatedRatingOperations(Resource):
     @management.marshal_with(project)
-
+    @secured
     def get(self, id):
         """Auslesen aller Bewertungen von einem bestimmten Projekt.
 
@@ -977,7 +971,7 @@ class ProjectRelatedRatingOperations(Resource):
             return "Project not found", 500
 
     @management.marshal_with(rating, code=201)
-
+    @secured
     def post(self, id):
         """Anlegen einer Bewertung für eine gegebenes Projekt.
 
@@ -992,85 +986,22 @@ class ProjectRelatedRatingOperations(Resource):
         else:
             return "Project unknown", 500
 
-
-@management.route('/role')
+@management.route('/rating-dozent/int:<evaluator>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-class RoleListOperations(Resource):
-    @management.marshal_list_with(role)
+class RatingOperations(Resource):
+    @management.marshal_with(rating)
 
-    def get(self):
-        """Auslesen aller Role-Objekte."""
+    def get(self, evaluator):
+
         adm = ProjectAdministration()
-        r = adm.get_all_role()
-        return r
-
-    @management.marshal_with(role, code=200)
-    @management.expect(role)
-
-    def post(self):
-        """Anlegen eines neuen Role-Objekts.
-        """
-        adm = ProjectAdministration()
-
-        rose= Role.from_dict(api.payload)
-
-        if rose is not None:
-            r = adm.create_role(rose.get_name())
-            return r, 200
-        else:
-            return '', 500
-
-
-@management.route('/role/<int:id>')
-@management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('id', 'Die ID des Role-Objekts')
-class RoleOperations(Resource):
-    @management.marshal_with(role)
-
-    def get(self, id):
-        """Auslesen eines bestimmten Role-Objekts.
-
-        Das auszulesende Objekt wird durch die id bestimmt.
-        """
-        adm = ProjectAdministration()
-        ro = adm.get_role_by_id(id)
-        return ro
-
-
-    def delete(self, id):
-        """Löschen eines bestimmten Role-Objekts.
-
-        Das zu löschende Objekt wird durch die ```id``` bestimmt.
-        """
-        adm = ProjectAdministration()
-        ro = adm.get_role_by_id(id)
-        adm.delete_role(ro)
-        return '', 200
-
-    @management.marshal_with(role)
-    @management.expect(role, validate=True)
-
-    def put(self, id):
-        """Update eines bestimmten role-Objekts.
-        """
-        adm = ProjectAdministration()
-        ro = Role.from_dict(api.payload)
-
-        if ro is not None:
-            """Hierdurch wird die id des zu überschreibenden (vgl. Update) Customer-Objekts gesetzt.
-            Siehe Hinweise oben.
-            """
-            ro.set_id(id)
-            adm.save_role(ro)
-            return '', 200
-        else:
-            return '', 500
+        ra = adm.get_rating_by_evaluator(evaluator)
+        return ra
 
 @management.route('/project_type')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectTypeListOperations(Resource):
     @management.marshal_list_with(project_type)
-
+    @secured
     def get(self):
         """Auslesen aller Projecttype-Objekte.
         """
@@ -1080,6 +1011,7 @@ class ProjectTypeListOperations(Resource):
 
     @management.marshal_with(project_type)
     @management.expect(project_type)
+    @secured
     def post(self):
         """Anlegen eines neuen ProjectTypes-Objekts.
                 """
@@ -1097,7 +1029,7 @@ class ProjectTypeListOperations(Resource):
 @management.param('id', 'Die ID des Projecttype-Objekts')
 class ProjectTypeOperations(Resource):
     @management.marshal_with(project_type)
-
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Projecttype-Objekts.
         """
@@ -1105,7 +1037,7 @@ class ProjectTypeOperations(Resource):
         pt = adm.get_project_type_by_id(id)
         return pt
 
-
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten projecttype-Objekts.
 
@@ -1118,7 +1050,7 @@ class ProjectTypeOperations(Resource):
 
     @management.marshal_with(project_type)
     @management.expect(project_type, validate=True)
-
+    @secured
     def put(self, id):
         """Update eines bestimmten Projecttype-Objekts.
         """
@@ -1140,7 +1072,7 @@ class ProjectTypeOperations(Resource):
 @management.param('name', 'Der Name der Person')
 class PersonByNameOperations(Resource):
     @management.marshal_with(person)
-
+    @secured
     def get(self, name):
         """ Auslesen von Personen-Objekten, die durch den Namen bestimmt werden.
 
@@ -1155,7 +1087,7 @@ class PersonByNameOperations(Resource):
 @management.param('owner', 'Die ID des Projektinhabers')
 class ProjectByOwnerOperations(Resource):
     @management.marshal_with(project)
-
+    @secured
     def get(self, owner):
         """ Auslesen von Projekt-Objekten, die durch den Eigentümer bestimmt werden.
 
@@ -1164,18 +1096,17 @@ class ProjectByOwnerOperations(Resource):
         pro = adm.get_project_by_owner(owner)
         return pro
 
-@management.route('/project-by-status/<string:status>')
+@management.route('/project-by-status')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
-@management.param('status', 'Der Status des Projekts')
 class ProjectByStateOperations(Resource):
     @management.marshal_with(project)
 
-    def get(self, status):
-        """ Auslesen von Projekt-Objekten, die durch den Eigentümer bestimmt werden.
+    def get(self):
+        """ Auslesen von Projekt-Objekten, die den Status Accepted haben.
 
         """
         adm = ProjectAdministration()
-        pro = adm.get_project_by_status(status)
+        pro = adm.get_project_by_accepted()
         return pro
 
 @management.route('/student-by-mail/<string:email>')
@@ -1183,7 +1114,7 @@ class ProjectByStateOperations(Resource):
 @management.param('email', 'Die Email des Studenten')
 class StudentByMailOperations(Resource):
     @management.marshal_with(student)
-
+    @secured
     def get(self, email):
         """ Auslesen von Student-Objekten, die durch die Mail bestimmt werden.
 
@@ -1199,6 +1130,7 @@ class ProjectListOperations(Resource):
     @management.doc('Create a new state of project')
     @management.marshal_with(project, code=201)
     @management.expect(project)
+    @secured
     def put(self, id):
         """Update eines bestimmten Projekts.
         """
@@ -1217,6 +1149,7 @@ class ProjectListOperations(Resource):
 @management.param('student', 'Die ID des Studenten-Objekts')
 class StudentRelatedProjectOperations(Resource):
     @management.marshal_with(student)
+    @secured
     def get(self, student):
 
         adm = ProjectAdministration()

@@ -7,13 +7,12 @@ import { withRouter } from 'react-router-dom';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import ProjectForm from './dialogs/ProjectForm';
-import ProjectListEntryStudent from './ProjectListEntryStudent';
+import RatingListEntryStudent from './RatingListEntryStudent';
 import Paper from '@material-ui/core/Paper';
 
 
 
-class ProjectListStudent extends Component {
+class RatingListStudent extends Component {
 
   constructor(props) {
     super(props);
@@ -21,14 +20,13 @@ class ProjectListStudent extends Component {
     // console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandProject) {
-      expandedID = this.props.location.expandProject.getID();
+    if (this.props.location.expandRating) {
+      expandedID = this.props.location.expandRating.getID();
     }
 
     // Init an empty state
     this.state = {
-      acceptedProjects: [],
-      signedProjects: [],
+      studentRatings: [],
       error: null,
       loadingInProgress: false,
       expandedProjectID: expandedID,
@@ -36,49 +34,26 @@ class ProjectListStudent extends Component {
     };
   }
 
-  /** Fetches all ProjectBOs with state accepted from the backend */
-  searchProjectByAccepted = () => {
-    ManagementAPI.getAPI().searchProjectByAccepted()
-      .then(projectBOs =>
+  getRatings = async () =>{
+    let student = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
+    ManagementAPI.getAPI().getRatingsByStudent(student)
+    this.setState({student: student})
+  }
+  /** Fetches all RatingBOs from student from the backend */
+  getRatingsByStudent= (id) => {
+    ManagementAPI.getAPI().getRatingsByStudent(id)
+      .then(ratingBOs =>
         this.setState({               // Set new state when ProjectBOs have been fetched
-          acceptedProjects: projectBOs,
+          studentRatings: ratingBOs,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           acceptedProjects: [],
+           studentRatings: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
         );
-
-    // set loading to true
-    this.setState({
-      loadingInProgress: true,
-      error: null
-    });
-  }
-
-  getProjects = async () =>{
-    let student = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
-    ManagementAPI.getAPI().getProjectsByStudent(student)
-    this.setState({student: student})
-  }
-
-  getProjectsByStudent = (id) => {
-    ManagementAPI.getAPI().getProjectsByStudent(id)
-      .then(responseProjectBO =>
-        this.setState({// Set new state when ProjectBOs have been fetched
-          studentProjects: responseProjectBO,
-          loadingInProgress: false,   // disable loading indicator
-          error: null
-        })).catch(e =>
-          this.setState({             // Reset state with error from catch
-           studentProjects: [],
-            loadingInProgress: false, // disable loading indicator
-            error: e
-          })
-          );
 
     // set loading to true
     this.setState({
@@ -92,21 +67,15 @@ class ProjectListStudent extends Component {
    * Handles onExpandedStateChange events from the ProjectListStudent component. Toggels the expanded state of
    * the ProjectListStudentEntry of the given PersonBO.
    *
-   * DRINGEND ÜBERARBEITEN!!!
    *
-   * @param {person} PersonBO of the PersonListEntry to be toggeled
    */
   onExpandedStateChange = student => {
-    // console.log(personID);
-    // Set expandend person entry to null by default
     let newID = null;
-
     // If same person entry is clicked, collapse it else expand a new one
     if (student.getID() !== this.state.expandedStudentID) {
       // Expand the person entry with personID
       newID = student.getID();
     }
-    // console.log(newID);
     this.setState({
       expandedStudentID: newID,
     });
@@ -114,40 +83,30 @@ class ProjectListStudent extends Component {
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount () {
-    this.searchProjectByAccepted();
-    this.getProjectsByStudent();
+    this.getRatingsByStudent();
   }
 
   /** Renders the component */
   render() {
 
     const { classes } = this.props;
-    const { expandedProjectID, loadingInProgress, error, acceptedProjects ,student, signedProjects} = this.state;
+    const { expandedRatingID, loadingInProgress, error ,student, studentRatings, rating} = this.state;
 
     return (
 
       <div className={classes.root}>
         <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
           <Grid item>
-            <h1>Auswahl Projekte</h1>
+            <h1>Semesterbericht</h1>
             <Paper className={classes.paper}> {
-            acceptedProjects.map(project =>
-            <ProjectListEntryStudent key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
+            studentRatings.map(rating =>
+            <RatingListEntryStudent key={rating.getID()} rating={rating} expandedState={expandedRatingID === rating.getID()}
               onExpandedStateChange={this.onExpandedStateChange} student = {student}
-              onProjectDeleted={this.projectDeleted}
             />)
             }
             <LoadingProgress show={loadingInProgress} />
-            <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectAcceptedURL} />
+            <ContextErrorMessage error={error} contextErrorMsg={`The list of ratings could not be loaded.`} onReload={this.searchRatingsByStudent} />
             </Paper>
-          </Grid>
-          <Grid item xs={4}>
-              <h1>Meine Projekte</h1>
-              <Paper className={classes.paper}>{
-               <div>
-                {signedProjects.map(p => <ListItem>{p.name}</ListItem>)}
-               </div>
-              }</Paper>
           </Grid>
          </Grid>
       </div>
@@ -167,11 +126,11 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-ProjectListStudent.propTypes = {
+RatingListStudent.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** @ignore */
   location: PropTypes.object.isRequired,
 }
 
-export default withRouter(withStyles(styles)(ProjectListStudent));
+export default withRouter(withStyles(styles)(RatingListStudent));

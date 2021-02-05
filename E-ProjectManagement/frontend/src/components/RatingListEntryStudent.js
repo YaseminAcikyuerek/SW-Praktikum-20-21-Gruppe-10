@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import RatingForm from './dialogs/RatingForm1';
-import RatingDeleteDialog from './dialogs/RatingDeleteDialog';
-import RatingList from './RatingList';
+import RatingListStudent from './RatingListStudent';
 
 
 
-class RatingListEntry extends Component {
+class RatingListEntryStudent extends Component {
 
   constructor(props) {
     super(props);
@@ -17,8 +15,6 @@ class RatingListEntry extends Component {
     // Init the state
     this.state = {
       rating: props.rating,
-      showRatingForm: false,
-      showRatingDeleteDialog: false,
     };
   }
 
@@ -27,63 +23,12 @@ class RatingListEntry extends Component {
     this.props.onExpandedStateChange(this.props.rating);
   }
 
-  /** Handles onRatingDelete events from an RatingListEntry
-  deleteRatingHandler = (deletedRating) => {
-    // console.log(deletedRating.getID());
-    this.setState({
-      ratings: this.state.ratings.filter(rating => rating.getID() !== deletedRating.getID())
-    })
-  }
-
-  /** Handles the onClick event of the edit customer button */
-  editRatingButtonClicked = (event) => {
-    event.stopPropagation();
-    this.setState({
-      showRatingForm: true
-    });
-  }
-
-  /** Handles the onClose event of the RatingForm */
-  ratingFormClosed = (rating) => {
-    // rating is not null and there for changed
-    if (rating) {
-      this.setState({
-        rating: rating,
-        showRatingForm: false
-      });
-    } else {
-      this.setState({
-        showRatingForm: false
-      });
-    }
-  }
-
-  /** Handles the onClick event of the delete rating button */
-  deleteRatingButtonClicked = (event) => {
-    event.stopPropagation();
-    this.setState({
-      showRatingDeleteDialog: true
-    });
-  }
-
-  /** Handles the onClose event of the RatingDeleteDialog */
-  deleteRatingDialogClosed = (rating) => {
-    // if rating is not null, delete it
-    if (rating) {
-      this.props.onRatingDeleted(rating);
-    }
-
-    // Don´t show the dialog
-    this.setState({
-      showRatingDeleteDialog: false
-    });
-  }
 
   /** Renders the component */
   render() {
     const { classes, expandedState } = this.props;
     // Use the states rating
-    const { rating, showRatingForm, showRatingDeleteDialog } = this.state;
+    const { rating} = this.state;
 
     // console.log(this.state);
     return (
@@ -98,16 +43,6 @@ class RatingListEntry extends Component {
                 <Typography variant='body1' className={classes.heading}> {rating.getProject()}, {rating.getEvaluator()},{rating.getToBeAssessed()},{rating.getGrade()},{rating.getPassed()}
                 </Typography>
               </Grid>
-              <Grid item>
-                <ButtonGroup variant='text' size='small'>
-                  <Button color='primary' onClick={this.editRatingButtonClicked}>
-                    edit
-                  </Button>
-                  <Button color='secondary' onClick={this.deleteRatingButtonClicked}>
-                    delete
-                  </Button>
-                </ButtonGroup>
-              </Grid>
               <Grid item xs />
               <Grid item>
                 <Typography variant='body2' color={'textSecondary'}>List of ratings</Typography>
@@ -115,11 +50,9 @@ class RatingListEntry extends Component {
             </Grid>
           </AccordionSummary>
           <AccordionDetails>
-            <RatingList show={expandedState} rating={rating} />
+            <RatingListStudent show={expandedState} rating={rating} />
           </AccordionDetails>
         </Accordion>
-        <RatingForm show={showRatingForm} rating={rating} onClose={this.ratingFormClosed} />
-        <RatingDeleteDialog show={showRatingDeleteDialog} rating={rating} onClose={this.deleteRatingDialogClosed} />
       </div>
     );
   }
@@ -133,7 +66,7 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-RatingListEntry.propTypes = {
+RatingListEntryStudent.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The RatingBO to be rendered */
@@ -153,4 +86,4 @@ RatingListEntry.propTypes = {
   onRatingDeleted: PropTypes.func.isRequired
 }
 
-export default withStyles(styles)(RatingListEntry);
+export default withStyles(styles)(RatingListEntryStudent);

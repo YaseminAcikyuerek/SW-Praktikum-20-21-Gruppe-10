@@ -117,10 +117,10 @@ class ProjectAdministration(object):
         with ProjectMapper() as mapper:
             return mapper.find_project_by_owner(owner)
 
-    def get_project_by_status(self, status):
+    def get_project_by_accepted(self):
         """AlleP rojekte mit gegebenem status auslesen."""
         with ProjectMapper() as mapper:
-            return mapper.find_project_by_status(status)
+            return mapper.find_project_by_accepted()
 
     def get_all_project(self):
         """Alle Projekte auslesen."""
@@ -506,6 +506,14 @@ class ProjectAdministration(object):
     def get_projects_of_student(self,student):
         with ProjectMapper() as mapper:
             return mapper.find_projects_of_student(student)
+
+    def get_rating_by_evaluator(self, evaluator):
+        with RatingMapper() as mapper:
+            return mapper.find_rating_by_evaluator(evaluator)
+
+    def get_rating_by_to_be_assessed(self, to_be_assessed):
+        with RatingMapper() as mapper:
+            return mapper.find_rating_by_to_be_assessed(to_be_assessed)
 
 
 

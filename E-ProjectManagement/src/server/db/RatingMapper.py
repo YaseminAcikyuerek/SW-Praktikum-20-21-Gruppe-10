@@ -161,6 +161,56 @@ class RatingMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
+    def find_rating_by_evaluator(self, evaluator):
+
+        result = []
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id,creation_time, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE evaluator='{}'".format(evaluator)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
+            rating = Rating()
+            rating.set_id(id)
+            rating.set_creation_time(creation_time)
+            rating.set_project(project)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
+            rating.set_grade(grade)
+            rating.set_passed(passed)
+            result.append(rating)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_rating_by_to_be_assessed(self, to_be_assessed):
+
+        result = []
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id,creation_time, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE to_be_assessed='{}'".format(to_be_assessed)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, creation_time, project, evaluator, to_be_assessed, grade, passed) in tuples:
+            rating = Rating()
+            rating.set_id(id)
+            rating.set_creation_time(creation_time)
+            rating.set_project(project)
+            rating.set_evaluator(evaluator)
+            rating.set_to_be_assessed(to_be_assessed)
+            rating.set_grade(grade)
+            rating.set_passed(passed)
+            result.append(rating)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
 
 """Zu Testzwecken können wir diese Datei bei Bedarf auch ausführen, 
 um die grundsätzliche Funktion zu überprüfen.

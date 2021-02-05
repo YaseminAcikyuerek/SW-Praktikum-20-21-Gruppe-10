@@ -55,7 +55,6 @@ class StudentForm extends Component {
     newStudent.setMatriculationNr(this.state.matriculationNr)
     newStudent.setCourseAbbr(this.state.courseAbbr)
     ManagementAPI.getAPI().addStudent(newStudent).then(student => {
-      console.log(newStudent);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty student
       this.setState(this.baseState);
@@ -135,7 +134,6 @@ class StudentForm extends Component {
     const { name, nameValidationFailed, nameEdited, courseAbbr, courseAbbrValidationFailed, courseAbbrEdited,
     matriculationNr, matriculationNrValidationFailed, matriculationNrEdited,
     addingInProgress, addingError, updatingInProgress, updatingError } = this.state;
-    console.log(this.state)
     let title = '';
     let header = '';
 
