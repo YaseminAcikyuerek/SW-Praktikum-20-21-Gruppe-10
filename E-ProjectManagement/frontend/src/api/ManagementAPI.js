@@ -157,7 +157,7 @@ export default class ManagementAPI {
     return this.#fetchAdvanced(this.#getPersonURL(personID)).then((responseJSON) => {
       // We always get an array of PersonBOs.fromJSON, but only need one object
       let responsePersonBO = PersonBO.fromJSON(responseJSON)[0];
-       console.info(responsePersonBO);
+       //console.info(responsePersonBO);
       return new Promise(function (resolve) {
         resolve(responsePersonBO);
       })
@@ -268,7 +268,7 @@ export default class ManagementAPI {
   getProjects() {
     return this.#fetchAdvanced(this.#getProjectsURL()).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
-      console.info(projectBOs);
+      //console.info(projectBOs);
       return new Promise(function (resolve) {
         resolve(projectBOs);
       })
@@ -861,7 +861,7 @@ export default class ManagementAPI {
   getRatings() {
     return this.#fetchAdvanced(this.#getRatingsURL()).then((responseJSON) => {
       let ratingBOs = RatingBO.fromJSON(responseJSON);
-      console.info(ratingBOs);
+      //console.info(ratingBOs);
       return new Promise(function (resolve) {
         resolve(ratingBOs);
       })

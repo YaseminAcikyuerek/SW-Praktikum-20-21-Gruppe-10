@@ -165,8 +165,11 @@ class App extends React.Component {
 									<Route path='/ratings'>
 										<RatingList/>
 									</Route>
-									<Route path='/participations'>
+									<Route path='/participation'>
 										<ParticipationList/>
+									</Route>
+									<Route path='/modules'>
+										<ModuleList/>
 									</Route>
 									<Route path='/project'>
 										<ProjectListStudent currentUserMail={currentUser.email}/>
