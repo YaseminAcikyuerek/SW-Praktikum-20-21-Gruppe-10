@@ -55,7 +55,7 @@ class AllRatingList extends Component {
       <div className={classes.root}>
           {
             ratings.map(rating => <RatingDetails key={rating.getID()}
-            personID={rating.getEvalu().toString()} ratingID={rating.getID().toString()} />)
+            personID={rating.getEvaluator().toString()} ratingID={rating.getID().toString()} />)
           }
           <LoadingProgress show={loadingInProgress} />
           <ContextErrorMessage error={loadingError} contextErrorMsg={`The list of all ratings of the project management system could not be loaded.`} onReload={this.loadRatings} />

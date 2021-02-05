@@ -100,7 +100,7 @@ project = api.inherit('Project', bo, nbo, {
 
 project_type = api.inherit('ProjectType', bo, nbo, {
     'sws': fields.String(attribute='_sws', description='SWS der Projektart'),
-    'ects': fields.String(attribute='_ects', description='ECTS der Projektart')
+    'ects': fields.String(attribute='ects', description='ECTS der Projektart')
 })
 
 rating = api.inherit('Rating', bo, {
@@ -671,7 +671,7 @@ class RatingListOperations(Resource):
                 eines Customer-Objekts. Das serverseitig erzeugte Objekt ist das maßgebliche und 
                 wird auch dem Client zurückgegeben. 
                 """
-                r = adm.create_rating(rat.get_creation_time(),rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(), rat.get_grade(),
+                r = adm.create_rating(rat.get_creation_time(), rat.get_project(), rat.get_evaluator(), rat.get_to_be_assessed(), rat.get_grade(),
                                       rat.get_passed())
                 return r, 200
             else:

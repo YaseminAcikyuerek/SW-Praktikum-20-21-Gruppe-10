@@ -26,6 +26,7 @@ def secured(function):
         error_message = None
         claims = None
         objects = None
+        user = None
 
         if id_token:
             try:
@@ -43,8 +44,8 @@ def secured(function):
                     google_user_id = claims.get("user_id")
                     email = claims.get("email")
                     name = claims.get("name")
-
-                    user = adm.get_user_by_google_user_id(google_user_id)
+                    user = adm.get_person_by_google_user_id(google_user_id)
+                    print(user.get_name())
                     if user is not None:
                         """Fall: Der Benutzer ist unserem System bereits bekannt.
                         Wir gehen davon aus, dass die google_user_id sich nicht ändert.
@@ -53,6 +54,7 @@ def secured(function):
                         in unserem System geupdated."""
                         user.set_name(name)
                         user.set_email(email)
+
                         adm.save_user(user)
                     else:
                         """Fall: Der Benutzer war bislang noch nicht eingelogged. 

@@ -25,7 +25,7 @@ class RatingList extends Component {
     // console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandSemester) { //TODO: DRINGEND ÄNDERN
+    if (this.props.location.expandRating) { //TODO: DRINGEND ÄNDERN
       expandedID = this.props.location.expandRating.getID();
     }
 

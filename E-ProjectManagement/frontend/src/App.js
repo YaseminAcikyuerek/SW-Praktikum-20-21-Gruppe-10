@@ -136,7 +136,7 @@ class App extends React.Component {
 				{/* Global CSS reset and browser normalization. CssBaseline kickstarts an elegant, consistent, and simple baseline to build upon. */}
 				<CssBaseline />
 				<Router basename={process.env.PUBLIC_URL}>
-					<Container maxWidth='lg'>
+					<Container>
 						{
 							// Is a user signed in?
 						        currentUser ?

@@ -26,7 +26,7 @@ class ProjectAdministration(object):
 
     """person-spezifische Methoden"""
 
-    def create_person(self,creation_time, name, role,email, google_user_id):
+    def create_person(self, creation_time, name, role, email, google_user_id):
         """Eine Person anlegen"""
         p = Person()
         p.set_id(1)
@@ -81,7 +81,7 @@ class ProjectAdministration(object):
 
     """Projektspezifisch"""
 
-    def create_project(self,id,creation_time, semester, module, short_description, external_partner_list, capacity,
+    def create_project(self, id, creation_time, semester, module, short_description, external_partner_list, capacity,
                        bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period,
                        preferred_bd_during_lecture_period, language, room, special_room, flag, name,
                        status, project_type, owner):
@@ -107,7 +107,6 @@ class ProjectAdministration(object):
         project.set_project_type(project_type)
         project.set_owner(owner)
         project.set_id(1)
-
 
         with ProjectMapper() as mapper:
             return mapper.insert(project)
@@ -149,7 +148,7 @@ class ProjectAdministration(object):
 
     """Modulspezifische Methoden"""
 
-    def create_module(self, id,creation_time, name, edv_nr):
+    def create_module(self, id, creation_time, name, edv_nr):
         """Ein Modul anlegen"""
         module = Module()
         module.set_name(name)
@@ -181,7 +180,6 @@ class ProjectAdministration(object):
         with ModuleMapper() as mapper:
             mapper.update(mo)
 
-
     def delete_module(self, module):
         """Den gegebenen Modul aus unserem System löschen."""
         with ModuleMapper() as mapper:
@@ -194,7 +192,7 @@ class ProjectAdministration(object):
 
     """Modulspezifische Methoden"""
 
-    def create_project_type(self,creation_time, name, sws, ects):
+    def create_project_type(self, creation_time, name, sws, ects):
         """Ein Projekttyp anlegen"""
         project_type = ProjectType()
         project_type.set_creation_time(creation_time)
@@ -233,7 +231,7 @@ class ProjectAdministration(object):
 
     """Ratingspezifische Methoden"""
 
-    def create_rating(self,creation_time, project, evaluator, to_be_assessed, grade, passed):
+    def create_rating(self, creation_time, project, evaluator, to_be_assessed, grade, passed):
         """Ein Rating anlegen"""
         rating = Rating()
         rating.set_creation_time(creation_time)
@@ -257,8 +255,6 @@ class ProjectAdministration(object):
         with ModuleMapper() as mapper:
             return mapper.find_by_edv_nr(edv_nr)
 
-
-
     def get_all_rating(self):
         """Alle Ratings auslesen."""
         with RatingMapper() as mapper:
@@ -274,7 +270,6 @@ class ProjectAdministration(object):
         with RatingMapper() as mapper:
             mapper.delete(rating)
 
-
     def get_rating_by_id(self, id):
         """Das Rating mit der gegebenen ID auslesen."""
         with RatingMapper() as mapper:
@@ -282,7 +277,7 @@ class ProjectAdministration(object):
 
     """Studentenspezifische Methoden"""
 
-    def create_student(self,creation_time, name,matriculation_nr, course_abbr):
+    def create_student(self, creation_time, name, matriculation_nr, course_abbr):
         """Einen Studenten  anlegen"""
         student = Student()
         student.set_creation_time(creation_time)
@@ -380,7 +375,6 @@ class ProjectAdministration(object):
         with ParticipationMapper() as mapper:
             return mapper.insert(participation)
 
-
     def get_all_participation_by_id(self, id):
         """Die Teilnahme mit der gegebenen ID auslesen."""
         with ParticipationMapper() as mapper:
@@ -394,7 +388,6 @@ class ProjectAdministration(object):
     def get_participation_of_student(self, stu):
         with ParticipationMapper() as mapper:
             return mapper.find_participation_of_student(stu)
-
 
     def get_all_participation(self):
         """Alle Teilnahmen auslesen."""
@@ -421,7 +414,6 @@ class ProjectAdministration(object):
         with ParticipationMapper() as mapper:
             mapper.update(participation)
 
-
     """Semesterspezifische"""
 
     def create_semester(self, creation_time, name, start, end):
@@ -432,7 +424,6 @@ class ProjectAdministration(object):
         semester.set_start(start)
         semester.set_end(end)
         semester.set_id(1)
-
 
         with SemesterMapper() as mapper:
             return mapper.insert(semester)
@@ -484,8 +475,7 @@ class ProjectAdministration(object):
         with ProjectTypeMapper() as mapper:
             mapper.insert(project_type)
 
-
-    def create_participation_for_student(self,creation_time,project,student):
+    def create_participation_for_student(self, creation_time, project, student):
         participation = Participation()
         participation.set_creation_time(creation_time)
         participation.set_project(project)
@@ -494,8 +484,7 @@ class ProjectAdministration(object):
         with ParticipationMapper() as mapper:
             mapper.find_participation_of_student(student)
 
-
-    def create_participation_for_project(self,creation_time, project, student):
+    def create_participation_for_project(self, creation_time, project, student):
         participation = Participation()
         participation.set_creation_time(creation_time)
         participation.set_project(project)
@@ -508,7 +497,7 @@ class ProjectAdministration(object):
         with ParticipationMapper() as mapper:
             return mapper.find_participation_of_project(pro)
 
-    def get_projects_of_student(self,student):
+    def get_projects_of_student(self, student):
         with ProjectMapper() as mapper:
             return mapper.find_projects_of_student(student)
 
@@ -520,16 +509,18 @@ class ProjectAdministration(object):
         with RatingMapper() as mapper:
             return mapper.find_rating_by_to_be_assessed(to_be_assessed)
 
+        with PersonMapper() as mapper:
+            return mapper.insert_google_user(p)
 
-
-
-
-
-
-
-
-
-
-
-
+    def save_user(self, user):
+        """Den gegebenen Benutzer speichern."""
+        with PersonMapper() as mapper:
+            mapper.update_google_user(user)
+    def create_user(self, name, email, google_user_id):
+        p = Person()
+        p.set_id(1)
+        p.set_role(1)
+        p.set_name(name)
+        p.set_email(email)
+        p.set_google_user_id(google_user_id)
 
