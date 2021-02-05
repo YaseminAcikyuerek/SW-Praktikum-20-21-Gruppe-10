@@ -157,6 +157,9 @@ class App extends React.Component {
 									<Route path='/students'>
 										<StudentList/>
 									</Route>
+									<Route path='/person'>
+										<PersonList />
+									</Route>
 									<Route path='/projectTypes'>
 										<ProjectTypeList/>
 									</Route>
@@ -176,6 +179,12 @@ class App extends React.Component {
 										<ProjectListStudent currentUserMail={currentUser.email}/>
 									</Route>
 									<Route path='/studentrating'>
+										<RatingListStudent currentUserMail={currentUser.email}/>
+									</Route>
+									<Route path='/dozentrating'>
+										<RatingListStudent currentUserMail={currentUser.email}/>
+									</Route>
+									<Route path='/dozentprojekt'>
 										<RatingListStudent currentUserMail={currentUser.email}/>
 									</Route>
 									<Route path='/about' component={About} />

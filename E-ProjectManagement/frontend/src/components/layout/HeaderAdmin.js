@@ -43,7 +43,7 @@ class HeaderAdmin extends Component {
           <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
-              <Tab label=' Persons' component={RouterLink} to={`/persons`} />
+              <Tab label='Persons' component={RouterLink} to={`/person`} />
               <Tab label='Students' component={RouterLink} to={`/students`} />
               <Tab label='Projects' component={RouterLink} to={`/projects`} />
               <Tab label='Modules' component={RouterLink} to={`/modules`} />
