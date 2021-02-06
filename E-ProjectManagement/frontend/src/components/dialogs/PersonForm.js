@@ -53,7 +53,7 @@ class PersonForm extends Component {
     newPerson.setEmail(this.state.email)
     newPerson.setGoogleUserId(this.state.google_user_id)
     ManagementAPI.getAPI().addPerson(newPerson).then(person => {
-    console.log(newPerson)
+    // console.log(newPerson)
       // Backend call sucessfull
       // reinit the dialogs state for a new empty person
       this.setState(this.baseState);
