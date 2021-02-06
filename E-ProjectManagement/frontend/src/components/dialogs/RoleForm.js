@@ -50,7 +50,7 @@ class RoleForm extends Component {
     newRole.setId(this.state.id)
     newRole.setName(this.state.name)
     ManagementAPI.getAPI().addRole(newRole).then(role => {
-      console.log(newRole);
+      // console.log(newRole);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty role
       this.setState(this.baseState);
