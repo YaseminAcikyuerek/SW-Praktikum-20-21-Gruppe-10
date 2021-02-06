@@ -34,19 +34,18 @@ class ProjectListDozent extends Component {
       ProjectFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedProjectID: expandedID,
       showProjectForm: false
     };
   }
 
   getProjects = async () =>{
     let person = await ManagementAPI.getAPI().getPersonByMail(this.props.currentUserMail) //personBO
-    ManagementAPI.getAPI().getProjectsByOwner(person)
+    ManagementAPI.getAPI().searchProjectsByOwner(person)
     this.setState({person: person})
   }
   /** Fetches all ProjectBOs from person from the backend */
-  getProjectsByOwner= (id) => {
-    ManagementAPI.getAPI().getProjectsByOwner(id)
+  searchProjectsByOwner= (id) => {
+    ManagementAPI.getAPI().searchProjectsByOwner(id)
       .then(projectBOs =>
         this.setState({               // Set new state when ProjectBOs have been fetched
           personProjects: projectBOs,
@@ -66,25 +65,7 @@ class ProjectListDozent extends Component {
       error: null
     });
   }
-   /**
-   * Handles onExpandedStateChange events from the ProjectListEntry component. Toggels the expanded state of
-   * the ProjectListEntry of the given ProjectBO.
-   *
-   * @param {project} ProjectBO of the ProjectListEntry to be toggeled
-   */
-  onExpandedStateChange = project => {
-    let newID = null;
 
-    // If same project entry is clicked, collapse it else expand a new one
-    if (project.getID() !== this.state.expandedProjectID) {
-      // Expand the project entry with projectID
-      newID = project.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedProjectID: newID,
-    });
-  }
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
@@ -174,7 +155,7 @@ class ProjectListDozent extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredProjects, projectFilter, expandedProjectID, loadingInProgress, error, showProjectForm } = this.state;
+    const { filteredProjects, projectFilter, loadingInProgress, error, showProjectForm } = this.state;
 
     return (
       <div className={classes.root}>
@@ -212,8 +193,7 @@ class ProjectListDozent extends Component {
           // Show the list of ProjectListEntry components
           // Do not use strict comparison, since expandedProjectID maybe a string if given from the URL parameters
           filteredProjects.map(project =>
-            <ProjectListEntry key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
-              onExpandedStateChange={this.onExpandedStateChange}
+            <ProjectListEntry key={project.getID()} project={project}
               onProjectDeleted={this.projectDeleted}
             />)
         }

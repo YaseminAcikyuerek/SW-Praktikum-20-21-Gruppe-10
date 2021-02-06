@@ -7,49 +7,41 @@ import { withRouter } from 'react-router-dom';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import RatingListEntryStudent from './RatingListEntryStudent';
+import RatingListEntry from './RatingListEntryStudent';
 import Paper from '@material-ui/core/Paper';
 
 
 
-class RatingListStudent extends Component {
+class RatingListDozent extends Component {
 
   constructor(props) {
     super(props);
 
-    // console.log(props);
-    let expandedID = null;
-
-    if (this.props.location.expandRating) {
-      expandedID = this.props.location.expandRating.getID();
-    }
-
     // Init an empty state
     this.state = {
-      studentRatings: [],
+      dozentRatings: [],
       error: null,
       loadingInProgress: false,
-      expandedProjectID: expandedID,
-        student: null,
+        person: null,
     };
   }
 
   getRatings = async () =>{
-    let student = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
-    ManagementAPI.getAPI().getRatingsByStudent(student)
-    this.setState({student: student})
+    let person = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //personBO
+    ManagementAPI.getAPI().getRatingsByDozent(person)
+    this.setState({person: person})
   }
-  /** Fetches all RatingBOs from student from the backend */
-  getRatingsByStudent= (id) => {
-    ManagementAPI.getAPI().getRatingsByStudent(id)
+  /** Fetches all RatingBOs from person from the backend */
+  getRatingsByDozent= (id) => {
+    ManagementAPI.getAPI().getRatingsByDozent(id)
       .then(ratingBOs =>
         this.setState({               // Set new state when ProjectBOs have been fetched
-          studentRatings: ratingBOs,
+          dozentRatings: ratingBOs,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           studentRatings: [],
+           dozentRatings: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
@@ -63,49 +55,31 @@ class RatingListStudent extends Component {
   }
 
 
-  /**
-   * Handles onExpandedStateChange events from the ProjectListStudent component. Toggels the expanded state of
-   * the ProjectListStudentEntry of the given PersonBO.
-   *
-   *
-   */
-  onExpandedStateChange = student => {
-    let newID = null;
-    // If same person entry is clicked, collapse it else expand a new one
-    if (student.getID() !== this.state.expandedStudentID) {
-      // Expand the person entry with personID
-      newID = student.getID();
-    }
-    this.setState({
-      expandedStudentID: newID,
-    });
-  }
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount () {
-    this.getRatingsByStudent();
+    this.getRatingsByDozent();
   }
 
   /** Renders the component */
   render() {
 
     const { classes } = this.props;
-    const { expandedRatingID, loadingInProgress, error ,student, studentRatings, rating} = this.state;
+    const { loadingInProgress, error ,dozentRatings, rating} = this.state;
 
     return (
 
       <div className={classes.root}>
         <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
           <Grid item>
-            <h1>Semesterbericht</h1>
+            <h1>Meine Beurteilungen</h1>
             <Paper className={classes.paper}> {
-            studentRatings.map(rating =>
-            <RatingListEntryStudent key={rating.getID()} rating={rating} expandedState={expandedRatingID === rating.getID()}
-              onExpandedStateChange={this.onExpandedStateChange} student = {student}
+            dozentRatings.map(rating =>
+            <RatingListEntry key={rating.getID()} rating={rating}
             />)
             }
             <LoadingProgress show={loadingInProgress} />
-            <ContextErrorMessage error={error} contextErrorMsg={`The list of ratings could not be loaded.`} onReload={this.getRatingsByStudent} />
+            <ContextErrorMessage error={error} contextErrorMsg={`The list of ratings could not be loaded.`} onReload={this.getRatingsByDozent} />
             </Paper>
           </Grid>
          </Grid>
@@ -126,11 +100,11 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-RatingListStudent.propTypes = {
+RatingListDozent.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** @ignore */
   location: PropTypes.object.isRequired,
 }
 
-export default withRouter(withStyles(styles)(RatingListStudent));
+export default withRouter(withStyles(styles)(RatingListDozent));
