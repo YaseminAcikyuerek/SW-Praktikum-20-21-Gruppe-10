@@ -43,14 +43,14 @@ class HeaderAdmin extends Component {
           <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
-              <Tab label='Persons' component={RouterLink} to={`/person`} />
-              <Tab label='Students' component={RouterLink} to={`/students`} />
-              <Tab label='Projects' component={RouterLink} to={`/projects`} />
-              <Tab label='Modules' component={RouterLink} to={`/modules`} />
-              <Tab label='Project Types' component={RouterLink} to={`/projectTypes`} />
-              <Tab label='Semesters' component={RouterLink} to={`/semester`} />
-              <Tab label='Ratings' component={RouterLink} to={`/ratings`} />
-              <Tab label='Participations' component={RouterLink} to={`/participation`} />
+              <Tab label='Persons' component={RouterLink} to={`/admin/person`} />
+              <Tab label='Students' component={RouterLink} to={`/admin/students`} />
+              <Tab label='Projects' component={RouterLink} to={`/admin/projects`} />
+              <Tab label='Modules' component={RouterLink} to={`/admin/modules`} />
+              <Tab label='Project Types' component={RouterLink} to={`/admin/projectTypes`} />
+              <Tab label='Semesters' component={RouterLink} to={`/admin/semester`} />
+              <Tab label='Ratings' component={RouterLink} to={`/admin/ratings`} />
+              <Tab label='Participations' component={RouterLink} to={`/admin/participation`} />
               <Tab label='About' component={RouterLink} to={`/about`} />
 
             </Tabs>

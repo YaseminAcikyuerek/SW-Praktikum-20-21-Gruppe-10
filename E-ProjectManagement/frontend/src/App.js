@@ -154,37 +154,37 @@ class App extends React.Component {
 									<Route path='/dozent'>
 										<HeaderDozent/>
 									</Route>
-									<Route path='/students'>
+									<Route path='/admin/students'>
 										<StudentList/>
 									</Route>
-									<Route path='/person'>
+									<Route path='/admin/person'>
 										<PersonList />
 									</Route>
-									<Route path='/projectTypes'>
+									<Route path='/admin/projectTypes'>
 										<ProjectTypeList/>
 									</Route>
-									<Route path='/semester'>
+									<Route path='/admin/semester'>
 										<SemesterList/>
 									</Route>
-									<Route path='/ratings'>
+									<Route path='/admin/ratings'>
 										<RatingList/>
 									</Route>
-									<Route path='/participation'>
+									<Route path='/admin/participation'>
 										<ParticipationList/>
 									</Route>
-									<Route path='/modules'>
+									<Route path='/admin/modules'>
 										<ModuleList/>
 									</Route>
-									<Route path='/studentproject'>
+									<Route path='/student/project'>
 										<ProjectListStudent currentUserMail={currentUser.email}/>
 									</Route>
-									<Route path='/studentrating'>
+									<Route path='/student/rating'>
 										<RatingListStudent currentUserMail={currentUser.email}/>
 									</Route>
-									<Route path='/dozentrating'>
+									<Route path='/dozent/rating'>
 										<RatingListStudent currentUserMail={currentUser.email}/>
 									</Route>
-									<Route path='/dozentprojekt'>
+									<Route path='/dozent/projekt'>
 										<RatingListStudent currentUserMail={currentUser.email}/>
 									</Route>
 									<Route path='/about' component={About} />

@@ -27,18 +27,6 @@ class StudentListEntry extends Component {
     };
   }
 
-  /** Handles onChange events of the underlying ExpansionPanel */
-  expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.student);
-  }
-
-  /** Handles onAccountDelete events from an AccountListEntry
-  deleteProjectHandler = (deletedProject) => {
-    // console.log(deletedProject.getID());
-    this.setState({
-      accounts: this.state.project.filter(project => project.getID() !== deletedProject.getID())
-    })
-  }
 
   /** Handles the onClick event of the edit customer button */
   editStudentButtonClicked = (event) => {
@@ -86,18 +74,15 @@ class StudentListEntry extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, expandedState } = this.props;
+    const { classes} = this.props;
     // Use the states student
     const { student, showStudentForm, showStudentDeleteDialog } = this.state;
 
     // console.log(this.state);
     return (
       <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            id={`student${student.getID()}studentpanel-header`}
-          >
+        <Accordion>
+          <AccordionSummary>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>
@@ -117,14 +102,8 @@ class StudentListEntry extends Component {
                 </ButtonGroup>
               </Grid>
               <Grid item xs />
-              <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of projects</Typography>
-              </Grid>
             </Grid>
           </AccordionSummary>
-          <AccordionDetails>
-            <ProjectList show={expandedState} student={student} />
-          </AccordionDetails>
         </Accordion>
         <StudentForm show={showStudentForm} student={student} onClose={this.studentFormClosed} />
         <StudentDeleteDialog show={showStudentDeleteDialog} student={student} onClose={this.deleteStudentDialogClosed} />
@@ -146,18 +125,7 @@ StudentListEntry.propTypes = {
   classes: PropTypes.object.isRequired,
   /** The CustomerBO to be rendered */
   student: PropTypes.object.isRequired,
-  /** The state of this CustomerListEntry. If true the customer is shown with its accounts */
-  expandedState: PropTypes.bool.isRequired,
-  /** The handler responsible for handle expanded state changes (exanding/collapsing) of this CustomerListEntry
-   *
-   * Signature: onExpandedStateChange(CustomerBO customer)
-   */
-  onExpandedStateChange: PropTypes.func.isRequired,
-  /**
-   *  Event Handler function which is called after a sucessfull delete of this customer.
-   *
-   * Signature: onCustomerDelete(CustomerBO customer)
-   */
+
   onStudentDeleted: PropTypes.func.isRequired
 }
 

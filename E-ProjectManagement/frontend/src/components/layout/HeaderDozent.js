@@ -42,8 +42,8 @@ class HeaderDozent extends Component {
           <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
-              <Tab label='Projects' component={RouterLink} to={`/dozentproject`} />
-              <Tab label='Ratings' component={RouterLink} to={`/dozentrating`} />
+              <Tab label='Projects' component={RouterLink} to={`/dozent/project`} />
+              <Tab label='Ratings' component={RouterLink} to={`/dozent/rating`} />
               <Tab label='About' component={RouterLink} to={`/about`} />
             </Tabs>
       </Paper>

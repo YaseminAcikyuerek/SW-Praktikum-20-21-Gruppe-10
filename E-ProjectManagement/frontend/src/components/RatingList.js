@@ -163,27 +163,20 @@ class RatingList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredRating, expandedRatingID, loadingInProgress, error, showRatingForm } = this.state;
+    const { rating, loadingInProgress, error, showRatingForm } = this.state;
 
     return (
       <div className={classes.root}>
-        <Grid className={classes.ratingFilter} container spacing={1} justify='flex-start' alignItems='center'>
-          <Grid item>
-            <Typography>
-              Filter rating list by name:
-              </Typography>
-          </Grid>
           <Grid item xs />
           <Grid item>
             <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addRatingButtonClicked}>
-              Add Ratings
+              Add Rating
           </Button>
           </Grid>
-        </Grid>
         {
           // Show the list of RatingListEntry components
           // Do not use strict comparison, since expandedRatingID maybe a string if given from the URL parameters
-          filteredRating.map(rating =>
+          rating.map(rating =>
             <RatingListEntry key={rating.getID()} rating={rating} expandedState={expandedRatingID === rating.getID()}
               onExpandedStateChange={this.onExpandedStateChange}
               onRatingDeleted={this.ratingDeleted}

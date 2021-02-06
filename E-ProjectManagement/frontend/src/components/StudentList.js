@@ -18,21 +18,11 @@ class StudentList extends Component {
   constructor(props) {
     super(props);
 
-    // console.log(props);
-    let expandedID = null;
-
-    if (this.props.location.expandStudent) {
-      expandedID = this.props.location.expandStudent.getID();
-    }
-
     // Init an empty state
     this.state = {
       student: [],
-      filteredStudent: [],
-      studentFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedStudentID: expandedID,
       showStudentForm: false
     };
   }
@@ -64,28 +54,6 @@ class StudentList extends Component {
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
     this.getStudent();
-  }
-
-  /**
-   * Handles onExpandedStateChange events from the CustomerListEntry component. Toggels the expanded state of
-   * the CustomerListEntry of the given CustomerBO.
-   *
-   * @param {customer} StudentBO of the CustomerListEntry to be toggeled
-   */
-  onExpandedStateChange = student => {
-    // console.log(studentID);
-    // Set expandend customer entry to null by default
-    let newID = null;
-
-    // If same student entry is clicked, collapse it else expand a new one
-    if (student.getID() !== this.state.expandedStudentID) {
-      // Expand the student entry with customerID
-      newID = student.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedStudentID: newID,
-    });
   }
 
   /**
@@ -154,33 +122,11 @@ class StudentList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredStudent, studentFilter, expandedStudentID, loadingInProgress, error, showStudentForm } = this.state;
+    const { student, loadingInProgress, error, showStudentForm } = this.state;
 
     return (
       <div className={classes.root}>
         <Grid className={classes.studentFilter} container spacing={1} justify='flex-start' alignItems='center'>
-          <Grid item>
-            <Typography>
-              Filter student list course_abbr :
-              </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              autoFocus
-              fullWidth
-              id='studentFilter'
-              type='text'
-              value={studentFilter}
-              onChange={this.filterFieldValueChange}
-              InputProps={{
-                endAdornment: <InputAdornment position='end'>
-                  <IconButton onClick={this.clearFilterFieldButtonClicked}>
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>,
-              }}
-            />
-          </Grid>
           <Grid item xs />
           <Grid item>
             <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addStudentButtonClicked}>
@@ -189,11 +135,8 @@ class StudentList extends Component {
           </Grid>
         </Grid>
         {
-          // Show the list of CustomerListEntry components
-          // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
-          filteredStudent.map(student =>
-            <StudentListEntry key={student.getID()} student={student} expandedState={expandedStudentID === student.getID()}
-              onExpandedStateChange={this.onExpandedStateChange}
+          student.map(student =>
+            <StudentListEntry key={student.getID()} student={student}
               onStudentDeleted={this.studentDeleted}
             />)
         }

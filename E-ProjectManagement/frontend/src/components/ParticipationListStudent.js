@@ -147,4 +147,4 @@ ParticipationListStudent.propTypes = {
   show: PropTypes.bool.isRequired
 }
 
-export default withStyles(styles)(ParticipationListStudent);
+export default withRouter(withStyles(styles)(ParticipationListStudent));

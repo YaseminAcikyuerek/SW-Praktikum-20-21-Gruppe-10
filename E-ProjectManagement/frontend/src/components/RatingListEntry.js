@@ -22,10 +22,6 @@ class RatingListEntry extends Component {
     };
   }
 
-  /** Handles onChange events of the underlying ExpansionPanel */
-  expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.rating);
-  }
 
 
   /** Handles the onClick event of the edit customer button */
@@ -74,18 +70,15 @@ class RatingListEntry extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, expandedState } = this.props;
+    const { classes } = this.props;
     // Use the states rating
     const { rating, showRatingForm, showRatingDeleteDialog } = this.state;
 
     // console.log(this.state);
     return (
       <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            id={`rating${rating.getID()}ratingpanel-header`}
-          >
+        <Accordion>
+          <AccordionSummary>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>
@@ -107,14 +100,8 @@ class RatingListEntry extends Component {
                 </ButtonGroup>
               </Grid>
               <Grid item xs />
-              <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of ratings</Typography>
-              </Grid>
             </Grid>
           </AccordionSummary>
-          <AccordionDetails>
-            <RatingList show={expandedState} rating={rating} />
-          </AccordionDetails>
         </Accordion>
         <RatingForm show={showRatingForm} rating={rating} onClose={this.ratingFormClosed} />
         <RatingDeleteDialog show={showRatingDeleteDialog} rating={rating} onClose={this.deleteRatingDialogClosed} />
@@ -137,7 +124,6 @@ RatingListEntry.propTypes = {
   /** The RatingBO to be rendered */
   rating: PropTypes.object.isRequired,
   /** The state of this RatingListEntry. If true the rating is shown with its ratings */
-  expandedState: PropTypes.bool.isRequired,
   /** The handler responsible for handle expanded state changes (exanding/collapsing) of this RatingListEntry
    *
    * Signature: onExpandedStateChange(RatingBO rating)
