@@ -24,19 +24,12 @@ class ParticipationList extends Component {
   constructor(props) {
     super(props);
 
-    let expandedID = null;
-    if (this.props.location.expandParticipation) {
-      expandedID = this.props.location.expandParticipation.getID();
-    }
     // Init the state
     this.state = {
       participations: [],
-      filteredParticipations:[],
-      participationFilter:'',
       error: null,
       loadingInProgress: false,
       loadingParticipationError: null,
-      expandedParticipationID: expandedID,
       showParticipationForm: false,
     };
   }
@@ -46,7 +39,6 @@ class ParticipationList extends Component {
     ManagementAPI.getAPI().getParticipations().then(participationBOs =>
       this.setState({  // Set new state when ParticipationBOs have been fetched
         participations: participationBOs,
-        filteredParticipations:[...participationBOs],
         loadingInProgress: false, // loading indicator
         error: null
       })).catch(e =>
@@ -77,19 +69,6 @@ class ParticipationList extends Component {
    *
    * @param {person} ParticipationBO of the PersonListEntry to be toggeled
    */
-  onExpandedStateChange = participation => {
-    let newID = null;
-
-    // If same person entry is clicked, collapse it else expand a new one
-    if (participation.getID() !== this.state.expandedParticipationID) {
-      // Expand the person entry with personID
-      newID = participation.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedParticipationID: newID,
-    });
-  }
 
   participationDeleted = participation => {
     const newParticipationList = this.state.participations.filter(participationFromState => participationFromState.getID() !== participation.getID());
@@ -126,71 +105,25 @@ class ParticipationList extends Component {
       });
     }
   }
-  /** Handels onChange events of the person filter text field */
-  filterFieldValueChange = event => {
-    const value = event.target.value.toLowerCase();
-    this.setState({
-      filteredParticipations: this.state.participations.filter(participation => {
-        let projectContainsValue = participation.getProject().toLowerCase().includes(value);
-        let studentContainsValue = participation.getStudent().toLowerCase().includes(value);
 
 
-        return projectContainsValue || studentContainsValue ;
-      }),
-      participationFilter: value
-    });
-  }
-
-  /** Handles the onClose event of the clear filter button */
-  clearFilterFieldButtonClicked = () => {
-    // Reset the filter
-    this.setState({
-      filteredParticipations: [...this.state.participations],
-      participationFilter: ''
-    });
-  }
 
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredParticipations, participationFilter, expandedParticipationID, loadingInProgress, error, showParticipationForm } = this.state;
+    const { participations, loadingInProgress, error, showParticipationForm } = this.state;
 
     return (
       <div className={classes.root}>
-        <Grid className={classes.participationFilter} container spacing={1} justify='flex-start' alignItems='center'>
-          <Grid item>
-            <Typography>
-              Filter participation list by name:
-              </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              autoFocus
-              fullWidth
-              id='participationFilter'
-              type='text'
-              value={participationFilter}
-              onChange={this.filterFieldValueChange}
-              InputProps={{
-                endAdornment: <InputAdornment position='end'>
-                  <IconButton onClick={this.clearFilterFieldButtonClicked}>
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>,
-              }}
-            />
-          </Grid>
           <Grid item xs />
           <Grid item>
             <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addParticipationButtonClicked}>
               Add Participation
           </Button>
           </Grid>
-        </Grid>
         {
-          filteredParticipations.map(participation =>
-            <ParticipationListEntry key={participation.getID()} participation={participation} expandedState={expandedParticipationID === participation.getID()}
-              onExpandedStateChange={this.onExpandedStateChange}
+          participations.map(participation =>
+            <ParticipationListEntry key={participation.getID()} participation={participation}
               onParticipationDeleted={this.participationDeleted}
             />)
         }

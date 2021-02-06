@@ -11,7 +11,7 @@ import ParticipationList from "./ParticipationList";
 
 /**
  * Renders a PersonBO object within a expandable/collapsible PersonListEntry with the person manipulation
- * functions. If expanded, it renders a PersonList.
+ * functions.
  *
  *
  *
@@ -28,11 +28,6 @@ class ParticipationListEntry extends Component {
       showParticipationForm: false,
       showParticipationDeleteDialog: false,
     };
-  }
-
-  /** Handles onChange events of the underlying ExpansionPanel */
-  expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.participation);
   }
 
 
@@ -83,15 +78,14 @@ class ParticipationListEntry extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, expandedState } = this.props;
+    const { classes} = this.props;
     // Use the states participation
     const { participation, showParticipationForm, showParticipationDeleteDialog } = this.state;
 
-    // console.log(this.state);
     return (
       <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} id={`participation${participation.getID()}participationpanel-header`}>
+        <Accordion >
+          <AccordionSummary >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>
@@ -110,14 +104,8 @@ class ParticipationListEntry extends Component {
                 </ButtonGroup>
               </Grid>
               <Grid item xs />
-              <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of participation</Typography>
-              </Grid>
             </Grid>
           </AccordionSummary>
-          <AccordionDetails>
-            <ParticipationList show={expandedState} person={participation} />
-          </AccordionDetails>
         </Accordion>
         <ParticipationForm show={showParticipationForm} participation={participation} onClose={this.participationFormClosed} />
         <ParticipationDeleteDialog show={showParticipationDeleteDialog} participation={participation} onClose={this.deleteParticipationDialogClosed} />
@@ -139,13 +127,7 @@ ParticipationListEntry.propTypes = {
   classes: PropTypes.object.isRequired,
   /** The ParticipationBO to be rendered */
   participation: PropTypes.object.isRequired,
-  /** The state of this ParticipationListEntry. If true the participation */
-  expandedState: PropTypes.bool.isRequired,
-  /** The handler responsible for handle expanded state changes (exanding/collapsing) of this PersonListEntry
-   *
-   * Signature: onExpandedStateChange(ParticipationBO participation)
-   */
-  onExpandedStateChange: PropTypes.func.isRequired,
+
   /**
    *  Event Handler function which is called after a sucessfull delete of this person.
    *
