@@ -19,7 +19,6 @@ class PersonList extends Component {
     super(props);
 
     let expandedID = null;
-//Achtung: hier Änderung von "expandPerson" in person
     if (this.props.location.person) {
       expandedID = this.props.location.expandPerson.getID();
     }

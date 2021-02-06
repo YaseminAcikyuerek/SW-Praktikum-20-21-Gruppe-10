@@ -196,7 +196,7 @@ class SemesterList extends Component {
           filteredSemesters.map(semester =>
             <SemesterListEntry key={semester.getID()} semester={semester} expandedState={expandedSemesterID === semester.getID()}
               onExpandedStateChange={this.onExpandedStateChange}
-              onModuleDeleted={this.semesterDeleted}
+              onSemesterDeleted={this.semesterDeleted}
             />)
         }
         <LoadingProgress show={loadingInProgress} />

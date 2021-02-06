@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {withStyles, ListItem, Grid, Typography, TextField, InputAdornment, IconButton} from '@material-ui/core';
 import { Button, List } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { withRouter } from 'react-router-dom';
 import {ManagementAPI} from '../api';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
@@ -23,6 +24,10 @@ class ParticipationList extends Component {
   constructor(props) {
     super(props);
 
+    let expandedID = null;
+    if (this.props.location.expandParticipation) {
+      expandedID = this.props.location.expandParticipation.getID();
+    }
     // Init the state
     this.state = {
       participations: [],
@@ -31,13 +36,13 @@ class ParticipationList extends Component {
       error: null,
       loadingInProgress: false,
       loadingParticipationError: null,
-      showParticipationError: null,
+      expandedParticipationID: expandedID,
+      showParticipationForm: false,
     };
   }
 
-  /** Fetches AccountBOs for the current customer */
+  /** Fetches all ParticipationBOs  */
   getParticipations = () => {
-    console.log("vor fetch")
     ManagementAPI.getAPI().getParticipations().then(participationBOs =>
       this.setState({  // Set new state when ParticipationBOs have been fetched
         participations: participationBOs,
@@ -73,8 +78,6 @@ class ParticipationList extends Component {
    * @param {person} ParticipationBO of the PersonListEntry to be toggeled
    */
   onExpandedStateChange = participation => {
-    // console.log(personID);
-    // Set expandend person entry to null by default
     let newID = null;
 
     // If same person entry is clicked, collapse it else expand a new one
@@ -219,9 +222,7 @@ ParticipationList.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The StudentBO of this ParticipationListStudent */
-  participation: PropTypes.object.isRequired,
-  /** If true, participations are (re)loaded */
-  show: PropTypes.bool.isRequired
+  location: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(ParticipationList);
+export default withRouter(withStyles(styles)(ParticipationList));

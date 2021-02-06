@@ -25,7 +25,7 @@ class RatingList extends Component {
     // console.log(props);
     let expandedID = null;
 
-    if (this.props.location.expandRating) { //TODO: DRINGEND ÄNDERN
+    if (this.props.location.expandRating) {
       expandedID = this.props.location.expandRating.getID();
     }
 
@@ -33,7 +33,6 @@ class RatingList extends Component {
     this.state = {
       rating: [],
       filteredRating: [],
-      RatingFilter: '',
       error: null,
       loadingInProgress: false,
       expandedRatingID: expandedID,
@@ -102,7 +101,7 @@ class RatingList extends Component {
     this.setState({
       rating: newRatingList,
       filteredRating: [...newRatingList],
-      showPersonForm: false
+      showRatingForm: false
     });
   }
 
@@ -164,7 +163,7 @@ class RatingList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredRating,ratingFilter, expandedRatingID, loadingInProgress, error, showRatingForm } = this.state;
+    const { filteredRating, expandedRatingID, loadingInProgress, error, showRatingForm } = this.state;
 
     return (
       <div className={classes.root}>
@@ -173,23 +172,6 @@ class RatingList extends Component {
             <Typography>
               Filter rating list by name:
               </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              autoFocus
-              fullWidth
-              id='ratingFilter'
-              type='text'
-              value={ratingFilter}
-              onChange={this.filterFieldValueChange}
-              InputProps={{
-                endAdornment: <InputAdornment position='end'>
-                  <IconButton onClick={this.clearFilterFieldButtonClicked}>
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>,
-              }}
-            />
           </Grid>
           <Grid item xs />
           <Grid item>

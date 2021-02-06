@@ -219,7 +219,7 @@ SemesterForm.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The SemesterBO to be edited */
-  customer: PropTypes.object,
+  semester: PropTypes.object,
   /** If true, the form is rendered */
   show: PropTypes.bool.isRequired,
   /**

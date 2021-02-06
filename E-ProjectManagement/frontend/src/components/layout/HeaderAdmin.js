@@ -50,8 +50,9 @@ class HeaderAdmin extends Component {
               <Tab label='Project Types' component={RouterLink} to={`/projectTypes`} />
               <Tab label='Semesters' component={RouterLink} to={`/semester`} />
               <Tab label='Ratings' component={RouterLink} to={`/ratings`} />
+              <Tab label='Participations' component={RouterLink} to={`/participation`} />
               <Tab label='About' component={RouterLink} to={`/about`} />
-              <Tab label='Participations' component={RouterLink} to={`/participations`} />
+
             </Tabs>
       </Paper>
     )

@@ -101,7 +101,7 @@ ParticipationDeleteDialog.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** The CustomerBO to be deleted */
-  module: PropTypes.object.isRequired,
+  participation: PropTypes.object.isRequired,
   /** If true, the dialog is rendered */
   show: PropTypes.bool.isRequired,
   /**

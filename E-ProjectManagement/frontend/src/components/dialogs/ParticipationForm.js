@@ -51,7 +51,6 @@ class ParticipationForm extends Component {
     newParticipation.setProject(this.state.project)
     newParticipation.setStudent(this.state.student)
     ManagementAPI.getAPI().addParticipation(newParticipation).then(participation => {
-      console.log(newParticipation);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty participation
       this.setState(this.baseState);

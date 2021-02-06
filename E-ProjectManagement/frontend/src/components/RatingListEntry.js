@@ -27,13 +27,6 @@ class RatingListEntry extends Component {
     this.props.onExpandedStateChange(this.props.rating);
   }
 
-  /** Handles onRatingDelete events from an RatingListEntry
-  deleteRatingHandler = (deletedRating) => {
-    // console.log(deletedRating.getID());
-    this.setState({
-      ratings: this.state.ratings.filter(rating => rating.getID() !== deletedRating.getID())
-    })
-  }
 
   /** Handles the onClick event of the edit customer button */
   editRatingButtonClicked = (event) => {

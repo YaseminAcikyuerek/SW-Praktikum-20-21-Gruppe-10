@@ -589,7 +589,6 @@ export default class ManagementAPI {
   getParticipations(){
     return this.#fetchAdvanced(this.#getParticipationsURL()).then((responseJSON) => {
       let participationBOs = ParticipationBO.fromJSON(responseJSON);
-      //console.info(participationBOs);
       return new Promise(function (resolve) {
         resolve(participationBOs);
       })

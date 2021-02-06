@@ -855,7 +855,7 @@ class ParticipationProjectOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RatingListOperations(Resource):
     @management.marshal_list_with(rating)
-
+    @secured
     def get(self):
         """Auslesen aller rating-Objekte.
 
