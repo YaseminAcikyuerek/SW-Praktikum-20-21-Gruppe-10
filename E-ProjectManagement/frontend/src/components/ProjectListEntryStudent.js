@@ -91,7 +91,8 @@ class ProjectListEntryStudent extends Component {
   }
 
    /** Deletes this participation */
-   deleteParticipation = () => { console.log(this.state.participation)
+   deleteParticipation = () => {
+       // console.log(this.state.participation)
     ManagementAPI.getAPI().deleteParticipation(this.state.participation.getID()).then(() => {
       this.setState({  // Set new state when ParticipationBOs have been fetched
         deletingInProgress: false, // loading indicator
