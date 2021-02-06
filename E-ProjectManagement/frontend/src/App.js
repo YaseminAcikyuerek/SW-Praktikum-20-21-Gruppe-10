@@ -161,6 +161,9 @@ class App extends React.Component {
 									<Route path='/admin/person'>
 										<PersonList />
 									</Route>
+									<Route path='/admin/projects'>
+										<ProjectList />
+									</Route>
 									<Route path='/admin/projectTypes'>
 										<ProjectTypeList/>
 									</Route>
