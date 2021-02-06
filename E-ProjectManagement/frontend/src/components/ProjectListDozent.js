@@ -9,6 +9,7 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import ProjectForm from './dialogs/ProjectForm';
 import ProjectListEntry from './ProjectListEntry';
+import Paper from '@material-ui/core/Paper';
 
 /**
  * Controlls a list of ProjectListEntrys to create a accordion for each project.
@@ -20,52 +21,54 @@ class ProjectListDozent extends Component {
   constructor(props) {
     super(props);
 
-    // console.log(props);
-    let expandedID = null;
-
-    if (this.props.location.expandProject) {
-      expandedID = this.props.location.expandProject.getID();
-    }
-
     // Init an empty state
     this.state = {
-      personProjects: [],
-      filteredProjects: [],
-      ProjectFilter: '',
+      projects: [],
+      currentUser: [],
+      person: null,
       error: null,
       loadingInProgress: false,
       showProjectForm: false
     };
   }
 
-  getProjects = async () =>{
-    let person = await ManagementAPI.getAPI().getPersonByMail(this.props.currentUserMail) //personBO
-    ManagementAPI.getAPI().searchProjectsByOwner(person)
-    this.setState({person: person})
-  }
-  /** Fetches all ProjectBOs from person from the backend */
-  searchProjectsByOwner= (id) => {
-    ManagementAPI.getAPI().searchProjectsByOwner(id)
-      .then(projectBOs =>
+  /** Fetches personBo from the backend with logged in e-mail*/
+  searchProjectsByOwner = async () => {
+    let personID = 0;
+    // console.log("getPersonByMail loaded");
+
+        await ManagementAPI.getAPI().getPersonByMail(this.props.currentUserMail).then(personBOs =>
         this.setState({               // Set new state when ProjectBOs have been fetched
-          personProjects: projectBOs,
+          currentUser: personBOs,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           personProjects: [],
+           currentUser: 0,
             loadingInProgress: false, // disable loading indicator
             error: e
           })
         );
-
     // set loading to true
     this.setState({
       loadingInProgress: true,
       error: null
     });
-  }
 
+    /** Fetches all RatingBOs from person from the backend */
+    ManagementAPI.getAPI().searchProjectsByOwner(this.state.currentUser[0].id).then(projectBOs =>
+        this.setState({               // Set new state when ProjectBOs have been fetched
+          projects: projectBOs,
+          loadingInProgress: false,   // disable loading indicator
+          error: null
+        })).catch(e =>
+          this.setState({             // Reset state with error from catch
+           projects: [],
+            loadingInProgress: false, // disable loading indicator
+            error: e
+          })
+        );
+  }
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
@@ -81,7 +84,6 @@ class ProjectListDozent extends Component {
     const newProjectList = this.state.projects.filter(projectFromState => projectFromState.getID() !==project.getID());
     this.setState({
       projects: newProjectList,
-      filteredProjects: [...newProjectList],
       showProjectForm: false
     });
   }
@@ -103,7 +105,6 @@ class ProjectListDozent extends Component {
       const newProjectList = [...this.state.projects,project];
       this.setState({
         projects: newProjectList,
-        filteredProjects: [...newProjectList],
         showProjectForm: false
       });
     } else {
@@ -155,50 +156,26 @@ class ProjectListDozent extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredProjects, projectFilter, loadingInProgress, error, showProjectForm } = this.state;
+    const { projects,loadingInProgress, error, showProjectForm } = this.state;
 
     return (
       <div className={classes.root}>
-        <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
-          <Grid item>
-            <Typography>
-              Filter project list by name:
-              </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <TextField
-              autoFocus
-              fullWidth
-              id='projectFilter'
-              type='text'
-              value={projectFilter}
-              onChange={this.filterFieldValueChange}
-              InputProps={{
-                endAdornment: <InputAdornment position='end'>
-                  <IconButton onClick={this.clearFilterFieldButtonClicked}>
-                    <ClearIcon />
-                  </IconButton>
-                </InputAdornment>,
-              }}
-            />
-          </Grid>
           <Grid item xs />
           <Grid item>
             <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addProjectButtonClicked}>
               Neues Projekt beantragen
           </Button>
           </Grid>
-        </Grid>
         {
           // Show the list of ProjectListEntry components
           // Do not use strict comparison, since expandedProjectID maybe a string if given from the URL parameters
-          filteredProjects.map(project =>
+          projects.map(project =>
             <ProjectListEntry key={project.getID()} project={project}
               onProjectDeleted={this.projectDeleted}
             />)
         }
         <LoadingProgress show={loadingInProgress} />
-        <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.getProjects} />
+        <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectsByOwner} />
         <ProjectForm show={showProjectForm} onClose={this.projectFormClosed} />
       </div>
     );
