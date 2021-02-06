@@ -80,7 +80,7 @@ class SemesterListEntry extends Component {
     // console.log(this.state);
     return (
       <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
+        <Accordion >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             id={`semester${semester.getID()}semesterpanel-header`}

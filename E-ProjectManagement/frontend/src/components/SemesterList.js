@@ -19,11 +19,7 @@ class SemesterList extends Component {
     super(props);
 
     // console.log(props);
-    let expandedID = null;
 
-    if (this.props.location.expandSemester) {
-      expandedID = this.props.location.expandSemester.getID();
-    }
 
     // Init an empty state
     this.state = {
@@ -32,7 +28,6 @@ class SemesterList extends Component {
       SemesterFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedSemesterID: expandedID,
       showSemesterForm: false
     };
   }
@@ -72,21 +67,7 @@ class SemesterList extends Component {
    *
    * @param {module} SemesterBO of the SemesterListEntry to be toggeled
    */
-  onExpandedStateChange = semester => {
-    // console.log(semesterID);
-    // Set expandend module entry to null by default
-    let newID = null;
 
-    // If same semester entry is clicked, collapse it else expand a new one
-    if (semester.getID() !== this.state.expandedSemesterID) {
-      // Expand the semester entry with customerID
-      newID = semester.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedSemesterID: newID,
-    });
-  }
 
   /**
    * Handles onSemesterDeleted events from the SemesterListEntry component
@@ -156,7 +137,7 @@ class SemesterList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredSemesters, semesterFilter, expandedSemesterID, loadingInProgress, error, showSemesterForm } = this.state;
+    const { semester, semesterFilter, loadingInProgress, error, showSemesterForm } = this.state;
 
     return (
       <div className={classes.root}>
@@ -193,9 +174,9 @@ class SemesterList extends Component {
         {
           // Show the list of SemesterListEntry components
           // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
-          filteredSemesters.map(semester =>
-            <SemesterListEntry key={semester.getID()} semester={semester} expandedState={expandedSemesterID === semester.getID()}
-              onExpandedStateChange={this.onExpandedStateChange}
+          //
+          semester.map(semester =>
+            <SemesterListEntry key={semester.getID()} semester={semester}
               onSemesterDeleted={this.semesterDeleted}
             />)
         }
