@@ -26,6 +26,8 @@ import Start from "./components/pages/Start";
 import HeaderStudent from "./components/layout/HeaderStudent";
 import ProjectListStudent from "./components/ProjectListStudent";
 import RatingListStudent from "./components/RatingListStudent";
+import RatingListDozent from "./components/RatingListDozent";
+import ProjectListDozent from "./components/ProjectListDozent";
 
 
 
@@ -161,6 +163,9 @@ class App extends React.Component {
 									<Route path='/admin/person'>
 										<PersonList />
 									</Route>
+									<Route path='/admin/projects'>
+										<ProjectList />
+									</Route>
 									<Route path='/admin/projectTypes'>
 										<ProjectTypeList/>
 									</Route>
@@ -183,10 +188,10 @@ class App extends React.Component {
 										<RatingListStudent currentUserMail={currentUser.email}/>
 									</Route>
 									<Route path='/dozent/rating'>
-										<RatingListStudent currentUserMail={currentUser.email}/>
+										<RatingListDozent currentUserMail={currentUser.email}/>
 									</Route>
-									<Route path='/dozent/projekt'>
-										<RatingListStudent currentUserMail={currentUser.email}/>
+									<Route path='/dozent/project'>
+										<ProjectListDozent currentUserMail={currentUser.email}/>
 									</Route>
 									<Route path='/about' component={About} />
 									<Route path='/projects'>

@@ -73,7 +73,7 @@ export default class ManagementAPI {
   #updateRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
   #deleteRatingURL = (id) => `${this.#managementServerBaseURL}/rating/${id}`;
   #getRatingsByStudentURL = (toBeAssessed) => `${this.#managementServerBaseURL}/rating-student/${toBeAssessed}`;
-
+  #getRatingsByDozentURL = (evaluator) => `${this.#managementServerBaseURL}/rating-dozent/${evaluator}`;
 
   // Role  related
   #getRolesURL = () => `${this.#managementServerBaseURL}/role`;
@@ -981,6 +981,16 @@ export default class ManagementAPI {
 
   getRatingsByStudent(toBeAssessed) {
     return this.#fetchAdvanced(this.#getRatingsByStudentURL(toBeAssessed)).then((responseJSON) => {
+      let ratingBOs = RatingBO.fromJSON(responseJSON);
+      // console.info(ratingBOs);
+      return new Promise(function (resolve) {
+        resolve(ratingBOs);
+      })
+    })
+  }
+
+  getRatingsByDozent(evaluator) {
+    return this.#fetchAdvanced(this.#getRatingsByDozentURL(evaluator)).then((responseJSON) => {
       let ratingBOs = RatingBO.fromJSON(responseJSON);
       // console.info(ratingBOs);
       return new Promise(function (resolve) {
