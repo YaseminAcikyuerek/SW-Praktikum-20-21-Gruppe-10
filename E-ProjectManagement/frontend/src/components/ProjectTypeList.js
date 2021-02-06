@@ -17,12 +17,6 @@ class ProjectTypeList extends Component {
     super(props);
 
     // console.log(props);
-    let expandedID = null;
-
-    if (this.props.location.expandProjectType) {
-      expandedID = this.props.location.expandProjectType.getID();
-    }
-
     // Init an empty state
     this.state = {
       projectTypes: [],
@@ -30,7 +24,6 @@ class ProjectTypeList extends Component {
       ProjectTypeFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedProjectTypeID: expandedID,
       showProjectTypeForm: false
     };
   }
@@ -64,29 +57,7 @@ class ProjectTypeList extends Component {
     this.getProjectTypes();
   }
 
-  /**
-   * Handles onExpandedStateChange events from the ProjectTypeListEntry component. Toggels the expanded state of
-   * the ProjectTypeListEntry of the given CustomerBO.
-   *
-   * @param {module} ProjectTypeBO of the ProjectTypeListEntry to be toggeled
-   */
-  onExpandedStateChange = projectType => {
-    // console.log(projectTypeID);
-    // Set expandend projectType entry to null by default
-    let newID = null;
-
-    // If same projectType entry is clicked, collapse it else expand a new one
-    if (projectType.getID() !== this.state.expandedProjectTypeID) {
-      // Expand the projectType entry with ID
-      newID = projectType.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedProjectTypeID: newID,
-    });
-  }
-
-  /**
+    /**
    * Handles onProjectTypeDeleted events from the ProjectTypeListEntry component
    *
    * @param {projectType} ProjectTypeBO of the ProjectTypeListEntry to be deleted
@@ -154,7 +125,7 @@ class ProjectTypeList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredProjectTypes, projectTypeFilter, expandedProjectTypeID, loadingInProgress, error, showProjectTypeForm } = this.state;
+    const { filteredProjectTypes, projectTypeFilter, loadingInProgress, error, showProjectTypeForm } = this.state;
 
     return (
       <div className={classes.root}>
@@ -192,8 +163,7 @@ class ProjectTypeList extends Component {
           // Show the list of ProjectTypeListEntry components
           // Do not use strict comparison, since  maybe a string if given from the URL parameters
           filteredProjectTypes.map(projectType =>
-            <ProjectTypeListEntry key={projectType.getID()} projectType={projectType} expandedState={expandedProjectTypeID === projectType.getID()}
-              onExpandedStateChange={this.onExpandedStateChange}
+            <ProjectTypeListEntry key={projectType.getID()} projectType={projectType}
               onProjectTypeDeleted={this.projectTypeDeleted}
             />)
         }

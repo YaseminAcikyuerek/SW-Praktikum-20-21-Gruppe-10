@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, Grid } from '@material-ui/core';
 import { Button, ButtonGroup } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ProjectTypeForm from './dialogs/ProjectTypeForm';
 import ProjectTypeDeleteDialog from './dialogs/ProjectTypeDeleteDialog';
 
@@ -19,13 +18,6 @@ class ProjectTypeListEntry extends Component {
       showProjectTypeDeleteDialog: false,
     };
   }
-
-  /** Handles onChange events of the underlying ExpansionPanel */
-  expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.projectType);
-  }
-
-
 
   /** Handles the onClick event of the edit ProjectType button */
   editProjectTypeButtonClicked = (event) => {
@@ -73,18 +65,16 @@ class ProjectTypeListEntry extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, expandedState } = this.props;
+    const { classes } = this.props;
     // Use the states customer
     const { projectType, showProjectTypeForm, showProjectTypeDeleteDialog } = this.state;
 
     // console.log(this.state);
     return (
       <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            id={`projectType${projectType.getID()}panel-header`}
-          >
+        <Accordion onChange={this.expansionPanelStateChanged}>
+          <AccordionSummary>
+
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>
@@ -103,10 +93,7 @@ class ProjectTypeListEntry extends Component {
                   </Button>
                 </ButtonGroup>
               </Grid>
-              <Grid item xs />
-              <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of projectType</Typography>
-              </Grid>
+
             </Grid>
           </AccordionSummary>
         </Accordion>
@@ -131,7 +118,6 @@ ProjectTypeListEntry.propTypes = {
   /** The ModuleBO to be rendered */
   projectType: PropTypes.object.isRequired,
   /** The state of this ModuleListEntry. If true the module is shown with its accounts */
-  expandedState: PropTypes.bool.isRequired,
   /** The handler responsible for handle expanded state changes (exanding/collapsing) of this ModuleListEntry
    *
    * Signature: onExpandedStateChange(ModuleBO module)
