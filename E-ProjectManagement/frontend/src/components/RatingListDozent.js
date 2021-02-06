@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import RatingListEntry from './RatingListEntryStudent';
+import RatingListEntry from './RatingListEntry';
 import Paper from '@material-ui/core/Paper';
 
 
@@ -22,19 +22,36 @@ class RatingListDozent extends Component {
       dozentRatings: [],
       error: null,
       loadingInProgress: false,
-        person: null,
+      currentUser: [],
+      person: null,
     };
   }
 
-  getRatings = async () =>{
-    let person = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //personBO
-    ManagementAPI.getAPI().getRatingsByDozent(person)
-    this.setState({person: person})
-  }
-  /** Fetches all RatingBOs from person from the backend */
-  getRatingsByDozent= (id) => {
-    ManagementAPI.getAPI().getRatingsByDozent(id)
-      .then(ratingBOs =>
+  /** Fetches personBo from the backend with logged in e-mail*/
+  getRatingsByDozent = async () => {
+    let personID = 0;
+    // console.log("getPersonByMail loaded");
+
+        await ManagementAPI.getAPI().getPersonByMail(this.props.currentUserMail).then(personBOs =>
+        this.setState({               // Set new state when ProjectBOs have been fetched
+          currentUser: personBOs,
+          loadingInProgress: false,   // disable loading indicator
+          error: null
+        })).catch(e =>
+          this.setState({             // Reset state with error from catch
+           currentUser: 0,
+            loadingInProgress: false, // disable loading indicator
+            error: e
+          })
+        );
+    // set loading to true
+    this.setState({
+      loadingInProgress: true,
+      error: null
+    });
+
+    /** Fetches all RatingBOs from person from the backend */
+    ManagementAPI.getAPI().getRatingsByDozent(this.state.currentUser[0].id).then(ratingBOs =>
         this.setState({               // Set new state when ProjectBOs have been fetched
           dozentRatings: ratingBOs,
           loadingInProgress: false,   // disable loading indicator
@@ -46,12 +63,6 @@ class RatingListDozent extends Component {
             error: e
           })
         );
-
-    // set loading to true
-    this.setState({
-      loadingInProgress: true,
-      error: null
-    });
   }
 
 
@@ -65,8 +76,8 @@ class RatingListDozent extends Component {
   render() {
 
     const { classes } = this.props;
-    const { loadingInProgress, error ,dozentRatings, rating} = this.state;
-
+    const { loadingInProgress, error, dozentRatings, rating} = this.state;
+    // console.log(this.props.currentUserMail);
     return (
 
       <div className={classes.root}>
@@ -86,9 +97,6 @@ class RatingListDozent extends Component {
       </div>
     );
   }
-
-
-
 
 }
 
