@@ -59,7 +59,7 @@ class StudentList extends Component {
   /**
    * Handles onCustomerDeleted events from the CustomerListEntry component
    *
-   * @param {customer} StudentBO of the CustomerListEntry to be deleted
+   * @param {student} StudentBO of the CustomerListEntry to be deleted
    */
   studentDeleted = student => {
     const newStudentList = this.state.student.filter(studentFromState => studentFromState.getID() !== student.getID());
@@ -70,7 +70,7 @@ class StudentList extends Component {
     });
   }
 
-  /** Handles the onClick event of the add customer button */
+  /** Handles the onClick event of the add student button */
   addStudentButtonClicked = event => {
     // Do not toggle the expanded state
     event.stopPropagation();
@@ -80,7 +80,7 @@ class StudentList extends Component {
     });
   }
 
-  /** Handles the onClose event of the CustomerForm */
+  /** Handles the onClose event of the StudentForm */
   studentFormClosed = student => {
     // customer is not null and therefore created
     if (student) {
