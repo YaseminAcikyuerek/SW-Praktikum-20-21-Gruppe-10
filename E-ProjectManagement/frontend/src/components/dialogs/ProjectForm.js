@@ -123,7 +123,7 @@ class ProjectForm extends Component {
     newProject.setLanguage(this.state.language)
     newProject.setRoom(this.state.room)
     ManagementAPI.getAPI().addProject(newProject).then(project => {
-      console.log(newProject);
+      // console.log(newProject);
       // Backend call sucessfull
       // reinit the dialogs state for a new empty project
       this.setState(this.baseState);
