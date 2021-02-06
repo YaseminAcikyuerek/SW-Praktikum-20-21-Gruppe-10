@@ -23,9 +23,9 @@ class SemesterList extends Component {
 
     // Init an empty state
     this.state = {
-      semesters: [],
+      semester: [],
       filteredSemesters: [],
-      SemesterFilter: '',
+      semesterFilter: '',
       error: null,
       loadingInProgress: false,
       showSemesterForm: false
@@ -35,20 +35,19 @@ class SemesterList extends Component {
   /** Fetches all SemesterBOs from the backend */
   getSemesters = () => {
     ManagementAPI.getAPI().getSemesters()
-      .then(semesterBOs =>
+        .then(semesterBOs =>
         this.setState({               // Set new state when SemesterBOs have been fetched
-          modules: semesterBOs,
+          semester: semesterBOs,
           filteredSemesters: [...semesterBOs], // store a copy
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-            semesters: [],
+            semester: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
         );
-
     // set loading to true
     this.setState({
       loadingInProgress: true,
@@ -75,9 +74,9 @@ class SemesterList extends Component {
    * @param {semester} SemesterBO of the SemesterListEntry to be deleted
    */
   semesterDeleted = semester => {
-    const newSemesterList = this.state.semesters.filter(semesterFromState => semesterFromState.getID() !==semester.getID());
+    const newSemesterList = this.state.semester.filter(semesterFromState => semesterFromState.getID() !==semester.getID());
     this.setState({
-      semesters: newSemesterList,
+      semester: newSemesterList,
       filteredSemesters: [...newSemesterList],
       showSemesterForm: false
     });
@@ -97,9 +96,9 @@ class SemesterList extends Component {
   semesterFormClosed = semester => {
     // semester is not null and therefore created
     if (semester) {
-      const newSemesterList = [...this.state.semesters,semester];
+      const newSemesterList = [...this.state.semester,semester];
       this.setState({
-        semesters: newSemesterList,
+        semester: newSemesterList,
         filteredSemesters: [...newSemesterList],
         showSemesterForm: false
       });
@@ -114,7 +113,7 @@ class SemesterList extends Component {
   filterFieldValueChange = event => {
     const value = event.target.value.toLowerCase();
     this.setState({
-      filteredSemesters: this.state.semesters.filter(semester => {
+      filteredSemesters: this.state.semester.filter(semester => {
         let NameContainsValue = semester.getName().toLowerCase().includes(value);
         let startContainsValue = semester.getStart().toLowerCase().includes(value);
         let endContainsValue = semester.getEnd().toLowerCase().includes(value);
@@ -129,7 +128,7 @@ class SemesterList extends Component {
   clearFilterFieldButtonClicked = () => {
     // Reset the filter
     this.setState({
-      filteredSemesters: [...this.state.semesters],
+      filteredSemesters: [...this.state.semester],
       semesterFilter: ''
     });
   }
@@ -140,6 +139,7 @@ class SemesterList extends Component {
     const { semester, semesterFilter, loadingInProgress, error, showSemesterForm } = this.state;
 
     return (
+
       <div className={classes.root}>
         <Grid className={classes.semesterFilter} container spacing={1} justify='flex-start' alignItems='center'>
           <Grid item>
@@ -171,10 +171,8 @@ class SemesterList extends Component {
           </Button>
           </Grid>
         </Grid>
+
         {
-          // Show the list of SemesterListEntry components
-          // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
-          //
           semester.map(semester =>
             <SemesterListEntry key={semester.getID()} semester={semester}
               onSemesterDeleted={this.semesterDeleted}
