@@ -140,6 +140,7 @@ class App extends React.Component {
 						{
 							// Is a user signed in?
 						        currentUser ?
+
 								<>
 									<Redirect from='/' to='start' />
 									<Route exact path='/start'>

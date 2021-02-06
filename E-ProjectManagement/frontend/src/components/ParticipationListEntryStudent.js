@@ -86,7 +86,7 @@ class ParticipationListEntryStudent extends Component {
     // Use the states customer
     const { participation, showParticipationForm, showParticipationDeleteDialog } = this.state;
 
-     console.log(this.state);
+     // console.log(this.state);
     return (
       <div>
         <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
