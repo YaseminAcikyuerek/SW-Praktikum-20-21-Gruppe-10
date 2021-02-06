@@ -177,7 +177,7 @@ class RatingList extends Component {
           // Show the list of RatingListEntry components
           // Do not use strict comparison, since expandedRatingID maybe a string if given from the URL parameters
           rating.map(rating =>
-            <RatingListEntry key={rating.getID()} rating={rating} expandedState={expandedRatingID === rating.getID()}
+            <RatingListEntry key={rating.getID()} rating={rating}
               onExpandedStateChange={this.onExpandedStateChange}
               onRatingDeleted={this.ratingDeleted}
             />)

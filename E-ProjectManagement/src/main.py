@@ -100,7 +100,7 @@ project = api.inherit('Project', bo, nbo, {
 
 project_type = api.inherit('ProjectType', bo, nbo, {
     'sws': fields.String(attribute='_sws', description='SWS der Projektart'),
-    'ects': fields.String(attribute='ects', description='ECTS der Projektart')
+    'ects': fields.String(attribute='_ects', description='ECTS der Projektart')
 })
 
 rating = api.inherit('Rating', bo, {
