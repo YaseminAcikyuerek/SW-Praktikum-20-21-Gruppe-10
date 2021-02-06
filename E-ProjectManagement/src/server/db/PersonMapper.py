@@ -169,8 +169,8 @@ class PersonMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE email LIKE '%{}%'".format(
-            email)
+        command = "SELECT id, creation_time, name, role, email, google_user_id FROM person WHERE email LIKE '%{}%'".format(email)
+
         cursor.execute(command)
         tuples = cursor.fetchall()
 
