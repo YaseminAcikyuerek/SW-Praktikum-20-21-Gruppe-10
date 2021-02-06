@@ -166,7 +166,8 @@ class RatingMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT id,creation_time, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE evaluator='{}'".format(evaluator)
+        command = "SELECT id, creation_time, project, evaluator, to_be_assessed, grade, passed FROM rating WHERE evaluator = {}".format(evaluator)
+
         cursor.execute(command)
         tuples = cursor.fetchall()
 
