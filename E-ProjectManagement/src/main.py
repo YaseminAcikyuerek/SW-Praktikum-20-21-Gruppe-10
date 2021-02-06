@@ -209,7 +209,7 @@ class PersonOperations(Resource):
 @management.param('email', 'Die Mail des Person-Objekts')
 class PersonOperations(Resource):
     @management.marshal_with(person)
-
+    @secured
     def get(self, email):
         """Auslesen einer bestimmten Person-BO.
 
@@ -1000,7 +1000,7 @@ class ProjectRelatedRatingOperations(Resource):
         else:
             return "Project unknown", 500
 
-@management.route('/rating-dozent/int:<evaluator>')
+@management.route('/rating-dozent/<int:evaluator>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class RatingOperations(Resource):
     @management.marshal_with(rating)
