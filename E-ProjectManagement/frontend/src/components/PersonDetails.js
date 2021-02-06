@@ -27,7 +27,6 @@ class PersonDetails extends Component {
     this.getPerson();
   }
 
-  /** gets the balance for this account */
   getPerson = () => {
     ManagementAPI.getAPI().getPerson(this.props.personID).then(person =>
       this.setState({
