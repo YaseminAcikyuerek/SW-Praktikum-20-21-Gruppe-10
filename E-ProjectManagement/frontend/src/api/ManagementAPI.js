@@ -54,7 +54,7 @@ export default class ManagementAPI {
   #addParticipationURL = (id) => `${this.#managementServerBaseURL}/student/${id}/participation`;
   #updateParticipationURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
   #deleteParticipationIdURL = (id) => `${this.#managementServerBaseURL}/participation/${id}`;
-  #searchParticipationURL = (participationStudent) => `${this.#managementServerBaseURL}/participation-by-student/${participationStudent}`;
+  #getParticipationsByStudentURL = (student) => `${this.#managementServerBaseURL}/participation-by-student/${student}`;
 
 
   //Semester related
@@ -694,8 +694,8 @@ export default class ManagementAPI {
    * @public
    */
 
-   searchParticipation(participationStudent) {
-     return this.#fetchAdvanced(this.#searchParticipationURL(participationStudent)).then((responseJSON) => {
+   getParticipationsByStudent(student) {
+     return this.#fetchAdvanced(this.#getParticipationsByStudentURL(student)).then((responseJSON) => {
       let participationBOs = ParticipationBO.fromJSON(responseJSON);
       // console.info(participationBOs);
       return new Promise(function (resolve) {

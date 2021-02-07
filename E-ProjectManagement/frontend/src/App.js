@@ -28,6 +28,7 @@ import ProjectListStudent from "./components/ProjectListStudent";
 import RatingListStudent from "./components/RatingListStudent";
 import RatingListDozent from "./components/RatingListDozent";
 import ProjectListDozent from "./components/ProjectListDozent";
+import ParticipationListStudent from "./components/ParticipationListStudent";
 
 
 
@@ -186,6 +187,9 @@ class App extends React.Component {
 									</Route>
 									<Route path='/student/rating'>
 										<RatingListStudent currentUserMail={currentUser.email}/>
+									</Route>
+									<Route path='/student/participation'>
+										<ParticipationListStudent currentUserMail={currentUser.email}/>
 									</Route>
 									<Route path='/dozent/rating'>
 										<RatingListDozent currentUserMail={currentUser.email}/>
