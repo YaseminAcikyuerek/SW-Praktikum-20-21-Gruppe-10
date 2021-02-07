@@ -34,6 +34,7 @@ export default class ManagementAPI {
   #getProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #updateProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
+  #getProjectsByAcceptedURL = () => `${this.#managementServerBaseURL}/project-by-status`;
   #searchProjectsByOwnerURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
   #getProjectsByStudentURL = (student) => `${this.#managementServerBaseURL}/participation/${student}/project`;
 
@@ -396,6 +397,17 @@ export default class ManagementAPI {
 
    searchProjectsByOwner(projectOwner) {
      return this.#fetchAdvanced(this.#searchProjectsByOwnerURL(projectOwner)).then((responseJSON) => {
+      let projectBOs = ProjectBO.fromJSON(responseJSON);
+      // console.info(projectBOs);
+      return new Promise(function (resolve) {
+        resolve(projectBOs);
+      })
+    })
+
+   }
+
+   getProjectsByAccepted() {
+     return this.#fetchAdvanced(this.#getProjectsByAcceptedURL()).then((responseJSON) => {
       let projectBOs = ProjectBO.fromJSON(responseJSON);
       // console.info(projectBOs);
       return new Promise(function (resolve) {

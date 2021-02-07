@@ -33,40 +33,58 @@ class ProjectListEntryStudent extends Component {
       showProjectDeleteDialog: false,
       participation: null,
       participations: [],
-      participationsCounter: 0,
     };
   }
 
 
   /** Adds an participation for the current studentBO */
   addParticipation = () => {
-      const participation = new ParticipationBO
-      participation.setStudent(this.props.student.id)
-      participation.setProject(this.state.project.id)
-    ManagementAPI.getAPI().addParticipation(participation).then(participationBO => {
-      this.setState({  // Set new state when ParticipationBOs have been fetched
-        participation: participationBO,
-        loadingInProgress: false, // loading indicator
-        addingParticipationError: null
-      })
+    let newParticipation = new ParticipationBO();
+    newParticipation.setProject(this.state.project)
+    newParticipation.setStudent(this.state.student)
+    ManagementAPI.getAPI().addParticipation(newParticipation).then(participation => {
+      // Backend call sucessfull
+      // reinit the dialogs state for a new empty participation
+      this.setState(this.baseState);
+      this.props.onClose(participation); // call the parent with the participation object from backend
     }).catch(e =>
-      this.setState({ // Reset state with error from catch
-        participation: null,
-        loadingInProgress: false,
-        addingParticipationError: e
+      this.setState({
+        updatingInProgress: false,    // disable loading indicator
+        updatingError: e              // show error message
       })
     );
 
     // set loading to true
     this.setState({
-      loadingInProgress: true,
-      addingParticipationError: null
+      updatingInProgress: true,       // show loading indicator
+      updatingError: null             // disable error message
+    });
+  }
+
+  /** Handles the onClick event of the delete participation button */
+  deleteParticipationButtonClicked = (event) => {
+    event.stopPropagation();
+    this.setState({
+      showParticipationDeleteDialog: true
+    });
+  }
+
+  /** Handles the onClose event of the PersonDeleteDialog */
+  deleteParticipationDialogClosed = (participation) => {
+    // if participation is not null, delete it
+    if (participation) {
+      this.props.onParticipationDeleted(participation);
+    }
+
+    // Don´t show the dialog
+    this.setState({
+      showParticipationDeleteDialog: false
     });
   }
 
 /** Fetches ParticipationBOs for the current user studentBO */
-  getParticipationsByProject = () => {
-    ManagementAPI.getAPI().getParticipationsByProject(this.state.project.getID())
+  getParticipationsByProjectURL = (student) => {
+    ManagementAPI.getAPI().getParticipationsByProjectURL(student)
       .then(participationBOs =>
         this.setState({               // Set new state when ParticipationBOs have been fetched
           participations: participationBOs,
@@ -111,13 +129,14 @@ class ProjectListEntryStudent extends Component {
       deletingError: null
     });
   }
-
-
-  /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
-  componentDidMount() {
-    this.getParticipationsByProject();
-
-
+  /** Handles the onClick event of the add person button */
+  addParticipationButtonClicked = event => {
+    // Do not toggle the expanded state
+    event.stopPropagation();
+    //Show the PersonForm
+    this.setState({
+      showParticipationForm: true
+    });
   }
 
 
@@ -127,70 +146,32 @@ class ProjectListEntryStudent extends Component {
   render() {
     const { classes, expandedState } = this.props;
     // Use the states project
-    const { project, showProjectForm, showProjectDeleteDialog, participations, participation } = this.state;
+    const { project, showProjectForm, showParticipationDeleteDialog, participations, participation } = this.state;
 
     return (
-      participation !==null?
-      <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
+      <div className={classes.root} >
+        <Accordion>
           <AccordionSummary
-            id={`project${project.getID()}accountpanel-header`}
-          >
+            id={`project${project.getID()}accountpanel-header`}>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>
-                    Projet-ID:      {project.getID()}, <br></br>
+                    Projekt-ID:     {project.getID()}, <br></br>
                     Projektname:    {project.getName()}, <br></br>
                     Modul:          {project.getOwner()}<br></br>
                     Projekt-Typ:    {project.getProjectType()}<br></br>
                     Semester:       {project.getSemester()}<br></br>
                     Projektinhaber: {project.getOwner()}<br></br>
-                }
                   <Button variant="contained"
                           color="secondary"
                           className={classes.buttonAblehnen}
                           startIcon={<HighlightOffIcon/>}
-                          variant='outlined' color='primary' size='small' onClick={this.deleteParticipation}>
+                          variant='outlined' color='primary' size='small' onClick={this.deleteParticipationButtonClicked}>
                   Abmelden
                   </Button>
                 </Typography>
-                <Typography variant='body1' className={classes.heading}>{"Beschreibung:"+ " "+ project.getShortDescription()}
-                </Typography>
               </Grid>
             </Grid>
-          </AccordionSummary>
-        </Accordion>
-      </div>
-      :
-      <div>
-      <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
-        <AccordionSummary
-          // expandIcon={<ExpandMoreIcon />}
-          id={`project${project.getID()}accountpanel-header`}
-        >
-
-          <Grid container spacing={1} justify='flex-start' alignItems='center'>
-            <Grid item>
-              <Typography variant='body1' className={classes.heading}>{"Projekt:" + " " + project.getName()}
-                <Button
-                        color="secondary"
-                        className={classes.buttonAnmelden}
-                        startIcon={<CheckIcon/>}
-                        variant="contained" color='primary' size='small'  onClick={this.addParticipation}>
-                Anmelden
-                </Button>
-                <Button variant="contained"
-                        color="secondary"
-                        className={classes.buttonAbmelden}
-                        startIcon={<HighlightOffIcon/>}
-                        variant='outlined' color='primary' size='small' onClick={() => this.deleteParticipation}>
-                Abmelden
-                </Button> */}
-              </Typography>
-              <Typography variant='body1' className={classes.heading}>{"Beschreibung:"+ " "+ project.getShortDescription()}
-              </Typography>
-            </Grid>
-          </Grid>
         </AccordionSummary>
       </Accordion>
     </div>

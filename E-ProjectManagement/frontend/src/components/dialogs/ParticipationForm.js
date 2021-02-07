@@ -11,6 +11,7 @@ import LoadingProgress from './LoadingProgress';
 
 /**
  * Shows a modal form dialog for a ParticipationBO in prop customer. If the participation is set, the dialog is configured
+ * Shows a modal form dialog for a ParticipationBO in prop customer. If the participation is set, the dialog is configured
  * as an edit dialog and the text fields of the form are filled from the given CustomerBO object.
  * If the participation is null, the dialog is configured as a new participation dialog and the textfields are empty.
  * In dependency of the edit/new state, the respective backend calls are made to update or create a customer.
