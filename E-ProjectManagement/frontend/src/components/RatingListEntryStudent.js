@@ -31,9 +31,7 @@ class RatingListEntryStudent extends Component {
     return (
       <div>
         <Accordion >
-          <AccordionSummary
-            id={`rating${rating.getID()}ratingpanel-header`}
-          >
+          <AccordionSummary>
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
               <Grid item>
                 <Typography variant='body1' className={classes.heading}>
@@ -46,9 +44,6 @@ class RatingListEntryStudent extends Component {
               <Grid item xs />
             </Grid>
           </AccordionSummary>
-          <AccordionDetails>
-            <RatingListStudent rating={rating} />
-          </AccordionDetails>
         </Accordion>
       </div>
     );
@@ -69,7 +64,6 @@ RatingListEntryStudent.propTypes = {
   /** The RatingBO to be rendered */
   rating: PropTypes.object.isRequired,
 
-  onRatingDeleted: PropTypes.func.isRequired
 }
 
 export default withStyles(styles)(RatingListEntryStudent);
