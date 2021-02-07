@@ -90,8 +90,6 @@ class ProjectForm extends Component {
       room: ro,
       roomValidationFailed: false,
       roomEdited: false,
-
-
       addingInProgress: false,
       updatingInProgress: false,
       addingError: null,
@@ -334,12 +332,6 @@ class ProjectForm extends Component {
                 onChange={this.textFieldValueChange} error={roomValidationFailed}
                 helperText={roomValidationFailed ? 'The room must contain at least one character' : ' '} />
             </form>
-
-
-
-
-
-
             <LoadingProgress show={addingInProgress || updatingInProgress} />
             {
               // Show error message in dependency of project prop

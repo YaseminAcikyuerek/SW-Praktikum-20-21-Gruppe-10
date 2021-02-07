@@ -22,13 +22,6 @@ class ProjectList extends Component {
   constructor(props) {
     super(props);
 
-    // console.log(props);
-    let expandedID = null;
-
-    if (this.props.location.expandProject) {
-      expandedID = this.props.location.expandProject.getID();
-    }
-
     // Init an empty state
     this.state = {
       projects: [],
@@ -36,7 +29,6 @@ class ProjectList extends Component {
       ProjectFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedProjectID: expandedID,
       showProjectForm: false
     };
   }
@@ -70,27 +62,6 @@ class ProjectList extends Component {
     this.getProjects();
   }
 
-  /**
-   * Handles onExpandedStateChange events from the ProjectListEntry component. Toggels the expanded state of
-   * the ProjectListEntry of the given ProjectBO.
-   *
-   * @param {project} ProjectBO of the ProjectListEntry to be toggeled
-   */
-  onExpandedStateChange = project => {
-    // console.log(projectID);
-    // Set expandend project entry to null by default
-    let newID = null;
-
-    // If same project entry is clicked, collapse it else expand a new one
-    if (project.getID() !== this.state.expandedProjectID) {
-      // Expand the project entry with projectID
-      newID = project.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedProjectID: newID,
-    });
-  }
 
   /**
    * Handles onProjectDeleted events from the ProjectListEntry component
@@ -180,7 +151,7 @@ class ProjectList extends Component {
   /** Renders the component */
   render() {
     const { classes } = this.props;
-    const { filteredProjects, projectFilter, expandedProjectID, loadingInProgress, error, showProjectForm } = this.state;
+    const { filteredProjects, projectFilter, loadingInProgress, error, showProjectForm } = this.state;
 
     return (
       <div className={classes.root}>
@@ -218,8 +189,7 @@ class ProjectList extends Component {
           // Show the list of ProjectListEntry components
           // Do not use strict comparison, since expandedProjectID maybe a string if given from the URL parameters
           filteredProjects.map(project =>
-            <ProjectListEntry key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
-              onExpandedStateChange={this.onExpandedStateChange}
+            <ProjectListEntry key={project.getID()} project={project}
               onProjectDeleted={this.projectDeleted}
             />)
         }

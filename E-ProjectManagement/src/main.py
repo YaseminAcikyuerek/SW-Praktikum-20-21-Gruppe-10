@@ -190,7 +190,7 @@ class PersonOperations(Resource):
 
     @management.marshal_with(person)
     @management.expect(person, validate=True)
-    @secured
+
     def put(self, id):
         """Update einer bestimmten Person.
         """
@@ -538,7 +538,7 @@ class ParticipationOperations(Resource):
         return '', 200
 
     @management.marshal_with(participation)
-    @secured
+
     def put(self, id):
         """Update eines bestimmten Participation-Objekts.
         """

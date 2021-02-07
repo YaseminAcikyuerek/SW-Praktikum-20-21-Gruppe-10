@@ -18,11 +18,6 @@ class PersonList extends Component {
   constructor(props) {
     super(props);
 
-    let expandedID = null;
-    if (this.props.location.person) {
-      expandedID = this.props.location.expandPerson.getID();
-    }
-
     // Init an empty state
     this.state = {
       persons: [],
@@ -30,7 +25,6 @@ class PersonList extends Component {
       personFilter: '',
       error: null,
       loadingInProgress: false,
-      expandedPersonID: expandedID,
       showPersonForm: false
     };
   }
@@ -63,27 +57,6 @@ class PersonList extends Component {
     this.getPersons();
   }
 
-  /**
-   * Handles onExpandedStateChange events from the PersonListEntry component. Toggels the expanded state of
-   * the PersonListEntry of the given PersonBO.
-   *
-   * @param {person} PersonBO of the PersonListEntry to be toggeled
-   */
-  onExpandedStateChange = person => {
-    // console.log(personID);
-    // Set expandend person entry to null by default
-    let newID = null;
-
-    // If same person entry is clicked, collapse it else expand a new one
-    if (person.getID() !== this.state.expandedPersonID) {
-      // Expand the person entry with personID
-      newID = person.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedPersonID: newID,
-    });
-  }
 
   /**
    * Handles onPersonDeleted events from the PersonListEntry component
@@ -193,8 +166,7 @@ class PersonList extends Component {
           // Show the list of PersonListEntry components
           // Do not use strict comparison, since expandedPersonID maybe a string if given from the URL parameters
           filteredPersons.map(person =>
-            <PersonListEntry key={person.getID()} person={person} expandedState={expandedPersonID === person.getID()}
-              onExpandedStateChange={this.onExpandedStateChange}
+            <PersonListEntry key={person.getID()} person={person}
               onPersonDeleted={this.personDeleted}
             />)
         }

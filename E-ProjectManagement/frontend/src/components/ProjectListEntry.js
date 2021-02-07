@@ -108,9 +108,6 @@ class ProjectListEntry extends Component {
                 </ButtonGroup>
               </Grid>
               <Grid item xs />
-              <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of Participations</Typography>
-              </Grid>
             </Grid>
           </AccordionSummary>
         </Accordion>
