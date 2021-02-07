@@ -15,7 +15,7 @@ class Start extends Component {
                 <Typography>
                     Wählen Sie Ihre Rolle:
                 </Typography>
-                <Link to='/student'>
+                <Link to='/student/project'>
                     <Button>
                         Student
                     </Button>
