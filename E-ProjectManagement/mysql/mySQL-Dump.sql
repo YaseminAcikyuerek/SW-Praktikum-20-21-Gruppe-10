@@ -3,13 +3,19 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 07. Feb 2021 um 18:35
+-- Erstellungszeit: 07. Feb 2021 um 19:38
 -- Server-Version: 10.4.17-MariaDB
 -- PHP-Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Datenbank: `sw-project`
@@ -22,20 +28,13 @@ USE `sw-project`;
 --
 -- Tabellenstruktur für Tabelle `module`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `module`;
 CREATE TABLE `module` (
   `id` int(50) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `name` varchar(50) NOT NULL,
   `edv_nr` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `module`:
---
 
 --
 -- Daten für Tabelle `module`
@@ -52,10 +51,7 @@ INSERT INTO `module` (`id`, `creation_time`, `name`, `edv_nr`) VALUES
 --
 -- Tabellenstruktur für Tabelle `participation`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `participation`;
 CREATE TABLE `participation` (
   `id` int(11) NOT NULL,
   `creation_time` datetime NOT NULL DEFAULT current_timestamp(),
@@ -64,21 +60,17 @@ CREATE TABLE `participation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONEN DER TABELLE `participation`:
---
-
---
 -- Daten für Tabelle `participation`
 --
 
 INSERT INTO `participation` (`id`, `creation_time`, `project`, `student`) VALUES
 (0, '2021-01-20 22:32:38', 4002, 150),
-(12, '2021-01-20 22:33:18', 2, 2),
+(12, '2021-01-20 22:33:18', 4002, 152),
 (27, '2021-01-15 21:08:27', 4005, 150),
-(28, '2021-01-15 21:08:27', 4006, 1),
-(29, '2021-01-15 21:08:27', 4005, 1),
-(30, '2021-01-15 21:08:27', 4002, 1),
-(31, '2021-01-15 21:08:27', 14, 12),
+(28, '2021-01-15 21:08:27', 4005, 151),
+(29, '2021-01-15 21:08:27', 4005, 152),
+(30, '2021-01-15 21:08:27', 4005, 153),
+(31, '2021-01-15 21:08:27', 4005, 154),
 (32, '2021-01-15 21:08:27', 0, 1000),
 (33, '2021-01-15 21:08:27', 90, 1000),
 (34, '2021-01-15 21:08:27', 90, 1000),
@@ -91,10 +83,7 @@ INSERT INTO `participation` (`id`, `creation_time`, `project`, `student`) VALUES
 --
 -- Tabellenstruktur für Tabelle `person`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `person`;
 CREATE TABLE `person` (
   `id` int(11) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp() COMMENT 'neu',
@@ -103,10 +92,6 @@ CREATE TABLE `person` (
   `email` varchar(256) NOT NULL,
   `google_user_id` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `person`:
---
 
 --
 -- Daten für Tabelle `person`
@@ -120,18 +105,18 @@ INSERT INTO `person` (`id`, `creation_time`, `name`, `role`, `email`, `google_us
 (146, '0000-00-00 00:00:00', 'strtg', 2, '', ''),
 (147, '0000-00-00 00:00:00', 'Christoph', 2, '', ''),
 (148, '2021-01-20 21:29:59', 'Christoph', 2, '', ''),
-(149, '2021-01-31 20:34:04', 'Tom', 2, 'saied@', ''),
-(150, '2021-02-06 02:08:31', 'Tom Schenk', 3, 'schenk.tom.pfullingen@gmail.com', '1vXEDbHdIaYckJ5p0wlrCfxzr0J3');
+(150, '2021-02-06 02:08:31', 'Tom Schenk', 3, 'schenk.tom.pfullingen@gmail.com', '1vXEDbHdIaYckJ5p0wlrCfxzr0J3'),
+(151, '2021-02-07 18:31:18', 'Yasemin', 1, 'acikyurek.yasemin@gmail.com', 'ZgM8KuJ7HGTwbQCTaimS4bXKrmg1'),
+(152, '2021-02-07 18:31:36', 'Ekrem', 1, 'ekofreezy32@gmail.com', '84aehB7MnzbfzF1JsFVXyU9Lfiy2'),
+(153, '2021-02-07 18:31:54', 'Saeid', 1, 'saeid.zadran19@gmail.com', '5li2NPsjqoTyuHULGHSuVqR0nB43'),
+(154, '2021-02-07 18:34:06', 'Henry Tran', 1, 'henrytran43@gmail.com', 'WDNidbBfM6RwtC2NVm14BdyFviI2');
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `project`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
   `id` int(11) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -155,10 +140,6 @@ CREATE TABLE `project` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- RELATIONEN DER TABELLE `project`:
---
-
---
 -- Daten für Tabelle `project`
 --
 
@@ -173,10 +154,7 @@ INSERT INTO `project` (`id`, `creation_time`, `semester`, `module`, `short_descr
 --
 -- Tabellenstruktur für Tabelle `project_type`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `project_type`;
 CREATE TABLE `project_type` (
   `id` int(11) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -184,10 +162,6 @@ CREATE TABLE `project_type` (
   `sws` varchar(128) NOT NULL,
   `ects` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `project_type`:
---
 
 --
 -- Daten für Tabelle `project_type`
@@ -203,10 +177,7 @@ INSERT INTO `project_type` (`id`, `creation_time`, `name`, `sws`, `ects`) VALUES
 --
 -- Tabellenstruktur für Tabelle `rating`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `rating`;
 CREATE TABLE `rating` (
   `id` int(11) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -216,10 +187,6 @@ CREATE TABLE `rating` (
   `evaluator` int(10) NOT NULL,
   `to_be_assessed` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `rating`:
---
 
 --
 -- Daten für Tabelle `rating`
@@ -235,18 +202,11 @@ INSERT INTO `rating` (`id`, `creation_time`, `project`, `passed`, `grade`, `eval
 --
 -- Tabellenstruktur für Tabelle `role`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `role`:
---
 
 --
 -- Daten für Tabelle `role`
@@ -263,10 +223,7 @@ INSERT INTO `role` (`id`, `name`) VALUES
 --
 -- Tabellenstruktur für Tabelle `semester`
 --
--- Erstellt am: 29. Jan 2021 um 21:00
---
 
-DROP TABLE IF EXISTS `semester`;
 CREATE TABLE `semester` (
   `id` int(11) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -274,10 +231,6 @@ CREATE TABLE `semester` (
   `end` date DEFAULT NULL,
   `name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `semester`:
---
 
 --
 -- Daten für Tabelle `semester`
@@ -296,11 +249,7 @@ INSERT INTO `semester` (`id`, `creation_time`, `start`, `end`, `name`) VALUES
 --
 -- Tabellenstruktur für Tabelle `student`
 --
--- Erstellt am: 07. Feb 2021 um 17:35
--- Zuletzt aktualisiert: 07. Feb 2021 um 17:35
---
 
-DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `id` int(11) NOT NULL,
   `creation_time` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -310,10 +259,6 @@ CREATE TABLE `student` (
   `email` varchar(128) NOT NULL,
   `google_user_id` varchar(128) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- RELATIONEN DER TABELLE `student`:
---
 
 --
 -- Daten für Tabelle `student`
@@ -390,7 +335,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT für Tabelle `person`
 --
 ALTER TABLE `person`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT für Tabelle `project`
@@ -422,3 +367,7 @@ ALTER TABLE `role`
 ALTER TABLE `semester`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2026;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
