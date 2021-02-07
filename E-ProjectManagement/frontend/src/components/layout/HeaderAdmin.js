@@ -40,7 +40,7 @@ class HeaderAdmin extends Component {
 
         </Typography>
         <Typography variant='h4' component='h2' align='center'>
-          <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
+          <img width="700" alt="logo-admin" src="projectonomy-logo.png" /> <br /> Home
         </Typography>
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
               <Tab label='Persons' component={RouterLink} to={`/admin/person`} />
