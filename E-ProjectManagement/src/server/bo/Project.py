@@ -1,8 +1,7 @@
 from server.bo.NamedBusinessObject import NamedBusinessObject as nbo
-from server.bo.Automaton import Automaton
 
 
-class Project(nbo, Automaton):
+class Project(nbo):
 
     def __init__(self):
         super().__init__()

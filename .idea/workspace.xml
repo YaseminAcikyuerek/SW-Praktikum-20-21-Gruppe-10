@@ -26,20 +26,13 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="">
+    <list default="true" id="289ebf7a-0c1c-4de2-b834-2ff09573672c" name="Default Changelist" comment="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/ManagementAPI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/RatingBO.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/api/RatingBO.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllParticipationList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllParticipationList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllRatingList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/AllRatingList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/RatingDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/RatingDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/SemesterList.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/SemesterList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/ProjectForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/dialogs/ProjectForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/mysql/mySQL-Dump.sql" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/mysql/mySQL-Dump.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Rating.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Rating.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/RatingListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/frontend/src/components/RatingListEntry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Automaton.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Automaton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py" beforeDir="false" afterPath="$PROJECT_DIR$/E-ProjectManagement/src/server/bo/Project.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +42,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -87,6 +80,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="1l4PfYjfqjVSKfeJBYoOATwkTMU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -112,14 +108,119 @@
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\mysql" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ekrem\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\src\server\bo" />
       <recent name="D:\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\public" />
       <recent name="C:\Users\saeid\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\my-app\src\components\Dialogs" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Pages" />
       <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\components\Layout" />
-      <recent name="C:\Users\Yasemin Acikyürek\PycharmProjects\SW-Praktikum-Gruppe-10\E-ProjectManagement\frontend\src\api" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="PersonMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW-Praktikum-Gruppe-10" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/PersonMapper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RatingMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW-Praktikum-Gruppe-10" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/RatingMapper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="SemesterMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW-Praktikum-Gruppe-10" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/SemesterMapper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="StudentMapper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW-Praktikum-Gruppe-10" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/server/db/StudentMapper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="SW-Praktikum-Gruppe-10" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\ekrem\AppData\Local\Programs\Python\Python37-32\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/E-ProjectManagement/src" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/E-ProjectManagement/src/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="SW-Praktikum-Gruppe-10" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -142,6 +243,15 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.StudentMapper" />
+        <item itemvalue="Python.SemesterMapper" />
+        <item itemvalue="Python.RatingMapper" />
+        <item itemvalue="Python.PersonMapper" />
+        <item itemvalue="Python.main (1)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -411,7 +521,98 @@
       <option name="project" value="LOCAL" />
       <updated>1612193797437</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="LoadingProgress.js korrigiert">
+      <created>1612365688804</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1612365688804</updated>
+    </task>
+    <task id="LOCAL-00038" summary="ModuleDeleteDialog.js korrigiert">
+      <created>1612365733145</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1612365733145</updated>
+    </task>
+    <task id="LOCAL-00039" summary="ProfileDropDown.js korrigiert">
+      <created>1612366145917</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366145917</updated>
+    </task>
+    <task id="LOCAL-00040" summary="ProjectDeleteDialog.js korrigiert">
+      <created>1612366183474</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366183474</updated>
+    </task>
+    <task id="LOCAL-00041" summary="RatingDeleteDialog.js korrigiert">
+      <created>1612366222574</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366222574</updated>
+    </task>
+    <task id="LOCAL-00042" summary="SemesterDeleteDialog.js korrigiert">
+      <created>1612366250683</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366250683</updated>
+    </task>
+    <task id="LOCAL-00043" summary="StudentForm.js korrigiert">
+      <created>1612366277460</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366277460</updated>
+    </task>
+    <task id="LOCAL-00044" summary="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
+      <created>1612366751382</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366751382</updated>
+    </task>
+    <task id="LOCAL-00045" summary="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
+      <created>1612366777201</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366777201</updated>
+    </task>
+    <task id="LOCAL-00046" summary="ProjectDeleteDialog, ParticipationDeleteDialog erstellt">
+      <created>1612366801667</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366801667</updated>
+    </task>
+    <task id="LOCAL-00047" summary="ProjectListStudent.js korrigiert">
+      <created>1612366845810</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1612366845810</updated>
+    </task>
+    <task id="LOCAL-00048" summary="RatingListDozent.js debuggen">
+      <created>1612721092103</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1612721092103</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Automaton.py Korrektur">
+      <created>1612729876443</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1612729876443</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,17 +673,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Mapper korrigiert" />
-    <MESSAGE value="Mapper und BO korrigiert" />
-    <MESSAGE value="ProjectAdministration.py bearbeitet" />
-    <MESSAGE value="Projektadminstration bearbeitet" />
-    <MESSAGE value="Projektadminstration angepasst" />
-    <MESSAGE value="main.py+Projekadministration bearbeitet" />
-    <MESSAGE value="workspace.xml" />
-    <MESSAGE value="Berechtigungen bei Person.BO ergänzt" />
-    <MESSAGE value="StudentListjs, StudentListEntry.js erstellt" />
-    <MESSAGE value="PersonList.js, RatingList.js, ProjectList.js erstellt" />
-    <MESSAGE value="ProjectDeleteDialog, ParticipationDeleteDialog erstellt&#10;Die Enes Branch Korrektur" />
     <MESSAGE value="AllModuleList.js updated" />
     <MESSAGE value="AllRatingList.js updated" />
     <MESSAGE value="ModuleForm.js updated" />
@@ -497,7 +687,18 @@
     <MESSAGE value="mySQL-Dump.sql updated" />
     <MESSAGE value="email, google_user-id in PersonMapper.py, main &amp; Projektadministration ergänzt" />
     <MESSAGE value="In ProjectForm.js, ProjectList.js Reihenfolge der Attribute berichtigt" />
-    <option name="LAST_COMMIT_MESSAGE" value="In ProjectForm.js, ProjectList.js Reihenfolge der Attribute berichtigt" />
+    <MESSAGE value="LoadingProgress.js korrigiert" />
+    <MESSAGE value="ModuleDeleteDialog.js korrigiert" />
+    <MESSAGE value="ProfileDropDown.js korrigiert" />
+    <MESSAGE value="ProjectDeleteDialog.js korrigiert" />
+    <MESSAGE value="RatingDeleteDialog.js korrigiert" />
+    <MESSAGE value="SemesterDeleteDialog.js korrigiert" />
+    <MESSAGE value="StudentForm.js korrigiert" />
+    <MESSAGE value="ProjectDeleteDialog, ParticipationDeleteDialog erstellt" />
+    <MESSAGE value="ProjectListStudent.js korrigiert" />
+    <MESSAGE value="RatingListDozent.js debuggen" />
+    <MESSAGE value="Automaton.py Korrektur" />
+    <option name="LAST_COMMIT_MESSAGE" value="Automaton.py Korrektur" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -536,11 +737,5 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$PersonMapper.coverage" NAME="PersonMapper Coverage Results" MODIFIED="1610909936770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
-    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1611936258964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
-    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$main.coverage" NAME="main Coverage Results" MODIFIED="1612218347234" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src" />
-    <SUITE FILE_PATH="coverage/SW_Praktikum_Gruppe_10$SemesterMapper.coverage" NAME="SemesterMapper Coverage Results" MODIFIED="1611618815915" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/E-ProjectManagement/src/server/db" />
   </component>
 </project>
