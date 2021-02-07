@@ -1158,18 +1158,18 @@ class ProjectListOperations(Resource):
         else:
             return '', 500
 
-@management.route('/project-by-student/<int:id>')
+@management.route('/project-by-student/<int:student>')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @management.param('student', 'Die ID des Studenten-Objekts')
 class StudentRelatedProjectOperations(Resource):
     @management.marshal_with(student)
-    @secured
+
     def get(self, student):
 
         adm = ProjectAdministration()
         par = adm.get_participation_of_student(student)
         if par is not None:
-            project_list = adm.get_projects_of_student(par)
+            project_list = adm.get_projects_of_student(student)
             return project_list
         else:
             return "Participation not found", 500

@@ -35,6 +35,7 @@ class Participation(bo):
     @staticmethod
     def from_dict(dictionary=dict()):
         """Umwandeln eines Python dict() in ein Participation()."""
+
         obj = Participation()
         print(dictionary)
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !

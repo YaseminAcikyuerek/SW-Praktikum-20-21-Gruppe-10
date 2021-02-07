@@ -499,7 +499,7 @@ class ProjectAdministration(object):
 
     def get_projects_of_student(self, student):
         with ProjectMapper() as mapper:
-            return mapper.find_projects_of_student(student)
+            return mapper.find_projects_by_student(student)
 
     def get_rating_by_evaluator(self, evaluator):
         with RatingMapper() as mapper:

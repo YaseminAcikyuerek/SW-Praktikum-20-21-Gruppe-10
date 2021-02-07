@@ -7,7 +7,6 @@ import { withRouter } from 'react-router-dom';
 import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import ProjectForm from './dialogs/ProjectForm';
 import ProjectListEntryStudent from './ProjectListEntryStudent';
 import Paper from '@material-ui/core/Paper';
 
@@ -18,35 +17,33 @@ class ProjectListStudent extends Component {
   constructor(props) {
     super(props);
 
-    // console.log(props);
-    let expandedID = null;
 
-    if (this.props.location.expandProject) {
-      expandedID = this.props.location.expandProject.getID();
-    }
 
     // Init an empty state
     this.state = {
-      acceptedProjects: [],
-      signedProjects: [],
+      projectStudents: [],
       error: null,
       loadingInProgress: false,
-      expandedProjectID: expandedID,
-        student: null,
+      currentUser: [],
+      student: null,
     };
   }
 
-  /** Fetches all ProjectBOs with state accepted from the backend */
-  searchProjectByAccepted = () => {
-    ManagementAPI.getAPI().searchProjectByAccepted()
-      .then(projectBOs =>
-        this.setState({               // Set new state when ProjectBOs have been fetched
-          acceptedProjects: projectBOs,
+
+
+
+
+  getProjectsByStudent = async () => {
+    let StudentID = 0;
+        console.log(this.props.currentUserMail)
+        await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail).then(responseStudentBO =>
+        this.setState({                     // Set new state when ProjectBOs have been fetched
+          currentUser : responseStudentBO,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           acceptedProjects: [],
+           currentUser:[],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
@@ -57,72 +54,33 @@ class ProjectListStudent extends Component {
       loadingInProgress: true,
       error: null
     });
-  }
 
-  getProjects = async () =>{
-    let student = await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail) //studentBO
-    ManagementAPI.getAPI().getProjectsByStudent(student)
-    this.setState({student: student})
-  }
-
-  getProjectsByStudent = (id) => {
-    ManagementAPI.getAPI().getProjectsByStudent(id)
-      .then(responseProjectBO =>
-        this.setState({// Set new state when ProjectBOs have been fetched
-          studentProjects: responseProjectBO,
+     ManagementAPI.getAPI().getProjectsByStudent(5).then(responseProjectBO =>
+         this.setState({               // Set new state when ProjectBOs have been fetched
+          projectStudents: responseProjectBO,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
-           studentProjects: [],
+           projectStudents: [],
             loadingInProgress: false, // disable loading indicator
             error: e
           })
-          );
-
-    // set loading to true
-    this.setState({
-      loadingInProgress: true,
-      error: null
-    });
+        );
   }
 
 
-  /**
-   * Handles onExpandedStateChange events from the ProjectListStudent component. Toggels the expanded state of
-   * the ProjectListStudentEntry of the given PersonBO.
-   *
-   * DRINGEND ÜBERARBEITEN!!!
-   *
-   * @param {person} PersonBO of the PersonListEntry to be toggeled
-   */
-  onExpandedStateChange = student => {
-    // console.log(personID);
-    // Set expandend person entry to null by default
-    let newID = null;
-
-    // If same person entry is clicked, collapse it else expand a new one
-    if (student.getID() !== this.state.expandedStudentID) {
-      // Expand the person entry with personID
-      newID = student.getID();
-    }
-    // console.log(newID);
-    this.setState({
-      expandedStudentID: newID,
-    });
-  }
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount () {
-    this.searchProjectByAccepted();
     this.getProjectsByStudent();
   }
 
-  /** Renders the component */
+
   render() {
 
     const { classes } = this.props;
-    const { expandedProjectID, loadingInProgress, error, acceptedProjects ,student, signedProjects} = this.state;
+    const { loadingInProgress, error, projectStudents ,student, signedProjects } = this.state;
 
     return (
 
@@ -131,25 +89,15 @@ class ProjectListStudent extends Component {
           <Grid item>
             <h1>Auswahl Projekte</h1>
             <Paper className={classes.paper}> {
-            acceptedProjects.map(project =>
-            <ProjectListEntryStudent key={project.getID()} project={project} expandedState={expandedProjectID === project.getID()}
-              onExpandedStateChange={this.onExpandedStateChange} student = {student}
-              onProjectDeleted={this.projectDeleted}
+            projectStudents.map(project =>
+            <ProjectListEntryStudent key={project.getID()} project={project}
             />)
             }
             <LoadingProgress show={loadingInProgress} />
-            <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.searchProjectAcceptedURL} />
+            <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.getProjectsByStudent} />
             </Paper>
           </Grid>
-          <Grid item xs={4}>
-              <h1>Meine Projekte</h1>
-              <Paper className={classes.paper}>{
-               <div>
-                {signedProjects.map(p => <ListItem>{p.name}</ListItem>)}
-               </div>
-              }</Paper>
           </Grid>
-         </Grid>
       </div>
     );
   }

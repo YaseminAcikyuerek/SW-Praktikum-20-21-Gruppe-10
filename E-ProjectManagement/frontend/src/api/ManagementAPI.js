@@ -36,13 +36,13 @@ export default class ManagementAPI {
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #searchProjectsByOwnerURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
   #getProjectsByStudentURL = (student) => `${this.#managementServerBaseURL}/project-by-student/${student}`;
-  #searchProjectByAcceptedURL = (projectStatus) => `${this.#managementServerBaseURL}/project-by-status/${projectStatus}`;
+
 
   //Student related
   #getStudentsURL = () => `${this.#managementServerBaseURL}/students`;
   #addStudentURL = () => `${this.#managementServerBaseURL}/students`;
   #getStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
-  #getStudentByMailURL = (eMail) => `${this.#managementServerBaseURL}/student${eMail}\``;
+  #getStudentByMailURL = (eMail) => `${this.#managementServerBaseURL}/student-by-mail/${eMail}`;
   #updateStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
   #deleteStudentURL = (id) => `${this.#managementServerBaseURL}/student/${id}`;
   #searchStudentURL = (studentName) => `${this.#managementServerBaseURL}/student-by-name/${studentName}`;
@@ -419,16 +419,7 @@ export default class ManagementAPI {
 
 
 
-  searchProjectByAccepted(projectStatus) {
-     return this.#fetchAdvanced(this.#searchProjectByAcceptedURL(projectStatus)).then((responseJSON) => {
-      let projectBOs = ProjectBO.fromJSON(responseJSON);
-      // console.info(projectBOs);
-      return new Promise(function (resolve) {
-        resolve(projectBOs);
-      })
-    })
 
-   }
 
 
 
