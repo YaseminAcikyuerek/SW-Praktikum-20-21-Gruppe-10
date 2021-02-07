@@ -9,6 +9,7 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import RatingListEntry from './RatingListEntry';
 import Paper from '@material-ui/core/Paper';
+import RatingForm from './dialogs/RatingForm';
 
 
 
@@ -24,6 +25,7 @@ class RatingListDozent extends Component {
       loadingInProgress: false,
       currentUser: [],
       person: null,
+      ratingForm: false
     };
   }
 
@@ -76,7 +78,7 @@ class RatingListDozent extends Component {
   render() {
 
     const { classes } = this.props;
-    const { loadingInProgress, error, dozentRatings, rating} = this.state;
+    const { loadingInProgress, error, dozentRatings, rating, showRatingForm} = this.state;
     // console.log(this.props.currentUserMail);
     return (
 
@@ -93,7 +95,11 @@ class RatingListDozent extends Component {
             <ContextErrorMessage error={error} contextErrorMsg={`The list of ratings could not be loaded.`} onReload={this.getRatingsByDozent} />
             </Paper>
           </Grid>
+          <Button variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addRatingButtonClicked}>
+              Add Rating
+          </Button>
          </Grid>
+      <RatingForm show={showRatingForm} onClose={this.ratingFormClosed} />
       </div>
     );
   }
