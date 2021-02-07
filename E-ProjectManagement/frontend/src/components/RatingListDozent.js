@@ -29,7 +29,7 @@ class RatingListDozent extends Component {
 
   /** Fetches personBo from the backend with logged in e-mail*/
   getRatingsByDozent = async () => {
-    let personID = 0;
+
     // console.log("getPersonByMail loaded");
 
         await ManagementAPI.getAPI().getPersonByMail(this.props.currentUserMail).then(personBOs =>

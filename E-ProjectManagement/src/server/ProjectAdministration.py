@@ -525,3 +525,8 @@ class ProjectAdministration(object):
         p.set_google_user_id(google_user_id)
         with PersonMapper() as mapper:
             return mapper.insert_google_user(p)
+
+    def get_student_by_email(self, email):
+        with StudentMapper() as mapper:
+            return mapper.find_by_mail(email)
+

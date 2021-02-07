@@ -281,10 +281,10 @@ class ProjectMapper(Mapper):
         result = []
 
         cursor = self._cnx.cursor()
-        command = "SELECT project.id, project.creation_time, project.semester, project.module, project.short_description, external_partner_list, capacity, " \
-                  "project.bd_during_exam_period, project.bd_before_lecture_period, project.bd_during_lecture_period, " \
-                  "project.preferred_bd_during_lecture_period, project.language, project.room, project.special_room, project.flag, project.name, project.status, " \
-                  "project.project_type, project.owner FROM `project` INNER JOIN participation ON participation.project = project.id " \
+        command = "SELECT project.id, project.creation_time, semester, module, short_description, external_partner_list, capacity, " \
+                  "bd_during_exam_period, bd_before_lecture_period, bd_during_lecture_period, " \
+                  "preferred_bd_during_lecture_period, language, room, special_room, flag, name, status, " \
+                  "project_type, owner FROM project INNER JOIN participation ON participation.project = project.id " \
                   "WHERE participation.student = {}".format(student)
 
         print(command)

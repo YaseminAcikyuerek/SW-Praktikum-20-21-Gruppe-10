@@ -31,14 +31,11 @@ class ProjectListStudent extends Component {
 
 
 
-
-
   getProjectsByStudent = async () => {
-    let StudentID = 0;
         console.log(this.props.currentUserMail)
-        await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail).then(responseStudentBO =>
+        await ManagementAPI.getAPI().getStudentByMail(this.props.currentUserMail).then(studentBOs =>
         this.setState({                     // Set new state when ProjectBOs have been fetched
-          currentUser : responseStudentBO,
+          currentUser : studentBOs,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
@@ -55,18 +52,21 @@ class ProjectListStudent extends Component {
       error: null
     });
 
-     ManagementAPI.getAPI().getProjectsByStudent(5).then(responseProjectBO =>
-         this.setState({               // Set new state when ProjectBOs have been fetched
-          projectStudents: responseProjectBO,
+    ManagementAPI.getAPI().getProjectsByStudent(this.state.currentUser.id).then(projectBOs =>
+        this.setState({               // Set new state when ProjectBOs have been fetched
+          projectStudents: projectBOs,
           loadingInProgress: false,   // disable loading indicator
           error: null
         })).catch(e =>
           this.setState({             // Reset state with error from catch
            projectStudents: [],
-            loadingInProgress: false, // disable loading indicator
+              loadingInProgress: false, // disable loading indicator
             error: e
+
           })
+
         );
+    console.log(this.state);
   }
 
 
@@ -80,23 +80,19 @@ class ProjectListStudent extends Component {
   render() {
 
     const { classes } = this.props;
-    const { loadingInProgress, error, projectStudents ,student, signedProjects } = this.state;
+    const {  projectStudents,loadingInProgress, error} = this.state;
 
     return (
-
       <div className={classes.root}>
-        <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
+          <Grid item xs />
           <Grid item>
             <h1>Auswahl Projekte</h1>
-            <Paper className={classes.paper}> {
+            {
             projectStudents.map(project =>
-            <ProjectListEntryStudent key={project.getID()} project={project}
-            />)
+            <ProjectListEntryStudent key={project.getID()} project={project}/>)
             }
             <LoadingProgress show={loadingInProgress} />
             <ContextErrorMessage error={error} contextErrorMsg={`The list of projects could not be loaded.`} onReload={this.getProjectsByStudent} />
-            </Paper>
-          </Grid>
           </Grid>
       </div>
     );

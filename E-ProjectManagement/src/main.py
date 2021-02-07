@@ -1128,7 +1128,7 @@ class ProjectByStateOperations(Resource):
 @management.param('email', 'Die Email des Studenten')
 class StudentByMailOperations(Resource):
     @management.marshal_with(student)
-    @secured
+
     def get(self, email):
         """ Auslesen von Student-Objekten, die durch die Mail bestimmt werden.
 
@@ -1158,11 +1158,11 @@ class ProjectListOperations(Resource):
         else:
             return '', 500
 
-@management.route('/project-by-student/<int:student>')
+@management.route('/participation/<int:student>/project')
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 @management.param('student', 'Die ID des Studenten-Objekts')
 class StudentRelatedProjectOperations(Resource):
-    @management.marshal_with(student)
+    @management.marshal_with(project)
 
     def get(self, student):
 

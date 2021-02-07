@@ -93,24 +93,25 @@ class StudentMapper (Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def find_by_mail(self, google_mail):
+    def find_by_mail(self, email):
 
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM student WHERE name LIKE '%{}%'".format(google_mail)
+        command = "SELECT * FROM student WHERE email LIKE '%{}%'".format(email)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, creation_time, name, matriculation_nr, course_abbr, google_mail) = tuples[0]
+            (id, creation_time, name, matriculation_nr, course_abbr, email, google_user_id) = tuples[0]
             student = Student()
             student.set_id(id)
             student.set_creation_time(creation_time)
             student.set_name(name)
             student.set_matriculation_nr(matriculation_nr)
             student.set_course_abbr(course_abbr)
-            student.set_google_mail
+            student.set_email(email)
+            student.set_google_user_id(google_user_id)
             result = student
 
         except IndexError:

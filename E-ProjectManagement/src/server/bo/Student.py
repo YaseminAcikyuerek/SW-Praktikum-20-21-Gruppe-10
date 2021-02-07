@@ -31,6 +31,8 @@ class Student(pbo):
         obj.set_name(dictionary["name"])
         obj.set_matriculation_nr(dictionary["matriculation_nr"])
         obj.set_course_abbr(dictionary["course_abbr"])
+        obj.set_email(dictionary["email"])
+        obj.set_google_user_id(dictionary["google_user_id"])
 
 
         return obj

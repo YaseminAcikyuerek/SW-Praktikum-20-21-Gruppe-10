@@ -35,7 +35,7 @@ export default class ManagementAPI {
   #updateProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #deleteProjectURL = (id) => `${this.#managementServerBaseURL}/project/${id}`;
   #searchProjectsByOwnerURL = (projectOwner) => `${this.#managementServerBaseURL}/project-by-owner/${projectOwner}`;
-  #getProjectsByStudentURL = (student) => `${this.#managementServerBaseURL}/project-by-student/${student}`;
+  #getProjectsByStudentURL = (student) => `${this.#managementServerBaseURL}/participation/${student}/project`;
 
 
   //Student related
@@ -408,10 +408,10 @@ export default class ManagementAPI {
    getProjectsByStudent(student) {
     return this.#fetchAdvanced(this.#getProjectsByStudentURL(student)).then((responseJSON) => {
       // We always get an array of StudentBOs.fromJSON, but only need one object
-      let responseProjectBO = ProjectBO.fromJSON(responseJSON)[0];
-      // console.info(responseStudentBO);
+      let projectBO = ProjectBO.fromJSON(responseJSON);
+      console.log(projectBO);
       return new Promise(function (resolve) {
-        resolve(responseProjectBO);
+        resolve(projectBO);
       })
     })
   }
@@ -465,10 +465,10 @@ export default class ManagementAPI {
   getStudentByMail(eMail) {
     return this.#fetchAdvanced(this.#getStudentByMailURL(eMail)).then((responseJSON) => {
       // We always get an array of StudentBOs.fromJSON, but only need one object
-      let responseStudentBO = StudentBO.fromJSON(responseJSON)[0];
+      let studentBO = StudentBO.fromJSON(responseJSON)[0];
       // console.info(responseStudentBO);
       return new Promise(function (resolve) {
-        resolve(responseStudentBO);
+        resolve(studentBO);
       })
     })
   }
