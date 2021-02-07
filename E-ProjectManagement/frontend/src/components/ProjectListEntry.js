@@ -27,19 +27,6 @@ class ProjectListEntry extends Component {
     };
   }
 
-  /** Handles onChange events of the underlying ExpansionPanel */
-  expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.project);
-  }
-
-  /** Handles onParticipationDelete events from an ParticipationListEntry  */
-  //deleteParticipationHandler = (deletedParticipation) => {
-    // console.log(deletedParticipation.getID());
-    //this.setState({
-      //participations: this.state.participations.filter(participation => participation.getID() !== deletedParticipation.getID())
-    //})
-  //}
-
   /** Handles the onClick event of the edit project button */
   editProjectButtonClicked = (event) => {
     event.stopPropagation();
@@ -86,16 +73,15 @@ class ProjectListEntry extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, expandedState } = this.props;
+    const { classes} = this.props;
     // Use the states project
     const { project, showProjectForm, showProjectDeleteDialog } = this.state;
 
     // console.log(this.state);
     return (
       <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
+        <Accordion >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             id={`project${project.getID()}projectpanel-header`}
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
@@ -148,18 +134,8 @@ ProjectListEntry.propTypes = {
   classes: PropTypes.object.isRequired,
   /** The ProjectBO to be rendered */
   project: PropTypes.object.isRequired,
-  /** The state of this ProjectListEntry. If true the customer is shown with its participations */
-  expandedState: PropTypes.bool.isRequired,
-  /** The handler responsible for handle expanded state changes (exanding/collapsing) of this ProjectListEntry
-   *
-   * Signature: onExpandedStateChange(ProjectBO project)
-   */
-  onExpandedStateChange: PropTypes.func.isRequired,
-  /**
-   *  Event Handler function which is called after a sucessfull delete of this project.
-   *
-   * Signature: onProjectDelete(ProjectBO project)
-   */
+
+
   onProjectDeleted: PropTypes.func.isRequired
 }
 

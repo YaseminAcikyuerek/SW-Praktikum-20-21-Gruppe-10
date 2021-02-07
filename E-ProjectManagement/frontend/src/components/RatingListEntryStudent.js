@@ -18,24 +18,20 @@ class RatingListEntryStudent extends Component {
     };
   }
 
-  /** Handles onChange events of the underlying ExpansionPanel */
-  expansionPanelStateChanged = () => {
-    this.props.onExpandedStateChange(this.props.rating);
-  }
+
 
 
   /** Renders the component */
   render() {
-    const { classes, expandedState } = this.props;
+    const { classes } = this.props;
     // Use the states rating
     const { rating} = this.state;
 
     // console.log(this.state);
     return (
       <div>
-        <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}>
+        <Accordion >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
             id={`rating${rating.getID()}ratingpanel-header`}
           >
             <Grid container spacing={1} justify='flex-start' alignItems='center'>
@@ -48,13 +44,10 @@ class RatingListEntryStudent extends Component {
                 </Typography>
               </Grid>
               <Grid item xs />
-              <Grid item>
-                <Typography variant='body2' color={'textSecondary'}>List of ratings</Typography>
-              </Grid>
             </Grid>
           </AccordionSummary>
           <AccordionDetails>
-            <RatingListStudent show={expandedState} rating={rating} />
+            <RatingListStudent rating={rating} />
           </AccordionDetails>
         </Accordion>
       </div>
@@ -75,18 +68,7 @@ RatingListEntryStudent.propTypes = {
   classes: PropTypes.object.isRequired,
   /** The RatingBO to be rendered */
   rating: PropTypes.object.isRequired,
-  /** The state of this RatingListEntry. If true the rating is shown with its ratings */
-  expandedState: PropTypes.bool.isRequired,
-  /** The handler responsible for handle expanded state changes (exanding/collapsing) of this RatingListEntry
-   *
-   * Signature: onExpandedStateChange(RatingBO rating)
-   */
-  onExpandedStateChange: PropTypes.func.isRequired,
-  /**
-   *  Event Handler function which is called after a sucessfull delete of this rating.
-   *
-   * Signature: onRatingDelete(RatingBO rating)
-   */
+
   onRatingDeleted: PropTypes.func.isRequired
 }
 
