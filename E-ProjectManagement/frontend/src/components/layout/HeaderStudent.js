@@ -39,7 +39,7 @@ class HeaderStudent extends Component {
         <Typography variant='h3' component='h1' align='center'>
         </Typography>
         <Typography variant='h4' component='h2' align='center'>
-          <img width="700" alt="logo" src="projectonomy-logo.png" /> <br /> Home
+          <img width="700" alt="logo-student" src="../projectonomy-logo.png" /> <br /> Home
         </Typography>
             <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
               <Tab label='Projects' component={RouterLink} to={`/student/project`} />
