@@ -57,12 +57,6 @@ class ProjectListEntryAccepted extends Component {
                         variant="contained" color='primary' size='small'  onClick={this.addParticipationButtonClicked}>
                 Anmelden
                 </Button>
-                <Button variant="contained"
-                        color="secondary"
-                        className={classes.buttonAbmelden}
-                        variant='outlined' color='primary' size='small' onClick={this.deleteParticipationButtonClicked}>
-                Abmelden
-                </Button>
               </Typography>
               <Typography variant='body1' className={classes.heading}>
               </Typography>

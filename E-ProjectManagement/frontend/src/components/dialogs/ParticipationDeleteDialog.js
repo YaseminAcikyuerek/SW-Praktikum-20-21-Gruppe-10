@@ -66,10 +66,10 @@ class ParticipationDeleteDialog extends Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Really delete participation '{participation.getProject()} {participation.getStudent()}' (ID: {participation.getID()})?
+              Really delete participation ?
             </DialogContentText>
             <LoadingProgress show={deletingInProgress} />
-            <ContextErrorMessage error={deletingError} contextErrorMsg={`The participation '${participation.getProject()} ${participation.getStudent()}' (ID: ${participation.getID()}) could not be deleted.`}
+            <ContextErrorMessage error={deletingError} contextErrorMsg={`The participation could not be deleted.`}
               onReload={this.deleteParticipation} />
           </DialogContent>
           <DialogActions>
