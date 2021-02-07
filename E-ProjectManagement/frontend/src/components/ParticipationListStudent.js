@@ -1,139 +1,109 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, ListItem } from '@material-ui/core';
-import { Button, List } from '@material-ui/core';
+import { withStyles, Button, TextField, Accordion, AccordionSummary, AccordionDetails, InputAdornment, IconButton, Grid, Typography, ListItem } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import {ManagementAPI} from '../api';
+import ClearIcon from '@material-ui/icons/Clear'
+import { withRouter } from 'react-router-dom';
+import ManagementAPI from '../api/ManagementAPI';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
-import ParticipationListEntryStudent from './ParticipationListEntryStudent';
+import Paper from '@material-ui/core/Paper';
+import ParticipationListEntryStudent from "./ParticipationListEntryStudent";
 
 
-/**
- * Renders a list of ParticipationListEntry objects.
- *
- * @see See [ParticipationListEntry](#participationlistentry)
- *
- *
- */
+
 class ParticipationListStudent extends Component {
 
   constructor(props) {
     super(props);
 
-    // Init the state
+    // Init an empty state
     this.state = {
-      participations: [],
+      studentParticipations: [],
+      error: null,
       loadingInProgress: false,
-      loadingParticipationError: null,
-      addingParticipationError: null,
+      currentUser: [],
+      person: null,
     };
   }
 
-  /** Fetches AccountBOs for the current customer */
-  getParticipations = () => {
-    ManagementAPI.getAPI().getParticipationsForStudents(this.props.student.getID()).then(participationBOs =>
-      this.setState({  // Set new state when ParticipationBOs have been fetched
-        participations: participationBOs,
-        loadingInProgress: false, // loading indicator
-        loadingParticipationError: null
-      })).catch(e =>
-        this.setState({ // Reset state with error from catch
-          participations: [],
-          loadingInProgress: false,
-          loadingParticipationError: e
-        })
-      );
+  /** Fetches participationBo from the backend with logged in e-mail*/
+  getParticipationsByStudent = async () => {
+    let personID = 0;
+    // console.log("getPersonByMail loaded");
 
+        await ManagementAPI.getAPI().getParticipationsByStudent(this.props.currentUserMail).then(personBOs =>
+        this.setState({               // Set new state when ProjectBOs have been fetched
+          currentUser: personBOs,
+          loadingInProgress: false,   // disable loading indicator
+          error: null
+        })).catch(e =>
+        this.setState({             // Reset state with error from catch
+          currentUser: 0,
+          loadingInProgress: false, // disable loading indicator
+          error: e
+        })
+    );
     // set loading to true
     this.setState({
       loadingInProgress: true,
-      loadingParticipationError: null
+      error: null
     });
+
+    /** Fetches all RatingBOs from person from the backend */
+    ManagementAPI.getAPI().getParticipationsByStudent(this.state.currentUser.id).then(participationBOs =>
+        this.setState({               // Set new state when ProjectBOs have been fetched
+          studentParticipations: participationBOs,
+          loadingInProgress: false,   // disable loading indicator
+          error: null
+        })).catch(e =>
+        this.setState({             // Reset state with error from catch
+          studentParticipations: [],
+          loadingInProgress: false, // disable loading indicator
+          error: e
+        })
+    );
   }
+
+
 
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
-  componentDidMount() {
-    this.getParticipations();
-  }
-
-  /** Lifecycle method, which is called when the component was updated */
-  componentDidUpdate(prevProps) {
-
-  }
-
-  /** Adds an account for the current customer */
-  addParticipation = () => {
-    ManagementAPI.getAPI().addParticipationForStudent(this.props.student.getID()).then(participationBO => {
-      // console.log(participationBO)
-      this.setState({  // Set new state when AccountBOs have been fetched
-        participations: [...this.state.participations, participationBO],
-        loadingInProgress: false, // loading indicator
-        addingParticipationError: null
-      })
-    }).catch(e =>
-      this.setState({ // Reset state with error from catch
-        participations: [],
-        loadingInProgress: false,
-        addingParticipationError: e
-      })
-    );
-
-    // set loading to true
-    this.setState({
-      loadingInProgress: true,
-      addingParticipationError: null
-    });
-  }
-
-  /** Handles onAccountDelete events from an AccountListEntry  */
-  deleteParticipationHandler = (deletedParticipation) => {
-    // console.log(deletedParticipation.getID());
-    this.setState({
-      participations: this.state.participations.filter(participation => participation.getID() !== deletedParticipation.getID())
-    })
+  componentDidMount () {
+    this.getParticipationsByStudent();
   }
 
   /** Renders the component */
   render() {
-    const { classes, student } = this.props;
-    // Use the states student
-    const {participations, loadingInProgress, loadingParticipationError, addingParticipationError } = this.state;
 
-    // console.log(this.props);
+    const { classes } = this.props;
+    const { loadingInProgress, error,  studentParticipations, participation} = this.state;
+    // console.log(this.props.currentUserMail);
     return (
-      <div className={classes.root}>
-        <List className={classes.participationList}>
-          {
-            participations.map(participation => <ParticipationListEntryStudent key={participation.getID()} student={student} participation={participation} onParticipationDeleted={this.deleteParticipationHandler}
-              show={this.props.show} />)
-          }
-          <ListItem>
-            <LoadingProgress show={loadingInProgress} />
-            <ContextErrorMessage error={loadingParticipationError} contextErrorMsg={`List of participations for student ${student.getID()} could not be loaded.`} onReload={this.getParticipations} />
-            <ContextErrorMessage error={addingParticipationError} contextErrorMsg={`Participation for student ${student.getID()} could not be added.`} onReload={this.addParticipation} />
-          </ListItem>
-        </List>
-        <Button className={classes.addParticipationButton} variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addParticipation}>
-          Add Participation
-        </Button>
-      </div>
+
+        <div className={classes.root}>
+          <Grid className={classes.projectFilter} container spacing={1} justify='flex-start' alignItems='center'>
+            <Grid item>
+              <h1>Meine Teilnahmen</h1>
+              <Paper className={classes.paper}> {
+                studentParticipations.map(participation =>
+                    <ParticipationListEntryStudent key={participation.getID()} rating={participation}
+                    />)
+              }
+                <LoadingProgress show={loadingInProgress} />
+                <ContextErrorMessage error={error} contextErrorMsg={`The list of ratings could not be loaded.`} onReload={this.getParticipationsByStudent} />
+              </Paper>
+            </Grid>
+          </Grid>
+        </div>
     );
   }
+
 }
 
 /** Component specific styles */
 const styles = theme => ({
   root: {
     width: '100%',
-  },
-  participationList: {
-    marginBottom: theme.spacing(2),
-  },
-  addParticipationButton: {
-    position: 'absolute',
-    right: theme.spacing(3),
-    bottom: theme.spacing(1),
   }
 });
 
@@ -141,10 +111,8 @@ const styles = theme => ({
 ParticipationListStudent.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
-  /** The StudentBO of this ParticipationListStudent */
-  student: PropTypes.object.isRequired,
-  /** If true, participations are (re)loaded */
-  show: PropTypes.bool.isRequired
+  /** @ignore */
+  location: PropTypes.object.isRequired,
 }
 
 export default withRouter(withStyles(styles)(ParticipationListStudent));
