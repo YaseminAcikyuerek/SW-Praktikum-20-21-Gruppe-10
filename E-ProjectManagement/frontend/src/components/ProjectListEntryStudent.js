@@ -31,6 +31,7 @@ class ProjectListEntryStudent extends Component {
       project: this.props.project,
       showProjectForm: false,
       showProjectDeleteDialog: false,
+        participationDeleted: false,
       participation: null,
       participations: [],
     };
@@ -144,7 +145,7 @@ class ProjectListEntryStudent extends Component {
 
   /** Renders the component */
   render() {
-    const { classes, expandedState } = this.props;
+    const { classes} = this.props;
     // Use the states project
     const { project, showProjectForm, showParticipationDeleteDialog, participations, participation } = this.state;
 
@@ -165,7 +166,6 @@ class ProjectListEntryStudent extends Component {
                   <Button variant="contained"
                           color="secondary"
                           className={classes.buttonAblehnen}
-                          startIcon={<HighlightOffIcon/>}
                           variant='outlined' color='primary' size='small' onClick={this.deleteParticipationButtonClicked}>
                   Abmelden
                   </Button>
