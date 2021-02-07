@@ -1114,7 +1114,7 @@ class ProjectByOwnerOperations(Resource):
 @management.response(500, 'Falls es zu einem Server-seitigen Fehler kommt.')
 class ProjectByStateOperations(Resource):
     @management.marshal_with(project)
-
+    @secured
     def get(self):
         """ Auslesen von Projekt-Objekten, die den Status Accepted haben.
 
